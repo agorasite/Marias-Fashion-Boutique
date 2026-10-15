@@ -1,0 +1,219 @@
+{
+  "categories": [
+    {
+      "id": "women",
+      "slug": "women",
+      "name": "Γυναικεία",
+      "parentId": null,
+      "sort": 0
+    },
+    {
+      "id": "men",
+      "slug": "men",
+      "name": "Ανδρικά",
+      "parentId": null,
+      "sort": 1
+    },
+    {
+      "id": "shoes",
+      "slug": "shoes",
+      "name": "Παπούτσια",
+      "parentId": null,
+      "sort": 2
+    },
+    {
+      "id": "accessories",
+      "slug": "accessories",
+      "name": "Αξεσουάρ",
+      "parentId": null,
+      "sort": 3
+    },
+    {
+      "id": "dresses",
+      "slug": "dresses",
+      "name": "Φορέματα",
+      "parentId": "women",
+      "sort": 4
+    },
+    {
+      "id": "tops",
+      "slug": "tops",
+      "name": "Μπλούζες",
+      "parentId": "women",
+      "sort": 5
+    },
+    {
+      "id": "jackets",
+      "slug": "jackets",
+      "name": "Μπουφάν",
+      "parentId": "women",
+      "sort": 6
+    },
+    {
+      "id": "shirts",
+      "slug": "shirts",
+      "name": "Πουκάμισα",
+      "parentId": "men",
+      "sort": 7
+    },
+    {
+      "id": "jeans",
+      "slug": "jeans",
+      "name": "Τζιν",
+      "parentId": "men",
+      "sort": 8
+    },
+    {
+      "id": "sneakers",
+      "slug": "sneakers",
+      "name": "Sneakers",
+      "parentId": "shoes",
+      "sort": 9
+    },
+    {
+      "id": "boots",
+      "slug": "boots",
+      "name": "Μπότες",
+      "parentId": "shoes",
+      "sort": 10
+    },
+    {
+      "id": "bags",
+      "slug": "bags",
+      "name": "Τσάντες",
+      "parentId": "accessories",
+      "sort": 11
+    },
+    {
+      "id": "belts",
+      "slug": "belts",
+      "name": "Ζώνες",
+      "parentId": "accessories",
+      "sort": 12
+    },
+    {
+      "id": "sunglasses",
+      "slug": "sunglasses",
+      "name": "Γυαλιά ηλίου",
+      "parentId": "accessories",
+      "sort": 13
+    },
+    {
+      "id": "scarves",
+      "slug": "scarves",
+      "name": "Κασκόλ",
+      "parentId": "accessories",
+      "sort": 14
+    }
+  ],
+  "settings": {
+    "storeName": "ÉLAN Fashion Boutique",
+    "currency": "EUR",
+    "vatRate": 0.24,
+    "pricesIncludeVat": true,
+    "courierCents": 390,
+    "freeShippingThresholdCents": 6000,
+    "codFeeCents": 200,
+    "irisInstructions": "Επιλέξτε πληρωμή με IRIS και ολοκληρώστε την παραγγελία. Στο demo δεν γίνεται πραγματική χρέωση: θα δείτε οδηγίες και έναν προσομοιωμένο κωδικό πληρωμής, και η παραγγελία θα καταχωρηθεί ως πληρωμένη μετά την επιβεβαίωση.",
+    "contact": {
+      "email": "info@elan.example",
+      "phone": "+30 210 0000000",
+      "address": "Ερμού 10, Αθήνα"
+    },
+    "social": {
+      "instagram": "https://instagram.com/",
+      "facebook": "https://facebook.com/",
+      "tiktok": "https://tiktok.com/"
+    }
+  },
+  "coupons": [
+    {
+      "code": "WELCOME10",
+      "type": "percent",
+      "value": 10,
+      "minSubtotalCents": 3000,
+      "expiresAt": null,
+      "maxUses": null,
+      "usedCount": 0,
+      "active": true
+    },
+    {
+      "code": "ELAN5",
+      "type": "fixed",
+      "value": 500,
+      "minSubtotalCents": 4000,
+      "expiresAt": null,
+      "maxUses": null,
+      "usedCount": 0,
+      "active": true
+    },
+    {
+      "code": "SUMMER20",
+      "type": "percent",
+      "value": 20,
+      "minSubtotalCents": 0,
+      "expiresAt": "2026-06-30T23:59:59Z",
+      "maxUses": null,
+      "usedCount": 0,
+      "active": true
+    },
+    {
+      "code": "VIP15",
+      "type": "percent",
+      "value": 15,
+      "minSubtotalCents": 0,
+      "expiresAt": null,
+      "maxUses": 50,
+      "usedCount": 0,
+      "active": false
+    }
+  ],
+  "content": {
+    "hero": {
+      "title": "Νέα συλλογή Φθινόπωρο",
+      "subtitle": "Ανακαλύψτε τις τάσεις της σεζόν",
+      "cta": "Αγόρασε τώρα",
+      "link": "#/shop"
+    },
+    "banners": {
+      "items": [
+        {
+          "title": "Δωρεάν αποστολή άνω των 60€",
+          "link": "#/shop"
+        }
+      ]
+    },
+    "collections": {
+      "items": [
+        {
+          "title": "Γυναικεία",
+          "link": "#/shop?category=women"
+        },
+        {
+          "title": "Ανδρικά",
+          "link": "#/shop?category=men"
+        }
+      ]
+    },
+    "instagram": {
+      "handle": "@elan.boutique",
+      "items": []
+    },
+    "promos": {
+      "items": [
+        {
+          "title": "Κωδικός WELCOME10",
+          "text": "10% στην πρώτη σας παραγγελία"
+        }
+      ]
+    },
+    "newsletter": {
+      "title": "Μείνετε ενημερωμένοι",
+      "text": "Εγγραφείτε για αποκλειστικές προσφορές"
+    },
+    "footer": {
+      "about": "Η ÉLAN είναι ένα demo κατάστημα μόδας.",
+      "copyright": "© 2026 ÉLAN Fashion Boutique (demo)"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "products": [
+    {
+      "id": "p-linen-dress",
+      "slug": "linen-midi-dress",
+      "name": "Λινό φόρεμα midi",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Ανάλαφρο λινό φόρεμα για το καλοκαίρι.",
+      "priceCents": 7900,
+      "images": [],
+      "attributes": {
+        "material": "Λινό"
+      },
+      "flags": {
+        "new": true
+      },
+      "status": "active",
+      "variants": [
+        {
+          "sku": "LD-S-SAND",
+          "size": "S",
+          "color": "sand",
+          "colorHex": "#d8c3a5",
+          "stock": 5
+        },
+        {
+          "sku": "LD-M-SAND",
+          "size": "M",
+          "color": "sand",
+          "colorHex": "#d8c3a5",
+          "stock": 3
+        },
+        {
+          "sku": "LD-M-BLACK",
+          "size": "M",
+          "color": "black",
+          "colorHex": "#111111",
+          "stock": 0
+        }
+      ]
+    },
+    {
+      "id": "p-slim-jeans",
+      "slug": "slim-fit-jeans",
+      "name": "Τζιν slim fit",
+      "brand": "ÉLAN",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Κλασικό τζιν με άνετη εφαρμογή.",
+      "priceCents": 5900,
+      "images": [],
+      "attributes": {
+        "material": "Denim"
+      },
+      "flags": {
+        "bestseller": true
+      },
+      "status": "active",
+      "variants": [
+        {
+          "sku": "SJ-32-BLUE",
+          "size": "32",
+          "color": "blue",
+          "colorHex": "#2f4a7a",
+          "stock": 8
+        },
+        {
+          "sku": "SJ-34-BLUE",
+          "size": "34",
+          "color": "blue",
+          "colorHex": "#2f4a7a",
+          "stock": 4
+        }
+      ]
+    },
+    {
+      "id": "p-leather-bag",
+      "slug": "leather-tote-bag",
+      "name": "Δερμάτινη τσάντα tote",
+      "brand": "ÉLAN",
+      "categoryId": "accessories",
+      "subcategoryId": "bags",
+      "description": "Τσάντα από γνήσιο δέρμα.",
+      "priceCents": 12900,
+      "images": [],
+      "attributes": {
+        "material": "Δέρμα"
+      },
+      "flags": {
+        "sale": true
+      },
+      "status": "active",
+      "variants": [
+        {
+          "sku": "LB-ONE-TAN",
+          "size": "ONE",
+          "color": "tan",
+          "colorHex": "#a9744f",
+          "stock": 6
+        }
+      ]
+    }
+  ]
+}
