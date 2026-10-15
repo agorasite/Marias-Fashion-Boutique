@@ -1,0 +1,867 @@
+{
+  "products": [
+    {
+      "id": "w-shirt-dress-mustard",
+      "slug": "w-shirt-dress-mustard",
+      "name": "Σεμιζιέ φόρεμα αμάνικο μουσταρδί",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Αμάνικο σεμιζιέ φόρεμα σε ζεστό μουσταρδί, με κουμπιά σε όλο το μήκος και υφασμάτινη ζώνη που τονίζει τη μέση. Η άνετη, ελαφρώς κλος φούστα το κάνει ιδανικό για ζεστές μέρες στην πόλη ή σε διακοπές.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/w-shirt-dress-mustard-1.webp",
+        "assets/images/products/w-shirt-dress-mustard-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβάκι",
+        "composition": "100% βαμβάκι",
+        "fit": "Κανονική εφαρμογή, κλος φούστα",
+        "length": "Ως το γόνατο",
+        "care": "Πλύσιμο στους 30°C, σιδέρωμα σε μέτρια θερμοκρασία"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 78,
+      "createdAt": "2026-08-03T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WSDM-XS-MUS",
+          "size": "XS",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 7
+        },
+        {
+          "sku": "WSDM-S-MUS",
+          "size": "S",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 12
+        },
+        {
+          "sku": "WSDM-M-MUS",
+          "size": "M",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 3
+        },
+        {
+          "sku": "WSDM-L-MUS",
+          "size": "L",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 0
+        },
+        {
+          "sku": "WSDM-XL-MUS",
+          "size": "XL",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "w-chiffon-midi-dress-ink",
+      "slug": "w-chiffon-midi-dress-ink",
+      "name": "Μίντι φόρεμα σιφόν κρουαζέ με print",
+      "brand": "Maison Aura",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Ανάλαφρο κρουαζέ φόρεμα από σιφόν με μοτίβο κηλίδων μελανιού, φαρδιά μανίκια πεταλούδα και δέσιμο στη μέση. Η φούστα με τα ασύμμετρα βολάν κινείται υπέροχα σε κάθε βήμα. Διατίθεται σε λευκό με μαύρο και σε μαύρο με λευκό μοτίβο.",
+      "priceCents": 8900,
+      "compareAtCents": 11900,
+      "images": [
+        "assets/images/products/w-chiffon-midi-dress-ink-1.webp",
+        "assets/images/products/w-chiffon-midi-dress-ink-2.webp",
+        "assets/images/products/w-chiffon-midi-dress-ink-3.webp"
+      ],
+      "attributes": {
+        "material": "Σιφόν",
+        "composition": "100% πολυεστέρας, φόδρα 100% βισκόζη",
+        "fit": "Κρουαζέ με δέσιμο στη μέση",
+        "length": "Μίντι",
+        "care": "Πλύσιμο στο χέρι σε κρύο νερό, στέγνωμα κρεμαστό"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 84,
+      "createdAt": "2026-08-16T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WCMD-XS-WHB",
+          "size": "XS",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 5
+        },
+        {
+          "sku": "WCMD-S-WHB",
+          "size": "S",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 1
+        },
+        {
+          "sku": "WCMD-M-WHB",
+          "size": "M",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 11
+        },
+        {
+          "sku": "WCMD-L-WHB",
+          "size": "L",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 6
+        },
+        {
+          "sku": "WCMD-XL-WHB",
+          "size": "XL",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 2
+        },
+        {
+          "sku": "WCMD-XS-BLW",
+          "size": "XS",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 8
+        },
+        {
+          "sku": "WCMD-S-BLW",
+          "size": "S",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 0
+        },
+        {
+          "sku": "WCMD-M-BLW",
+          "size": "M",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 10
+        },
+        {
+          "sku": "WCMD-L-BLW",
+          "size": "L",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 4
+        },
+        {
+          "sku": "WCMD-XL-BLW",
+          "size": "XL",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "w-linen-wrap-dress-orange",
+      "slug": "w-linen-wrap-dress-orange",
+      "name": "Λινό κρουαζέ φόρεμα πορτοκαλί",
+      "brand": "Nordica",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Κρουαζέ φόρεμα από πλυμένο λινό σε φωτεινό πορτοκαλί, με κοντά μανίκια και μακριά ζώνη που δένει στο πλάι. Το φυσικό ύφασμα αναπνέει και αποκτά πιο μαλακή υφή με κάθε πλύσιμο.",
+      "priceCents": 10900,
+      "images": [
+        "assets/images/products/w-linen-wrap-dress-orange-1.webp",
+        "assets/images/products/w-linen-wrap-dress-orange-2.webp",
+        "assets/images/products/w-linen-wrap-dress-orange-3.webp"
+      ],
+      "attributes": {
+        "material": "Λινό",
+        "composition": "100% λινό",
+        "fit": "Κρουαζέ, χαλαρή εφαρμογή",
+        "length": "Μίντι",
+        "care": "Πλύσιμο στους 30°C, ελαφρύ σιδέρωμα όσο είναι νωπό"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 69,
+      "createdAt": "2026-10-07T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WLWD-XS-ORA",
+          "size": "XS",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 3
+        },
+        {
+          "sku": "WLWD-S-ORA",
+          "size": "S",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 7
+        },
+        {
+          "sku": "WLWD-M-ORA",
+          "size": "M",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 1
+        },
+        {
+          "sku": "WLWD-L-ORA",
+          "size": "L",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 9
+        },
+        {
+          "sku": "WLWD-XL-ORA",
+          "size": "XL",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "w-broderie-dress-white",
+      "slug": "w-broderie-dress-white",
+      "name": "Φόρεμα κιπούρ λευκό με βολάν",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Καλοκαιρινό κοντό φόρεμα από βαμβακερό κιπούρ με διάτρητο κέντημα, βολάν στη λαιμόκοψη και στα μανίκια. Η ζώνη στη μέση δίνει όμορφο σχήμα, ενώ η φόδρα το κάνει να μη διαφαίνεται.",
+      "priceCents": 7400,
+      "compareAtCents": 8900,
+      "images": [
+        "assets/images/products/w-broderie-dress-white-1.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερό κιπούρ",
+        "composition": "100% βαμβάκι, φόδρα 100% βαμβάκι",
+        "fit": "Κανονική εφαρμογή με ζώνη",
+        "length": "Πάνω από το γόνατο",
+        "care": "Πλύσιμο στους 30°C σε πρόγραμμα ευαίσθητων"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 47,
+      "createdAt": "2026-08-25T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WBRD-XS-WHT",
+          "size": "XS",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 0
+        },
+        {
+          "sku": "WBRD-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 11
+        },
+        {
+          "sku": "WBRD-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 2
+        },
+        {
+          "sku": "WBRD-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 5
+        },
+        {
+          "sku": "WBRD-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "w-embroidered-blouse",
+      "slug": "w-embroidered-blouse",
+      "name": "Κεντημένη μπλούζα με κιπούρ",
+      "brand": "Maison Aura",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Λευκή μπλούζα με μπλε φλοράλ κέντημα στο μπροστινό μέρος και στα μανίκια, κορδόνι στη λαιμόκοψη και τελείωμα από διάτρητο κιπούρ. Ταιριάζει εξίσου με τζιν και με λινό παντελόνι.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/w-embroidered-blouse-1.webp",
+        "assets/images/products/w-embroidered-blouse-2.webp"
+      ],
+      "attributes": {
+        "material": "Βισκόζη",
+        "composition": "100% βισκόζη",
+        "fit": "Χαλαρή εφαρμογή",
+        "sleeve": "Μανίκι τρία τέταρτα",
+        "care": "Πλύσιμο στους 30°C, σιδέρωμα από την ανάποδη"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 88,
+      "createdAt": "2026-08-11T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WEMB-XS-WBL",
+          "size": "XS",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 7
+        },
+        {
+          "sku": "WEMB-S-WBL",
+          "size": "S",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 12
+        },
+        {
+          "sku": "WEMB-M-WBL",
+          "size": "M",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 3
+        },
+        {
+          "sku": "WEMB-L-WBL",
+          "size": "L",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 0
+        },
+        {
+          "sku": "WEMB-XL-WBL",
+          "size": "XL",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "w-lace-collar-blouse",
+      "slug": "w-lace-collar-blouse",
+      "name": "Ρομαντική μπλούζα με δαντελένιο γιακά",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Λευκή μπλούζα με στρογγυλό δαντελένιο γιακά, βολάν από δαντέλα στο μπούστο και φουσκωτά μανίκια με μανσέτα. Ένα ρομαντικό κομμάτι που αναβαθμίζει κάθε παντελόνι ή φούστα.",
+      "priceCents": 5400,
+      "images": [
+        "assets/images/products/w-lace-collar-blouse-1.webp",
+        "assets/images/products/w-lace-collar-blouse-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβάκι με δαντέλα",
+        "composition": "100% βαμβάκι",
+        "fit": "Κανονική εφαρμογή",
+        "sleeve": "Μακρύ φουσκωτό μανίκι",
+        "care": "Πλύσιμο στους 30°C, στέγνωμα κρεμαστό"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 41,
+      "createdAt": "2026-10-11T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WLCB-XS-WHT",
+          "size": "XS",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 5
+        },
+        {
+          "sku": "WLCB-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 1
+        },
+        {
+          "sku": "WLCB-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 11
+        },
+        {
+          "sku": "WLCB-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 6
+        },
+        {
+          "sku": "WLCB-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "w-ribbed-sweater-camel",
+      "slug": "w-ribbed-sweater-camel",
+      "name": "Πλεκτό πουλόβερ ριμπ καμηλό",
+      "brand": "Nordica",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Μαλακό πλεκτό πουλόβερ με κάθετες ραβδώσεις σε ζεστή απόχρωση καμηλό. Η εφαρμοστή γραμμή και η στρογγυλή λαιμόκοψη το κάνουν βασικό κομμάτι για το φθινόπωρο.",
+      "priceCents": 4900,
+      "compareAtCents": 5900,
+      "images": [
+        "assets/images/products/w-ribbed-sweater-camel-1.webp",
+        "assets/images/products/w-ribbed-sweater-camel-2.webp",
+        "assets/images/products/w-ribbed-sweater-camel-3.webp"
+      ],
+      "attributes": {
+        "material": "Πλεκτό ριμπ",
+        "composition": "70% βαμβάκι, 30% μαλλί",
+        "fit": "Εφαρμοστό",
+        "care": "Πλύσιμο στο χέρι, στέγνωμα σε οριζόντια θέση"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 63,
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WRSC-XS-CAM",
+          "size": "XS",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 8
+        },
+        {
+          "sku": "WRSC-S-CAM",
+          "size": "S",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 0
+        },
+        {
+          "sku": "WRSC-M-CAM",
+          "size": "M",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 10
+        },
+        {
+          "sku": "WRSC-L-CAM",
+          "size": "L",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 4
+        },
+        {
+          "sku": "WRSC-XL-CAM",
+          "size": "XL",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "w-oversized-tee",
+      "slug": "w-oversized-tee",
+      "name": "Oversized T-shirt βαμβακερό",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Φαρδύ T-shirt από χοντρό βαμβακερό ζέρσεϊ, με πεσμένους ώμους και γυρισμένα μανίκια. Φοριέται χαλαρό με κολάν ή ποδηλατικό σορτς, ή μπαίνει μπροστά μέσα σε τζιν.",
+      "priceCents": 2900,
+      "images": [
+        "assets/images/products/w-oversized-tee-1.webp",
+        "assets/images/products/w-oversized-tee-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερό ζέρσεϊ",
+        "composition": "100% βαμβάκι",
+        "fit": "Oversized",
+        "care": "Πλύσιμο στους 40°C, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 92,
+      "createdAt": "2026-07-25T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WOVT-XS-WHT",
+          "size": "XS",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 3
+        },
+        {
+          "sku": "WOVT-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 7
+        },
+        {
+          "sku": "WOVT-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 1
+        },
+        {
+          "sku": "WOVT-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 9
+        },
+        {
+          "sku": "WOVT-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 6
+        },
+        {
+          "sku": "WOVT-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 0
+        },
+        {
+          "sku": "WOVT-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 11
+        },
+        {
+          "sku": "WOVT-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 2
+        },
+        {
+          "sku": "WOVT-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 5
+        },
+        {
+          "sku": "WOVT-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "w-blazer-black",
+      "slug": "w-blazer-black",
+      "name": "Σακάκι μπλέιζερ μαύρο",
+      "brand": "Maison Aura",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Κλασικό μαύρο μπλέιζερ με λεπτά πέτα, ένα κουμπί και ελαφριά βάτα στους ώμους. Ραμμένο ώστε να φοριέται τόσο με παντελόνι όσο και μόνο του, σαν φόρεμα, για βραδινές εμφανίσεις.",
+      "priceCents": 12900,
+      "images": [
+        "assets/images/products/w-blazer-black-1.webp",
+        "assets/images/products/w-blazer-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Ύφασμα κοστουμιού",
+        "composition": "64% πολυεστέρας, 33% βισκόζη, 3% ελαστάνη, φόδρα 100% βισκόζη",
+        "fit": "Ίσια γραμμή, ελαφρώς μακρύ",
+        "care": "Μόνο στεγνό καθάρισμα"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 71,
+      "createdAt": "2026-09-08T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WBLZ-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 7
+        },
+        {
+          "sku": "WBLZ-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 12
+        },
+        {
+          "sku": "WBLZ-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 3
+        },
+        {
+          "sku": "WBLZ-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 0
+        },
+        {
+          "sku": "WBLZ-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "w-trench-black",
+      "slug": "w-trench-black",
+      "name": "Καμπαρντίνα μακριά μαύρη",
+      "brand": "Nordica",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Μακριά καμπαρντίνα σε oversized γραμμή, με σταυρωτό κούμπωμα, επωμίδες και ζώνη στη μέση. Το ελαφρώς αδιάβροχο ύφασμα την κάνει αξιόπιστη επιλογή για τις μεταβατικές εποχές.",
+      "priceCents": 15900,
+      "compareAtCents": 17900,
+      "images": [
+        "assets/images/products/w-trench-black-1.webp",
+        "assets/images/products/w-trench-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Gabardine",
+        "composition": "65% βαμβάκι, 35% πολυεστέρας",
+        "fit": "Oversized",
+        "length": "Ως τη γάμπα",
+        "care": "Στεγνό καθάρισμα ή πλύσιμο στους 30°C στο χέρι"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 58,
+      "createdAt": "2026-09-25T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WTRB-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 5
+        },
+        {
+          "sku": "WTRB-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 1
+        },
+        {
+          "sku": "WTRB-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 11
+        },
+        {
+          "sku": "WTRB-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 6
+        },
+        {
+          "sku": "WTRB-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "w-biker-jacket-leather",
+      "slug": "w-biker-jacket-leather",
+      "name": "Δερμάτινο biker jacket μαύρο",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Μπουφάν biker από μαλακό δέρμα αρνιού, με λοξό μεταλλικό φερμουάρ, τσέπες με φερμουάρ και ζωνάκι με κουμπιά στο τελείωμα. Αποκτά ακόμη πιο όμορφη πατίνα με τον χρόνο.",
+      "priceCents": 17900,
+      "images": [
+        "assets/images/products/w-biker-jacket-leather-1.webp",
+        "assets/images/products/w-biker-jacket-leather-2.webp"
+      ],
+      "attributes": {
+        "material": "Φυσικό δέρμα",
+        "composition": "100% δέρμα αρνιού, φόδρα 100% πολυεστέρας",
+        "fit": "Κανονική εφαρμογή",
+        "care": "Καθαρισμός μόνο από ειδικό καθαριστήριο δερμάτων"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 81,
+      "createdAt": "2026-08-30T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WBJL-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 8
+        },
+        {
+          "sku": "WBJL-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 0
+        },
+        {
+          "sku": "WBJL-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 10
+        },
+        {
+          "sku": "WBJL-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 4
+        },
+        {
+          "sku": "WBJL-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "w-denim-jacket-cropped",
+      "slug": "w-denim-jacket-cropped",
+      "name": "Κοντό τζιν μπουφάν oversized",
+      "brand": "ÉLAN Denim",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Κοντό τζιν μπουφάν σε μεσαίο μπλε ξέβαμμα, με φαρδιά φουσκωτά μανίκια και λάστιχο στο τελείωμα. Συνδυάζεται άψογα με ψηλόμεσα τζιν ή μακριές φούστες.",
+      "priceCents": 8900,
+      "images": [
+        "assets/images/products/w-denim-jacket-cropped-1.webp",
+        "assets/images/products/w-denim-jacket-cropped-2.webp"
+      ],
+      "attributes": {
+        "material": "Denim",
+        "composition": "100% βαμβάκι",
+        "fit": "Cropped, oversized μανίκια",
+        "care": "Πλύσιμο στους 30°C από την ανάποδη, με παρόμοια χρώματα"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 66,
+      "createdAt": "2026-10-13T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WDJC-XS-MBL",
+          "size": "XS",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 3
+        },
+        {
+          "sku": "WDJC-S-MBL",
+          "size": "S",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 7
+        },
+        {
+          "sku": "WDJC-M-MBL",
+          "size": "M",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 1
+        },
+        {
+          "sku": "WDJC-L-MBL",
+          "size": "L",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 9
+        },
+        {
+          "sku": "WDJC-XL-MBL",
+          "size": "XL",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 6
+        }
+      ]
+    }
+  ]
+}
