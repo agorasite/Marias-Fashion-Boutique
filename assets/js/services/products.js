@@ -189,3 +189,36 @@ export async function getProduct(idOrSlug) {
   return { ...result.p, variants: result.vs, availability: productAvailability(result.p, result.vs) };
 }
 
+
+/** Pure: pick up to `limit` related products (same subcategory first, then same category), excluding self. */
+export function pickRelated(product, products, limit = 4) {
+  const pool = (products || []).filter((p) => p.id !== product.id && p.status !== 'archived');
+  const byPop = (a, b) => (b.popularity || 0) - (a.popularity || 0);
+  const sub = pool.filter((p) => p.subcategoryId === product.subcategoryId).sort(byPop);
+  const cat = pool.filter((p) => p.categoryId === product.categoryId && p.subcategoryId !== product.subcategoryId).sort(byPop);
+  return [...sub, ...cat].slice(0, limit);
+}
+
+export async function listRelated(product, limit = 4) {
+  const { products, variants } = await loadAll();
+  const byProduct = groupByProduct(variants);
+  return pickRelated(product, products, limit).map((p) => ({
+    ...p,
+    variants: byProduct.get(p.id) || [],
+    availability: productAvailability(p, byProduct.get(p.id) || []),
+  }));
+}
+
+/** Pure: find the variant for a size + colour in a variant list. */
+export function findVariant(variants, size, color) {
+  return (variants || []).find((v) => String(v.size) === String(size) && v.color === color) || null;
+}
+
+export async function getVariant(productId, size, color) {
+  const vs = await tx(['variants'], 'readonly', (t) => reqP(t.objectStore('variants').index('productId').getAll(productId)));
+  return findVariant(vs, size, color);
+}
+
+export async function getVariantBySku(sku) {
+  return tx(['variants'], 'readonly', async (t) => (await reqP(t.objectStore('variants').get(sku))) || null);
+}

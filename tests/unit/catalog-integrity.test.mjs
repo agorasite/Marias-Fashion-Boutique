@@ -36,3 +36,10 @@ test('category coverage and sale items', () => {
   }
   assert.ok(doc.products.filter((p) => p.compareAtCents).length >= 8);
 });
+
+test('every seed review references an existing product', () => {
+  const ids = new Set(doc.products.map((p) => p.id));
+  const { reviews } = read('data/reviews.json');
+  assert.ok(reviews.length >= 50);
+  for (const r of reviews) assert.ok(ids.has(r.productId), `review ${r.id} -> unknown product ${r.productId}`);
+});

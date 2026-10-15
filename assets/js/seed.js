@@ -8,11 +8,11 @@ const load = async (name) => {
 };
 
 async function loadSeedData() {
-  const [meta, prod, editorial] = await Promise.all([load('catalog-meta'), load('products'), load('editorial')]);
-  return { meta, products: prod.products || [], editorial };
+  const [meta, prod, editorial, rev] = await Promise.all([load('catalog-meta'), load('products'), load('editorial'), load('reviews')]);
+  return { meta, products: prod.products || [], editorial, reviews: rev.reviews || [] };
 }
 
-function writeSeed(t, { meta, products, editorial }) {
+function writeSeed(t, { meta, products, editorial, reviews = [] }) {
   const put = (store, v) => t.objectStore(store).put(v);
   meta.categories.forEach((c) => put('categories', c));
   meta.coupons.forEach((c) => put('coupons', c));
@@ -21,6 +21,7 @@ function writeSeed(t, { meta, products, editorial }) {
     put('products', rest);
     variants.forEach((v) => put('variants', { ...v, productId: p.id }));
   }
+  reviews.forEach((r) => put('reviews', r));
   put('settings', { key: 'store', ...meta.settings });
   for (const [key, value] of Object.entries(meta.content || {})) put('content', { key, ...value });
   put('content', { key: 'editorial', ...editorial });
