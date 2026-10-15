@@ -93,3 +93,65 @@ export function renderDemoStrip() {
   strip.querySelector('button').addEventListener('click', () => aboutDemoModal().show());
   return strip;
 }
+
+/**
+ * Quick-view dialog for a catalog product (info only; add-to-cart arrives with the cart task).
+ * `product` carries `variants` and `availability`. Returns the Bootstrap modal instance.
+ */
+export function quickViewModal(product, { returnFocus } = {}) {
+  const sizeLabel = (s) => (s === 'ONE' ? 'Μία διάσταση' : s);
+  const order = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+  const rank = (x) => (order.includes(x) ? order.indexOf(x) : (x === 'ONE' ? 1e6 : 100 + parseFloat(x) || 1e5));
+  const sizes = [...new Set((product.variants || []).map((v) => v.size))].sort((a, b) => rank(a) - rank(b));
+  const colorMap = new Map();
+  (product.variants || []).forEach((v) => { if (!colorMap.has(v.color)) colorMap.set(v.color, v.colorHex); });
+  const money = new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' });
+  const sale = product.compareAtCents && product.compareAtCents > product.priceCents;
+  const inStock = product.availability ? product.availability.inStock : true;
+  const id = `quickView${++seq}`;
+  const src = (product.images && product.images[0]) || '';
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="modal fade modal-elan quick-view" id="${id}" tabindex="-1" aria-labelledby="${id}-title" data-quick-view>
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="eyebrow mb-0">Γρήγορη προβολή</p>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Κλείσιμο"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-5">
+              <div class="quick-view-media">${src ? `<img src="${esc(src)}" alt="${esc(product.name)}" width="800" height="1200">` : ''}</div>
+            </div>
+            <div class="col-7">
+              <p class="product-card-brand">${esc(product.brand)}</p>
+              <h2 class="h4 mb-2" id="${id}-title">${esc(product.name)}</h2>
+              <p class="mb-3 price ${sale ? 'price-sale' : ''}"><span>${esc(money.format(product.priceCents / 100))}</span>${sale ? `<span class="price-old">${esc(money.format(product.compareAtCents / 100))}</span>` : ''}</p>
+              <p class="small ${inStock ? 'text-success' : 'text-body-secondary'} mb-3">${inStock ? 'Διαθέσιμο' : 'Εξαντλημένο'}</p>
+              ${colorMap.size ? `<p class="eyebrow mb-1">Χρώματα</p><ul class="list-inline qv-colors mb-3">${[...colorMap].map(([n, h]) => `<li class="list-inline-item"><span class="swatch" style="background:${esc(h)}"></span> <span class="small">${esc(n)}</span></li>`).join('')}</ul>` : ''}
+              ${sizes.length ? `<p class="eyebrow mb-1">Μεγέθη</p><ul class="list-inline qv-sizes mb-3">${sizes.map((s) => `<li class="list-inline-item"><span class="qv-size">${esc(sizeLabel(s))}</span></li>`).join('')}</ul>` : ''}
+              <a class="btn btn-dark" href="#/product/${esc(product.slug)}" data-qv-link>Δες το προϊόν</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  const el = wrap.firstElementChild;
+  document.body.append(el);
+  const modal = window.bootstrap.Modal.getOrCreateInstance(el);
+  el.querySelector('[data-qv-link]').addEventListener('click', () => modal.hide());
+  const img = el.querySelector('.quick-view-media img');
+  if (img) {
+    img.addEventListener('error', () => {
+      img.replaceWith(Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span>ÉLAN</span>' }));
+    }, { once: true });
+  }
+  el.addEventListener('hidden.bs.modal', () => {
+    modal.dispose();
+    el.remove();
+    if (returnFocus && returnFocus.isConnected) returnFocus.focus();
+  });
+  modal.show();
+  return modal;
+}
