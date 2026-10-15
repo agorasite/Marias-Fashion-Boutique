@@ -1,3 +1,5 @@
+import { navigate } from '../router.js';
+
 export const DEPARTMENTS = [
   { id: 'women', label: 'Γυναικεία' },
   { id: 'men', label: 'Ανδρικά' },
@@ -85,18 +87,21 @@ export function renderHeader() {
     const q = form.q.value.trim();
     form.q.blur();
     mobileSearch().hide();
-    location.hash = q ? `#/catalog?${new URLSearchParams({ q })}` : '#/catalog';
+    // navigate() re-renders even when the hash is unchanged (same query twice).
+    navigate(q ? `#/catalog?${new URLSearchParams({ q })}` : '#/catalog');
   });
 
   const collapseEl = header.querySelector('#mobileSearch');
   const mobileSearch = () => window.bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false });
   const toggleBtn = header.querySelector('[data-search-toggle]');
   toggleBtn.addEventListener('click', () => mobileSearch().toggle());
+  // Every control of the mobile search (header toggle, bottom-nav button) mirrors its state.
+  const setExpanded = (v) => document.querySelectorAll('[aria-controls="mobileSearch"]').forEach((b) => b.setAttribute('aria-expanded', String(v)));
   collapseEl.addEventListener('shown.bs.collapse', () => {
-    toggleBtn.setAttribute('aria-expanded', 'true');
+    setExpanded(true);
     collapseEl.querySelector('input').focus();
   });
-  collapseEl.addEventListener('hidden.bs.collapse', () => toggleBtn.setAttribute('aria-expanded', 'false'));
+  collapseEl.addEventListener('hidden.bs.collapse', () => setExpanded(false));
 
   return {
     header,
@@ -106,8 +111,17 @@ export function renderHeader() {
       else mobileSearch().show();
       window.scrollTo({ top: 0 });
     },
-    closeOverlays() {
-      window.bootstrap.Offcanvas.getInstance(offcanvas)?.hide();
+    /**
+     * Close the menu/search. onMenuHidden runs after the offcanvas has fully
+     * hidden — after Bootstrap has returned focus to the menu button — so the
+     * caller can move focus back to the new page heading.
+     */
+    closeOverlays(onMenuHidden) {
+      const oc = window.bootstrap.Offcanvas.getInstance(offcanvas);
+      if (oc && (offcanvas.classList.contains('show') || offcanvas.classList.contains('showing'))) {
+        if (onMenuHidden) offcanvas.addEventListener('hidden.bs.offcanvas', () => onMenuHidden(), { once: true });
+        oc.hide();
+      }
       if (collapseEl.classList.contains('show')) mobileSearch().hide();
     },
     setActive(path) {

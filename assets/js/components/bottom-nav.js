@@ -14,8 +14,8 @@ export function renderBottomNav({ onSearch }) {
   nav.innerHTML = `<ul class="list-unstyled">${ITEMS.map((it, i) => {
     const inner = `<span class="bottom-nav-icon"><i class="bi ${it.icon}" aria-hidden="true"></i>${it.badge ? `<span class="header-badge" data-badge="${it.badge}" hidden>0</span>` : ''}</span><span class="bottom-nav-label">${it.label}</span>`;
     return `<li>${it.search
-      ? `<button type="button" class="bottom-nav-item" data-i="${i}" aria-controls="mobileSearch">${inner}</button>`
-      : `<a class="bottom-nav-item" data-i="${i}" href="${it.href}">${inner}</a>`}</li>`;
+      ? `<button type="button" class="bottom-nav-item" data-i="${i}" aria-controls="mobileSearch" aria-expanded="false">${inner}</button>`
+      : `<a class="bottom-nav-item" data-i="${i}" href="${it.href}"${it.badge ? ` data-label="${it.label}"` : ''}>${inner}</a>`}</li>`;
   }).join('')}</ul>`;
   nav.querySelector('button').addEventListener('click', onSearch);
   return {

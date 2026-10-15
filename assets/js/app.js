@@ -75,9 +75,9 @@ function closeOpenModals() {
 }
 
 (async () => {
-  let shell;
+  // Shell failures are programming errors, not IndexedDB problems: let them surface.
+  const shell = mountShell();
   try {
-    shell = mountShell();
     await ensureSeeded();
   } catch (e) {
     showError(e);
@@ -91,7 +91,10 @@ function closeOpenModals() {
     outlet: app,
     beforeRender({ path, query, layout }) {
       document.body.dataset.layout = layout;
-      shell.header.closeOverlays();
+      shell.header.closeOverlays(() => {
+        // Bootstrap refocused the menu button on hide; return focus to the page.
+        if (app.getAttribute('aria-busy') !== 'true') focusHeading(app);
+      });
       closeOpenModals();
       shell.header.setActive(path);
       shell.header.syncSearch(query);

@@ -103,6 +103,42 @@ test('offcanvas link navigates and closes the menu', async ({ page }) => {
   await page.locator('#navOffcanvas a[href="#/catalog/men"]').click();
   await expect(page).toHaveURL(/#\/catalog\/men$/);
   await expect(page.locator('#navOffcanvas')).toBeHidden();
+  // Bootstrap refocuses the toggle on hidden.bs.offcanvas; the page h1 must win.
+  await page.waitForTimeout(400);
+  const focused = await page.evaluate(() => ({ tag: document.activeElement.tagName, inApp: !!document.activeElement.closest('#app') }));
+  expect(focused).toEqual({ tag: 'H1', inApp: true });
+});
+
+test('searching the same query twice re-renders and refocuses the heading', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await open(page);
+  const input = page.locator('.site-header .header-search-desktop input[name="q"]');
+  await input.fill('παλτό');
+  await input.press('Enter');
+  await expect(page).toHaveURL(/#\/catalog\?q=/);
+  await expect(page.locator('#app h1')).toBeFocused();
+  await page.evaluate(() => { document.querySelector('#app h1').dataset.marker = 'old'; });
+  await input.fill('παλτό');
+  await input.press('Enter');
+  await expect(page.locator('#app h1:not([data-marker])')).toBeVisible();
+  await expect(page.locator('#app h1')).toBeFocused();
+});
+
+test('bottom-nav search button exposes aria-expanded and badges are announced', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page);
+  const btn = page.locator('.bottom-nav').getByRole('button', { name: 'Αναζήτηση' });
+  await expect(btn).toHaveAttribute('aria-expanded', 'false');
+  await btn.click();
+  await expect(btn).toHaveAttribute('aria-expanded', 'true');
+  await page.evaluate(() => window.dispatchEvent(new CustomEvent('cart:changed', { detail: { count: 4 } })));
+  await expect(page.locator('.bottom-nav a[href="#/cart"]')).toHaveAttribute('aria-label', 'Καλάθι (4)');
+});
+
+test('navigate is available from ui.js', async ({ page }) => {
+  await open(page);
+  await page.evaluate(async () => (await import('/assets/js/ui.js')).navigate('#/cart'));
+  await expect(page.locator('#app [data-route="/cart"]')).toBeVisible();
 });
 
 test('demo strip opens the about-demo modal; Escape closes it', async ({ page }) => {

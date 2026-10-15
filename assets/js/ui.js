@@ -1,6 +1,7 @@
 // Shared UI helpers for pages and components.
 export { toast } from './components/toast.js';
 export { confirmDialog } from './components/modals.js';
+export { navigate, currentRoute } from './router.js';
 
 export const escapeHtml = (s) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
