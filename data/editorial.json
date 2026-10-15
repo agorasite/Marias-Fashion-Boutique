@@ -1,0 +1,119 @@
+{
+  "hero": {
+    "image": "assets/images/content/hero-1.webp",
+    "alt": "Γυναίκα με μπεζ μακριά καμπαρντίνα και μαύρα δερμάτινα παπούτσια περπατά δίπλα σε ηλιόλουστο μπεζ τοίχο με σκιές"
+  },
+  "banners": [
+    {
+      "id": "banner-1",
+      "image": "assets/images/content/banner-1.webp",
+      "alt": "Γυναίκα με λευκό μακρύ φόρεμα και ψάθινο καπέλο περπατά σε αμμουδιά ανάμεσα σε ψάθινες ομπρέλες, με γαλάζια θάλασσα και ουρανό"
+    },
+    {
+      "id": "banner-2",
+      "image": "assets/images/content/banner-2.webp",
+      "alt": "Φωτεινή μπουτίκ με ρούχα σε ουδέτερους και παστέλ τόνους κρεμασμένα σε χρυσές ράγες, ανάμεσα σε φυτά σε γλάστρες"
+    },
+    {
+      "id": "banner-3",
+      "image": "assets/images/content/banner-3.webp",
+      "alt": "Ζευγάρι δερμάτινα chelsea μποτάκια σε φυσικό ταμπά με κρεπ σόλα, πάνω σε ξύλινο πάτωμα στο φως του ήλιου"
+    }
+  ],
+  "collections": [
+    {
+      "id": "collection-1",
+      "image": "assets/images/content/collection-1.webp",
+      "alt": "Γυναίκα με λευκό κρουαζέ μάξι φόρεμα με κόκκινα λουλούδια κρατά ψάθινη τσάντα σε παραθαλάσσιο πεζόδρομο της Κέρκυρας"
+    },
+    {
+      "id": "collection-2",
+      "image": "assets/images/content/collection-2.webp",
+      "alt": "Δύο γυναίκες πλάτη με πλάτη με πλεκτά ριμπ σύνολα σε καμηλό και εκρού, σε ανοιχτόχρωμο φόντο"
+    },
+    {
+      "id": "collection-3",
+      "image": "assets/images/content/collection-3.webp",
+      "alt": "Δύο άτομα με ανοιχτόχρωμα τζιν μπουφάν, λευκά T-shirt και μαύρα τζιν κρατιούνται από το χέρι μπροστά σε μπλε τοίχο"
+    },
+    {
+      "id": "collection-4",
+      "image": "assets/images/content/collection-4.webp",
+      "alt": "Καφέ δερμάτινη τσάντα χειρός με ψάθινες στρογγυλές λαβές και μαύρα στρογγυλά γυαλιά ηλίου πάνω σε λευκή άμμο"
+    }
+  ],
+  "instagram": [
+    {
+      "id": "insta-1",
+      "image": "assets/images/content/insta-1.webp",
+      "alt": "Γυναίκα με καμηλό πλεκτό πουλόβερ και τζιν κρατά ψάθινο καλάθι με πλεκτό και βελόνες",
+      "productIds": [
+        "w-ribbed-sweater-camel"
+      ]
+    },
+    {
+      "id": "insta-2",
+      "image": "assets/images/content/insta-2.webp",
+      "alt": "Γυναίκα με γκρι τσόχινο καπέλο fedora και λευκό πουκάμισο με πουά πιάνει το γείσο του καπέλου",
+      "productIds": [
+        "a-felt-fedora-grey"
+      ]
+    },
+    {
+      "id": "insta-3",
+      "image": "assets/images/content/insta-3.webp",
+      "alt": "Γυναίκα με λευκό αμάνικο σακάκι και φαρδύ παντελόνι κρατά δερμάτινη τσάντα tote σε χρώμα κονιάκ με μια εφημερίδα μέσα",
+      "productIds": [
+        "a-leather-tote-cognac"
+      ]
+    },
+    {
+      "id": "insta-4",
+      "image": "assets/images/content/insta-4.webp",
+      "alt": "Γυναίκα με γκρι μάλλινο κασκόλ πάνω από καφέ πλεκτό πουλόβερ, καθισμένη μπροστά σε γκρι τοίχο",
+      "productIds": [
+        "a-wool-scarf-grey"
+      ]
+    },
+    {
+      "id": "insta-5",
+      "image": "assets/images/content/insta-5.webp",
+      "alt": "Γυναίκα με πορτοκαλί λινό κρουαζέ φόρεμα κρατά ψάθινο καπέλο σε ροζ φόντο",
+      "productIds": [
+        "w-linen-wrap-dress-orange"
+      ]
+    },
+    {
+      "id": "insta-6",
+      "image": "assets/images/content/insta-6.webp",
+      "alt": "Γυναίκα με λευκή ρομαντική μπλούζα με βολάν, μπεζ φούστα και ψηλές μπότες σε λιβάδι στο ηλιοβασίλεμα",
+      "productIds": [
+        "w-lace-collar-blouse"
+      ]
+    },
+    {
+      "id": "insta-7",
+      "image": "assets/images/content/insta-7.webp",
+      "alt": "Άντρας με καρό πουκάμισο φλανέλα σε μπορντό και σκούρο μπλε πάνω από γκρι T-shirt, στις γραμμές του τρένου",
+      "productIds": [
+        "m-flannel-check-burgundy"
+      ]
+    },
+    {
+      "id": "insta-8",
+      "image": "assets/images/content/insta-8.webp",
+      "alt": "Ζευγάρι ταμπά δερμάτινα chelsea μποτάκια από ψηλά, σε ξύλινο πάτωμα με έντονο φως και σκιές",
+      "productIds": [
+        "s-chelsea-boots-tan"
+      ]
+    },
+    {
+      "id": "insta-9",
+      "image": "assets/images/content/insta-9.webp",
+      "alt": "Άντρας με γκρι-μαύρο καρό overshirt, λευκό T-shirt και σκούρο τζιν κατεβαίνει μαρμάρινα σκαλιά",
+      "productIds": [
+        "m-check-overshirt-grey"
+      ]
+    }
+  ]
+}

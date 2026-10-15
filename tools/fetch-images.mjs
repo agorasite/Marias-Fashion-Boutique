@@ -6,7 +6,8 @@
  *   node tools/fetch-images.mjs [--only <id>] [--dry-run] [--manifest <file>] [--out-root <dir>]
  *
  * Reads tools/image-manifest.json, downloads each downloadUrl to tools/.cache,
- * converts with cwebp to <outBase>.webp (long edge 1200, q80) and
+ * converts with cwebp to <outBase>.webp (long edge 1200, or the entry's optional
+ * integer maxEdge in 480..4000, q80) and
  * <outBase>-sm.webp (long edge 480, q75), and merges assets/images/credits.json.
  * Existing outputs are skipped. Needs `cwebp` on PATH.
  */
@@ -21,6 +22,12 @@ const USAGES = ['product', 'hero', 'banner', 'instagram'];
 export const ALLOWED_HOSTS = ['images.unsplash.com', 'images.pexels.com'];
 export const MAX_BYTES = 25 * 1024 * 1024;
 const MAX_REDIRECTS = 5;
+export const DEFAULT_MAX_EDGE = 1200;
+
+/** Long edge for the full-size output: entry.maxEdge when set, else 1200. */
+export function fullEdge(entry) {
+  return entry.maxEdge ?? DEFAULT_MAX_EDGE;
+}
 
 /** true when p is a relative, forward-slash path under prefix with no .. segments. */
 export function isSafeAssetPath(p, prefix = '') {
@@ -90,6 +97,7 @@ export function validateManifest(m) {
     }
     if (e?.source && !SOURCES[e.source]) errors.push(`${L}: invalid source ${e.source}`);
     else if (e?.license && e.license !== SOURCES[e.source]) errors.push(`${L}: license ${e.license} does not match source ${e.source}`);
+    if (e && 'maxEdge' in e && !(Number.isInteger(e.maxEdge) && e.maxEdge >= 480 && e.maxEdge <= 4000)) errors.push(`${L}: maxEdge must be an integer 480..4000`);
     if (e?.usage && !USAGES.includes(e.usage)) errors.push(`${L}: invalid usage ${e.usage}`);
     if (typeof e?.id === 'string' && !/^[\w-]+$/.test(e.id)) errors.push(`${L}: id must match [\w-]+`);
     if (typeof e?.outBase === 'string' && !isSafeAssetPath(e.outBase, 'assets/images/')) errors.push(`${L}: outBase must be relative under assets/images/ with no ..`);
@@ -191,7 +199,7 @@ async function main() {
     fs.writeFileSync(orig, buf);
     const size = imageSize(buf);
     if (!size) throw new Error(`${e.id}: unrecognised image format`);
-    convert(orig, fullAbs, size, 1200, 80);
+    convert(orig, fullAbs, size, fullEdge(e), 80);
     convert(orig, smallAbs, size, 480, 75);
     credits = mergeCredits(credits, e, today);
     fs.mkdirSync(path.dirname(creditsPath), { recursive: true });

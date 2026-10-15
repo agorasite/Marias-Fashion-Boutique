@@ -111,3 +111,15 @@ test('CLI backfills credits when outputs exist; --only without value errors (no 
   assert.notEqual(r2.status, 0);
   fs.rmSync(d, { recursive: true });
 });
+
+import { fullEdge, DEFAULT_MAX_EDGE } from '../../tools/fetch-images.mjs';
+
+test('optional per-entry maxEdge: defaults to 1200, validated as integer 480..4000', () => {
+  assert.equal(DEFAULT_MAX_EDGE, 1200);
+  assert.equal(fullEdge(entry()), 1200);
+  assert.equal(fullEdge({ ...entry(), maxEdge: 1920 }), 1920);
+  assert.deepEqual(validateManifest({ images: [{ ...entry(), maxEdge: 1920 }] }), []);
+  for (const bad of [0, 100, 5000, 1200.5, '1920', null]) {
+    assert.ok(validateManifest({ images: [{ ...entry(), maxEdge: bad }] }).some((x) => /maxEdge/.test(x)), String(bad));
+  }
+});
