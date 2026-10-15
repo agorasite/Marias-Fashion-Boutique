@@ -16,6 +16,10 @@ function syncWishButtons() {
 export function bindWishlistEvents() {
   if (wishBound) return;
   wishBound = true;
+  // Hydrate hearts from the persisted wishlist (events only carry changes).
+  import('../services/wishlist.js').then((m) => m.list()).then((ids) => {
+    window.dispatchEvent(new CustomEvent('wishlist:changed', { detail: { ids, productId: null, active: null } }));
+  }).catch(() => {});
   window.addEventListener('wishlist:changed', (e) => {
     const d = e.detail || {};
     if (Array.isArray(d.ids)) {

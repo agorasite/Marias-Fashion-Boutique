@@ -198,7 +198,7 @@ export default async function render(ctx) {
               <fieldset class="mb-3">
                 <legend class="form-label">Βαθμολογία</legend>
                 <div class="rating-input">
-                  ${[1, 2, 3, 4, 5].map((i) => `<input class="visually-hidden" type="radio" name="rating" id="rate${i}" value="${i}"><label for="rate${i}" title="${i} από 5"><i class="bi bi-star-fill" aria-hidden="true"></i><span class="visually-hidden">${i} από 5</span></label>`).join('')}
+                  ${[5, 4, 3, 2, 1].map((i) => `<input class="visually-hidden" type="radio" name="rating" id="rate${i}" value="${i}"><label for="rate${i}" title="${i} από 5"><i class="bi bi-star-fill" aria-hidden="true"></i><span class="visually-hidden">${i} από 5</span></label>`).join('')}
                 </div>
                 <div class="invalid-feedback" data-err="rating"></div>
               </fieldset>
@@ -413,6 +413,8 @@ export default async function render(ctx) {
   }
 
   const form = $('#reviewForm');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  let submitting = false;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
@@ -430,10 +432,20 @@ export default async function render(ctx) {
       (target instanceof RadioNodeList ? target[0] : target)?.focus();
       return;
     }
-    await addReview({ productId: product.id, ...v.value });
-    form.reset();
-    await renderReviews();
-    toast('Ευχαριστούμε! Η κριτική σας αποθηκεύτηκε σε αυτόν τον περιηγητή.');
+    if (submitting) return;
+    submitting = true;
+    submitBtn.disabled = true;
+    try {
+      await addReview({ productId: product.id, ...v.value });
+      form.reset();
+      await renderReviews();
+      toast('Ευχαριστούμε! Η κριτική σας αποθηκεύτηκε σε αυτόν τον περιηγητή.');
+    } catch {
+      toast('Δεν ήταν δυνατή η αποθήκευση της κριτικής. Δοκιμάστε ξανά.', 'danger');
+    } finally {
+      submitting = false;
+      submitBtn.disabled = false;
+    }
   });
 
   // related

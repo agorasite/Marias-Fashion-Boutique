@@ -64,8 +64,10 @@ function mountShell() {
   body.prepend(skip, renderDemoStrip(), header.header); // skip link is the first focusable element
   app.after(footer, bottom.nav);
   body.append(header.offcanvas);
-  // Badge counts. The wishlist loader joins when services/wishlist.js exists (Task 8).
-  bindBadges({ cart: () => import('./services/cart.js').then((m) => m.cartCount()) });
+  bindBadges({
+    cart: () => import('./services/cart.js').then((m) => m.cartCount()),
+    wishlist: () => import('./services/wishlist.js').then((m) => m.list().then((ids) => ids.length)),
+  });
   return { header, bottom, footer };
 }
 

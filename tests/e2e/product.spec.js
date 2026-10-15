@@ -264,3 +264,33 @@ test('390px: no horizontal overflow and add-to-cart reachable', async ({ page })
   await page.locator('[data-add]').click();
   await expect(page.locator('.header-end [data-badge="cart"]')).toHaveText('1');
 });
+
+test('rating stars: visual order matches value; 4th visible star gives rating 4', async ({ page }) => {
+  await open(page, unreviewed.slug);
+  const labels = page.locator('#reviewForm .rating-input label');
+  await expect(labels).toHaveCount(5);
+  const xs = [];
+  for (let i = 0; i < 5; i += 1) xs.push((await labels.nth(i).boundingBox()).x);
+  // visible left-to-right order is 1..5: the label of value n is the nth by x position
+  const vals = await labels.evaluateAll((els) => els.map((l) => l.getAttribute('for')));
+  const byX = vals.map((v, i) => ({ v, x: xs[i] })).sort((a, b) => a.x - b.x).map((o) => o.v);
+  expect(byX).toEqual(['rate1', 'rate2', 'rate3', 'rate4', 'rate5']);
+  const fourth = vals.map((v, i) => ({ v, i, x: xs[i] })).sort((a, b) => a.x - b.x)[3];
+  expect(fourth.v).toBe('rate4');
+  await labels.nth(fourth.i).click();
+  await expect(page.locator('#reviewForm input[name="rating"]:checked')).toHaveValue('4');
+});
+
+test('review form guards double submit', async ({ page }) => {
+  await open(page, unreviewed.slug);
+  await page.locator('#reviewForm label[for="rate5"]').click();
+  await page.locator('#reviewForm [name="title"]').fill('Εξαιρετικό');
+  await page.locator('#reviewForm [name="body"]').fill('Πολύ καλή ποιότητα και άνετη εφαρμογή.');
+  await page.locator('#reviewForm [name="name"]').fill('Μαρία Κ.');
+  await page.locator('#reviewForm button[type="submit"]').dblclick();
+  await expect(page.locator('[data-review]')).toHaveCount(1);
+  await page.waitForTimeout(300);
+  await expect(page.locator('[data-review]')).toHaveCount(1);
+  await page.reload();
+  await expect(page.locator('[data-review]')).toHaveCount(1);
+});
