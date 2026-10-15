@@ -1,4 +1,8 @@
 const { test, expect } = require('@playwright/test');
+const fs = require('node:fs');
+const path = require('node:path');
+
+const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/products.json'), 'utf8')).products;
 
 const run = (page, fn, arg) =>
   page.evaluate(async ([src, a]) => {
@@ -37,11 +41,28 @@ test('first load seeds settings, categories, products and variants', async ({ pa
   expect(r.settings.vatRate).toBe(0.24);
   expect(r.settings.seededAt).toBeTruthy();
   expect(r.cats).toBeGreaterThanOrEqual(15);
-  expect(r.products).toBe(3);
-  expect(r.variants.length).toBeGreaterThan(3);
+  expect(r.products).toBe(catalog.length);
+  expect(r.variants.length).toBeGreaterThan(catalog.length);
   expect(r.variants.every((v) => v.productId)).toBe(true);
   expect(r.product.variants).toBeUndefined();
   expect(r.coupons).toBe(4);
+});
+
+test('every catalog product has its variants stored; editorial content is seeded', async ({ page }) => {
+  await ready(page);
+  const r = await run(page, async (m) => ({
+    products: await m.db.getAll('products'),
+    variants: await m.db.getAll('variants'),
+    editorial: await m.db.get('content', 'editorial'),
+  }));
+  expect(r.products.length).toBe(catalog.length);
+  for (const p of catalog) {
+    const stored = r.variants.filter((v) => v.productId === p.id).map((v) => v.sku).sort();
+    expect(stored).toEqual(p.variants.map((v) => v.sku).sort());
+  }
+  expect(r.variants.length).toBe(catalog.reduce((n, p) => n + p.variants.length, 0));
+  expect(r.editorial.hero.image).toBeTruthy();
+  expect(r.editorial.collections.length).toBeGreaterThan(0);
 });
 
 test('settings persist across reload and seed does not re-run', async ({ page }) => {

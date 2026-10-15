@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact sheet (dev only)</title>
+<style>
+body{font:12px/1.3 system-ui,sans-serif;margin:8px;background:#fff;color:#111}
+h2{font-size:14px;margin:12px 0 4px}
+.p{margin:0 0 14px;border-bottom:1px solid #ddd;padding-bottom:8px}
+.p b{font-size:13px}.meta{color:#555}
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-top:4px}
+.row img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#eee}
+</style></head><body>
+<h1 style="font-size:16px">Contact sheet</h1><div id="out"></div>
+<script>
+const q = new URLSearchParams(location.search);
+const from = +(q.get('from') || 0), to = +(q.get('to') || 1e9), ed = q.get('editorial');
+const el = (h) => { const d = document.createElement('div'); d.innerHTML = h; return d; };
+(async () => {
+  const out = document.getElementById('out');
+  const [prod, editorial] = await Promise.all([fetch('../data/products.json').then(r => r.json()), fetch('../data/editorial.json').then(r => r.json())]);
+  if (ed) {
+    const imgs = [['hero', editorial.hero], ...editorial.banners.map(x => [x.id, x]), ...editorial.collections.map(x => [x.id, x]), ...editorial.instagram.map(x => [x.id, x])];
+    out.append(el(`<h2>Editorial (${imgs.length})</h2><div class="row">${imgs.map(([n, x]) => `<div><img src="../${x.image}"><div class="meta">${n}: ${x.alt}</div></div>`).join('')}</div>`));
+  } else {
+    prod.products.slice(from, to).forEach((p, i) => {
+      const colors = [...new Set(p.variants.map(v => v.color))].join(', ');
+      out.append(el(`<div class="p"><b>${from + i + 1}. ${p.name}</b> <span class="meta">${p.id} | ${p.subcategoryId} | ${p.images.length} img</span><div class="meta">colors: ${colors}</div><div class="row">${p.images.map(im => `<img src="../${im}">`).join('')}</div></div>`));
+    });
+  }
+  document.title = 'ready';
+})();
+</script></body></html>

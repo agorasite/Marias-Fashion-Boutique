@@ -1,104 +1,2665 @@
 {
   "products": [
     {
-      "id": "p-linen-dress",
-      "slug": "linen-midi-dress",
-      "name": "Λινό φόρεμα midi",
+      "id": "w-shirt-dress-mustard",
+      "slug": "w-shirt-dress-mustard",
+      "name": "Σεμιζιέ φόρεμα αμάνικο μουσταρδί",
       "brand": "ÉLAN",
       "categoryId": "women",
       "subcategoryId": "dresses",
-      "description": "Ανάλαφρο λινό φόρεμα για το καλοκαίρι.",
-      "priceCents": 7900,
-      "images": [],
+      "description": "Αμάνικο σεμιζιέ φόρεμα σε ζεστό μουσταρδί, με κουμπιά σε όλο το μήκος και υφασμάτινη ζώνη που τονίζει τη μέση. Η άνετη, ελαφρώς κλος φούστα το κάνει ιδανικό για ζεστές μέρες στην πόλη ή σε διακοπές.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/w-shirt-dress-mustard-1.webp",
+        "assets/images/products/w-shirt-dress-mustard-2.webp"
+      ],
       "attributes": {
-        "material": "Λινό"
+        "material": "Βαμβάκι",
+        "composition": "100% βαμβάκι",
+        "fit": "Κανονική εφαρμογή, κλος φούστα",
+        "length": "Ως το γόνατο",
+        "care": "Πλύσιμο στους 30°C, σιδέρωμα σε μέτρια θερμοκρασία"
       },
       "flags": {
-        "new": true
+        "featured": false,
+        "new": false,
+        "bestSeller": true
       },
+      "popularity": 78,
+      "createdAt": "2026-08-03T10:00:00.000Z",
       "status": "active",
       "variants": [
         {
-          "sku": "LD-S-SAND",
-          "size": "S",
-          "color": "sand",
-          "colorHex": "#d8c3a5",
-          "stock": 5
+          "sku": "WSDM-XS-MUS",
+          "size": "XS",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 7
         },
         {
-          "sku": "LD-M-SAND",
+          "sku": "WSDM-S-MUS",
+          "size": "S",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 12
+        },
+        {
+          "sku": "WSDM-M-MUS",
           "size": "M",
-          "color": "sand",
-          "colorHex": "#d8c3a5",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
           "stock": 3
         },
         {
-          "sku": "LD-M-BLACK",
+          "sku": "WSDM-L-MUS",
+          "size": "L",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 0
+        },
+        {
+          "sku": "WSDM-XL-MUS",
+          "size": "XL",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "w-chiffon-midi-dress-ink",
+      "slug": "w-chiffon-midi-dress-ink",
+      "name": "Μίντι φόρεμα σιφόν κρουαζέ με print",
+      "brand": "Maison Aura",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Ανάλαφρο κρουαζέ φόρεμα από σιφόν με μοτίβο κηλίδων μελανιού, φαρδιά μανίκια πεταλούδα και δέσιμο στη μέση. Η φούστα με τα ασύμμετρα βολάν κινείται υπέροχα σε κάθε βήμα. Διατίθεται σε λευκό με μαύρο και σε μαύρο με λευκό μοτίβο.",
+      "priceCents": 8900,
+      "compareAtCents": 11900,
+      "images": [
+        "assets/images/products/w-chiffon-midi-dress-ink-1.webp",
+        "assets/images/products/w-chiffon-midi-dress-ink-2.webp",
+        "assets/images/products/w-chiffon-midi-dress-ink-3.webp"
+      ],
+      "attributes": {
+        "material": "Σιφόν",
+        "composition": "100% πολυεστέρας, φόδρα 100% βισκόζη",
+        "fit": "Κρουαζέ με δέσιμο στη μέση",
+        "length": "Μίντι",
+        "care": "Πλύσιμο στο χέρι σε κρύο νερό, στέγνωμα κρεμαστό"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 84,
+      "createdAt": "2026-08-16T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WCMD-XS-WHB",
+          "size": "XS",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 5
+        },
+        {
+          "sku": "WCMD-S-WHB",
+          "size": "S",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 1
+        },
+        {
+          "sku": "WCMD-M-WHB",
           "size": "M",
-          "color": "black",
-          "colorHex": "#111111",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 11
+        },
+        {
+          "sku": "WCMD-L-WHB",
+          "size": "L",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 6
+        },
+        {
+          "sku": "WCMD-XL-WHB",
+          "size": "XL",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "stock": 2
+        },
+        {
+          "sku": "WCMD-XS-BLW",
+          "size": "XS",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 8
+        },
+        {
+          "sku": "WCMD-S-BLW",
+          "size": "S",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 0
+        },
+        {
+          "sku": "WCMD-M-BLW",
+          "size": "M",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 10
+        },
+        {
+          "sku": "WCMD-L-BLW",
+          "size": "L",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 4
+        },
+        {
+          "sku": "WCMD-XL-BLW",
+          "size": "XL",
+          "color": "Μαύρο/Λευκό",
+          "colorHex": "#1C1C1C",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "w-linen-wrap-dress-orange",
+      "slug": "w-linen-wrap-dress-orange",
+      "name": "Λινό κρουαζέ φόρεμα πορτοκαλί",
+      "brand": "Nordica",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Κρουαζέ φόρεμα από πλυμένο λινό σε φωτεινό πορτοκαλί, με κοντά μανίκια και μακριά ζώνη που δένει στο πλάι. Το φυσικό ύφασμα αναπνέει και αποκτά πιο μαλακή υφή με κάθε πλύσιμο.",
+      "priceCents": 10900,
+      "images": [
+        "assets/images/products/w-linen-wrap-dress-orange-1.webp",
+        "assets/images/products/w-linen-wrap-dress-orange-2.webp",
+        "assets/images/products/w-linen-wrap-dress-orange-3.webp"
+      ],
+      "attributes": {
+        "material": "Λινό",
+        "composition": "100% λινό",
+        "fit": "Κρουαζέ, χαλαρή εφαρμογή",
+        "length": "Μίντι",
+        "care": "Πλύσιμο στους 30°C, ελαφρύ σιδέρωμα όσο είναι νωπό"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 69,
+      "createdAt": "2026-10-07T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WLWD-XS-ORA",
+          "size": "XS",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 3
+        },
+        {
+          "sku": "WLWD-S-ORA",
+          "size": "S",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 7
+        },
+        {
+          "sku": "WLWD-M-ORA",
+          "size": "M",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 1
+        },
+        {
+          "sku": "WLWD-L-ORA",
+          "size": "L",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 9
+        },
+        {
+          "sku": "WLWD-XL-ORA",
+          "size": "XL",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "w-broderie-dress-white",
+      "slug": "w-broderie-dress-white",
+      "name": "Φόρεμα κιπούρ λευκό με βολάν",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "dresses",
+      "description": "Καλοκαιρινό κοντό φόρεμα από βαμβακερό κιπούρ με διάτρητο κέντημα, βολάν στη λαιμόκοψη και στα μανίκια. Η ζώνη στη μέση δίνει όμορφο σχήμα, ενώ η φόδρα το κάνει να μη διαφαίνεται.",
+      "priceCents": 7400,
+      "compareAtCents": 8900,
+      "images": [
+        "assets/images/products/w-broderie-dress-white-1.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερό κιπούρ",
+        "composition": "100% βαμβάκι, φόδρα 100% βαμβάκι",
+        "fit": "Κανονική εφαρμογή με ζώνη",
+        "length": "Πάνω από το γόνατο",
+        "care": "Πλύσιμο στους 30°C σε πρόγραμμα ευαίσθητων"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 47,
+      "createdAt": "2026-08-25T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WBRD-XS-WHT",
+          "size": "XS",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 0
+        },
+        {
+          "sku": "WBRD-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 11
+        },
+        {
+          "sku": "WBRD-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 2
+        },
+        {
+          "sku": "WBRD-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 5
+        },
+        {
+          "sku": "WBRD-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "w-embroidered-blouse",
+      "slug": "w-embroidered-blouse",
+      "name": "Κεντημένη μπλούζα με κιπούρ",
+      "brand": "Maison Aura",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Λευκή μπλούζα με μπλε φλοράλ κέντημα στο μπροστινό μέρος και στα μανίκια, κορδόνι στη λαιμόκοψη και τελείωμα από διάτρητο κιπούρ. Ταιριάζει εξίσου με τζιν και με λινό παντελόνι.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/w-embroidered-blouse-1.webp",
+        "assets/images/products/w-embroidered-blouse-2.webp"
+      ],
+      "attributes": {
+        "material": "Βισκόζη",
+        "composition": "100% βισκόζη",
+        "fit": "Χαλαρή εφαρμογή",
+        "sleeve": "Μανίκι τρία τέταρτα",
+        "care": "Πλύσιμο στους 30°C, σιδέρωμα από την ανάποδη"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 88,
+      "createdAt": "2026-08-11T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WEMB-XS-WBL",
+          "size": "XS",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 7
+        },
+        {
+          "sku": "WEMB-S-WBL",
+          "size": "S",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 12
+        },
+        {
+          "sku": "WEMB-M-WBL",
+          "size": "M",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 3
+        },
+        {
+          "sku": "WEMB-L-WBL",
+          "size": "L",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 0
+        },
+        {
+          "sku": "WEMB-XL-WBL",
+          "size": "XL",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "w-lace-collar-blouse",
+      "slug": "w-lace-collar-blouse",
+      "name": "Ρομαντική μπλούζα με δαντελένιο γιακά",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Λευκή μπλούζα με στρογγυλό δαντελένιο γιακά, βολάν από δαντέλα στο μπούστο και φουσκωτά μανίκια με μανσέτα. Ένα ρομαντικό κομμάτι που αναβαθμίζει κάθε παντελόνι ή φούστα.",
+      "priceCents": 5400,
+      "images": [
+        "assets/images/products/w-lace-collar-blouse-1.webp",
+        "assets/images/products/w-lace-collar-blouse-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβάκι με δαντέλα",
+        "composition": "100% βαμβάκι",
+        "fit": "Κανονική εφαρμογή",
+        "sleeve": "Μακρύ φουσκωτό μανίκι",
+        "care": "Πλύσιμο στους 30°C, στέγνωμα κρεμαστό"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 41,
+      "createdAt": "2026-10-11T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WLCB-XS-WHT",
+          "size": "XS",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 5
+        },
+        {
+          "sku": "WLCB-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 1
+        },
+        {
+          "sku": "WLCB-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 11
+        },
+        {
+          "sku": "WLCB-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 6
+        },
+        {
+          "sku": "WLCB-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "w-ribbed-sweater-camel",
+      "slug": "w-ribbed-sweater-camel",
+      "name": "Πλεκτό πουλόβερ ριμπ καμηλό",
+      "brand": "Nordica",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Μαλακό πλεκτό πουλόβερ με κάθετες ραβδώσεις σε ζεστή απόχρωση καμηλό. Η εφαρμοστή γραμμή και η στρογγυλή λαιμόκοψη το κάνουν βασικό κομμάτι για το φθινόπωρο.",
+      "priceCents": 4900,
+      "compareAtCents": 5900,
+      "images": [
+        "assets/images/products/w-ribbed-sweater-camel-1.webp",
+        "assets/images/products/w-ribbed-sweater-camel-2.webp",
+        "assets/images/products/w-ribbed-sweater-camel-3.webp"
+      ],
+      "attributes": {
+        "material": "Πλεκτό ριμπ",
+        "composition": "70% βαμβάκι, 30% μαλλί",
+        "fit": "Εφαρμοστό",
+        "care": "Πλύσιμο στο χέρι, στέγνωμα σε οριζόντια θέση"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 63,
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WRSC-XS-CAM",
+          "size": "XS",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 8
+        },
+        {
+          "sku": "WRSC-S-CAM",
+          "size": "S",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 0
+        },
+        {
+          "sku": "WRSC-M-CAM",
+          "size": "M",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 10
+        },
+        {
+          "sku": "WRSC-L-CAM",
+          "size": "L",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 4
+        },
+        {
+          "sku": "WRSC-XL-CAM",
+          "size": "XL",
+          "color": "Καμηλό",
+          "colorHex": "#C49A6C",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "w-oversized-tee",
+      "slug": "w-oversized-tee",
+      "name": "Oversized T-shirt βαμβακερό",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "tops",
+      "description": "Φαρδύ T-shirt από χοντρό βαμβακερό ζέρσεϊ, με πεσμένους ώμους και γυρισμένα μανίκια. Φοριέται χαλαρό με κολάν ή ποδηλατικό σορτς, ή μπαίνει μπροστά μέσα σε τζιν.",
+      "priceCents": 2900,
+      "images": [
+        "assets/images/products/w-oversized-tee-1.webp",
+        "assets/images/products/w-oversized-tee-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερό ζέρσεϊ",
+        "composition": "100% βαμβάκι",
+        "fit": "Oversized",
+        "care": "Πλύσιμο στους 40°C, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 92,
+      "createdAt": "2026-07-25T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WOVT-XS-WHT",
+          "size": "XS",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 3
+        },
+        {
+          "sku": "WOVT-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 7
+        },
+        {
+          "sku": "WOVT-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 1
+        },
+        {
+          "sku": "WOVT-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 9
+        },
+        {
+          "sku": "WOVT-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 6
+        },
+        {
+          "sku": "WOVT-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 0
+        },
+        {
+          "sku": "WOVT-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 11
+        },
+        {
+          "sku": "WOVT-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 2
+        },
+        {
+          "sku": "WOVT-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 5
+        },
+        {
+          "sku": "WOVT-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "w-blazer-black",
+      "slug": "w-blazer-black",
+      "name": "Σακάκι μπλέιζερ μαύρο",
+      "brand": "Maison Aura",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Κλασικό μαύρο μπλέιζερ με λεπτά πέτα, ένα κουμπί και ελαφριά βάτα στους ώμους. Ραμμένο ώστε να φοριέται τόσο με παντελόνι όσο και μόνο του, σαν φόρεμα, για βραδινές εμφανίσεις.",
+      "priceCents": 12900,
+      "images": [
+        "assets/images/products/w-blazer-black-1.webp",
+        "assets/images/products/w-blazer-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Ύφασμα κοστουμιού",
+        "composition": "64% πολυεστέρας, 33% βισκόζη, 3% ελαστάνη, φόδρα 100% βισκόζη",
+        "fit": "Ίσια γραμμή, ελαφρώς μακρύ",
+        "care": "Μόνο στεγνό καθάρισμα"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 71,
+      "createdAt": "2026-09-08T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WBLZ-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 7
+        },
+        {
+          "sku": "WBLZ-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 12
+        },
+        {
+          "sku": "WBLZ-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 3
+        },
+        {
+          "sku": "WBLZ-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 0
+        },
+        {
+          "sku": "WBLZ-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#141414",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "w-trench-black",
+      "slug": "w-trench-black",
+      "name": "Καμπαρντίνα μακριά μαύρη",
+      "brand": "Nordica",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Μακριά καμπαρντίνα σε oversized γραμμή, με σταυρωτό κούμπωμα, επωμίδες και ζώνη στη μέση. Το ελαφρώς αδιάβροχο ύφασμα την κάνει αξιόπιστη επιλογή για τις μεταβατικές εποχές.",
+      "priceCents": 15900,
+      "compareAtCents": 17900,
+      "images": [
+        "assets/images/products/w-trench-black-1.webp",
+        "assets/images/products/w-trench-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Gabardine",
+        "composition": "65% βαμβάκι, 35% πολυεστέρας",
+        "fit": "Oversized",
+        "length": "Ως τη γάμπα",
+        "care": "Στεγνό καθάρισμα ή πλύσιμο στους 30°C στο χέρι"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 58,
+      "createdAt": "2026-09-25T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WTRB-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 5
+        },
+        {
+          "sku": "WTRB-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 1
+        },
+        {
+          "sku": "WTRB-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 11
+        },
+        {
+          "sku": "WTRB-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 6
+        },
+        {
+          "sku": "WTRB-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "w-biker-jacket-leather",
+      "slug": "w-biker-jacket-leather",
+      "name": "Δερμάτινο biker jacket μαύρο",
+      "brand": "ÉLAN",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Μπουφάν biker από μαλακό δέρμα αρνιού, με λοξό μεταλλικό φερμουάρ, τσέπες με φερμουάρ και ζωνάκι με κουμπιά στο τελείωμα. Αποκτά ακόμη πιο όμορφη πατίνα με τον χρόνο.",
+      "priceCents": 17900,
+      "images": [
+        "assets/images/products/w-biker-jacket-leather-1.webp",
+        "assets/images/products/w-biker-jacket-leather-2.webp"
+      ],
+      "attributes": {
+        "material": "Φυσικό δέρμα",
+        "composition": "100% δέρμα αρνιού, φόδρα 100% πολυεστέρας",
+        "fit": "Κανονική εφαρμογή",
+        "care": "Καθαρισμός μόνο από ειδικό καθαριστήριο δερμάτων"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 81,
+      "createdAt": "2026-08-30T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WBJL-XS-BLK",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 8
+        },
+        {
+          "sku": "WBJL-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 0
+        },
+        {
+          "sku": "WBJL-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 10
+        },
+        {
+          "sku": "WBJL-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 4
+        },
+        {
+          "sku": "WBJL-XL-BLK",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "w-denim-jacket-cropped",
+      "slug": "w-denim-jacket-cropped",
+      "name": "Κοντό τζιν μπουφάν oversized",
+      "brand": "ÉLAN Denim",
+      "categoryId": "women",
+      "subcategoryId": "jackets",
+      "description": "Κοντό τζιν μπουφάν σε μεσαίο μπλε ξέβαμμα, με φαρδιά φουσκωτά μανίκια και λάστιχο στο τελείωμα. Συνδυάζεται άψογα με ψηλόμεσα τζιν ή μακριές φούστες.",
+      "priceCents": 8900,
+      "images": [
+        "assets/images/products/w-denim-jacket-cropped-1.webp",
+        "assets/images/products/w-denim-jacket-cropped-2.webp"
+      ],
+      "attributes": {
+        "material": "Denim",
+        "composition": "100% βαμβάκι",
+        "fit": "Cropped, oversized μανίκια",
+        "care": "Πλύσιμο στους 30°C από την ανάποδη, με παρόμοια χρώματα"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 66,
+      "createdAt": "2026-10-13T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "WDJC-XS-MBL",
+          "size": "XS",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 3
+        },
+        {
+          "sku": "WDJC-S-MBL",
+          "size": "S",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 7
+        },
+        {
+          "sku": "WDJC-M-MBL",
+          "size": "M",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 1
+        },
+        {
+          "sku": "WDJC-L-MBL",
+          "size": "L",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 9
+        },
+        {
+          "sku": "WDJC-XL-MBL",
+          "size": "XL",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "m-poplin-shirt-white",
+      "slug": "m-poplin-shirt-white",
+      "name": "Λευκό πουκάμισο ποπλίνα",
+      "brand": "Maison Aura",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Κλασικό λευκό πουκάμισο από λεία βαμβακερή ποπλίνα, με ιταλικό γιακά και μονές μανσέτες. Ταιριάζει με κοστούμι στο γραφείο ή ανοιχτό στον λαιμό με τζιν το Σαββατοκύριακο.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/m-poplin-shirt-white-1.webp",
+        "assets/images/products/m-poplin-shirt-white-2.webp",
+        "assets/images/products/m-poplin-shirt-white-3.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερή ποπλίνα",
+        "composition": "100% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 40°C, σιδέρωμα σε μέτρια θερμοκρασία"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 88,
+      "createdAt": "2026-07-22T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-PPW-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 5
+        },
+        {
+          "sku": "M-PPW-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 12
+        },
+        {
+          "sku": "M-PPW-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 8
+        },
+        {
+          "sku": "M-PPW-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 12
+        },
+        {
+          "sku": "M-PPW-XXL-WHT",
+          "size": "XXL",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
           "stock": 0
         }
       ]
     },
     {
-      "id": "p-slim-jeans",
-      "slug": "slim-fit-jeans",
-      "name": "Τζιν slim fit",
-      "brand": "ÉLAN",
+      "id": "m-linen-band-collar-shirt",
+      "slug": "m-linen-band-collar-shirt",
+      "name": "Λινό κοντομάνικο πουκάμισο με μάο γιακά",
+      "brand": "Nordica",
       "categoryId": "men",
-      "subcategoryId": "jeans",
-      "description": "Κλασικό τζιν με άνετη εφαρμογή.",
-      "priceCents": 5900,
-      "images": [],
+      "subcategoryId": "shirts",
+      "description": "Ελαφρύ κοντομάνικο πουκάμισο από 100% λινό με όρθιο μάο γιακά και κρυφή σειρά κουμπιών. Η φυσική υφή του λινού το κρατά δροσερό στις ζεστές μέρες.",
+      "priceCents": 4900,
+      "compareAtCents": 5900,
+      "images": [
+        "assets/images/products/m-linen-band-collar-shirt-1.webp",
+        "assets/images/products/m-linen-band-collar-shirt-2.webp",
+        "assets/images/products/m-linen-band-collar-shirt-3.webp"
+      ],
       "attributes": {
-        "material": "Denim"
+        "material": "Λινό",
+        "composition": "100% λινό",
+        "fit": "Relaxed",
+        "care": "Πλύσιμο στους 30°C, στέγνωμα σε κρεμάστρα"
       },
       "flags": {
-        "bestseller": true
+        "featured": false,
+        "new": false,
+        "bestSeller": false
       },
+      "popularity": 61,
+      "createdAt": "2026-07-28T10:00:00.000Z",
       "status": "active",
       "variants": [
         {
-          "sku": "SJ-32-BLUE",
-          "size": "32",
-          "color": "blue",
-          "colorHex": "#2f4a7a",
-          "stock": 8
+          "sku": "M-LBC-S-ECR",
+          "size": "S",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 5
         },
         {
-          "sku": "SJ-34-BLUE",
-          "size": "34",
-          "color": "blue",
-          "colorHex": "#2f4a7a",
+          "sku": "M-LBC-M-ECR",
+          "size": "M",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 2
+        },
+        {
+          "sku": "M-LBC-L-ECR",
+          "size": "L",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-XL-ECR",
+          "size": "XL",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 3
+        },
+        {
+          "sku": "M-LBC-XXL-ECR",
+          "size": "XXL",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-S-LBL",
+          "size": "S",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 12
+        },
+        {
+          "sku": "M-LBC-M-LBL",
+          "size": "M",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 10
+        },
+        {
+          "sku": "M-LBC-L-LBL",
+          "size": "L",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-XL-LBL",
+          "size": "XL",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 7
+        },
+        {
+          "sku": "M-LBC-XXL-LBL",
+          "size": "XXL",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 2
+        },
+        {
+          "sku": "M-LBC-S-NVY",
+          "size": "S",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-M-NVY",
+          "size": "M",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
           "stock": 4
+        },
+        {
+          "sku": "M-LBC-L-NVY",
+          "size": "L",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-XL-NVY",
+          "size": "XL",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 10
+        },
+        {
+          "sku": "M-LBC-XXL-NVY",
+          "size": "XXL",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 11
         }
       ]
     },
     {
-      "id": "p-leather-bag",
-      "slug": "leather-tote-bag",
-      "name": "Δερμάτινη τσάντα tote",
+      "id": "m-linen-shirt-blue",
+      "slug": "m-linen-shirt-blue",
+      "name": "Λινό πουκάμισο μπλε",
       "brand": "ÉLAN",
-      "categoryId": "accessories",
-      "subcategoryId": "bags",
-      "description": "Τσάντα από γνήσιο δέρμα.",
-      "priceCents": 12900,
-      "images": [],
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Μακρυμάνικο πουκάμισο από μείγμα λινού και βαμβακιού σε μπλε απόχρωση με ελαφριά μελανζέ υφή. Φοριέται ανοιχτό με γυρισμένα μανίκια πάνω από chino ή σορτς.",
+      "priceCents": 5400,
+      "images": [
+        "assets/images/products/m-linen-shirt-blue-1.webp",
+        "assets/images/products/m-linen-shirt-blue-2.webp"
+      ],
       "attributes": {
-        "material": "Δέρμα"
+        "material": "Λινό-βαμβάκι",
+        "composition": "55% λινό, 45% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 30°C, ήπιο σιδέρωμα"
       },
       "flags": {
-        "sale": true
+        "featured": false,
+        "new": true,
+        "bestSeller": false
       },
+      "popularity": 54,
+      "createdAt": "2026-09-02T10:00:00.000Z",
       "status": "active",
       "variants": [
         {
-          "sku": "LB-ONE-TAN",
-          "size": "ONE",
-          "color": "tan",
-          "colorHex": "#a9744f",
+          "sku": "M-LSB-S-BLU",
+          "size": "S",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 10
+        },
+        {
+          "sku": "M-LSB-M-BLU",
+          "size": "M",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 0
+        },
+        {
+          "sku": "M-LSB-L-BLU",
+          "size": "L",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 4
+        },
+        {
+          "sku": "M-LSB-XL-BLU",
+          "size": "XL",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
           "stock": 6
+        },
+        {
+          "sku": "M-LSB-XXL-BLU",
+          "size": "XXL",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "m-flannel-check-burgundy",
+      "slug": "m-flannel-check-burgundy",
+      "name": "Καρό φλανέλα πουκάμισο μπορντό",
+      "brand": "ÉLAN",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Ζεστό πουκάμισο από βουρτσισμένη βαμβακερή φλανέλα σε καρό μπορντό με σκούρο μπλε. Φοριέται κλειστό ή ανοιχτό σαν ελαφρύ επανωφόρι πάνω από T-shirt.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/m-flannel-check-burgundy-1.webp",
+        "assets/images/products/m-flannel-check-burgundy-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερή φλανέλα",
+        "composition": "100% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 30°C ανάποδα, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": true
+      },
+      "popularity": 79,
+      "createdAt": "2026-10-01T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-FCB-S-BRD",
+          "size": "S",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 11
+        },
+        {
+          "sku": "M-FCB-M-BRD",
+          "size": "M",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 5
+        },
+        {
+          "sku": "M-FCB-L-BRD",
+          "size": "L",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 8
+        },
+        {
+          "sku": "M-FCB-XL-BRD",
+          "size": "XL",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 5
+        },
+        {
+          "sku": "M-FCB-XXL-BRD",
+          "size": "XXL",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "m-check-overshirt-grey",
+      "slug": "m-check-overshirt-grey",
+      "name": "Καρό overshirt γκρι-μαύρο",
+      "brand": "Nordica",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Χοντρό πουκάμισο-overshirt σε μεγάλο καρό γκρι και μαύρο, με δύο τσέπες με καπάκι στο στήθος. Μπαίνει πάνω από T-shirt ή φούτερ τις δροσερές μέρες του φθινοπώρου.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/m-check-overshirt-grey-1.webp",
+        "assets/images/products/m-check-overshirt-grey-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερή φλανέλα βαριάς ύφανσης",
+        "composition": "80% βαμβάκι, 20% πολυεστέρας",
+        "fit": "Relaxed",
+        "care": "Πλύσιμο στους 30°C, στέγνωμα σε επίπεδη επιφάνεια"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 67,
+      "createdAt": "2026-10-08T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-COG-S-GRY",
+          "size": "S",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 10
+        },
+        {
+          "sku": "M-COG-M-GRY",
+          "size": "M",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 6
+        },
+        {
+          "sku": "M-COG-L-GRY",
+          "size": "L",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 5
+        },
+        {
+          "sku": "M-COG-XL-GRY",
+          "size": "XL",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 0
+        },
+        {
+          "sku": "M-COG-XXL-GRY",
+          "size": "XXL",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "m-denim-shirt-indigo",
+      "slug": "m-denim-shirt-indigo",
+      "name": "Τζιν πουκάμισο indigo",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Πουκάμισο από μαλακό ελαφρύ ντένιμ σε μεσαίο indigo, με τσέπη στο στήθος και κουμπιά στον γιακά. Συνδυάζεται με μαύρο ή μπεζ παντελόνι για ένα casual σύνολο.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/m-denim-shirt-indigo-1.webp",
+        "assets/images/products/m-denim-shirt-indigo-2.webp",
+        "assets/images/products/m-denim-shirt-indigo-3.webp"
+      ],
+      "attributes": {
+        "material": "Ελαφρύ ντένιμ",
+        "composition": "100% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 30°C ανάποδα, με όμοια χρώματα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 72,
+      "createdAt": "2026-08-10T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-DSI-S-IND",
+          "size": "S",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 5
+        },
+        {
+          "sku": "M-DSI-M-IND",
+          "size": "M",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 3
+        },
+        {
+          "sku": "M-DSI-L-IND",
+          "size": "L",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 5
+        },
+        {
+          "sku": "M-DSI-XL-IND",
+          "size": "XL",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 2
+        },
+        {
+          "sku": "M-DSI-XXL-IND",
+          "size": "XXL",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "m-slim-jeans-blue",
+      "slug": "m-slim-jeans-blue",
+      "name": "Slim τζιν stretch",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Slim τζιν πέντε τσεπών από ντένιμ με λίγο ελαστάν για άνεση στην κίνηση. Διατίθεται σε μεσαίο μπλε με ξεβάμματα και σε σκούρο μπλε, με ρεβέρ που γυρίζει στο μήκος που θέλετε.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/m-slim-jeans-blue-1.webp",
+        "assets/images/products/m-slim-jeans-blue-2.webp",
+        "assets/images/products/m-slim-jeans-blue-3.webp"
+      ],
+      "attributes": {
+        "material": "Stretch ντένιμ",
+        "composition": "98% βαμβάκι, 2% ελαστάν",
+        "fit": "Slim",
+        "care": "Πλύσιμο στους 30°C ανάποδα, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 95,
+      "createdAt": "2026-07-20T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-SJB-30-MBL",
+          "size": "30",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 5
+        },
+        {
+          "sku": "M-SJB-32-MBL",
+          "size": "32",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 6
+        },
+        {
+          "sku": "M-SJB-34-MBL",
+          "size": "34",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 9
+        },
+        {
+          "sku": "M-SJB-36-MBL",
+          "size": "36",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 1
+        },
+        {
+          "sku": "M-SJB-38-MBL",
+          "size": "38",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 3
+        },
+        {
+          "sku": "M-SJB-30-DBL",
+          "size": "30",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 2
+        },
+        {
+          "sku": "M-SJB-32-DBL",
+          "size": "32",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 7
+        },
+        {
+          "sku": "M-SJB-34-DBL",
+          "size": "34",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 8
+        },
+        {
+          "sku": "M-SJB-36-DBL",
+          "size": "36",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 1
+        },
+        {
+          "sku": "M-SJB-38-DBL",
+          "size": "38",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 5
+        }
+      ]
+    },
+    {
+      "id": "m-slim-jeans-black",
+      "slug": "m-slim-jeans-black",
+      "name": "Μαύρο slim τζιν",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Μαύρο slim τζιν με διακριτικά φθαρμένα σημεία και αντίθεση στο γκρι εσωτερικό του ρεβέρ. Ταιριάζει με λευκά αθλητικά ή μποτάκια.",
+      "priceCents": 6900,
+      "compareAtCents": 7900,
+      "images": [
+        "assets/images/products/m-slim-jeans-black-1.webp",
+        "assets/images/products/m-slim-jeans-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Stretch ντένιμ",
+        "composition": "98% βαμβάκι, 2% ελαστάν",
+        "fit": "Slim",
+        "care": "Πλύσιμο στους 30°C ανάποδα, με σκούρα χρώματα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 70,
+      "createdAt": "2026-08-04T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-SJK-30-BLK",
+          "size": "30",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 3
+        },
+        {
+          "sku": "M-SJK-32-BLK",
+          "size": "32",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 9
+        },
+        {
+          "sku": "M-SJK-34-BLK",
+          "size": "34",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 4
+        },
+        {
+          "sku": "M-SJK-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 5
+        },
+        {
+          "sku": "M-SJK-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 1
+        }
+      ]
+    },
+    {
+      "id": "m-relaxed-jeans-light",
+      "slug": "m-relaxed-jeans-light",
+      "name": "Relaxed τζιν ανοιχτό μπλε",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Άνετο relaxed τζιν σε ανοιχτό πλυμένο μπλε, με χαλαρό μηρό που στενεύει ελαφρά προς τον αστράγαλο. Πέφτει μαλακά πάνω σε ογκώδη αθλητικά.",
+      "priceCents": 7400,
+      "images": [
+        "assets/images/products/m-relaxed-jeans-light-1.webp",
+        "assets/images/products/m-relaxed-jeans-light-2.webp"
+      ],
+      "attributes": {
+        "material": "Ντένιμ",
+        "composition": "100% βαμβάκι",
+        "fit": "Relaxed tapered",
+        "care": "Πλύσιμο στους 30°C ανάποδα, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 58,
+      "createdAt": "2026-09-18T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-RJL-30-LBL",
+          "size": "30",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 6
+        },
+        {
+          "sku": "M-RJL-32-LBL",
+          "size": "32",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 0
+        },
+        {
+          "sku": "M-RJL-34-LBL",
+          "size": "34",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 4
+        },
+        {
+          "sku": "M-RJL-36-LBL",
+          "size": "36",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 5
+        },
+        {
+          "sku": "M-RJL-38-LBL",
+          "size": "38",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "m-ripped-straight-jeans",
+      "slug": "m-ripped-straight-jeans",
+      "name": "Ίσιο τζιν με σκισίματα",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Ίσιο τζιν με φθαρμένα σκισίματα στα γόνατα και ελαφρώς φαρδύ μπατζάκι. Διατίθεται σε γαλάζιο πλυμένο ντένιμ και σε μαύρο.",
+      "priceCents": 7900,
+      "images": [
+        "assets/images/products/m-ripped-straight-jeans-1.webp",
+        "assets/images/products/m-ripped-straight-jeans-2.webp"
+      ],
+      "attributes": {
+        "material": "Ντένιμ",
+        "composition": "100% βαμβάκι",
+        "fit": "Straight",
+        "care": "Πλύσιμο στους 30°C ανάποδα, σε σακουλάκι πλυντηρίου"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 64,
+      "createdAt": "2026-09-27T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-RSJ-30-LBL",
+          "size": "30",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 10
+        },
+        {
+          "sku": "M-RSJ-32-LBL",
+          "size": "32",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 5
+        },
+        {
+          "sku": "M-RSJ-34-LBL",
+          "size": "34",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 1
+        },
+        {
+          "sku": "M-RSJ-36-LBL",
+          "size": "36",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 10
+        },
+        {
+          "sku": "M-RSJ-38-LBL",
+          "size": "38",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 12
+        },
+        {
+          "sku": "M-RSJ-30-BLK",
+          "size": "30",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 8
+        },
+        {
+          "sku": "M-RSJ-32-BLK",
+          "size": "32",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 6
+        },
+        {
+          "sku": "M-RSJ-34-BLK",
+          "size": "34",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 11
+        },
+        {
+          "sku": "M-RSJ-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 6
+        },
+        {
+          "sku": "M-RSJ-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 11
+        }
+      ]
+    },
+    {
+      "id": "m-ripped-skinny-jeans",
+      "slug": "m-ripped-skinny-jeans",
+      "name": "Skinny τζιν με σκισμένα γόνατα",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Εφαρμοστό skinny τζιν σε ανοιχτό μπλε με μεγάλα σκισίματα στα γόνατα και ξεβάμματα. Φοριέται με λευκό T-shirt και sneakers.",
+      "priceCents": 5900,
+      "compareAtCents": 6900,
+      "images": [
+        "assets/images/products/m-ripped-skinny-jeans-1.webp",
+        "assets/images/products/m-ripped-skinny-jeans-2.webp"
+      ],
+      "attributes": {
+        "material": "Stretch ντένιμ",
+        "composition": "97% βαμβάκι, 3% ελαστάν",
+        "fit": "Skinny",
+        "care": "Πλύσιμο στους 30°C ανάποδα, σε σακουλάκι πλυντηρίου"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 41,
+      "createdAt": "2026-08-21T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-RKJ-30-LBL",
+          "size": "30",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 4
+        },
+        {
+          "sku": "M-RKJ-32-LBL",
+          "size": "32",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 1
+        },
+        {
+          "sku": "M-RKJ-34-LBL",
+          "size": "34",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 0
+        },
+        {
+          "sku": "M-RKJ-36-LBL",
+          "size": "36",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 2
+        },
+        {
+          "sku": "M-RKJ-38-LBL",
+          "size": "38",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 5
+        }
+      ]
+    },
+    {
+      "id": "s-white-leather-sneakers",
+      "slug": "s-white-leather-sneakers",
+      "name": "Λευκά δερμάτινα sneakers",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "sneakers",
+      "description": "Μίνιμαλ sneakers από λείο λευκό δέρμα, με ελαφρώς ανυψωμένη σόλα και λευκά κορδόνια. Το καθαρό σχέδιο ταιριάζει με τζιν, κολάν ή φόρεμα και φοριέται όλη μέρα.",
+      "priceCents": 8900,
+      "images": [
+        "assets/images/products/s-white-leather-sneakers-1.webp",
+        "assets/images/products/s-white-leather-sneakers-2.webp"
+      ],
+      "attributes": {
+        "material": "Λείο μοσχαρίσιο δέρμα",
+        "sole": "Καουτσούκ",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με υγρό πανί και κρέμα για λευκά δέρματα"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 92,
+      "createdAt": "2026-08-04T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-WLS-36-WHT",
+          "size": "36",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 7
+        },
+        {
+          "sku": "S-WLS-37-WHT",
+          "size": "37",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 12
+        },
+        {
+          "sku": "S-WLS-38-WHT",
+          "size": "38",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 3
+        },
+        {
+          "sku": "S-WLS-39-WHT",
+          "size": "39",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 0
+        },
+        {
+          "sku": "S-WLS-40-WHT",
+          "size": "40",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 9
+        },
+        {
+          "sku": "S-WLS-41-WHT",
+          "size": "41",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 5
+        }
+      ]
+    },
+    {
+      "id": "s-metallic-retro-sneakers",
+      "slug": "s-metallic-retro-sneakers",
+      "name": "Ασημί retro sneakers",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "sneakers",
+      "description": "Retro sneakers από μεταλλιζέ ασημί δέρμα, με διάτρητη μύτη και χοντρή λευκή σόλα. Δίνουν λάμψη σε ένα απλό τζιν και ανοιχτόχρωμο πλεκτό.",
+      "priceCents": 9900,
+      "compareAtCents": 11900,
+      "images": [
+        "assets/images/products/s-metallic-retro-sneakers-1.webp",
+        "assets/images/products/s-metallic-retro-sneakers-2.webp",
+        "assets/images/products/s-metallic-retro-sneakers-3.webp"
+      ],
+      "attributes": {
+        "material": "Μεταλλιζέ δέρμα",
+        "sole": "Καουτσούκ με ανάγλυφο πλαϊνό",
+        "lining": "Υφασμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με στεγνό μαλακό πανί, αποφύγετε τα διαλυτικά"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 71,
+      "createdAt": "2026-09-28T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-MRS-36-SLV",
+          "size": "36",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 1
+        },
+        {
+          "sku": "S-MRS-37-SLV",
+          "size": "37",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 10
+        },
+        {
+          "sku": "S-MRS-38-SLV",
+          "size": "38",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 6
+        },
+        {
+          "sku": "S-MRS-39-SLV",
+          "size": "39",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 2
+        },
+        {
+          "sku": "S-MRS-40-SLV",
+          "size": "40",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 11
+        }
+      ]
+    },
+    {
+      "id": "s-canvas-sneakers-navy",
+      "slug": "s-canvas-sneakers-navy",
+      "name": "Υφασμάτινα sneakers μπλε",
+      "brand": "ÉLAN",
+      "categoryId": "shoes",
+      "subcategoryId": "sneakers",
+      "description": "Χαμηλά sneakers από ανθεκτικό καραβόπανο σε σκούρο μπλε, με λευκή σόλα από καουτσούκ και καφέ κορδόνια. Ελαφριά και δροσερά για καθημερινές βόλτες.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/s-canvas-sneakers-navy-1.webp",
+        "assets/images/products/s-canvas-sneakers-navy-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερό καραβόπανο",
+        "sole": "Βουλκανιζέ καουτσούκ",
+        "lining": "Βαμβακερή φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με βούρτσα και χλιαρό νερό, στέγνωμα στον αέρα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 84,
+      "createdAt": "2026-07-24T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-CSN-40-NVY",
+          "size": "40",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 4
+        },
+        {
+          "sku": "S-CSN-41-NVY",
+          "size": "41",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 8
+        },
+        {
+          "sku": "S-CSN-42-NVY",
+          "size": "42",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 0
+        },
+        {
+          "sku": "S-CSN-43-NVY",
+          "size": "43",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 12
+        },
+        {
+          "sku": "S-CSN-44-NVY",
+          "size": "44",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 2
+        },
+        {
+          "sku": "S-CSN-45-NVY",
+          "size": "45",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "s-chelsea-boots-tan",
+      "slug": "s-chelsea-boots-tan",
+      "name": "Δερμάτινα chelsea μποτάκια ταμπά",
+      "brand": "Nordica",
+      "categoryId": "shoes",
+      "subcategoryId": "boots",
+      "description": "Χειροποίητα chelsea μποτάκια από φυσικό δέρμα σε ζεστό ταμπά, με ελαστικά πλαϊνά, θηλιά στη φτέρνα και σόλα κρεπ. Το δέρμα αποκτά πατίνα με τον καιρό.",
+      "priceCents": 14900,
+      "images": [
+        "assets/images/products/s-chelsea-boots-tan-1.webp",
+        "assets/images/products/s-chelsea-boots-tan-2.webp",
+        "assets/images/products/s-chelsea-boots-tan-3.webp"
+      ],
+      "attributes": {
+        "material": "Φυσικό δέρμα φυτικής δέψης",
+        "sole": "Κρεπ καουτσούκ",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο, φαρδύ καλαπόδι",
+        "care": "Κρέμα θρέψης δέρματος κάθε λίγες εβδομάδες"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 79,
+      "createdAt": "2026-10-02T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-CHB-40-TAN",
+          "size": "40",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 9
+        },
+        {
+          "sku": "S-CHB-41-TAN",
+          "size": "41",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 3
+        },
+        {
+          "sku": "S-CHB-42-TAN",
+          "size": "42",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 5
+        },
+        {
+          "sku": "S-CHB-43-TAN",
+          "size": "43",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 1
+        },
+        {
+          "sku": "S-CHB-44-TAN",
+          "size": "44",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 7
+        },
+        {
+          "sku": "S-CHB-45-TAN",
+          "size": "45",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "id": "s-combat-boots-black",
+      "slug": "s-combat-boots-black",
+      "name": "Μαύρα δερμάτινα αρβυλάκια",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "boots",
+      "description": "Αρβυλάκια από ανάγλυφο μαύρο δέρμα, με κορδόνια, πλαϊνό φερμουάρ για εύκολο φόρεμα και χοντρή τρακτερωτή σόλα. Δίνουν χαρακτήρα σε τζιν και φορέματα.",
+      "priceCents": 12900,
+      "images": [
+        "assets/images/products/s-combat-boots-black-1.webp",
+        "assets/images/products/s-combat-boots-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Ανάγλυφο μοσχαρίσιο δέρμα",
+        "sole": "Τρακτερωτό καουτσούκ, ύψος 5 εκ.",
+        "lining": "Υφασμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Γυάλισμα με μαύρη κρέμα, αδιαβροχοποίηση πριν τη χρήση"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 86,
+      "createdAt": "2026-08-21T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-CBB-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 0
+        },
+        {
+          "sku": "S-CBB-37-BLK",
+          "size": "37",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 4
+        },
+        {
+          "sku": "S-CBB-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 11
+        },
+        {
+          "sku": "S-CBB-39-BLK",
+          "size": "39",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 8
+        },
+        {
+          "sku": "S-CBB-40-BLK",
+          "size": "40",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        },
+        {
+          "sku": "S-CBB-41-BLK",
+          "size": "41",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "s-suede-lace-up-boots",
+      "slug": "s-suede-lace-up-boots",
+      "name": "Σουέτ μποτάκια με κορδόνια",
+      "brand": "Nordica",
+      "categoryId": "shoes",
+      "subcategoryId": "boots",
+      "description": "Ανδρικά μποτάκια από καφέ σουέτ με κορδόνια, ενισχυμένη μύτη και ανάγλυφη μπεζ σόλα για σταθερό πάτημα στην πόλη και στη φύση.",
+      "priceCents": 13900,
+      "compareAtCents": 15900,
+      "images": [
+        "assets/images/products/s-suede-lace-up-boots-1.webp",
+        "assets/images/products/s-suede-lace-up-boots-2.webp"
+      ],
+      "attributes": {
+        "material": "Σουέτ δέρμα",
+        "sole": "Ανάγλυφο καουτσούκ με αντιολισθητικό πέλμα",
+        "lining": "Υφασμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Βούρτσα για σουέτ και σπρέι αδιαβροχοποίησης"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 63,
+      "createdAt": "2026-07-29T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-SLB-41-BRN",
+          "size": "41",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 3
+        },
+        {
+          "sku": "S-SLB-42-BRN",
+          "size": "42",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 7
+        },
+        {
+          "sku": "S-SLB-43-BRN",
+          "size": "43",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 12
+        },
+        {
+          "sku": "S-SLB-44-BRN",
+          "size": "44",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 3
+        },
+        {
+          "sku": "S-SLB-45-BRN",
+          "size": "45",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 0
+        },
+        {
+          "sku": "S-SLB-46-BRN",
+          "size": "46",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "s-stiletto-pumps-black",
+      "slug": "s-stiletto-pumps-black",
+      "name": "Μαύρες γόβες στιλέτο",
+      "brand": "Maison Aura",
+      "categoryId": "shoes",
+      "subcategoryId": "heels",
+      "description": "Κλασικές γόβες από μαλακό μαύρο δέρμα, με μυτερή μύτη και λεπτό τακούνι 10 εκ. Ένα διαχρονικό ζευγάρι για το γραφείο και τις βραδινές εξόδους.",
+      "priceCents": 10900,
+      "images": [
+        "assets/images/products/s-stiletto-pumps-black-1.webp",
+        "assets/images/products/s-stiletto-pumps-black-2.webp",
+        "assets/images/products/s-stiletto-pumps-black-3.webp"
+      ],
+      "attributes": {
+        "material": "Μαλακό μοσχαρίσιο δέρμα",
+        "heel": "Στιλέτο 10 εκ.",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με υγρό πανί, φύλαξη σε σακουλάκι"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 75,
+      "createdAt": "2026-09-15T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-SPB-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 5
+        },
+        {
+          "sku": "S-SPB-37-BLK",
+          "size": "37",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 1
+        },
+        {
+          "sku": "S-SPB-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 10
+        },
+        {
+          "sku": "S-SPB-39-BLK",
+          "size": "39",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        },
+        {
+          "sku": "S-SPB-40-BLK",
+          "size": "40",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "s-leather-moccasins",
+      "slug": "s-leather-moccasins",
+      "name": "Δερμάτινα μοκασίνια",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "loafers",
+      "description": "Ευλύγιστα μοκασίνια από μαλακό δέρμα, με ραφή στο καπάκι και λεπτή σόλα με τάκους. Άνετα από την πρώτη μέρα, σε ταμπά και μαύρο.",
+      "priceCents": 7900,
+      "compareAtCents": 8900,
+      "images": [
+        "assets/images/products/s-leather-moccasins-1.webp",
+        "assets/images/products/s-leather-moccasins-2.webp",
+        "assets/images/products/s-leather-moccasins-3.webp"
+      ],
+      "attributes": {
+        "material": "Μαλακό δέρμα",
+        "sole": "Καουτσούκ με τάκους",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Κρέμα για δέρματα στο αντίστοιχο χρώμα"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 68,
+      "createdAt": "2026-09-07T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-LMC-36-TAN",
+          "size": "36",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 11
+        },
+        {
+          "sku": "S-LMC-37-TAN",
+          "size": "37",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 4
+        },
+        {
+          "sku": "S-LMC-38-TAN",
+          "size": "38",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 8
+        },
+        {
+          "sku": "S-LMC-39-TAN",
+          "size": "39",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 0
+        },
+        {
+          "sku": "S-LMC-40-TAN",
+          "size": "40",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 12
+        },
+        {
+          "sku": "S-LMC-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        },
+        {
+          "sku": "S-LMC-37-BLK",
+          "size": "37",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        },
+        {
+          "sku": "S-LMC-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 9
+        },
+        {
+          "sku": "S-LMC-39-BLK",
+          "size": "39",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 3
+        },
+        {
+          "sku": "S-LMC-40-BLK",
+          "size": "40",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 5
+        }
+      ]
+    },
+    {
+      "id": "a-leather-tote-cognac",
+      "slug": "a-leather-tote-cognac",
+      "name": "Δερμάτινη τσάντα tote κονιάκ",
+      "brand": "Maison Aura",
+      "categoryId": "accessories",
+      "subcategoryId": "bags",
+      "description": "Ευρύχωρη tote από δέρμα με φυσικά νερά σε απόχρωση κονιάκ, με μακριά χερούλια που πέφτουν άνετα στον ώμο. Χωράει laptop 13\", περιοδικά και τα απαραίτητα της ημέρας.",
+      "priceCents": 12900,
+      "images": [
+        "assets/images/products/a-leather-tote-cognac-1.webp",
+        "assets/images/products/a-leather-tote-cognac-2.webp",
+        "assets/images/products/a-leather-tote-cognac-3.webp"
+      ],
+      "attributes": {
+        "material": "Δέρμα pull-up",
+        "lining": "Χωρίς φόδρα, φινιρισμένο εσωτερικό",
+        "dimensions": "36 × 34 × 12 εκ., χερούλια 60 εκ.",
+        "care": "Κρέμα θρέψης δέρματος, μακριά από βροχή"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 90,
+      "createdAt": "2026-08-11T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-LTC-ONE-CGN",
+          "size": "ONE",
+          "color": "Κονιάκ",
+          "colorHex": "#8B4A22",
+          "stock": 1
+        }
+      ]
+    },
+    {
+      "id": "a-crossbody-bag-black",
+      "slug": "a-crossbody-bag-black",
+      "name": "Μαύρη τσάντα χιαστί",
+      "brand": "ÉLAN",
+      "categoryId": "accessories",
+      "subcategoryId": "bags",
+      "description": "Συμπαγής τσάντα χιαστί από μαύρο δέρμα με κύριο φερμουάρ και εξωτερική τσέπη με φερμουάρ. Το ρυθμιζόμενο λουρί τη μετατρέπει σε τσάντα ώμου.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/a-crossbody-bag-black-1.webp",
+        "assets/images/products/a-crossbody-bag-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Μοσχαρίσιο δέρμα",
+        "lining": "Υφασμάτινη φόδρα",
+        "dimensions": "22 × 15 × 8 εκ., λουρί έως 125 εκ.",
+        "care": "Καθαρισμός με στεγνό μαλακό πανί"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": true
+      },
+      "popularity": 82,
+      "createdAt": "2026-09-22T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-CBB-ONE-BLK",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 7
+        }
+      ]
+    },
+    {
+      "id": "a-leather-clutch-tan",
+      "slug": "a-leather-clutch-tan",
+      "name": "Δερμάτινος φάκελος clutch",
+      "brand": "ÉLAN",
+      "categoryId": "accessories",
+      "subcategoryId": "bags",
+      "description": "Λιτός φάκελος clutch από ταμπά δέρμα με καπάκι και δύο μεταλλικά κουμπιά πίεσης. Για το κινητό, κάρτες και κλειδιά σε βραδινές εξόδους.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/a-leather-clutch-tan-1.webp"
+      ],
+      "attributes": {
+        "material": "Δέρμα φυτικής δέψης",
+        "lining": "Χωρίς φόδρα",
+        "dimensions": "24 × 15 εκ.",
+        "care": "Κρέμα θρέψης δέρματος, μακριά από υγρασία"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 54,
+      "createdAt": "2026-10-09T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-LCT-ONE-TAN",
+          "size": "ONE",
+          "color": "Ταμπά",
+          "colorHex": "#C0602A",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "id": "a-leather-belt-brass",
+      "slug": "a-leather-belt-brass",
+      "name": "Δερμάτινη ζώνη με ορειχάλκινη αγκράφα",
+      "brand": "Nordica",
+      "categoryId": "accessories",
+      "subcategoryId": "belts",
+      "description": "Ζώνη από χοντρό δέρμα 3,5 εκ. με ραφή περιμετρικά και αγκράφα από ορειχάλκινο κράμα. Σε σκούρο καφέ και μαύρο, για τζιν και chinos.",
+      "priceCents": 4500,
+      "compareAtCents": 5500,
+      "images": [
+        "assets/images/products/a-leather-belt-brass-1.webp",
+        "assets/images/products/a-leather-belt-brass-2.webp"
+      ],
+      "attributes": {
+        "material": "Φυσικό δέρμα, αγκράφα από ορείχαλκο",
+        "dimensions": "Πλάτος 3,5 εκ., μήκος S 85 εκ., M 95 εκ., L 105 εκ.",
+        "fit": "Πέντε τρύπες ρύθμισης",
+        "care": "Κρέμα θρέψης δέρματος"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 58,
+      "createdAt": "2026-08-17T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-LBB-S-DBR",
+          "size": "S",
+          "color": "Σκούρο καφέ",
+          "colorHex": "#4A2C20",
+          "stock": 0
+        },
+        {
+          "sku": "A-LBB-M-DBR",
+          "size": "M",
+          "color": "Σκούρο καφέ",
+          "colorHex": "#4A2C20",
+          "stock": 4
+        },
+        {
+          "sku": "A-LBB-L-DBR",
+          "size": "L",
+          "color": "Σκούρο καφέ",
+          "colorHex": "#4A2C20",
+          "stock": 11
+        },
+        {
+          "sku": "A-LBB-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 8
+        },
+        {
+          "sku": "A-LBB-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        },
+        {
+          "sku": "A-LBB-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "a-tortoise-sunglasses",
+      "slug": "a-tortoise-sunglasses",
+      "name": "Γυαλιά ηλίου ταρταρούγα",
+      "brand": "Maison Aura",
+      "categoryId": "accessories",
+      "subcategoryId": "sunglasses",
+      "description": "Γυαλιά ηλίου με χοντρό σκελετό από οξικό σε ταρταρούγα και καφέ φακούς. Το στρογγυλεμένο σχήμα κολακεύει τα περισσότερα πρόσωπα.",
+      "priceCents": 7900,
+      "images": [
+        "assets/images/products/a-tortoise-sunglasses-2.webp",
+        "assets/images/products/a-tortoise-sunglasses-1.webp"
+      ],
+      "attributes": {
+        "material": "Σκελετός από οξικό, φακοί πολυκαρβονικοί",
+        "lens": "Καφέ φακοί, προστασία UV400",
+        "dimensions": "Φακός 49 χλστ., γέφυρα 22 χλστ., βραχίονας 145 χλστ.",
+        "care": "Καθαρισμός με το πανάκι μικροϊνών, φύλαξη στη θήκη"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 77,
+      "createdAt": "2026-07-21T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-TSG-ONE-TRT",
+          "size": "ONE",
+          "color": "Ταρταρούγα",
+          "colorHex": "#6B3E1F",
+          "stock": 3
+        }
+      ]
+    },
+    {
+      "id": "a-rectangle-sunglasses-black",
+      "slug": "a-rectangle-sunglasses-black",
+      "name": "Ορθογώνια μαύρα γυαλιά ηλίου",
+      "brand": "ÉLAN",
+      "categoryId": "accessories",
+      "subcategoryId": "sunglasses",
+      "description": "Στενά ορθογώνια γυαλιά ηλίου σε γυαλιστερό μαύρο, με σκούρους γκρι φακούς. Ένα αξεσουάρ με διάθεση 90s για κάθε καθημερινό σύνολο.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/a-rectangle-sunglasses-black-1.webp",
+        "assets/images/products/a-rectangle-sunglasses-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Σκελετός από οξικό, φακοί πολυκαρβονικοί",
+        "lens": "Γκρι φακοί, προστασία UV400",
+        "dimensions": "Φακός 52 χλστ., γέφυρα 20 χλστ., βραχίονας 140 χλστ.",
+        "care": "Καθαρισμός με το πανάκι μικροϊνών, φύλαξη στη θήκη"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 66,
+      "createdAt": "2026-09-02T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-RSB-ONE-BLK",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 7
+        }
+      ]
+    },
+    {
+      "id": "a-wool-scarf-grey",
+      "slug": "a-wool-scarf-grey",
+      "name": "Μάλλινο κασκόλ γκρι",
+      "brand": "Nordica",
+      "categoryId": "accessories",
+      "subcategoryId": "scarves",
+      "description": "Μεγάλο, απαλό κασκόλ από μαλλί σε γκρι μελανζέ. Τυλίγεται άνετα δύο φορές γύρω από τον λαιμό ή φοριέται σαν σάλι στους ώμους.",
+      "priceCents": 3900,
+      "images": [
+        "assets/images/products/a-wool-scarf-grey-1.webp",
+        "assets/images/products/a-wool-scarf-grey-2.webp",
+        "assets/images/products/a-wool-scarf-grey-3.webp"
+      ],
+      "attributes": {
+        "material": "Μαλλί",
+        "composition": "80% μαλλί, 20% πολυαμίδιο",
+        "dimensions": "200 × 70 εκ.",
+        "care": "Πλύσιμο στο χέρι σε κρύο νερό, στέγνωμα σε οριζόντια θέση"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 74,
+      "createdAt": "2026-10-06T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-WSG-ONE-GRM",
+          "size": "ONE",
+          "color": "Γκρι μελανζέ",
+          "colorHex": "#A7A9AC",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "a-felt-fedora-grey",
+      "slug": "a-felt-fedora-grey",
+      "name": "Τσόχινο καπέλο fedora",
+      "brand": "Maison Aura",
+      "categoryId": "accessories",
+      "subcategoryId": "hats",
+      "description": "Καπέλο fedora από μάλλινη τσόχα σε γκρι-ελεφαντί, με φαρδύ γείσο και κορδέλα τόνο σε τόνο. Ολοκληρώνει ένα πουκάμισο ή ένα παλτό με κομψότητα.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/a-felt-fedora-grey-1.webp",
+        "assets/images/products/a-felt-fedora-grey-2.webp"
+      ],
+      "attributes": {
+        "material": "Μάλλινη τσόχα",
+        "composition": "100% μαλλί",
+        "dimensions": "Γείσο 8 εκ., εσωτερική ρυθμιζόμενη κορδέλα (56–58 εκ.)",
+        "care": "Καθαρισμός με βούρτσα, φύλαξη σε κουτί ώστε να κρατά το σχήμα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 49,
+      "createdAt": "2026-08-27T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-FFG-ONE-GRY",
+          "size": "ONE",
+          "color": "Γκρι",
+          "colorHex": "#8E8580",
+          "stock": 3
         }
       ]
     }
