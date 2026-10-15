@@ -1,0 +1,337 @@
+{
+  "products": [
+    {
+      "id": "a-leather-tote-cognac",
+      "slug": "a-leather-tote-cognac",
+      "name": "Δερμάτινη τσάντα tote κονιάκ",
+      "brand": "Maison Aura",
+      "categoryId": "accessories",
+      "subcategoryId": "bags",
+      "description": "Ευρύχωρη tote από δέρμα με φυσικά νερά σε απόχρωση κονιάκ, με μακριά χερούλια που πέφτουν άνετα στον ώμο. Χωράει laptop 13\", περιοδικά και τα απαραίτητα της ημέρας.",
+      "priceCents": 12900,
+      "images": [
+        "assets/images/products/a-leather-tote-cognac-1.webp",
+        "assets/images/products/a-leather-tote-cognac-2.webp",
+        "assets/images/products/a-leather-tote-cognac-3.webp"
+      ],
+      "attributes": {
+        "material": "Δέρμα pull-up",
+        "lining": "Χωρίς φόδρα, φινιρισμένο εσωτερικό",
+        "dimensions": "36 × 34 × 12 εκ., χερούλια 60 εκ.",
+        "care": "Κρέμα θρέψης δέρματος, μακριά από βροχή"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 90,
+      "createdAt": "2026-08-11T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-LTC-ONE-CGN",
+          "size": "ONE",
+          "color": "Κονιάκ",
+          "colorHex": "#8B4A22",
+          "stock": 1
+        }
+      ]
+    },
+    {
+      "id": "a-crossbody-bag-black",
+      "slug": "a-crossbody-bag-black",
+      "name": "Μαύρη τσάντα χιαστί",
+      "brand": "ÉLAN",
+      "categoryId": "accessories",
+      "subcategoryId": "bags",
+      "description": "Συμπαγής τσάντα χιαστί από μαύρο δέρμα με κύριο φερμουάρ και εξωτερική τσέπη με φερμουάρ. Το ρυθμιζόμενο λουρί τη μετατρέπει σε τσάντα ώμου.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/a-crossbody-bag-black-1.webp",
+        "assets/images/products/a-crossbody-bag-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Μοσχαρίσιο δέρμα",
+        "lining": "Υφασμάτινη φόδρα",
+        "dimensions": "22 × 15 × 8 εκ., λουρί έως 125 εκ.",
+        "care": "Καθαρισμός με στεγνό μαλακό πανί"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": true
+      },
+      "popularity": 82,
+      "createdAt": "2026-09-22T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-CBB-ONE-BLK",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 7
+        }
+      ]
+    },
+    {
+      "id": "a-leather-clutch-tan",
+      "slug": "a-leather-clutch-tan",
+      "name": "Δερμάτινος φάκελος clutch",
+      "brand": "ÉLAN",
+      "categoryId": "accessories",
+      "subcategoryId": "bags",
+      "description": "Λιτός φάκελος clutch από ταμπά δέρμα με καπάκι και δύο μεταλλικά κουμπιά πίεσης. Για το κινητό, κάρτες και κλειδιά σε βραδινές εξόδους.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/a-leather-clutch-tan-1.webp"
+      ],
+      "attributes": {
+        "material": "Δέρμα φυτικής δέψης",
+        "lining": "Χωρίς φόδρα",
+        "dimensions": "24 × 15 εκ.",
+        "care": "Κρέμα θρέψης δέρματος, μακριά από υγρασία"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 54,
+      "createdAt": "2026-10-09T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-LCT-ONE-TAN",
+          "size": "ONE",
+          "color": "Ταμπά",
+          "colorHex": "#C0602A",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "id": "a-leather-belt-brass",
+      "slug": "a-leather-belt-brass",
+      "name": "Δερμάτινη ζώνη με ορειχάλκινη αγκράφα",
+      "brand": "Nordica",
+      "categoryId": "accessories",
+      "subcategoryId": "belts",
+      "description": "Ζώνη από χοντρό δέρμα 3,5 εκ. με ραφή περιμετρικά και αγκράφα από ορειχάλκινο κράμα. Σε σκούρο καφέ και μαύρο, για τζιν και chinos.",
+      "priceCents": 4500,
+      "compareAtCents": 5500,
+      "images": [
+        "assets/images/products/a-leather-belt-brass-1.webp",
+        "assets/images/products/a-leather-belt-brass-2.webp"
+      ],
+      "attributes": {
+        "material": "Φυσικό δέρμα, αγκράφα από ορείχαλκο",
+        "dimensions": "Πλάτος 3,5 εκ., μήκος S 85 εκ., M 95 εκ., L 105 εκ.",
+        "fit": "Πέντε τρύπες ρύθμισης",
+        "care": "Κρέμα θρέψης δέρματος"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 58,
+      "createdAt": "2026-08-17T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-LBB-S-DBR",
+          "size": "S",
+          "color": "Σκούρο καφέ",
+          "colorHex": "#4A2C20",
+          "stock": 0
+        },
+        {
+          "sku": "A-LBB-M-DBR",
+          "size": "M",
+          "color": "Σκούρο καφέ",
+          "colorHex": "#4A2C20",
+          "stock": 4
+        },
+        {
+          "sku": "A-LBB-L-DBR",
+          "size": "L",
+          "color": "Σκούρο καφέ",
+          "colorHex": "#4A2C20",
+          "stock": 11
+        },
+        {
+          "sku": "A-LBB-S-BLK",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 8
+        },
+        {
+          "sku": "A-LBB-M-BLK",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        },
+        {
+          "sku": "A-LBB-L-BLK",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "a-tortoise-sunglasses",
+      "slug": "a-tortoise-sunglasses",
+      "name": "Γυαλιά ηλίου ταρταρούγα",
+      "brand": "Maison Aura",
+      "categoryId": "accessories",
+      "subcategoryId": "sunglasses",
+      "description": "Γυαλιά ηλίου με χοντρό σκελετό από οξικό σε ταρταρούγα και καφέ φακούς. Το στρογγυλεμένο σχήμα κολακεύει τα περισσότερα πρόσωπα.",
+      "priceCents": 7900,
+      "images": [
+        "assets/images/products/a-tortoise-sunglasses-2.webp",
+        "assets/images/products/a-tortoise-sunglasses-1.webp"
+      ],
+      "attributes": {
+        "material": "Σκελετός από οξικό, φακοί πολυκαρβονικοί",
+        "lens": "Καφέ φακοί, προστασία UV400",
+        "dimensions": "Φακός 49 χλστ., γέφυρα 22 χλστ., βραχίονας 145 χλστ.",
+        "care": "Καθαρισμός με το πανάκι μικροϊνών, φύλαξη στη θήκη"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 77,
+      "createdAt": "2026-07-21T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-TSG-ONE-TRT",
+          "size": "ONE",
+          "color": "Ταρταρούγα",
+          "colorHex": "#6B3E1F",
+          "stock": 3
+        }
+      ]
+    },
+    {
+      "id": "a-rectangle-sunglasses-black",
+      "slug": "a-rectangle-sunglasses-black",
+      "name": "Ορθογώνια μαύρα γυαλιά ηλίου",
+      "brand": "ÉLAN",
+      "categoryId": "accessories",
+      "subcategoryId": "sunglasses",
+      "description": "Στενά ορθογώνια γυαλιά ηλίου σε γυαλιστερό μαύρο, με σκούρους γκρι φακούς. Ένα αξεσουάρ με διάθεση 90s για κάθε καθημερινό σύνολο.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/a-rectangle-sunglasses-black-1.webp",
+        "assets/images/products/a-rectangle-sunglasses-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Σκελετός από οξικό, φακοί πολυκαρβονικοί",
+        "lens": "Γκρι φακοί, προστασία UV400",
+        "dimensions": "Φακός 52 χλστ., γέφυρα 20 χλστ., βραχίονας 140 χλστ.",
+        "care": "Καθαρισμός με το πανάκι μικροϊνών, φύλαξη στη θήκη"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 66,
+      "createdAt": "2026-09-02T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-RSB-ONE-BLK",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 7
+        }
+      ]
+    },
+    {
+      "id": "a-wool-scarf-grey",
+      "slug": "a-wool-scarf-grey",
+      "name": "Μάλλινο κασκόλ γκρι",
+      "brand": "Nordica",
+      "categoryId": "accessories",
+      "subcategoryId": "scarves",
+      "description": "Μεγάλο, απαλό κασκόλ από μαλλί σε γκρι μελανζέ. Τυλίγεται άνετα δύο φορές γύρω από τον λαιμό ή φοριέται σαν σάλι στους ώμους.",
+      "priceCents": 3900,
+      "images": [
+        "assets/images/products/a-wool-scarf-grey-1.webp",
+        "assets/images/products/a-wool-scarf-grey-2.webp",
+        "assets/images/products/a-wool-scarf-grey-3.webp"
+      ],
+      "attributes": {
+        "material": "Μαλλί",
+        "composition": "80% μαλλί, 20% πολυαμίδιο",
+        "dimensions": "200 × 70 εκ.",
+        "care": "Πλύσιμο στο χέρι σε κρύο νερό, στέγνωμα σε οριζόντια θέση"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 74,
+      "createdAt": "2026-10-06T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-WSG-ONE-GRM",
+          "size": "ONE",
+          "color": "Γκρι μελανζέ",
+          "colorHex": "#A7A9AC",
+          "stock": 12
+        }
+      ]
+    },
+    {
+      "id": "a-felt-fedora-grey",
+      "slug": "a-felt-fedora-grey",
+      "name": "Τσόχινο καπέλο fedora",
+      "brand": "Maison Aura",
+      "categoryId": "accessories",
+      "subcategoryId": "hats",
+      "description": "Καπέλο fedora από μάλλινη τσόχα σε γκρι-ελεφαντί, με φαρδύ γείσο και κορδέλα τόνο σε τόνο. Ολοκληρώνει ένα πουκάμισο ή ένα παλτό με κομψότητα.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/a-felt-fedora-grey-1.webp",
+        "assets/images/products/a-felt-fedora-grey-2.webp"
+      ],
+      "attributes": {
+        "material": "Μάλλινη τσόχα",
+        "composition": "100% μαλλί",
+        "dimensions": "Γείσο 8 εκ., εσωτερική ρυθμιζόμενη κορδέλα (56–58 εκ.)",
+        "care": "Καθαρισμός με βούρτσα, φύλαξη σε κουτί ώστε να κρατά το σχήμα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 49,
+      "createdAt": "2026-08-27T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "A-FFG-ONE-GRY",
+          "size": "ONE",
+          "color": "Γκρι",
+          "colorHex": "#8E8580",
+          "stock": 3
+        }
+      ]
+    }
+  ]
+}

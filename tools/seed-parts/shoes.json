@@ -1,0 +1,609 @@
+{
+  "products": [
+    {
+      "id": "s-white-leather-sneakers",
+      "slug": "s-white-leather-sneakers",
+      "name": "Λευκά δερμάτινα sneakers",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "sneakers",
+      "description": "Μίνιμαλ sneakers από λείο λευκό δέρμα, με ελαφρώς ανυψωμένη σόλα και λευκά κορδόνια. Το καθαρό σχέδιο ταιριάζει με τζιν, κολάν ή φόρεμα και φοριέται όλη μέρα.",
+      "priceCents": 8900,
+      "images": [
+        "assets/images/products/s-white-leather-sneakers-1.webp",
+        "assets/images/products/s-white-leather-sneakers-2.webp"
+      ],
+      "attributes": {
+        "material": "Λείο μοσχαρίσιο δέρμα",
+        "sole": "Καουτσούκ",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με υγρό πανί και κρέμα για λευκά δέρματα"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 92,
+      "createdAt": "2026-08-04T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-WLS-36-WHT",
+          "size": "36",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 7
+        },
+        {
+          "sku": "S-WLS-37-WHT",
+          "size": "37",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 12
+        },
+        {
+          "sku": "S-WLS-38-WHT",
+          "size": "38",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 3
+        },
+        {
+          "sku": "S-WLS-39-WHT",
+          "size": "39",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 0
+        },
+        {
+          "sku": "S-WLS-40-WHT",
+          "size": "40",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 9
+        },
+        {
+          "sku": "S-WLS-41-WHT",
+          "size": "41",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 5
+        }
+      ]
+    },
+    {
+      "id": "s-metallic-retro-sneakers",
+      "slug": "s-metallic-retro-sneakers",
+      "name": "Ασημί retro sneakers",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "sneakers",
+      "description": "Retro sneakers από μεταλλιζέ ασημί δέρμα, με διάτρητη μύτη και χοντρή λευκή σόλα. Δίνουν λάμψη σε ένα απλό τζιν και ανοιχτόχρωμο πλεκτό.",
+      "priceCents": 9900,
+      "compareAtCents": 11900,
+      "images": [
+        "assets/images/products/s-metallic-retro-sneakers-1.webp",
+        "assets/images/products/s-metallic-retro-sneakers-2.webp",
+        "assets/images/products/s-metallic-retro-sneakers-3.webp"
+      ],
+      "attributes": {
+        "material": "Μεταλλιζέ δέρμα",
+        "sole": "Καουτσούκ με ανάγλυφο πλαϊνό",
+        "lining": "Υφασμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με στεγνό μαλακό πανί, αποφύγετε τα διαλυτικά"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 71,
+      "createdAt": "2026-09-28T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-MRS-36-SLV",
+          "size": "36",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 1
+        },
+        {
+          "sku": "S-MRS-37-SLV",
+          "size": "37",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 10
+        },
+        {
+          "sku": "S-MRS-38-SLV",
+          "size": "38",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 6
+        },
+        {
+          "sku": "S-MRS-39-SLV",
+          "size": "39",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 2
+        },
+        {
+          "sku": "S-MRS-40-SLV",
+          "size": "40",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "stock": 11
+        }
+      ]
+    },
+    {
+      "id": "s-canvas-sneakers-navy",
+      "slug": "s-canvas-sneakers-navy",
+      "name": "Υφασμάτινα sneakers μπλε",
+      "brand": "ÉLAN",
+      "categoryId": "shoes",
+      "subcategoryId": "sneakers",
+      "description": "Χαμηλά sneakers από ανθεκτικό καραβόπανο σε σκούρο μπλε, με λευκή σόλα από καουτσούκ και καφέ κορδόνια. Ελαφριά και δροσερά για καθημερινές βόλτες.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/s-canvas-sneakers-navy-1.webp",
+        "assets/images/products/s-canvas-sneakers-navy-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερό καραβόπανο",
+        "sole": "Βουλκανιζέ καουτσούκ",
+        "lining": "Βαμβακερή φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με βούρτσα και χλιαρό νερό, στέγνωμα στον αέρα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 84,
+      "createdAt": "2026-07-24T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-CSN-40-NVY",
+          "size": "40",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 4
+        },
+        {
+          "sku": "S-CSN-41-NVY",
+          "size": "41",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 8
+        },
+        {
+          "sku": "S-CSN-42-NVY",
+          "size": "42",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 0
+        },
+        {
+          "sku": "S-CSN-43-NVY",
+          "size": "43",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 12
+        },
+        {
+          "sku": "S-CSN-44-NVY",
+          "size": "44",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 2
+        },
+        {
+          "sku": "S-CSN-45-NVY",
+          "size": "45",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "s-chelsea-boots-tan",
+      "slug": "s-chelsea-boots-tan",
+      "name": "Δερμάτινα chelsea μποτάκια ταμπά",
+      "brand": "Nordica",
+      "categoryId": "shoes",
+      "subcategoryId": "boots",
+      "description": "Χειροποίητα chelsea μποτάκια από φυσικό δέρμα σε ζεστό ταμπά, με ελαστικά πλαϊνά, θηλιά στη φτέρνα και σόλα κρεπ. Το δέρμα αποκτά πατίνα με τον καιρό.",
+      "priceCents": 14900,
+      "images": [
+        "assets/images/products/s-chelsea-boots-tan-1.webp",
+        "assets/images/products/s-chelsea-boots-tan-2.webp",
+        "assets/images/products/s-chelsea-boots-tan-3.webp"
+      ],
+      "attributes": {
+        "material": "Φυσικό δέρμα φυτικής δέψης",
+        "sole": "Κρεπ καουτσούκ",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο, φαρδύ καλαπόδι",
+        "care": "Κρέμα θρέψης δέρματος κάθε λίγες εβδομάδες"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 79,
+      "createdAt": "2026-10-02T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-CHB-40-TAN",
+          "size": "40",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 9
+        },
+        {
+          "sku": "S-CHB-41-TAN",
+          "size": "41",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 3
+        },
+        {
+          "sku": "S-CHB-42-TAN",
+          "size": "42",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 5
+        },
+        {
+          "sku": "S-CHB-43-TAN",
+          "size": "43",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 1
+        },
+        {
+          "sku": "S-CHB-44-TAN",
+          "size": "44",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 7
+        },
+        {
+          "sku": "S-CHB-45-TAN",
+          "size": "45",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "id": "s-combat-boots-black",
+      "slug": "s-combat-boots-black",
+      "name": "Μαύρα δερμάτινα αρβυλάκια",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "boots",
+      "description": "Αρβυλάκια από ανάγλυφο μαύρο δέρμα, με κορδόνια, πλαϊνό φερμουάρ για εύκολο φόρεμα και χοντρή τρακτερωτή σόλα. Δίνουν χαρακτήρα σε τζιν και φορέματα.",
+      "priceCents": 12900,
+      "images": [
+        "assets/images/products/s-combat-boots-black-1.webp",
+        "assets/images/products/s-combat-boots-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Ανάγλυφο μοσχαρίσιο δέρμα",
+        "sole": "Τρακτερωτό καουτσούκ, ύψος 5 εκ.",
+        "lining": "Υφασμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Γυάλισμα με μαύρη κρέμα, αδιαβροχοποίηση πριν τη χρήση"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 86,
+      "createdAt": "2026-08-21T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-CBB-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 0
+        },
+        {
+          "sku": "S-CBB-37-BLK",
+          "size": "37",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 4
+        },
+        {
+          "sku": "S-CBB-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 11
+        },
+        {
+          "sku": "S-CBB-39-BLK",
+          "size": "39",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 8
+        },
+        {
+          "sku": "S-CBB-40-BLK",
+          "size": "40",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        },
+        {
+          "sku": "S-CBB-41-BLK",
+          "size": "41",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        }
+      ]
+    },
+    {
+      "id": "s-suede-lace-up-boots",
+      "slug": "s-suede-lace-up-boots",
+      "name": "Σουέτ μποτάκια με κορδόνια",
+      "brand": "Nordica",
+      "categoryId": "shoes",
+      "subcategoryId": "boots",
+      "description": "Ανδρικά μποτάκια από καφέ σουέτ με κορδόνια, ενισχυμένη μύτη και ανάγλυφη μπεζ σόλα για σταθερό πάτημα στην πόλη και στη φύση.",
+      "priceCents": 13900,
+      "compareAtCents": 15900,
+      "images": [
+        "assets/images/products/s-suede-lace-up-boots-1.webp",
+        "assets/images/products/s-suede-lace-up-boots-2.webp"
+      ],
+      "attributes": {
+        "material": "Σουέτ δέρμα",
+        "sole": "Ανάγλυφο καουτσούκ με αντιολισθητικό πέλμα",
+        "lining": "Υφασμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Βούρτσα για σουέτ και σπρέι αδιαβροχοποίησης"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 63,
+      "createdAt": "2026-07-29T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-SLB-41-BRN",
+          "size": "41",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 3
+        },
+        {
+          "sku": "S-SLB-42-BRN",
+          "size": "42",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 7
+        },
+        {
+          "sku": "S-SLB-43-BRN",
+          "size": "43",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 12
+        },
+        {
+          "sku": "S-SLB-44-BRN",
+          "size": "44",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 3
+        },
+        {
+          "sku": "S-SLB-45-BRN",
+          "size": "45",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 0
+        },
+        {
+          "sku": "S-SLB-46-BRN",
+          "size": "46",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "s-stiletto-pumps-black",
+      "slug": "s-stiletto-pumps-black",
+      "name": "Μαύρες γόβες στιλέτο",
+      "brand": "Maison Aura",
+      "categoryId": "shoes",
+      "subcategoryId": "heels",
+      "description": "Κλασικές γόβες από μαλακό μαύρο δέρμα, με μυτερή μύτη και λεπτό τακούνι 10 εκ. Ένα διαχρονικό ζευγάρι για το γραφείο και τις βραδινές εξόδους.",
+      "priceCents": 10900,
+      "images": [
+        "assets/images/products/s-stiletto-pumps-black-1.webp",
+        "assets/images/products/s-stiletto-pumps-black-2.webp",
+        "assets/images/products/s-stiletto-pumps-black-3.webp"
+      ],
+      "attributes": {
+        "material": "Μαλακό μοσχαρίσιο δέρμα",
+        "heel": "Στιλέτο 10 εκ.",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Καθαρισμός με υγρό πανί, φύλαξη σε σακουλάκι"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 75,
+      "createdAt": "2026-09-15T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-SPB-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 5
+        },
+        {
+          "sku": "S-SPB-37-BLK",
+          "size": "37",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 1
+        },
+        {
+          "sku": "S-SPB-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 10
+        },
+        {
+          "sku": "S-SPB-39-BLK",
+          "size": "39",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        },
+        {
+          "sku": "S-SPB-40-BLK",
+          "size": "40",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "s-leather-moccasins",
+      "slug": "s-leather-moccasins",
+      "name": "Δερμάτινα μοκασίνια",
+      "brand": "Passo",
+      "categoryId": "shoes",
+      "subcategoryId": "loafers",
+      "description": "Ευλύγιστα μοκασίνια από μαλακό δέρμα, με ραφή στο καπάκι και λεπτή σόλα με τάκους. Άνετα από την πρώτη μέρα, σε ταμπά και μαύρο.",
+      "priceCents": 7900,
+      "compareAtCents": 8900,
+      "images": [
+        "assets/images/products/s-leather-moccasins-1.webp",
+        "assets/images/products/s-leather-moccasins-2.webp",
+        "assets/images/products/s-leather-moccasins-3.webp"
+      ],
+      "attributes": {
+        "material": "Μαλακό δέρμα",
+        "sole": "Καουτσούκ με τάκους",
+        "lining": "Δερμάτινη φόδρα",
+        "fit": "Κανονικό νούμερο",
+        "care": "Κρέμα για δέρματα στο αντίστοιχο χρώμα"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 68,
+      "createdAt": "2026-09-07T10:00:00Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "S-LMC-36-TAN",
+          "size": "36",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 11
+        },
+        {
+          "sku": "S-LMC-37-TAN",
+          "size": "37",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 4
+        },
+        {
+          "sku": "S-LMC-38-TAN",
+          "size": "38",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 8
+        },
+        {
+          "sku": "S-LMC-39-TAN",
+          "size": "39",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 0
+        },
+        {
+          "sku": "S-LMC-40-TAN",
+          "size": "40",
+          "color": "Ταμπά",
+          "colorHex": "#B8763E",
+          "stock": 12
+        },
+        {
+          "sku": "S-LMC-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 2
+        },
+        {
+          "sku": "S-LMC-37-BLK",
+          "size": "37",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 6
+        },
+        {
+          "sku": "S-LMC-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 9
+        },
+        {
+          "sku": "S-LMC-39-BLK",
+          "size": "39",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 3
+        },
+        {
+          "sku": "S-LMC-40-BLK",
+          "size": "40",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "stock": 5
+        }
+      ]
+    }
+  ]
+}

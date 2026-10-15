@@ -104,6 +104,27 @@
       "name": "Κασκόλ",
       "parentId": "accessories",
       "sort": 14
+    },
+    {
+      "id": "heels",
+      "slug": "heels",
+      "name": "Γόβες",
+      "parentId": "shoes",
+      "sort": 15
+    },
+    {
+      "id": "loafers",
+      "slug": "loafers",
+      "name": "Μοκασίνια",
+      "parentId": "shoes",
+      "sort": 16
+    },
+    {
+      "id": "hats",
+      "slug": "hats",
+      "name": "Καπέλα",
+      "parentId": "accessories",
+      "sort": 17
     }
   ],
   "settings": {
