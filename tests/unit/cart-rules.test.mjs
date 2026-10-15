@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { clampQty, mergeLine, changeVariantLines, classifyLine, couponMessage, freeShippingProgress } from '../../assets/js/services/cart-rules.js';
+import { clampQty, mergeLine, changeVariantLines, classifyLine, couponMessage, freeShippingProgress, pricedLines, isPriced } from '../../assets/js/services/cart-rules.js';
 
 test('clampQty clamps to [0, stock] and floors', () => {
   assert.equal(clampQty(5, 3), 3);
@@ -66,9 +66,25 @@ test('couponMessage gives Greek text per reason', () => {
   assert.match(couponMessage('max-uses', null, f), /χρήσεις/);
 });
 
-test('freeShippingProgress computes percent and remaining', () => {
+test('freeShippingProgress derives pct from the quote remaining amount', () => {
   assert.deepEqual(freeShippingProgress(3000, 6000), { pct: 50, remainingCents: 3000, free: false });
-  assert.deepEqual(freeShippingProgress(6000, 6000), { pct: 100, remainingCents: 0, free: true });
-  assert.deepEqual(freeShippingProgress(9000, 6000), { pct: 100, remainingCents: 0, free: true });
-  assert.equal(freeShippingProgress(0, 6000).pct, 0);
+  assert.deepEqual(freeShippingProgress(0, 6000), { pct: 100, remainingCents: 0, free: true });
+  assert.equal(freeShippingProgress(6000, 6000).pct, 0);
+  assert.equal(freeShippingProgress(0, 0).free, true);
+});
+
+test('pricedLines excludes lines that cannot be bought', () => {
+  const lines = [
+    { sku: 'a', qty: 2, unitCents: 100 },
+    { sku: 'b', qty: 1, unitCents: 100, problem: 'out-of-stock' },
+    { sku: 'c', qty: 1, unitCents: 100, problem: 'archived' },
+    { sku: 'd', qty: 1, unitCents: 100, problem: 'unknown' },
+    { sku: 'e', qty: 3, unitCents: 50, problem: 'insufficient' },
+  ];
+  assert.deepEqual(pricedLines(lines), [
+    { sku: 'a', unitCents: 100, qty: 2 },
+    { sku: 'e', unitCents: 50, qty: 3 },
+  ]);
+  assert.equal(isPriced('archived'), false);
+  assert.equal(isPriced(undefined), true);
 });

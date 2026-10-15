@@ -66,7 +66,7 @@ function mountShell() {
   body.append(header.offcanvas);
   bindBadges({
     cart: () => import('./services/cart.js').then((m) => m.cartCount()),
-    wishlist: () => import('./services/wishlist.js').then((m) => m.list().then((ids) => ids.length)),
+    wishlist: () => import('./services/wishlist.js').then((m) => m.listActive().then((ids) => ids.length)),
   });
   return { header, bottom, footer };
 }

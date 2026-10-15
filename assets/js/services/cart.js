@@ -4,8 +4,8 @@
 import { tx, reqP } from '../db.js';
 import { getSettings } from './settings.js';
 import { getCoupon } from './coupons.js';
-import { quote, validateCoupon } from './pricing.js';
-import { clampQty, mergeLine, changeVariantLines, classifyLine } from './cart-rules.js';
+import { quote, validateCoupon, subtotalCents } from './pricing.js';
+import { clampQty, mergeLine, changeVariantLines, classifyLine, pricedLines } from './cart-rules.js';
 
 const CART_ID = 'local';
 
@@ -28,19 +28,18 @@ export async function cartCount() {
   return countOf(await getCartRecord());
 }
 
-/** Resolved lines with live product/variant data and problem classification. */
-export async function getCart() {
-  const { cart, rows } = await tx(['carts', 'variants', 'products'], 'readonly', async (t) => {
-    const c = (await reqP(t.objectStore('carts').get(CART_ID))) || emptyCart();
-    const out = [];
-    for (const l of c.lines) {
-      const variant = (await reqP(t.objectStore('variants').get(l.sku))) || null;
-      const product = variant ? (await reqP(t.objectStore('products').get(variant.productId))) || null : null;
-      out.push({ line: l, variant, product });
-    }
-    return { cart: c, rows: out };
-  });
-  const lines = rows.map(({ line, variant, product }) => {
+async function readRows(t, cart) {
+  const out = [];
+  for (const l of cart.lines) {
+    const variant = (await reqP(t.objectStore('variants').get(l.sku))) || null;
+    const product = variant ? (await reqP(t.objectStore('products').get(variant.productId))) || null : null;
+    out.push({ line: l, variant, product });
+  }
+  return out;
+}
+
+function resolveLines(rows) {
+  return rows.map(({ line, variant, product }) => {
     const { available, problem } = classifyLine({ qty: line.qty, variant, product });
     const base = {
       sku: line.sku,
@@ -59,7 +58,15 @@ export async function getCart() {
     };
     return problem ? { ...base, problem } : base;
   });
-  return { lines, couponCode: cart.couponCode || null };
+}
+
+/** Resolved lines with live product/variant data and problem classification. */
+export async function getCart() {
+  const { cart, rows } = await tx(['carts', 'variants', 'products'], 'readonly', async (t) => {
+    const c = (await reqP(t.objectStore('carts').get(CART_ID))) || emptyCart();
+    return { cart: c, rows: await readRows(t, c) };
+  });
+  return { lines: resolveLines(rows), couponCode: cart.couponCode || null };
 }
 
 /**
@@ -168,19 +175,27 @@ export async function clearLines(skus) {
   });
 }
 
-const subtotalOf = (lines) => lines.reduce((s, l) => (l.problem === 'unknown' ? s : s + l.unitCents * l.qty), 0);
-
-/** Validate a code against the current subtotal and store it on success. */
+/** Validate a code against the current priced subtotal and store it, all in one transaction. */
 export async function applyCoupon(code) {
   const typed = String(code ?? '').trim();
   if (!typed) return { ok: false, reason: 'empty' };
-  const coupon = await getCoupon(typed);
-  if (!coupon) return { ok: false, reason: 'not-found' };
-  const { lines } = await getCart();
-  const v = validateCoupon(coupon, subtotalOf(lines));
-  if (!v.ok) return { ok: false, reason: v.reason, coupon };
-  await mutate((rec) => { rec.couponCode = coupon.code; });
-  return { ok: true, coupon };
+  const result = await tx(['carts', 'variants', 'products', 'coupons'], 'readwrite', async (t) => {
+    const coupon = await reqP(t.objectStore('coupons').get(typed.toUpperCase()));
+    if (!coupon) return { ok: false, reason: 'not-found' };
+    const cart = (await reqP(t.objectStore('carts').get(CART_ID))) || emptyCart();
+    const lines = resolveLines(await readRows(t, cart));
+    const v = validateCoupon(coupon, subtotalCents(pricedLines(lines)));
+    if (!v.ok) return { ok: false, reason: v.reason, coupon };
+    cart.couponCode = coupon.code;
+    cart.updatedAt = new Date().toISOString();
+    await reqP(t.objectStore('carts').put(cart));
+    return { ok: true, coupon, cart };
+  });
+  if (result.ok) {
+    notify(result.cart);
+    return { ok: true, coupon: result.coupon };
+  }
+  return result;
 }
 
 export async function removeCoupon() {
@@ -194,8 +209,8 @@ export async function removeCoupon() {
 export async function getQuoteForCart(shippingMethod = 'courier', payment = 'cod') {
   const [{ lines, couponCode }, settings] = await Promise.all([getCart(), getSettings()]);
   const coupon = couponCode ? await getCoupon(couponCode) : null;
-  const priced = lines.filter((l) => l.problem !== 'unknown').map((l) => ({ sku: l.sku, unitCents: l.unitCents, qty: l.qty }));
-  const q = quote({ lines: priced, coupon, shipping: { method: shippingMethod }, payment, settings });
+  // Lines that cannot be bought (out-of-stock/archived/unknown) are excluded from every total.
+  const q = quote({ lines: pricedLines(lines), coupon, shipping: { method: shippingMethod }, payment, settings });
   if (couponCode && !coupon) q.couponError = 'not-found';
   return { quote: q, lines, couponCode, coupon, settings, hasProblems: lines.some((l) => l.problem) };
 }

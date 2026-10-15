@@ -11,8 +11,13 @@ const emptyHtml = () => `<div class="cart-empty" data-empty>
     <a class="btn btn-dark" href="#/catalog">Δείτε τον κατάλογο</a>
   </div>`;
 
+// One live listener at a time: each render detaches the previous page's listener first.
+let detach = null;
+
 /** Simple wishlist grid. Task 10 embeds this inside the account area. */
 export default async function render() {
+  if (detach) detach();
+  detach = null;
   const root = html(`<section class="page wishlist-page" data-page="wishlist" data-route="/account/wishlist">
     <div class="container-xl">
       <h1 class="display-title">Αγαπημένα</h1>
@@ -43,18 +48,21 @@ export default async function render() {
   sync();
 
   // Un-hearting a card removes it from the page.
-  window.addEventListener('wishlist:changed', function onChange(e) {
-    if (!root.isConnected) {
-      window.removeEventListener('wishlist:changed', onChange);
-      return;
-    }
+  let seen = 0;
+  const onChange = (e) => {
     const d = e.detail || {};
+    if (Number.isFinite(d.version)) {
+      if (d.version < seen) return;
+      seen = d.version;
+    }
     const keep = Array.isArray(d.ids) ? new Set(d.ids) : null;
     [...grid.children].forEach((card) => {
       const gone = keep ? !keep.has(card.dataset.productId) : d.active === false && d.productId === card.dataset.productId;
       if (gone) card.remove();
     });
     sync();
-  });
+  };
+  window.addEventListener('wishlist:changed', onChange);
+  detach = () => window.removeEventListener('wishlist:changed', onChange);
   return root;
 }

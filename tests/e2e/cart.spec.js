@@ -115,7 +115,9 @@ test('quantity cannot exceed stock; same SKU merges', async ({ page }) => {
   const stock = v.stock;
   await openCart(page);
   expect((await addSku(page, v.sku, 1)).ok).toBe(true);
-  expect((await addSku(page, v.sku, 1)).ok || stock < 2).toBeTruthy();
+  const second = await addSku(page, v.sku, 1);
+  expect(second.ok).toBe(stock >= 2);
+  if (stock < 2) expect(second.reason).toBe('insufficient');
   const expectQty = Math.min(2, stock);
   await page.reload();
   await expect(page.locator('.cart-line')).toHaveCount(1);
@@ -381,4 +383,67 @@ test('no horizontal overflow at 390px with items and coupon, no console errors',
   const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(over).toBeLessThanOrEqual(0);
   expect(errors).toEqual([]);
+});
+
+test('free-shipping message agrees with shipping charged when a coupon crosses the threshold', async ({ page }) => {
+  // No seed price lands in the 6000..6666 window where WELCOME10 crosses the threshold, so set one.
+  const price = 6300;
+  const welcome = meta.coupons.find((c) => c.code === 'WELCOME10');
+  const after = price - Math.round(price * welcome.value / 100);
+  expect(price).toBeGreaterThanOrEqual(THRESHOLD);
+  expect(after).toBeLessThan(THRESHOLD);
+  await openCart(page);
+  await dbPatch(page, 'products', big.id, { priceCents: price });
+  await addSku(page, stocked(big).sku, 1);
+  await page.reload();
+  await expect(page.locator('[data-freeship-msg]')).toContainText('Έχετε δωρεάν μεταφορικά');
+  await expect(page.locator('[data-sum-shipping]')).toHaveText('Δωρεάν');
+  await page.locator('[data-coupon-input]').fill('WELCOME10');
+  await page.locator('[data-coupon-apply]').click();
+  await expect(page.locator('[data-coupon-applied]')).toBeVisible();
+  await expect(page.locator('[data-freeship-msg]')).toContainText('Σας λείπουν');
+  const msg = await page.locator('[data-freeship-msg]').innerText();
+  expect(parseEuro(msg.replace('Σας λείπουν', '').replace('για δωρεάν μεταφορικά', ''))).toBe(THRESHOLD - after);
+  expect(parseEuro(await page.locator('[data-sum-shipping]').innerText())).toBe(S.courierCents);
+  expect(parseEuro(await total(page).innerText())).toBe(after + S.courierCents);
+});
+
+test('line totals of buyable lines sum to subtotal; excluded lines are marked', async ({ page }) => {
+  const a = big.variants.find((x) => x.stock >= 2);
+  const b = midA.variants.find((x) => x.stock >= 1);
+  await openCart(page);
+  await addSku(page, a.sku, 2);
+  await addSku(page, b.sku, 1);
+  await dbPatch(page, 'variants', b.sku, { stock: 0 });
+  await page.reload();
+  await expect(line(page, b.sku).locator('[data-excluded]')).toBeVisible();
+  const totals = await page.locator('[data-line-total]').allInnerTexts();
+  const sum = totals.map(parseEuro).filter((n) => !Number.isNaN(n)).reduce((s, n) => s + n, 0);
+  expect(sum).toBe(big.priceCents * 2);
+  expect(parseEuro(await page.locator('[data-sum-subtotal]').innerText())).toBe(big.priceCents * 2);
+});
+
+test('wishlist badge counts only active products', async ({ page }) => {
+  await page.goto('/#/catalog');
+  const cards = page.locator('.product-card[data-product-id]');
+  await expect(cards.first()).toBeVisible();
+  const id0 = await cards.nth(0).getAttribute('data-product-id');
+  await cards.nth(0).locator('[data-wish]').click();
+  await cards.nth(1).locator('[data-wish]').click();
+  await expect(wishBadge(page)).toHaveText('2');
+  await dbPatch(page, 'products', id0, { status: 'archived' });
+  await page.reload();
+  await expect(wishBadge(page)).toHaveText('1');
+  await page.goto('/#/account/wishlist');
+  await expect(page.locator('.product-card[data-product-id]')).toHaveCount(1);
+});
+
+test('no horizontal overflow at 320px', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await openCart(page);
+  await addSku(page, big.variants.find((x) => x.stock >= 3).sku, 2);
+  await page.reload();
+  await expect(page.locator('.cart-line')).toHaveCount(1);
+  const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(over).toBeLessThanOrEqual(0);
 });

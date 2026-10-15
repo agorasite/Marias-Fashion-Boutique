@@ -3,6 +3,12 @@ import { tx, reqP } from '../db.js';
 
 const ID = 'local';
 
+// Monotonic version of the in-memory view. Every change event carries the version it produced;
+// consumers ignore events older than the newest they have applied, so a slow initial read can
+// never overwrite a newer toggle.
+let version = 0;
+export const currentVersion = () => version;
+
 export async function list() {
   const rec = await tx(['wishlists'], 'readonly', (t) => reqP(t.objectStore('wishlists').get(ID)));
   return rec && Array.isArray(rec.productIds) ? [...rec.productIds] : [];
@@ -10,6 +16,25 @@ export async function list() {
 
 export async function has(productId) {
   return (await list()).includes(productId);
+}
+
+/** Persisted ids that still point at an active product (the set the wishlist page shows). */
+export async function listActive() {
+  return tx(['wishlists', 'products'], 'readonly', async (t) => {
+    const rec = await reqP(t.objectStore('wishlists').get(ID));
+    const out = [];
+    for (const id of (rec && rec.productIds) || []) {
+      const p = await reqP(t.objectStore('products').get(id));
+      if (p && (!p.status || p.status === 'active')) out.push(id);
+    }
+    return out;
+  });
+}
+
+/** Read ids together with the version that was current when the read started. */
+export async function snapshot() {
+  const v = version;
+  return { ids: await list(), version: v };
 }
 
 /** Flip the state of a product. Resolves the new state (true = wished). */
@@ -25,7 +50,8 @@ export async function toggle(productId) {
     await reqP(t.objectStore('wishlists').put(rec));
     return { ids: rec.productIds, active: on };
   });
-  window.dispatchEvent(new CustomEvent('wishlist:changed', { detail: { ids, productId, active } }));
+  version += 1;
+  window.dispatchEvent(new CustomEvent('wishlist:changed', { detail: { ids, productId, active, version } }));
   return active;
 }
 
@@ -36,7 +62,7 @@ if (typeof window !== 'undefined' && !window.__elanWishlistBound) {
     if (id) toggle(id).catch((err) => console.warn('wishlist toggle failed', err));
   });
   // Seed UI state (hearts) once persisted ids are known.
-  list()
-    .then((ids) => window.dispatchEvent(new CustomEvent('wishlist:changed', { detail: { ids, productId: null, active: null } })))
+  snapshot()
+    .then(({ ids, version: v }) => window.dispatchEvent(new CustomEvent('wishlist:changed', { detail: { ids, productId: null, active: null, version: v } })))
     .catch(() => {});
 }

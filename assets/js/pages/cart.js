@@ -2,7 +2,7 @@ import { html, escapeHtml as esc, formatMoney, toast } from '../ui.js';
 import { getCart, getQuoteForCart, setQty, changeVariant, removeLine, applyCoupon, removeCoupon } from '../services/cart.js';
 import { getAll } from '../db.js';
 import { sizeLabel, compareSizes } from '../services/products.js';
-import { couponMessage, freeShippingProgress } from '../services/cart-rules.js';
+import { couponMessage, freeShippingProgress, isPriced } from '../services/cart-rules.js';
 
 const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
 const PROBLEM_TEXT = {
@@ -62,17 +62,18 @@ const lineHtml = (l, openPanel, variantsByProduct) => {
         </div>
       </div>` : ''}
     </div>
-    <p class="cart-line-total"><span class="visually-hidden">Σύνολο γραμμής: </span><span data-line-total>${esc(formatMoney(problem === 'archived' || problem === 'unknown' ? 0 : l.unitCents * l.qty))}</span></p>
+    <p class="cart-line-total"><span class="visually-hidden">Σύνολο γραμμής: </span>${isPriced(problem)
+      ? `<span data-line-total>${esc(formatMoney(l.unitCents * l.qty))}</span>`
+      : '<span data-line-total data-excluded>—</span><span class="cart-line-note d-block">Δεν περιλαμβάνεται στο σύνολο</span>'}</p>
   </li>`;
 };
 
 function summaryHtml(data) {
   const { quote: q, settings, couponCode, coupon } = data;
-  const afterDiscount = q.subtotalCents - q.discountCents;
-  const prog = freeShippingProgress(afterDiscount, settings.freeShippingThresholdCents);
+  const prog = freeShippingProgress(q.freeShippingRemainingCents, settings.freeShippingThresholdCents);
   const couponErr = q.couponError ? couponMessage(q.couponError, coupon, formatMoney) : '';
   return `<div class="cart-summary-card">
-    <h2 class="cart-summary-title">Σύνοψη παραγγελίας</h2>
+    <h2 class="cart-summary-title" tabindex="-1">Σύνοψη παραγγελίας</h2>
     ${shipMethod === 'courier' ? `<div class="freeship" data-freeship>
       <p class="freeship-msg" data-freeship-msg>${prog.free
         ? '<i class="bi bi-truck" aria-hidden="true"></i> Έχετε δωρεάν μεταφορικά'
@@ -122,7 +123,7 @@ function summaryHtml(data) {
 function emptyHtml() {
   return `<div class="cart-empty" data-empty>
     <i class="bi bi-bag" aria-hidden="true"></i>
-    <h2 class="h4">Το καλάθι σας είναι άδειο</h2>
+    <h2 class="h4" tabindex="-1">Το καλάθι σας είναι άδειο</h2>
     <p class="text-body-secondary">Ανακαλύψτε τις νέες αφίξεις και προσθέστε τα αγαπημένα σας κομμάτια.</p>
     <a class="btn btn-dark" href="#/catalog">Συνέχεια αγορών</a>
   </div>`;
@@ -156,9 +157,12 @@ export default async function render() {
     });
   }
 
+  let paintSeq = 0;
   async function paint(focusSel) {
+    const mine = ++paintSeq;
     await loadVariants();
     const data = await getQuoteForCart(shipMethod, 'none');
+    if (mine !== paintSeq) return; // a newer paint superseded this one
     body.removeAttribute('aria-busy');
     if (!data.lines.length) {
       body.innerHTML = emptyHtml();

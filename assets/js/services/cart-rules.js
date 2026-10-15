@@ -60,12 +60,18 @@ export function couponMessage(reason, coupon, formatMoney) {
   }
 }
 
-export function freeShippingProgress(afterDiscountCents, thresholdCents) {
+/** Lines in these states cannot be bought and are left out of the quote. */
+export const isPriced = (problem) => !(problem === 'out-of-stock' || problem === 'archived' || problem === 'unknown');
+
+/** Cart lines (with unitCents/qty/problem) -> the lines handed to pricing.quote. */
+export function pricedLines(lines) {
+  return lines.filter((l) => isPriced(l.problem)).map((l) => ({ sku: l.sku, unitCents: l.unitCents, qty: l.qty }));
+}
+
+/** Progress derived from the quote's own freeShippingRemainingCents (no recomputation of the discount). */
+export function freeShippingProgress(remainingCents, thresholdCents) {
   const t = Math.max(0, thresholdCents || 0);
-  if (t === 0 || afterDiscountCents >= t) return { pct: 100, remainingCents: 0, free: true };
-  return {
-    pct: Math.max(0, Math.min(100, Math.floor((afterDiscountCents / t) * 100))),
-    remainingCents: t - afterDiscountCents,
-    free: false,
-  };
+  const rem = Math.max(0, remainingCents || 0);
+  if (t === 0 || rem === 0) return { pct: 100, remainingCents: 0, free: true };
+  return { pct: Math.max(0, Math.min(100, Math.floor(((t - rem) / t) * 100))), remainingCents: rem, free: false };
 }

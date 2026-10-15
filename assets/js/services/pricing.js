@@ -18,25 +18,28 @@ export function validateCoupon(coupon, subtotalCents, now = new Date()) {
   return { ok: true };
 }
 
+/** Sum of unitCents * qty. The single subtotal definition used by quote and the cart. */
+export const subtotalCents = (lines) => lines.reduce((s, l) => s + l.unitCents * l.qty, 0);
+
 export function quote({ lines, coupon = null, shipping, payment, settings, now = new Date() }) {
   const { vatRate, courierCents, freeShippingThresholdCents, codFeeCents } = settings;
-  const subtotalCents = lines.reduce((s, l) => s + l.unitCents * l.qty, 0);
+  const sub = subtotalCents(lines);
 
   let discountCents = 0;
   let couponError = null;
   if (coupon) {
-    const v = validateCoupon(coupon, subtotalCents, now);
+    const v = validateCoupon(coupon, sub, now);
     if (!v.ok) {
       couponError = v.reason;
     } else {
       const raw = coupon.type === 'percent'
-        ? Math.round(subtotalCents * coupon.value / 100)
+        ? Math.round(sub * coupon.value / 100)
         : coupon.value;
-      discountCents = Math.max(0, Math.min(raw, subtotalCents));
+      discountCents = Math.max(0, Math.min(raw, sub));
     }
   }
 
-  const afterDiscount = subtotalCents - discountCents;
+  const afterDiscount = sub - discountCents;
   let shippingCents = 0;
   let freeShippingRemainingCents = 0;
   if (shipping && shipping.method === 'courier') {
@@ -52,7 +55,7 @@ export function quote({ lines, coupon = null, shipping, payment, settings, now =
   const vatIncludedCents = totalCents - Math.round(totalCents / (1 + vatRate));
 
   return {
-    subtotalCents, discountCents, shippingCents, codFeeCents: fee,
+    subtotalCents: sub, discountCents, shippingCents, codFeeCents: fee,
     totalCents, vatIncludedCents, freeShippingRemainingCents, couponError,
   };
 }
