@@ -65,6 +65,7 @@ export function validateSeed(doc, categories, { rootDir = null, credits = {}, mi
     if (!Array.isArray(p.images) || p.images.length === 0) err(`${L}: product has no images`);
     else p.images.forEach((im) => {
       if (!isStr(im)) return err(`${L}: invalid image path`);
+      if (/^([a-zA-Z]:|[\\/])/.test(im) || im.includes('\\') || im.split('/').includes('..')) return err(`${L}: image path must be relative with no ..: ${im}`);
       const owner = imageOwner.get(im);
       if (owner && owner !== p.id) err(`${L}: image ${im} is reused by more than one product (also ${owner})`);
       else imageOwner.set(im, p.id);

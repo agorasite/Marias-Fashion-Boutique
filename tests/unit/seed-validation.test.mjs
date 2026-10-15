@@ -59,3 +59,21 @@ test('missing file under rootDir', () => {
   assert.equal(r.ok, false);
   assert.ok(r.errors.some((e) => /does not exist|missing file/i.test(e)));
 });
+
+test('unsafe image paths rejected', () => {
+  for (const bad of ['../x.webp', '/abs/x.webp', 'C:/x.webp', 'a\\b.webp']) {
+    const { doc, credits } = good();
+    doc.products[0].images = [bad]; credits[bad] = { ...credit };
+    const r = run(doc, credits);
+    assert.ok(r.errors.some((e) => /relative/.test(e)), bad);
+  }
+});
+test('existing files under rootDir pass', async () => {
+  const fs = await import('node:fs'), os = await import('node:os'), path = await import('node:path');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'seed-'));
+  const { doc, credits } = good();
+  for (const p of doc.products) for (const im of p.images) { fs.mkdirSync(path.dirname(path.join(root, im)), { recursive: true }); fs.writeFileSync(path.join(root, im), 'x'); }
+  const r = validateSeed(doc, cats, { rootDir: root, credits });
+  assert.deepEqual(r.errors, []);
+  fs.rmSync(root, { recursive: true });
+});
