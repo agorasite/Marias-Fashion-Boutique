@@ -1,0 +1,866 @@
+{
+  "products": [
+    {
+      "id": "m-poplin-shirt-white",
+      "slug": "m-poplin-shirt-white",
+      "name": "Λευκό πουκάμισο ποπλίνα",
+      "brand": "Maison Aura",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Κλασικό λευκό πουκάμισο από λεία βαμβακερή ποπλίνα, με ιταλικό γιακά και μονές μανσέτες. Ταιριάζει με κοστούμι στο γραφείο ή ανοιχτό στον λαιμό με τζιν το Σαββατοκύριακο.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/m-poplin-shirt-white-1.webp",
+        "assets/images/products/m-poplin-shirt-white-2.webp",
+        "assets/images/products/m-poplin-shirt-white-3.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερή ποπλίνα",
+        "composition": "100% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 40°C, σιδέρωμα σε μέτρια θερμοκρασία"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 88,
+      "createdAt": "2026-07-22T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-PPW-S-WHT",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 5
+        },
+        {
+          "sku": "M-PPW-M-WHT",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 12
+        },
+        {
+          "sku": "M-PPW-L-WHT",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 8
+        },
+        {
+          "sku": "M-PPW-XL-WHT",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 12
+        },
+        {
+          "sku": "M-PPW-XXL-WHT",
+          "size": "XXL",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "stock": 0
+        }
+      ]
+    },
+    {
+      "id": "m-linen-band-collar-shirt",
+      "slug": "m-linen-band-collar-shirt",
+      "name": "Λινό κοντομάνικο πουκάμισο με μάο γιακά",
+      "brand": "Nordica",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Ελαφρύ κοντομάνικο πουκάμισο από 100% λινό με όρθιο μάο γιακά και κρυφή σειρά κουμπιών. Η φυσική υφή του λινού το κρατά δροσερό στις ζεστές μέρες.",
+      "priceCents": 4900,
+      "compareAtCents": 5900,
+      "images": [
+        "assets/images/products/m-linen-band-collar-shirt-1.webp",
+        "assets/images/products/m-linen-band-collar-shirt-2.webp",
+        "assets/images/products/m-linen-band-collar-shirt-3.webp"
+      ],
+      "attributes": {
+        "material": "Λινό",
+        "composition": "100% λινό",
+        "fit": "Relaxed",
+        "care": "Πλύσιμο στους 30°C, στέγνωμα σε κρεμάστρα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 61,
+      "createdAt": "2026-07-28T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-LBC-S-ECR",
+          "size": "S",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 5
+        },
+        {
+          "sku": "M-LBC-M-ECR",
+          "size": "M",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 2
+        },
+        {
+          "sku": "M-LBC-L-ECR",
+          "size": "L",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-XL-ECR",
+          "size": "XL",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 3
+        },
+        {
+          "sku": "M-LBC-XXL-ECR",
+          "size": "XXL",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-S-LBL",
+          "size": "S",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 12
+        },
+        {
+          "sku": "M-LBC-M-LBL",
+          "size": "M",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 10
+        },
+        {
+          "sku": "M-LBC-L-LBL",
+          "size": "L",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-XL-LBL",
+          "size": "XL",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 7
+        },
+        {
+          "sku": "M-LBC-XXL-LBL",
+          "size": "XXL",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "stock": 2
+        },
+        {
+          "sku": "M-LBC-S-NVY",
+          "size": "S",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-M-NVY",
+          "size": "M",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 4
+        },
+        {
+          "sku": "M-LBC-L-NVY",
+          "size": "L",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 0
+        },
+        {
+          "sku": "M-LBC-XL-NVY",
+          "size": "XL",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 10
+        },
+        {
+          "sku": "M-LBC-XXL-NVY",
+          "size": "XXL",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "stock": 11
+        }
+      ]
+    },
+    {
+      "id": "m-linen-shirt-blue",
+      "slug": "m-linen-shirt-blue",
+      "name": "Λινό πουκάμισο μπλε",
+      "brand": "ÉLAN",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Μακρυμάνικο πουκάμισο από μείγμα λινού και βαμβακιού σε μπλε απόχρωση με ελαφριά μελανζέ υφή. Φοριέται ανοιχτό με γυρισμένα μανίκια πάνω από chino ή σορτς.",
+      "priceCents": 5400,
+      "images": [
+        "assets/images/products/m-linen-shirt-blue-1.webp",
+        "assets/images/products/m-linen-shirt-blue-2.webp"
+      ],
+      "attributes": {
+        "material": "Λινό-βαμβάκι",
+        "composition": "55% λινό, 45% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 30°C, ήπιο σιδέρωμα"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 54,
+      "createdAt": "2026-09-02T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-LSB-S-BLU",
+          "size": "S",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 10
+        },
+        {
+          "sku": "M-LSB-M-BLU",
+          "size": "M",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 0
+        },
+        {
+          "sku": "M-LSB-L-BLU",
+          "size": "L",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 4
+        },
+        {
+          "sku": "M-LSB-XL-BLU",
+          "size": "XL",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 6
+        },
+        {
+          "sku": "M-LSB-XXL-BLU",
+          "size": "XXL",
+          "color": "Μπλε",
+          "colorHex": "#5B7BA8",
+          "stock": 2
+        }
+      ]
+    },
+    {
+      "id": "m-flannel-check-burgundy",
+      "slug": "m-flannel-check-burgundy",
+      "name": "Καρό φλανέλα πουκάμισο μπορντό",
+      "brand": "ÉLAN",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Ζεστό πουκάμισο από βουρτσισμένη βαμβακερή φλανέλα σε καρό μπορντό με σκούρο μπλε. Φοριέται κλειστό ή ανοιχτό σαν ελαφρύ επανωφόρι πάνω από T-shirt.",
+      "priceCents": 4900,
+      "images": [
+        "assets/images/products/m-flannel-check-burgundy-1.webp",
+        "assets/images/products/m-flannel-check-burgundy-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερή φλανέλα",
+        "composition": "100% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 30°C ανάποδα, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": true
+      },
+      "popularity": 79,
+      "createdAt": "2026-10-01T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-FCB-S-BRD",
+          "size": "S",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 11
+        },
+        {
+          "sku": "M-FCB-M-BRD",
+          "size": "M",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 5
+        },
+        {
+          "sku": "M-FCB-L-BRD",
+          "size": "L",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 8
+        },
+        {
+          "sku": "M-FCB-XL-BRD",
+          "size": "XL",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 5
+        },
+        {
+          "sku": "M-FCB-XXL-BRD",
+          "size": "XXL",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "m-check-overshirt-grey",
+      "slug": "m-check-overshirt-grey",
+      "name": "Καρό overshirt γκρι-μαύρο",
+      "brand": "Nordica",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Χοντρό πουκάμισο-overshirt σε μεγάλο καρό γκρι και μαύρο, με δύο τσέπες με καπάκι στο στήθος. Μπαίνει πάνω από T-shirt ή φούτερ τις δροσερές μέρες του φθινοπώρου.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/m-check-overshirt-grey-1.webp",
+        "assets/images/products/m-check-overshirt-grey-2.webp"
+      ],
+      "attributes": {
+        "material": "Βαμβακερή φλανέλα βαριάς ύφανσης",
+        "composition": "80% βαμβάκι, 20% πολυεστέρας",
+        "fit": "Relaxed",
+        "care": "Πλύσιμο στους 30°C, στέγνωμα σε επίπεδη επιφάνεια"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 67,
+      "createdAt": "2026-10-08T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-COG-S-GRY",
+          "size": "S",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 10
+        },
+        {
+          "sku": "M-COG-M-GRY",
+          "size": "M",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 6
+        },
+        {
+          "sku": "M-COG-L-GRY",
+          "size": "L",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 5
+        },
+        {
+          "sku": "M-COG-XL-GRY",
+          "size": "XL",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 0
+        },
+        {
+          "sku": "M-COG-XXL-GRY",
+          "size": "XXL",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "m-denim-shirt-indigo",
+      "slug": "m-denim-shirt-indigo",
+      "name": "Τζιν πουκάμισο indigo",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "shirts",
+      "description": "Πουκάμισο από μαλακό ελαφρύ ντένιμ σε μεσαίο indigo, με τσέπη στο στήθος και κουμπιά στον γιακά. Συνδυάζεται με μαύρο ή μπεζ παντελόνι για ένα casual σύνολο.",
+      "priceCents": 5900,
+      "images": [
+        "assets/images/products/m-denim-shirt-indigo-1.webp",
+        "assets/images/products/m-denim-shirt-indigo-2.webp",
+        "assets/images/products/m-denim-shirt-indigo-3.webp"
+      ],
+      "attributes": {
+        "material": "Ελαφρύ ντένιμ",
+        "composition": "100% βαμβάκι",
+        "fit": "Regular",
+        "care": "Πλύσιμο στους 30°C ανάποδα, με όμοια χρώματα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 72,
+      "createdAt": "2026-08-10T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-DSI-S-IND",
+          "size": "S",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 5
+        },
+        {
+          "sku": "M-DSI-M-IND",
+          "size": "M",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 3
+        },
+        {
+          "sku": "M-DSI-L-IND",
+          "size": "L",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 5
+        },
+        {
+          "sku": "M-DSI-XL-IND",
+          "size": "XL",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 2
+        },
+        {
+          "sku": "M-DSI-XXL-IND",
+          "size": "XXL",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "stock": 9
+        }
+      ]
+    },
+    {
+      "id": "m-slim-jeans-blue",
+      "slug": "m-slim-jeans-blue",
+      "name": "Slim τζιν stretch",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Slim τζιν πέντε τσεπών από ντένιμ με λίγο ελαστάν για άνεση στην κίνηση. Διατίθεται σε μεσαίο μπλε με ξεβάμματα και σε σκούρο μπλε, με ρεβέρ που γυρίζει στο μήκος που θέλετε.",
+      "priceCents": 6900,
+      "images": [
+        "assets/images/products/m-slim-jeans-blue-1.webp",
+        "assets/images/products/m-slim-jeans-blue-2.webp",
+        "assets/images/products/m-slim-jeans-blue-3.webp"
+      ],
+      "attributes": {
+        "material": "Stretch ντένιμ",
+        "composition": "98% βαμβάκι, 2% ελαστάν",
+        "fit": "Slim",
+        "care": "Πλύσιμο στους 30°C ανάποδα, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": true,
+        "new": false,
+        "bestSeller": true
+      },
+      "popularity": 95,
+      "createdAt": "2026-07-20T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-SJB-30-MBL",
+          "size": "30",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 5
+        },
+        {
+          "sku": "M-SJB-32-MBL",
+          "size": "32",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 6
+        },
+        {
+          "sku": "M-SJB-34-MBL",
+          "size": "34",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 9
+        },
+        {
+          "sku": "M-SJB-36-MBL",
+          "size": "36",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 1
+        },
+        {
+          "sku": "M-SJB-38-MBL",
+          "size": "38",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#4A6F9C",
+          "stock": 3
+        },
+        {
+          "sku": "M-SJB-30-DBL",
+          "size": "30",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 2
+        },
+        {
+          "sku": "M-SJB-32-DBL",
+          "size": "32",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 7
+        },
+        {
+          "sku": "M-SJB-34-DBL",
+          "size": "34",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 8
+        },
+        {
+          "sku": "M-SJB-36-DBL",
+          "size": "36",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 1
+        },
+        {
+          "sku": "M-SJB-38-DBL",
+          "size": "38",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "stock": 5
+        }
+      ]
+    },
+    {
+      "id": "m-slim-jeans-black",
+      "slug": "m-slim-jeans-black",
+      "name": "Μαύρο slim τζιν",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Μαύρο slim τζιν με διακριτικά φθαρμένα σημεία και αντίθεση στο γκρι εσωτερικό του ρεβέρ. Ταιριάζει με λευκά αθλητικά ή μποτάκια.",
+      "priceCents": 6900,
+      "compareAtCents": 7900,
+      "images": [
+        "assets/images/products/m-slim-jeans-black-1.webp",
+        "assets/images/products/m-slim-jeans-black-2.webp"
+      ],
+      "attributes": {
+        "material": "Stretch ντένιμ",
+        "composition": "98% βαμβάκι, 2% ελαστάν",
+        "fit": "Slim",
+        "care": "Πλύσιμο στους 30°C ανάποδα, με σκούρα χρώματα"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 70,
+      "createdAt": "2026-08-04T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-SJK-30-BLK",
+          "size": "30",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 3
+        },
+        {
+          "sku": "M-SJK-32-BLK",
+          "size": "32",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 9
+        },
+        {
+          "sku": "M-SJK-34-BLK",
+          "size": "34",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 4
+        },
+        {
+          "sku": "M-SJK-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 5
+        },
+        {
+          "sku": "M-SJK-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#1A1A1A",
+          "stock": 1
+        }
+      ]
+    },
+    {
+      "id": "m-relaxed-jeans-light",
+      "slug": "m-relaxed-jeans-light",
+      "name": "Relaxed τζιν ανοιχτό μπλε",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Άνετο relaxed τζιν σε ανοιχτό πλυμένο μπλε, με χαλαρό μηρό που στενεύει ελαφρά προς τον αστράγαλο. Πέφτει μαλακά πάνω σε ογκώδη αθλητικά.",
+      "priceCents": 7400,
+      "images": [
+        "assets/images/products/m-relaxed-jeans-light-1.webp",
+        "assets/images/products/m-relaxed-jeans-light-2.webp"
+      ],
+      "attributes": {
+        "material": "Ντένιμ",
+        "composition": "100% βαμβάκι",
+        "fit": "Relaxed tapered",
+        "care": "Πλύσιμο στους 30°C ανάποδα, όχι στεγνωτήριο"
+      },
+      "flags": {
+        "featured": false,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 58,
+      "createdAt": "2026-09-18T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-RJL-30-LBL",
+          "size": "30",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 6
+        },
+        {
+          "sku": "M-RJL-32-LBL",
+          "size": "32",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 0
+        },
+        {
+          "sku": "M-RJL-34-LBL",
+          "size": "34",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 4
+        },
+        {
+          "sku": "M-RJL-36-LBL",
+          "size": "36",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 5
+        },
+        {
+          "sku": "M-RJL-38-LBL",
+          "size": "38",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "stock": 8
+        }
+      ]
+    },
+    {
+      "id": "m-ripped-straight-jeans",
+      "slug": "m-ripped-straight-jeans",
+      "name": "Ίσιο τζιν με σκισίματα",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Ίσιο τζιν με φθαρμένα σκισίματα στα γόνατα και ελαφρώς φαρδύ μπατζάκι. Διατίθεται σε γαλάζιο πλυμένο ντένιμ και σε μαύρο.",
+      "priceCents": 7900,
+      "images": [
+        "assets/images/products/m-ripped-straight-jeans-1.webp",
+        "assets/images/products/m-ripped-straight-jeans-2.webp"
+      ],
+      "attributes": {
+        "material": "Ντένιμ",
+        "composition": "100% βαμβάκι",
+        "fit": "Straight",
+        "care": "Πλύσιμο στους 30°C ανάποδα, σε σακουλάκι πλυντηρίου"
+      },
+      "flags": {
+        "featured": true,
+        "new": true,
+        "bestSeller": false
+      },
+      "popularity": 64,
+      "createdAt": "2026-09-27T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-RSJ-30-LBL",
+          "size": "30",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 10
+        },
+        {
+          "sku": "M-RSJ-32-LBL",
+          "size": "32",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 5
+        },
+        {
+          "sku": "M-RSJ-34-LBL",
+          "size": "34",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 1
+        },
+        {
+          "sku": "M-RSJ-36-LBL",
+          "size": "36",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 10
+        },
+        {
+          "sku": "M-RSJ-38-LBL",
+          "size": "38",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "stock": 12
+        },
+        {
+          "sku": "M-RSJ-30-BLK",
+          "size": "30",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 8
+        },
+        {
+          "sku": "M-RSJ-32-BLK",
+          "size": "32",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 6
+        },
+        {
+          "sku": "M-RSJ-34-BLK",
+          "size": "34",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 11
+        },
+        {
+          "sku": "M-RSJ-36-BLK",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 6
+        },
+        {
+          "sku": "M-RSJ-38-BLK",
+          "size": "38",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "stock": 11
+        }
+      ]
+    },
+    {
+      "id": "m-ripped-skinny-jeans",
+      "slug": "m-ripped-skinny-jeans",
+      "name": "Skinny τζιν με σκισμένα γόνατα",
+      "brand": "ÉLAN Denim",
+      "categoryId": "men",
+      "subcategoryId": "jeans",
+      "description": "Εφαρμοστό skinny τζιν σε ανοιχτό μπλε με μεγάλα σκισίματα στα γόνατα και ξεβάμματα. Φοριέται με λευκό T-shirt και sneakers.",
+      "priceCents": 5900,
+      "compareAtCents": 6900,
+      "images": [
+        "assets/images/products/m-ripped-skinny-jeans-1.webp",
+        "assets/images/products/m-ripped-skinny-jeans-2.webp"
+      ],
+      "attributes": {
+        "material": "Stretch ντένιμ",
+        "composition": "97% βαμβάκι, 3% ελαστάν",
+        "fit": "Skinny",
+        "care": "Πλύσιμο στους 30°C ανάποδα, σε σακουλάκι πλυντηρίου"
+      },
+      "flags": {
+        "featured": false,
+        "new": false,
+        "bestSeller": false
+      },
+      "popularity": 41,
+      "createdAt": "2026-08-21T10:00:00.000Z",
+      "status": "active",
+      "variants": [
+        {
+          "sku": "M-RKJ-30-LBL",
+          "size": "30",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 4
+        },
+        {
+          "sku": "M-RKJ-32-LBL",
+          "size": "32",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 1
+        },
+        {
+          "sku": "M-RKJ-34-LBL",
+          "size": "34",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 0
+        },
+        {
+          "sku": "M-RKJ-36-LBL",
+          "size": "36",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 2
+        },
+        {
+          "sku": "M-RKJ-38-LBL",
+          "size": "38",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#A3BEDB",
+          "stock": 5
+        }
+      ]
+    }
+  ]
+}
