@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": "dress-midi-001",
+      "name": "Μίντι φόρεμα σε μαύρο",
+      "categoryId": "women-dresses",
+      "priceCents": 6900,
+      "images": ["assets/images/dress-midi-001.webp"],
+      "variants": [
+        {"sku": "DRESS001-S-BLK", "size": "S", "color": "Black", "stock": 4},
+        {"sku": "DRESS001-M-BLK", "size": "M", "color": "Black", "stock": 2}
+      ]
+    },
+    {
+      "id": "sneakers-001",
+      "name": "Δερμάτινα sneakers",
+      "categoryId": "shoes",
+      "priceCents": 9900,
+      "images": ["assets/images/sneakers-001.webp"],
+      "variants": [
+        {"sku": "SNEAK001-40-WHT", "size": "40", "color": "White", "stock": 6},
+        {"sku": "SNEAK001-41-WHT", "size": "41", "color": "White", "stock": 3}
+      ]
+    }
+  ]
+}

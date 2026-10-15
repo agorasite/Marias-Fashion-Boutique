@@ -1,0 +1,722 @@
+# PROJECT: Premium Fashion Boutique — Fully Functional E-commerce Demo
+
+## 1. Your Role
+
+Act as a senior full-stack architect, experienced frontend developer, UI/UX designer, and e-commerce specialist.
+
+Build a **complete, premium, fully interactive Fashion Boutique e-commerce demo** for the AgoraSite portfolio.
+
+**IMPORTANT:** This is NOT a static template or a collection of mockup pages.
+
+The objective is to create a realistic, polished e-commerce application where visitors can browse products, choose variations, add items to their cart, complete demo orders, and experience the entire online shopping process.
+
+An administrator must also be able to manage the shop through a fully functional admin dashboard.
+
+Work autonomously. Make reasonable technical and design decisions without repeatedly asking for confirmation.
+
+## 2. Technology Stack
+
+Use exclusively:
+
+- HTML5
+- CSS3
+- Bootstrap 5.3+
+- Vanilla JavaScript ES6+ with modules
+- Bootstrap Icons
+- IndexedDB for structured persistent browser storage
+- LocalStorage only for lightweight settings and preferences
+- JSON for initial demo datasets
+
+Do NOT use React, Vue, Angular, PHP, Laravel, MySQL, or any backend framework.
+
+Do not introduce a build system unless absolutely necessary.
+
+The application must run as a static website served through a standard HTTP server.
+
+### Browser Data Architecture
+
+Implement a dedicated storage layer using IndexedDB.
+
+Create separate stores for:
+
+- Products and product variants
+- Categories
+- Customers
+- Shopping carts
+- Wishlists
+- Orders and order items
+- Promotions and coupons
+- Product reviews
+- Store settings
+- Instagram feed configuration
+
+Use stable unique identifiers and relationships between records.
+
+Add data schema versioning and migration support.
+
+Seed realistic demo data only during initial installation. Never overwrite existing user data on refresh.
+
+Provide an administrator option to reset the demo and restore the original dataset.
+
+Implement JSON export and import for backup and restoration, with schema validation.
+
+## 3. Branding and Visual Design
+
+Create a fictional premium boutique named **ÉLAN Fashion Boutique**.
+
+Brand personality:
+
+- Modern European fashion
+- Elegant and minimal
+- Premium without appearing excessively luxurious
+- Editorial fashion photography
+- Spacious layouts
+- Strong typography
+- Subtle animations
+- Exceptional mobile shopping experience
+
+Suggested colors:
+
+- Warm off-white backgrounds
+- Charcoal text
+- Soft beige accents
+- Black primary buttons
+- Muted gold or taupe details
+
+Avoid generic Bootstrap styling.
+
+Customize Bootstrap extensively so the final website resembles a professionally designed boutique.
+
+The website must look ready for a real customer presentation.
+
+All customer-facing text must be written in natural Greek.
+
+Currency: EUR (€).
+
+Market: Greece.
+
+## 4. Mobile-First Customer Experience
+
+Design for mobile devices FIRST.
+
+Assume more than 80% of visitors use smartphones.
+
+Implement:
+
+- Responsive sticky header
+- Compact mobile navigation
+- Mobile bottom navigation for key shopping actions
+- Product search
+- Cart icon with live item count
+- Wishlist icon
+- Mobile-friendly product filters
+- Offcanvas navigation and filters
+- Touch-friendly buttons
+- Smooth scrolling
+- Fast product variation selection
+- Loading and empty states
+- Toast notifications
+- Accessible forms and dialogs
+
+Every feature must remain functional on desktop, tablet, and smartphone.
+
+## 5. Storefront Pages
+
+Implement the following complete views:
+
+### Homepage
+
+Include:
+
+- Full-width fashion hero
+- New Collection section
+- Women's Fashion
+- Men's Fashion
+- Shoes
+- Accessories
+- Best Sellers
+- New Arrivals
+- Promotional banners
+- Featured collections
+- Instagram inspiration section
+- Newsletter subscription demo
+- Footer with store information
+
+Use professional-looking fashion imagery, ensuring appropriate usage rights.
+
+### Product Catalog
+
+Support:
+
+- Category and subcategory navigation
+- Product grid
+- Search with instant results
+- Price range filtering
+- Size filtering
+- Color filtering
+- Brand filtering
+- Availability filtering
+- Sort by price
+- Sort by newest
+- Sort by popularity
+- Pagination or load-more
+- Product quick-view modal
+- Wishlist actions
+
+Filters and sorting must operate on the actual products stored in IndexedDB.
+
+### Product Detail Page
+
+Include:
+
+- Multiple product images
+- Thumbnail gallery
+- Image zoom or lightbox
+- Product name and description
+- Current price and original price
+- Discount badge
+- Color selector with visual swatches
+- Size selector
+- Size availability
+- Size chart modal
+- Quantity selector
+- Add to cart
+- Add to wishlist
+- Stock status
+- Product specifications
+- Materials and care instructions
+- Shipping and returns information
+- Customer reviews
+- Related products
+
+**Product variations must behave realistically.**
+
+Selecting a different size and color should update availability and stock information.
+
+Do not allow customers to purchase unavailable variations.
+
+## 6. Shopping Cart
+
+Create a persistent cart.
+
+Include:
+
+- Add product
+- Remove product
+- Update quantity
+- Change selected variation
+- Display product image
+- Display price and totals
+- Apply discount code
+- Shipping calculation
+- Free-shipping threshold indicator
+- Continue shopping
+- Proceed to checkout
+
+Cart contents must survive refreshes and browser restarts.
+
+Prevent checkout when cart quantities exceed available inventory.
+
+## 7. One-Page Checkout
+
+Create an elegant, fast, mobile-first single-page checkout.
+
+### Customer Information
+
+- First name
+- Last name
+- Email
+- Telephone
+- Shipping address
+- City
+- Postal code
+- Region
+- Optional company details
+- Optional VAT number
+- Order notes
+
+Support guest checkout.
+
+Offer customers the option to reuse previously saved information locally.
+
+### Shipping Methods
+
+Include configurable examples:
+
+- Courier delivery
+- Store pickup
+- Free shipping above a configurable order amount
+
+Shipping cost must update the final order total immediately.
+
+### Payment Methods
+
+Implement:
+
+**A. Cash on Delivery — Αντικαταβολή**
+
+- Display COD surcharge if configured.
+- Include any applicable shipping fees.
+- Allow order placement.
+- Save the order in IndexedDB with payment method COD and payment status pending.
+
+**B. IRIS Payments**
+
+- Display IRIS as a payment option.
+- Explain how this payment method works.
+- Provide an explicitly labeled simulated IRIS payment flow.
+- Never claim a real bank transfer has occurred.
+- Store payment status separately from order status.
+- Allow demo payment confirmation only through an explicitly labeled simulation or administrator action.
+
+Because this project has no backend or payment-provider credentials, actual banking transactions are NOT required.
+
+Never collect real card details or banking credentials.
+
+### Checkout Completion
+
+After a valid order:
+
+- Generate unique demo order reference
+- Store order and order items
+- Save an immutable snapshot of purchased products and prices
+- Update stock consistently
+- Display an order confirmation screen
+- Provide a printable order summary
+- Clear the purchased items from the cart
+- Show the customer how to view their order history
+
+All totals, discounts, taxes, and shipping fees must be computed consistently.
+
+Use configurable Greek VAT assumptions and show the correct breakdown for the configured pricing model.
+
+## 8. Customer Account
+
+Implement browser-local demo customer functionality:
+
+- Customer profile
+- Saved addresses
+- Wishlist
+- Order history
+- Order details
+- Basic order tracking
+- Profile editing
+- Newsletter preferences
+
+Make clear that customer data is saved only in the current browser.
+
+Do not pretend the application provides real server-side authentication or cross-device accounts.
+
+## 9. Instagram Integration
+
+Create a premium Instagram-inspired shopping section.
+
+Include:
+
+- Responsive Instagram photo grid
+- Instagram profile link
+- Featured posts
+- Product discovery links
+- Shop-the-look presentation
+
+Architecture:
+
+Support administrator-configured public Instagram post URLs and official supported embeds where available.
+
+Do not scrape Instagram or bypass authentication restrictions.
+
+Because direct live Instagram integration can require Meta permissions and server-side credentials, implement an attractive, fully functional curated demo feed as the default.
+
+Design the feed configuration so future real integration is possible without rebuilding the UI.
+
+## 10. Admin Dashboard
+
+Implement a separate administration interface, accessible at `#/admin`.
+
+Use a professional dashboard layout with responsive sidebar, top navigation, tables, forms, modals, and statistics cards.
+
+Provide clearly labeled demo administrator access. A frontend-only access gate must not be represented as real security.
+
+### Admin Overview
+
+Show:
+
+- Total orders
+- Total demo revenue
+- Pending orders
+- Completed orders
+- Total products
+- Low-stock products
+- Registered local demo customers
+- Recent orders
+- Sales statistics
+- Most popular products
+
+All statistics must be calculated from IndexedDB data, not hardcoded values.
+
+### Product Management
+
+Implement full CRUD:
+
+- Create product
+- Edit product
+- Delete or archive product
+- Manage categories
+- Manage descriptions
+- Manage prices
+- Set sale prices
+- Manage images
+- Manage sizes and colors
+- Manage stock per variation
+- Featured product toggle
+- Visibility status
+- Product search and filtering
+
+Use image URLs and browser-local image handling appropriate for a static demo.
+
+### Order Management
+
+Implement:
+
+- Order listing
+- Search and filters
+- View order details
+- Update order status
+- Update payment status
+- Add internal notes
+- Customer information view
+- Print order summary
+- Cancel order
+- Simulate refund/return workflow
+- Export orders to CSV
+
+Supported order statuses:
+
+- Pending
+- Confirmed
+- Processing
+- Shipped
+- Delivered
+- Cancelled
+- Returned
+
+Keep order and payment states separate.
+
+Stock restoration on cancellation or return must be consistent and must not double-count repeated actions.
+
+### Customer Management
+
+Implement:
+
+- Customer list
+- Customer profile
+- Order history
+- Order totals
+- Customer search
+- Basic customer editing
+
+### Promotions
+
+Implement:
+
+- Discount coupon creation
+- Fixed amount discount
+- Percentage discount
+- Expiration date
+- Minimum order amount
+- Usage limits
+- Active/inactive status
+
+Coupons must actually affect checkout calculations.
+
+### Content Management
+
+Allow the administrator to configure:
+
+- Homepage banners
+- Hero titles
+- Featured collections
+- Instagram demo feed
+- Homepage promotional sections
+- Newsletter display
+- Footer content
+
+### Store Settings
+
+Include:
+
+- Store name
+- Contact details
+- Logo configuration
+- Currency
+- VAT
+- Shipping fees
+- Free-shipping threshold
+- COD surcharge
+- Demo IRIS instructions
+- Social links
+
+Changes must affect the storefront immediately and persist in IndexedDB.
+
+## 11. Demo Content
+
+Populate the initial installation with at least 36 realistic fashion products.
+
+Include:
+
+- Women's clothing
+- Men's clothing
+- Dresses
+- Jackets
+- Shirts
+- Jeans
+- Sneakers
+- Boots
+- Bags
+- Accessories
+
+Products must contain:
+
+- Realistic Greek descriptions
+- Realistic EUR prices
+- Multiple sizes
+- Multiple colors where appropriate
+- Stock quantities per variation
+- Multiple images where practical
+- Brand information
+- Product attributes
+- Category associations
+
+Create sample customers, coupons, reviews, and historical orders so the admin dashboard looks populated from the first launch.
+
+Different products must have meaningfully different content and imagery.
+
+Do not use broken images or identical placeholder images across the entire catalog.
+
+## 12. User Experience and Quality
+
+Apply professional e-commerce UX best practices.
+
+Requirements:
+
+- Clean and elegant visual hierarchy
+- Strong call-to-action buttons
+- Accessible contrast
+- Keyboard navigation
+- Semantic HTML
+- Proper input validation
+- Form error messages
+- Responsive images
+- Lazy loading
+- Minimal layout shifts
+- No horizontal scrolling on mobile
+- Functional modals
+- Clear success and error feedback
+- Proper empty states
+- Consistent spacing and typography
+
+Use CSS transitions and animations subtly.
+
+Respect reduced-motion preferences.
+
+No dead buttons, fake controls, or non-functional decorative interfaces.
+
+## 13. Application Structure
+
+Create maintainable, modular code.
+
+Suggested structure:
+
+    index.html
+    assets/
+      css/
+        theme.css
+        storefront.css
+        admin.css
+      js/
+        app.js
+        router.js
+        db.js
+        seed.js
+        services/
+          products.js
+          cart.js
+          checkout.js
+          orders.js
+          customers.js
+          coupons.js
+          settings.js
+        components/
+          header.js
+          footer.js
+          product-card.js
+          modals.js
+        pages/
+          home.js
+          catalog.js
+          product.js
+          cart.js
+          checkout.js
+          account.js
+          admin/
+      images/
+    data/
+      products.json
+    README.md
+
+You may improve the architecture when justified.
+
+Use a client-side router with deep-link-safe hash routes.
+
+All data changes must go through a shared persistence/service layer.
+
+Avoid duplicating business logic across pages.
+
+## 14. Data Consistency
+
+Treat the demo as a real application within the limitations of local browser storage.
+
+Implement:
+
+- IndexedDB transaction handling
+- Persistent records
+- Validation
+- Stock consistency
+- Unique IDs
+- Order snapshots
+- Discount validation
+- Proper pricing calculations
+- Error handling
+- Database initialization
+- Import/export verification
+- Reset functionality
+
+Orders and stock updates should use IndexedDB transactions where appropriate.
+
+Never silently lose data on refresh.
+
+Never replace modified products with seeded records during normal startup.
+
+## 15. Security and Demo Limitations
+
+This is a static, frontend-only portfolio demonstration.
+
+Explicitly acknowledge the limitations:
+
+- IndexedDB data exists only inside the visitor's browser.
+- Separate visitors do not share products or orders.
+- Admin changes do not propagate to other browsers.
+- Administrator access is demonstrative, not secure authentication.
+- IRIS payments are simulated.
+- No real emails or bank transactions occur.
+- Live Instagram data requires supported integration and credentials.
+
+Display a subtle **Demo Store** indicator in the appropriate interface.
+
+Do not present this frontend-only system as production-ready infrastructure.
+
+However, design the service architecture to allow a real backend to replace IndexedDB later.
+
+## 16. Demo Presentation Quality
+
+The finished application must be suitable for showcasing to potential fashion retail clients.
+
+A visitor should be able to:
+
+1. Open a beautiful fashion homepage.
+2. Navigate product categories.
+3. Filter clothing by size, color, and price.
+4. Open a product.
+5. Review the size chart.
+6. Select a valid size and color.
+7. Add products to their cart.
+8. Apply a coupon.
+9. Complete a demo checkout.
+10. Select cash on delivery or simulated IRIS.
+11. Receive a demo order confirmation.
+12. Open their order history.
+
+An administrator should then be able to:
+
+1. Open the admin dashboard.
+2. Locate the new order.
+3. Inspect its details.
+4. Update its status.
+5. Manage product inventory.
+6. Add a new product.
+7. Change prices.
+8. Create a promotion.
+9. Update the homepage.
+10. Refresh the application without losing changes.
+
+## 17. Verification and Testing
+
+Do not stop after generating the initial HTML.
+
+Verify the complete application.
+
+Test at mobile widths of 320px, 375px, 390px, and 430px, plus tablet and desktop layouts.
+
+Test functionality including:
+
+- Product search and filters
+- Variant selection
+- Cart updates and persistence
+- Stock limits
+- Coupon application
+- Checkout validation
+- COD checkout
+- Simulated IRIS checkout
+- Order persistence
+- Admin order-status changes
+- Product CRUD
+- Dashboard calculation
+- Data backup and restoration
+- Reset demo
+- Refresh persistence
+
+Verify that navigation works correctly.
+
+Check for JavaScript errors and broken image paths.
+
+Fix defects before considering the task complete.
+
+## 18. Deliverables
+
+Produce:
+
+1. Complete HTML/CSS/JavaScript source code.
+2. Fully functioning responsive storefront.
+3. Fully functioning demo admin dashboard.
+4. IndexedDB schema and persistence services.
+5. Realistic demo dataset.
+6. Clear README describing how to run the application.
+7. Demo credentials or access instructions.
+8. Explanation of browser-only limitations.
+9. A short verification checklist showing what was tested.
+
+## FINAL INSTRUCTIONS
+
+Do not create a wireframe.
+
+Do not deliver merely a visual concept.
+
+Do not stop at the homepage.
+
+Do not leave buttons with placeholder click handlers.
+
+Do not skip the admin dashboard.
+
+Do not pretend that payments, user authentication, or Instagram API connectivity are real when they are simulated.
+
+**Build the complete working demo application.**
+
+Prioritize in this order:
+
+1. Correct functionality
+2. Data persistence and consistency
+3. Mobile usability
+4. Premium visual design
+5. Performance and polish
+
+The final outcome should feel like a real fashion e-commerce website that AgoraSite could confidently demonstrate to a prospective client.

@@ -1,0 +1,15 @@
+{
+  "project": "fashion1",
+  "brand": "ÉLAN Fashion Boutique",
+  "niche": "fashion",
+  "locale": "el-GR",
+  "currency": "EUR",
+  "customerFacingLanguage": "Greek",
+  "stack": ["HTML5", "CSS3", "Bootstrap 5", "Vanilla JavaScript", "IndexedDB"],
+  "productsMinimum": 36,
+  "paymentMethods": ["cod-demo", "iris-simulated"],
+  "adminRoute": "#/admin",
+  "hosting": "static",
+  "features": ["variant-selector", "size-chart", "wishlist", "cart", "coupon", "one-page-checkout", "admin-crud", "export-import", "curated-instagram-feed"],
+  "realTransactions": false
+}
