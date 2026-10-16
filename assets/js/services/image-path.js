@@ -1,7 +1,7 @@
 // Image path helpers. Seeded photos live at assets/images/**/<name>.webp with a `-sm.webp` sibling;
 // anything else (admin-added http(s) URLs, data: URLs from local uploads) has no sibling and must be
 // used as-is.
-const SEEDED_RE = /^assets\/images\/.+(?<!-sm)\.webp$/;
+const SEEDED_RE = /^assets\/images\/products\/[a-z0-9-]+-\d+\.webp$/;
 
 /** True when `src` is a seeded local photo that has a `-sm.webp` sibling. */
 export const hasSm = (src) => SEEDED_RE.test(String(src ?? ''));

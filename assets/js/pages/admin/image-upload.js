@@ -8,7 +8,7 @@ export const IMAGE_QUALITY = 0.82;
 /** Greek error message for a file that cannot be used, or '' when it is acceptable. */
 export function imageFileError(file) {
   if (!file) return 'Δεν επιλέχθηκε αρχείο.';
-  if (!/^image\//.test(file.type || '')) return `Το αρχείο «${file.name}» δεν είναι εικόνα.`;
+  if (!/^image\/(png|jpeg|webp|gif)$/.test(file.type || '')) return `Το αρχείο «${file.name}» δεν είναι εικόνα.`;
   if (file.size > MAX_IMAGE_BYTES) return `Το αρχείο «${file.name}» είναι μεγαλύτερο από 5 MB.`;
   return '';
 }
@@ -40,11 +40,13 @@ export async function fileToDataUrl(file) {
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Ο περιηγητής δεν υποστηρίζει επεξεργασία εικόνας.');
   ctx.fillStyle = '#ffffff'; // flatten transparency for the JPEG fallback
   ctx.fillRect(0, 0, width, height);
   ctx.drawImage(img, 0, 0, width, height);
   let url = canvas.toDataURL('image/webp', IMAGE_QUALITY);
   if (!url.startsWith('data:image/webp')) url = canvas.toDataURL('image/jpeg', IMAGE_QUALITY);
+  if (!url.startsWith('data:image/')) throw new Error(`Η εικόνα «${file.name}» δεν μπόρεσε να μετατραπεί.`);
   return url;
 }
 

@@ -64,6 +64,64 @@ let guard = null; // optional page-owned leave check: (targetHash) => boolean | 
 let committedHash = null; // location.hash of the page currently rendered
 
 /** Let the current page veto navigation (unsaved changes). Cleared automatically by the next render. */
+// History bookkeeping for guarded navigation. Every committed page stamps its history entry with an
+// index (history.state.elanIdx). When the guard must undo a URL change we can then restore the
+// committed page WITHOUT destroying entries: a fresh push (no index yet) is popped with history.back();
+// a back/forward jump is undone with history.go(delta). If the user confirms, a push is re-issued with
+// navigate() and a jump is replayed with history.go(-delta), so back/forward stay consistent.
+let currentIdx = null;
+let restoring = null; // resolver while we wait for our own restoring hashchange
+let guardPending = false;
+
+function trackHistoryIndex() {
+  const st = history.state;
+  if (st && typeof st.elanIdx === 'number') { currentIdx = st.elanIdx; return; }
+  currentIdx = currentIdx === null ? 0 : currentIdx + 1;
+  history.replaceState({ ...(st && typeof st === 'object' ? st : {}), elanIdx: currentIdx }, '', location.href);
+}
+
+function restoreCommitted(targetIdx) {
+  return new Promise((resolve) => {
+    restoring = resolve;
+    if (typeof targetIdx === 'number' && targetIdx !== currentIdx) history.go(currentIdx - targetIdx);
+    else history.back();
+  });
+}
+
+function onHashChange() {
+  if (restoring) { const done = restoring; restoring = null; done(); return; } // our own undo
+  if (guard && committedHash !== null && location.hash === committedHash) return; // late echo of an undo
+  // In-page anchors (skip link '#app') are not navigations: never consult or clear the guard for them.
+  if (guard && committedHash !== null && location.hash.startsWith('#/') && location.hash !== committedHash) {
+    const target = location.hash;
+    const st = history.state;
+    const targetIdx = st && typeof st.elanIdx === 'number' ? st.elanIdx : null;
+    const delta = targetIdx === null ? null : currentIdx - targetIdx;
+    if (guardPending) { restoreCommitted(targetIdx); return; } // one dialog at a time: extra attempts are just undone
+    let answer;
+    try { answer = guard(target); } catch (err) { console.warn('Navigation guard failed', err); answer = false; }
+    if (answer === true) { guard = null; render(); return; } // nothing to protect: no undo/redo round trip
+    const restored = restoreCommitted(targetIdx);
+    guardPending = true;
+    Promise.resolve(answer)
+      .catch((err) => { console.warn('Navigation guard failed', err); return false; })
+      .then(async (ok) => {
+        guardPending = false;
+        if (!ok) return;
+        await restored;
+        guard = null;
+        if (delta === null) navigate(target); else history.go(-delta);
+      });
+    return;
+  }
+  render();
+}
+
+const leaveCallbacks = [];
+/** Run `fn` once when the current page is replaced by a real navigation (teardown of global listeners). */
+export function onPageLeave(fn) { leaveCallbacks.push(fn); }
+function runLeaveCallbacks() { leaveCallbacks.splice(0).forEach((fn) => { try { fn(); } catch (e) { /* ignore */ } }); }
+
 export function setNavigationGuard(fn) {
   guard = typeof fn === 'function' ? fn : null;
 }
@@ -121,6 +179,7 @@ async function render() {
   if (raw && !raw.startsWith('#/')) return;
   const seq = ++renderSeq;
   guard = null;
+  runLeaveCallbacks();
   const { path, query } = parseHash(raw);
   const found = resolve(path);
   const entry = found ? found.entry : null;
@@ -143,6 +202,7 @@ async function render() {
   outlet.removeAttribute('aria-busy');
   current = { path, query, params, pattern: entry ? entry.pattern : null, layout };
   committedHash = raw;
+  trackHistoryIndex();
   hooks.afterRender?.({ ...current, isFirst });
 }
 
@@ -150,16 +210,7 @@ async function render() {
 export function start(options) {
   ({ outlet, ...hooks } = options);
   if (!started) {
-    window.addEventListener('hashchange', () => {
-      if (guard && committedHash !== null && location.hash !== committedHash) {
-        // Undo the URL change, ask the page, and only then go where the user wanted.
-        const target = location.hash;
-        history.replaceState(history.state, '', committedHash);
-        Promise.resolve(guard(target)).then((ok) => { if (ok) { guard = null; navigate(target); } });
-        return;
-      }
-      render();
-    });
+    window.addEventListener('hashchange', onHashChange);
     started = true;
   }
   if (!location.hash || location.hash === '#') history.replaceState(history.state, '', '#/');

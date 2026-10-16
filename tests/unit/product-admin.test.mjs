@@ -258,3 +258,43 @@ test('filterAdminProducts: search, filters, sort, pagination', () => {
   assert.equal(pg.total, 3);
   assert.equal(f({ page: 99, pageSize: 2 }).page, 2);
 });
+
+test('image allow-list: relative assets paths, http(s) URLs and raster data URLs only', async () => {
+  const { imageSourceError, MAX_IMAGES } = await import('../../assets/js/services/product-admin-rules.js');
+  const ok = ['assets/images/products/a-1.webp', 'https://cdn.example.com/a.jpg?x=1', 'http://example.com/a.png', 'data:image/webp;base64,AAAA', 'data:image/jpeg;base64,AAAA==', 'data:image/png;base64,iVBOR'];
+  for (const s of ok) assert.equal(imageSourceError(s), '', s);
+  const bad = ['javascript:alert(1)', 'data:image/svg+xml;base64,AAAA', 'data:text/html;base64,AAAA', 'data:image/webp;base64,AA AA', 'assets/../secret.png', `assets${String.fromCharCode(92)}x.png`,
+    '/etc/passwd', 'ftp://x/a.png', 'https://x.com/a b.png', 'https://x.com/a".png', "https://x.com/a'.png", 'file:///c:/a.png', 'vbscript:x', '//evil.com/a.png', 'assets/a b.png', 'data:image/webp;base64,'];
+  for (const s of bad) assert.notEqual(imageSourceError(s), '', s);
+  assert.notEqual(imageSourceError(`data:image/webp;base64,${'A'.repeat(2.6 * 1024 * 1024)}`), '');
+  assert.equal(imageSourceError(`data:image/webp;base64,${'A'.repeat(2 * 1024 * 1024)}`), '');
+  assert.equal(MAX_IMAGES, 10);
+});
+
+test('validator applies the image allow-list and the 10 image cap', () => {
+  assert.ok(run(good({ images: ['javascript:alert(1)'] })).errors.images);
+  assert.ok(run(good({ images: ['assets/images/a-1.webp', 'data:image/svg+xml;base64,AAAA'] })).errors.images);
+  assert.ok(run(good({ images: Array.from({ length: 11 }, (_, i) => `assets/images/p-${i}.webp`) })).errors.images);
+  assert.ok(!run(good({ images: Array.from({ length: 10 }, (_, i) => `assets/images/p-${i}.webp`) })).errors.images);
+});
+
+test('SKU of an existing variant is immutable', () => {
+  const r = run(good({ variants: [variant({ sku: 'NEW-1', originalSku: 'OLD-1' })] }));
+  assert.ok(r.errors['variants[0].sku']);
+  assert.ok(!run(good({ variants: [variant({ sku: 'SAME', originalSku: 'SAME' })] })).errors['variants[0].sku']);
+});
+
+test('-sm.webp siblings are only assumed for seeded product photos', () => {
+  assert.ok(hasSm('assets/images/products/w-shirt-dress-mustard-1.webp'));
+  assert.ok(!hasSm('assets/images/hero/banner.webp'));
+  assert.ok(!hasSm('assets/other/a-1.webp'));
+  assert.ok(!hasSm('https://x.com/assets/images/products/a-1.webp'));
+});
+
+test('upload file rules: only png/jpeg/webp/gif up to 5 MB', async () => {
+  const { imageFileError } = await import('../../assets/js/pages/admin/image-upload.js');
+  const f = (type, size = 10, name = 'a') => ({ type, size, name });
+  for (const t of ['image/png', 'image/jpeg', 'image/webp', 'image/gif']) assert.equal(imageFileError(f(t)), '');
+  for (const t of ['image/svg+xml', 'text/html', 'application/javascript', '', 'image/tiff']) assert.notEqual(imageFileError(f(t)), '', t);
+  assert.notEqual(imageFileError(f('image/png', 5 * 1024 * 1024 + 1)), '');
+});

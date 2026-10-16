@@ -148,6 +148,27 @@ export function generateVariantMatrix({ sizes = [], colors = [], slug = '', stoc
 
 export const withoutArchived = (variants) => (variants || []).filter((v) => !v.archived);
 
+// ---------------------------------------------------------------------------------- images
+
+export const MAX_IMAGES = 10;
+export const MAX_DATA_URL_CHARS = 2.5 * 1024 * 1024;
+const DATA_RE = /^data:image\/(webp|jpeg|png);base64,[A-Za-z0-9+/]+={0,2}$/;
+const REL_RE = /^assets\/[^\s"'<>\\]+$/;
+const HTTP_RE = /^https?:\/\/[^\s"'<>\\]+$/;
+
+/** Greek error for one image reference, or '' when it is allowed (relative assets/ path, http(s) URL, raster data URL). */
+export function imageSourceError(src) {
+  const s = String(src ?? '');
+  if (s.startsWith('data:')) {
+    if (!DATA_RE.test(s)) return 'Μη αποδεκτή εικόνα: επιτρέπονται μόνο WebP, JPEG και PNG.';
+    if (s.length > MAX_DATA_URL_CHARS) return 'Η εικόνα είναι πολύ μεγάλη (έως περίπου 2,5 MB μετά τη μετατροπή).';
+    return '';
+  }
+  if (REL_RE.test(s)) return s.split('/').includes('..') ? 'Η διαδρομή εικόνας δεν επιτρέπεται να περιέχει «..».' : '';
+  if (HTTP_RE.test(s)) return '';
+  return 'Μη έγκυρη διεύθυνση εικόνας: χρησιμοποιήστε διαδρομή assets/…, διεύθυνση http(s):// ή τοπικό αρχείο.';
+}
+
 // ---------------------------------------------------------------------------------- normalise + validate
 
 const str = (v) => String(v ?? '').trim();
@@ -237,6 +258,11 @@ export function validateProductInput(input, { existingProducts = [], existingSku
   }
 
   if (!value.images.length) errors.images = 'Προσθέστε τουλάχιστον μία φωτογραφία.';
+  else if (value.images.length > MAX_IMAGES) errors.images = `Έως ${MAX_IMAGES} φωτογραφίες ανά προϊόν.`;
+  else {
+    const bad = value.images.map(imageSourceError).find(Boolean);
+    if (bad) errors.images = bad;
+  }
 
   if (!value.variants.length) errors.variants = 'Προσθέστε τουλάχιστον μία παραλλαγή (μέγεθος και χρώμα).';
   const taken = skuSet(existingSkus, editingId);
@@ -248,7 +274,8 @@ export function validateProductInput(input, { existingProducts = [], existingSku
     if (!v.color) errors[k('color')] = 'Συμπληρώστε χρώμα.';
     if (!isValidHex(v.colorHex)) errors[k('colorHex')] = 'Μη έγκυρο χρώμα (μορφή #rrggbb).';
     if (!isInt(v.stock) || v.stock < 0) errors[k('stock')] = 'Το stock πρέπει να είναι ακέραιος αριθμός ≥ 0.';
-    if (!v.sku) errors[k('sku')] = 'Συμπληρώστε SKU.';
+    if (v.originalSku && v.originalSku !== v.sku) errors[k('sku')] = 'Το SKU υπάρχουσας παραλλαγής δεν αλλάζει. Αφαιρέστε την παραλλαγή και προσθέστε νέα.';
+    else if (!v.sku) errors[k('sku')] = 'Συμπληρώστε SKU.';
     else if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,39}$/.test(v.sku)) errors[k('sku')] = 'Το SKU επιτρέπει γράμματα, αριθμούς, τελείες και παύλες (έως 40 χαρακτήρες).';
     else if (seenSku.has(v.sku)) errors[k('sku')] = 'Το SKU υπάρχει ήδη σε άλλη παραλλαγή αυτού του προϊόντος.';
     else if (taken.has(v.sku)) errors[k('sku')] = 'Το SKU χρησιμοποιείται ήδη σε άλλο προϊόν.';

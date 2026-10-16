@@ -82,7 +82,12 @@ export async function saveProduct(input) {
       else await reqP(variantStore.delete(old.sku));
     }
     for (const v of formVariants) {
-      const { archived, ...clean } = v; // saving a row (re)activates it
+      // saving a row (re)activates it; UI-only fields never reach the store
+      const { archived, originalSku, baseStock, ...clean } = v;
+      const cur = allVariants.find((x) => x.sku === clean.sku && x.productId === id);
+      // Lost-update guard: a row whose stock the user did not touch keeps the stock currently stored
+      // (e.g. an order decremented it after the form was loaded); an edited stock wins.
+      if (cur && typeof baseStock === 'number' && clean.stock === baseStock) clean.stock = cur.stock;
       await reqP(variantStore.put({ ...clean, productId: id }));
     }
     return product;

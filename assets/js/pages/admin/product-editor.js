@@ -2,7 +2,7 @@
 // Sections: Βασικά, Τιμές, Εικόνες, Χαρακτηριστικά, Παραλλαγές. Validation uses the same pure rules
 // as saveProduct() (services/product-admin-rules.js), shown inline with an error summary.
 import { escapeHtml as esc, formatMoney, toast, confirmDialog, navigate } from '../../ui.js';
-import { setNavigationGuard } from '../../router.js';
+import { setNavigationGuard, onPageLeave } from '../../router.js';
 import { adminLayout } from './layout.js';
 import { fileToDataUrl, probeImage } from './image-upload.js';
 import { smOf } from '../../services/image-path.js';
@@ -94,7 +94,7 @@ function mountForm({ root, body, view, catalog, existing }) {
   const activeVariants = (existing ? existing.variants : []).filter((v) => !v.archived);
   const st = {
     images: existing ? [...existing.images] : [],
-    variants: [...activeVariants].sort((x, y) => compareSizes(String(x.size), String(y.size)) || String(x.color).localeCompare(String(y.color), 'el')).map((v) => ({ ...v, persisted: true })),
+    variants: [...activeVariants].sort((x, y) => compareSizes(String(x.size), String(y.size)) || String(x.color).localeCompare(String(y.color), 'el')).map((v) => ({ ...v, persisted: true, baseStock: v.stock })),
     sizes: [...new Set(activeVariants.map((v) => String(v.size)))].sort(compareSizes),
     colors: [...new Map(activeVariants.map((v) => [v.color, v.colorHex])).entries()].map(([name, hex]) => ({ name, hex })),
   };
@@ -156,7 +156,7 @@ function mountForm({ root, body, view, catalog, existing }) {
         </div>
         <div class="admin-image-file">
           <label class="form-label" for="f-imageFile">Ανέβασμα αρχείου</label>
-          <input class="form-control" id="f-imageFile" type="file" accept="image/*" multiple data-image-file>
+          <input class="form-control" id="f-imageFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple data-image-file>
           <div class="form-text">Έως 5 MB· μετατρέπεται σε WebP έως 1200px.</div>
         </div>
       </div>
@@ -497,7 +497,7 @@ function mountForm({ root, body, view, catalog, existing }) {
       attributes: attrs,
       flags: Object.fromEntries(['featured', 'new', 'bestSeller'].map((k) => [k, $(`[data-flag="${k}"]`).checked])),
       status: $('[data-field="visible"]').checked ? 'active' : 'archived',
-      variants: st.variants.map(({ persisted, ...v }) => v),
+      variants: st.variants.map(({ persisted, ...v }) => (persisted ? { ...v, originalSku: v.sku, baseStock: v.baseStock } : v)),
     };
     return { input, priceErrors: pr.errors };
   }
@@ -538,6 +538,7 @@ function mountForm({ root, body, view, catalog, existing }) {
     } catch (err) {
       setSaving(false);
       if (err && err.code === 'invalid') showErrors(toFormErrors(err.errors));
+      else if (err && err.name === 'QuotaExceededError') toast('Δεν υπάρχει αρκετός χώρος αποθήκευσης στον περιηγητή. Αφαιρέστε φωτογραφίες ή μικρύνετε τις εικόνες.', 'danger');
       else { console.warn('Save failed', err); toast('Η αποθήκευση δεν ολοκληρώθηκε. Δοκιμάστε ξανά.', 'danger'); }
     }
   });
@@ -557,6 +558,7 @@ function mountForm({ root, body, view, catalog, existing }) {
     if (dirty) { ev.preventDefault(); ev.returnValue = ''; }
   };
   window.addEventListener('beforeunload', onUnload);
+  onPageLeave(() => window.removeEventListener('beforeunload', onUnload));
 
   form.addEventListener('input', (ev) => { if (!ev.target.matches('[data-image-file], [data-bulk-stock], [data-size-input], [data-color-name], [data-color-pick], #f-images')) markDirty(); });
   form.addEventListener('change', (ev) => { if (ev.target.matches('select, [type="checkbox"]')) markDirty(); });
