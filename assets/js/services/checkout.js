@@ -7,10 +7,10 @@ import { tx, reqP } from '../db.js';
 import { quote, validateCoupon, subtotalCents } from './pricing.js';
 import { classifyLine, pricedLines } from './cart-rules.js';
 import {
-  validateCheckoutForm, cleanForm, customerIdFromEmail, makeOrderId, uuid, SHIPPING_LABELS, PAYMENT_LABELS,
+  validateCheckoutForm, cleanForm, makeOrderId, uuid, SHIPPING_LABELS, PAYMENT_LABELS,
 } from './checkout-rules.js';
 import { incrementUsage } from './coupons.js';
-import { upsertCustomerFromCheckout, setActiveCustomerId } from './customers.js';
+import { upsertCustomerFromCheckout, resolveCheckoutCustomer, setActiveCustomerId } from './customers.js';
 
 const CART_ID = 'local';
 const STORES = ['carts', 'variants', 'products', 'coupons', 'orders', 'customers', 'settings'];
@@ -96,13 +96,14 @@ export async function placeOrder({
   const now = new Date();
   const nowIso = now.toISOString();
   const idCandidates = Array.from({ length: 12 }, () => makeOrderId(now));
-  const customerId = customerIdFromEmail(f.email);
 
   const result = await tx(STORES, 'readwrite', async (t) => {
     const os = (name) => t.objectStore(name);
 
     const existing = await findByRequestId(t, reqId);
     if (existing) return { order: existing, replay: true };
+    // Find the customer by current email (never by id alone): see resolveCheckoutCustomer.
+    const target = await resolveCheckoutCustomer(t, f.email);
 
     const cart = await reqP(os('carts').get(CART_ID));
     if (!cart || !Array.isArray(cart.lines) || !cart.lines.length) {
@@ -166,7 +167,7 @@ export async function placeOrder({
     const order = {
       id,
       requestId: reqId,
-      customerId,
+      customerId: target.id,
       createdAt: nowIso,
       customer: {
         firstName: f.firstName, lastName: f.lastName, email: f.email, phone: f.phone, company: f.company, vatNumber: f.vatNumber,
@@ -201,7 +202,8 @@ export async function placeOrder({
       await reqP(os('variants').put({ ...r.variant, stock: r.variant.stock - r.line.qty }));
     }
     if (coupon) await incrementUsage(t, coupon.code);
-    await upsertCustomerFromCheckout(data, { t, now: nowIso, order: { totalCents: q.totalCents }, saveDetails });
+    const info = {};
+    await upsertCustomerFromCheckout(data, { t, now: nowIso, order: { totalCents: q.totalCents }, saveDetails, target, info });
 
     const purchased = new Set(rows.map((r) => r.line.sku));
     const nextCart = {
@@ -211,16 +213,17 @@ export async function placeOrder({
       updatedAt: nowIso,
     };
     await reqP(os('carts').put(nextCart));
-    return { order, replay: false, remaining: nextCart.lines.reduce((n, l) => n + l.qty, 0) };
+    return { order, replay: false, addressSkipped: !!info.addressSkipped, remaining: nextCart.lines.reduce((n, l) => n + l.qty, 0) };
   });
 
   if (!result.replay) {
-    setActiveCustomerId(customerId);
+    setActiveCustomerId(result.order.customerId);
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('cart:changed', { detail: { count: result.remaining } }));
     }
   }
-  return result.order;
+  // Not persisted: lets the checkout page tell the customer their address could not be saved (list full).
+  return result.addressSkipped ? { ...result.order, addressNotSaved: true } : result.order;
 }
 
 /**

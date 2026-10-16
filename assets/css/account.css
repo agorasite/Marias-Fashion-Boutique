@@ -55,6 +55,7 @@
 .acct-badge.is-warn { background: #f7f0e3; border-color: var(--elan-gold); color: #5a4320; }
 .acct-badge.is-ok { background: #edf4ef; border-color: var(--elan-success); color: #1f4a36; }
 .acct-badge.is-info { background: #eaf0f5; border-color: var(--elan-info); color: #2b4258; }
+.acct-badge.is-neutral { background: var(--elan-sand); border-color: var(--elan-line-strong); color: var(--elan-charcoal); }
 .acct-badge.is-bad { background: #fbeeeb; border-color: #e3b9b1; color: #7a2a1f; }
 
 /* orders list */

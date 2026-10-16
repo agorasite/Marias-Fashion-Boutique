@@ -1,6 +1,6 @@
 // One-page checkout. Prices come from the DB through the same quote rules as the cart; the order
 // itself is created by services/checkout.placeOrder in a single IndexedDB transaction.
-import { html, escapeHtml as esc, formatMoney, navigate } from '../ui.js';
+import { html, escapeHtml as esc, formatMoney, navigate, toast } from '../ui.js';
 import { getQuoteForCart } from '../services/cart.js';
 import { quote } from '../services/pricing.js';
 import { pricedLines, couponMessage } from '../services/cart-rules.js';
@@ -500,6 +500,7 @@ export default async function render() {
         expectedTotalCents: current ? current.totalCents : undefined,
         expectedSignature: lineSignature(pricedLines(state.lines)),
       });
+      if (order.addressNotSaved) toast('Η διεύθυνση δεν αποθηκεύτηκε: η λίστα αποθηκευμένων διευθύνσεων είναι γεμάτη. Διαχειριστείτε τις διευθύνσεις από τον λογαριασμό σας.', 'info');
       navigate(`/order/${encodeURIComponent(order.id)}`);
     } catch (err) {
       requestId = uuid(); // a failed attempt wrote nothing; the next one is a new request

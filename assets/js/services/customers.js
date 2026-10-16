@@ -1,9 +1,10 @@
-// Browser-local demo customers. A customer is identified by a hash of the lowercased email
-// (`c-<hash>`); there is no account or password. The "active customer" is a UI preference kept in
+// Browser-local demo customers. A new customer gets the id `c-<hash of lowercased email>` (suffixed
+// -2, -3… if that id is taken); email is unique by the stored field. There is no account or password. The "active customer" is a UI preference kept in
 // localStorage only (which customer's saved details to offer at checkout / show in the account area).
 import { tx, reqP, get, getAll } from '../db.js';
 import { cleanForm, customerIdFromEmail, normalizePhone, normalizeAfm } from './checkout-rules.js';
 import { listOrdersForCustomer } from './orders.js';
+import { MAX_ADDRESSES } from './account-rules.js';
 
 const ACTIVE_KEY = 'elan.activeCustomerId';
 
@@ -27,8 +28,10 @@ export async function getActiveCustomer() {
   return getCustomer(getActiveCustomerId());
 }
 
-export const setActiveCustomer = setActiveCustomerId;
 export const ordersForCustomer = listOrdersForCustomer;
+
+/** Canonical form used for every email comparison: trimmed, lower-case. */
+export const normalizeEmail = (v) => String(v == null ? '' : v).trim().toLowerCase();
 
 /** All local customers, most recently active first. */
 export async function listCustomers() {
@@ -37,11 +40,35 @@ export async function listCustomers() {
   return all.sort((a, b) => (stamp(a) < stamp(b) ? 1 : stamp(a) > stamp(b) ? -1 : 0));
 }
 
-/** Plain write of a customer record (stamps updatedAt). */
-export async function saveCustomer(c) {
-  const next = { ...c, updatedAt: new Date().toISOString() };
-  await tx(['customers'], 'readwrite', (t) => reqP(t.objectStore('customers').put(next)));
-  return next;
+/**
+ * Email is unique across local customers by the stored `email` FIELD (not by id hash, because a
+ * profile edit keeps the id while changing the email). Scans inside the given transaction store.
+ */
+async function findByEmail(store, email, exceptId = null) {
+  const want = normalizeEmail(email);
+  const all = await reqP(store.getAll());
+  return all.find((c) => c.id !== exceptId && normalizeEmail(c.email) === want) || null;
+}
+
+/** An id for a brand-new customer: `c-<hash>`, or `c-<hash>-2`, -3… if that id is held by a record with another email. */
+async function freshId(store, email) {
+  const base = customerIdFromEmail(email);
+  for (let n = 1; ; n += 1) {
+    const id = n === 1 ? base : `${base}-${n}`;
+    if (!(await reqP(store.get(id)))) return id;
+  }
+}
+
+/**
+ * Resolve which customer a checkout with this email belongs to (inside transaction `t`):
+ * the existing record whose current email matches, else a new, never-colliding id.
+ * @returns {Promise<{id:string, existing:object|null}>}
+ */
+export async function resolveCheckoutCustomer(t, email) {
+  const store = t.objectStore('customers');
+  const existing = await findByEmail(store, email);
+  if (existing) return { id: existing.id, existing };
+  return { id: await freshId(store, email), existing: null };
 }
 
 /** Read-modify-write in one transaction so a concurrent order never loses its counters. */
@@ -63,10 +90,9 @@ export async function updateCustomer(id, mutate) {
  */
 export async function createLocalProfile(form, { now = new Date().toISOString() } = {}) {
   const f = cleanForm({ ...form, shippingMethod: 'pickup' });
-  const id = customerIdFromEmail(f.email);
   return tx(['customers'], 'readwrite', async (t) => {
     const store = t.objectStore('customers');
-    const existing = await reqP(store.get(id));
+    const { id, existing } = await resolveCheckoutCustomer(t, f.email);
     if (existing) return { customer: existing, existed: true };
     const customer = {
       id, email: f.email, firstName: f.firstName, lastName: f.lastName, phone: f.phone, company: f.company,
@@ -82,18 +108,17 @@ export async function createLocalProfile(form, { now = new Date().toISOString() 
 /**
  * Update the profile fields. Email policy: the customer id is stable (it never changes and orders
  * stay attached); only the `email` field changes, and nothing else is re-derived. The new email may
- * not belong to another local profile (throws { code: 'EMAIL_TAKEN' }). Consequence: checkout
- * identifies customers by email hash, so a checkout with the NEW email creates a separate profile,
- * while one with the ORIGINAL email still reaches this profile.
+ * not be held by another local profile (throws { code: 'EMAIL_TAKEN' }). Checkout looks customers
+ * up by their current email field, so after A -> B a checkout with B attaches here, while one with
+ * A creates a separate customer (with a distinct id if the hash id is still held by this record).
  */
 export async function updateProfile(id, form) {
-  const email = String(form.email || '').trim().toLowerCase();
-  const otherId = customerIdFromEmail(email);
+  const email = normalizeEmail(form.email);
   return tx(['customers'], 'readwrite', async (t) => {
     const store = t.objectStore('customers');
     const cur = await reqP(store.get(id));
     if (!cur) throw Object.assign(new Error('NOT_FOUND'), { code: 'NOT_FOUND' });
-    if (otherId !== id && (await reqP(store.get(otherId)))) throw Object.assign(new Error('EMAIL_TAKEN'), { code: 'EMAIL_TAKEN' });
+    if (await findByEmail(store, email, id)) throw Object.assign(new Error('EMAIL_TAKEN'), { code: 'EMAIL_TAKEN' });
     const next = {
       ...cur, email,
       firstName: String(form.firstName || '').trim(),
@@ -114,11 +139,13 @@ const sameAddress = (a, b) => ['address', 'city', 'postalCode', 'region']
 
 /**
  * Pure merge of checkout data into a customer record.
- * opts: { now (ISO), order: {totalCents} | null, saveDetails: boolean }
+ * opts: { now (ISO), order: {totalCents} | null, saveDetails: boolean, id (for a new record),
+ *        info (object; gets addressSkipped=true when the address list was full) }
+ * An existing record keeps its id AND its email (an email is only ever changed by updateProfile).
  */
-export function mergeCustomer(existing, form, { now, order = null, saveDetails = false } = {}) {
+export function mergeCustomer(existing, form, { now, order = null, saveDetails = false, id: newId = null, info = null } = {}) {
   const f = cleanForm(form);
-  const id = customerIdFromEmail(f.email);
+  const id = existing ? existing.id : (newId || customerIdFromEmail(f.email));
   const base = existing || {
     id, email: f.email, createdAt: now, newsletter: false, savedAddresses: [], orderCount: 0, totalCents: 0,
     lastOrderAt: null, rememberDetails: false,
@@ -126,7 +153,7 @@ export function mergeCustomer(existing, form, { now, order = null, saveDetails =
   const next = {
     ...base,
     id,
-    email: f.email,
+    email: base.email,
     firstName: f.firstName,
     lastName: f.lastName,
     phone: f.phone,
@@ -138,9 +165,10 @@ export function mergeCustomer(existing, form, { now, order = null, saveDetails =
   };
   if (saveDetails && f.address) {
     const fresh = { address: f.address, city: f.city, postalCode: f.postalCode, region: f.region };
-    const dup = next.savedAddresses.find((a) => sameAddress(a, fresh));
-    const addr = dup ? { ...dup, ...fresh } : fresh; // a re-used address keeps its id / label / default flag
-    next.savedAddresses = [addr, ...next.savedAddresses.filter((a) => !sameAddress(a, addr))].slice(0, 5);
+    const i = next.savedAddresses.findIndex((a) => sameAddress(a, fresh));
+    if (i >= 0) next.savedAddresses[i] = { ...next.savedAddresses[i], ...fresh }; // re-used: keeps id / label / default flag
+    else if (next.savedAddresses.length < MAX_ADDRESSES) next.savedAddresses = [fresh, ...next.savedAddresses];
+    else if (info) info.addressSkipped = true; // full: never drop existing addresses or the default
   }
   if (order) {
     next.orderCount = (Number(base.orderCount) || 0) + 1;
@@ -156,12 +184,11 @@ export function mergeCustomer(existing, form, { now, order = null, saveDetails =
  * atomically with the order. Without `t` it opens its own transaction.
  */
 export async function upsertCustomerFromCheckout(form, opts = {}) {
-  const { t, now = new Date().toISOString(), order = null, saveDetails = false } = opts;
+  const { t, now = new Date().toISOString(), order = null, saveDetails = false, info = null } = opts;
   const run = async (tr) => {
     const store = tr.objectStore('customers');
-    const id = customerIdFromEmail(cleanForm(form).email);
-    const existing = (await reqP(store.get(id))) || null;
-    const next = mergeCustomer(existing, form, { now, order, saveDetails });
+    const target = opts.target || (await resolveCheckoutCustomer(tr, cleanForm(form).email));
+    const next = mergeCustomer(target.existing, form, { now, order, saveDetails, id: target.id, info });
     await reqP(store.put(next));
     return next;
   };

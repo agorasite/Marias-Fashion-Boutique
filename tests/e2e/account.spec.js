@@ -432,3 +432,196 @@ test('no horizontal overflow on account subpages at 390px and orders at 320px', 
   expect(await over()).toBeLessThanOrEqual(0);
   expect(errors).toEqual([]);
 });
+
+// ---------------------------------------------------------------- review fixes
+const svc = (page, fn, arg) => page.evaluate(async ([src, a]) => {
+  const m = await import('/assets/js/services/customers.js');
+  return new Function('m', 'a', `return (${src})(m, a)`)(m, a);
+}, [fn.toString(), arg]);
+const PROFILE = (email, first = 'Τεστ') => ({ firstName: first, lastName: 'Χρήστης', email, phone: '6912345678', company: '', vatNumber: '' });
+
+test('email edit A to B: checkout with A makes a separate customer, checkout with B attaches', async ({ page }) => {
+  await boot(page);
+  const o1 = await place(page, { email: 'a@example.gr' });
+  const id = o1.customerId;
+  await svc(page, (m, a) => m.updateProfile(a.id, a.form), { id, form: PROFILE('b@example.gr', 'Μαρία') });
+  const o2 = await place(page, { email: 'a@example.gr', firstName: 'Άλλος' });
+  expect(o2.customerId).not.toBe(id);
+  expect(o2.customerId).toBe(`${id}-2`);
+  const orig = await dbGet(page, 'customers', id);
+  expect(orig.email).toBe('b@example.gr');
+  expect(orig.orderCount).toBe(1);
+  const other = await dbGet(page, 'customers', o2.customerId);
+  expect(other.email).toBe('a@example.gr');
+  expect(other.orderCount).toBe(1);
+  const o3 = await place(page, { email: 'B@Example.gr ' });
+  expect(o3.customerId).toBe(id);
+  expect((await dbGet(page, 'customers', id)).orderCount).toBe(2);
+  expect((await dbGet(page, 'customers', id)).email).toBe('b@example.gr');
+  const all = await dbAll(page, 'customers');
+  expect(all).toHaveLength(2);
+  expect(new Set(all.map((c) => c.email)).size).toBe(2);
+});
+
+test('email uniqueness is by the stored field, case-insensitive and trimmed', async ({ page }) => {
+  await boot(page);
+  const a = await place(page, { email: 'maria@example.gr' });
+  await place(page, { email: 'nikos@example.gr', firstName: 'Νίκος', prod: prodB });
+  await page.evaluate((id) => localStorage.setItem('elan.activeCustomerId', id), a.customerId);
+  await go(page, '#/account/profile');
+  await page.fill('#ac-pf-email', 'NIKOS@example.gr ');
+  await page.locator('[data-profile-save]').click();
+  await expect(page.locator('[data-profile-form] [data-error-for="email"]')).toContainText('υπάρχει ήδη');
+  const r = await svc(page, (m) => m.createLocalProfile({ firstName: 'Χ', lastName: 'Ψ', email: ' NIKOS@Example.gr ', phone: '6912345678' }));
+  expect(r.existed).toBe(true);
+  expect(await dbAll(page, 'customers')).toHaveLength(2);
+});
+
+test('uniqueness has no false negatives or positives after id/email divergence', async ({ page }) => {
+  await boot(page);
+  const mk = (email) => svc(page, (m, e) => m.createLocalProfile({ firstName: 'Χ', lastName: 'Ψ', email: e, phone: '6912345678' }), email).then((r) => r.customer.id);
+  const q = await mk('q@example.gr');
+  const x = await mk('x@example.gr');
+  const edit = (id, email) => svc(page, (m, a) => m.updateProfile(a.id, a.form).then(() => 'ok', (e) => e.code), { id, form: PROFILE(email) });
+  expect(await edit(q, 'b@example.gr')).toBe('ok');
+  expect(await edit(x, 'b@example.gr')).toBe('EMAIL_TAKEN');
+  const b = await mk('c2@example.gr');
+  expect(await edit(b, 'c@example.gr')).toBe('ok');
+  expect(await edit(x, 'c2@example.gr')).toBe('ok');
+  const all = await dbAll(page, 'customers');
+  expect(new Set(all.map((c) => c.email)).size).toBe(all.length);
+});
+
+test('address cap: full list keeps all addresses and the default, checkout warns', async ({ page }) => {
+  const errors = trackErrors(page);
+  await boot(page);
+  const o = await place(page, { saveDetails: true });
+  const id = o.customerId;
+  const addrs = ['Α', 'Β', 'Γ', 'Δ', 'Ε'].map((c, i) => ({ id: `a${i}`, label: c, address: `Οδός ${c} ${i + 10}`, city: 'Αθήνα', postalCode: '10563', region: 'Αττική', isDefault: i === 4 }));
+  await page.evaluate(async ([cid, list]) => {
+    const db = await import('/assets/js/db.js');
+    await db.put('customers', { ...(await db.get('customers', cid)), savedAddresses: list, rememberDetails: true });
+  }, [id, addrs]);
+  await go(page, '#/account/addresses');
+  await expect(page.locator('[data-address-card]')).toHaveCount(5);
+  await expect(page.locator('[data-address-add]')).toHaveCount(0);
+  await expect(page.locator('[data-addresses-full]')).toContainText('5');
+  await page.evaluate(async (sku) => (await import('/assets/js/services/cart.js')).addLine(sku, 1), stocked(prodB, 3).sku);
+  await page.goto('/#/checkout');
+  await page.reload();
+  await page.locator('[data-fill-saved]').click();
+  await expect(page.locator('#co-address')).toHaveValue('Οδός Ε 14');
+  await page.fill('#co-address', 'Νέα Οδός 99');
+  await expect(page.locator('#co-saveDetails')).toBeChecked();
+  await page.check('#co-acceptTerms');
+  await page.locator('[data-place-order]').click();
+  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page.locator('.toast-elan').filter({ hasText: 'γεμάτη' })).toBeVisible();
+  const c = await dbGet(page, 'customers', id);
+  expect(c.savedAddresses.map((a) => a.id)).toEqual(['a0', 'a1', 'a2', 'a3', 'a4']);
+  expect(c.savedAddresses.find((a) => a.isDefault).id).toBe('a4');
+  expect(c.savedAddresses.some((a) => a.address === 'Νέα Οδός 99')).toBe(false);
+  expect(errors).toEqual([]);
+});
+
+test('editing an address that no longer exists shows an error, not a success toast', async ({ page }) => {
+  await boot(page);
+  const o = await place(page);
+  const id = o.customerId;
+  await page.evaluate(async (cid) => {
+    const db = await import('/assets/js/db.js');
+    const s = await import('/assets/js/services/account-rules.js');
+    const l = s.addAddress(s.addAddress([], { address: 'Οδός Ένα 1', city: 'Α', postalCode: '10563', region: 'Αττική' }), { address: 'Οδός Δύο 2', city: 'Β', postalCode: '10563', region: 'Αττική' });
+    await db.put('customers', { ...(await db.get('customers', cid)), savedAddresses: l });
+  }, id);
+  await go(page, '#/account/addresses');
+  await page.locator('[data-address-card]').nth(1).locator('[data-address-edit]').click();
+  await page.evaluate(async (cid) => {
+    const db = await import('/assets/js/db.js');
+    const c = await db.get('customers', cid);
+    await db.put('customers', { ...c, savedAddresses: c.savedAddresses.slice(0, 1) });
+  }, id);
+  await page.fill('#ac-ad-city', 'Νέα Πόλη');
+  await page.locator('[data-address-save]').click();
+  await expect(page.locator('.toast-elan').filter({ hasText: 'δεν υπάρχει πια' })).toBeVisible();
+  await expect(page.locator('.toast-elan').filter({ hasText: 'αποθηκεύτηκε' })).toHaveCount(0);
+  await expect(page.locator('[data-address-card]')).toHaveCount(1);
+});
+
+test('deleting an address that no longer exists shows an error', async ({ page }) => {
+  await boot(page);
+  const o = await place(page);
+  const id = o.customerId;
+  await page.evaluate(async (cid) => {
+    const db = await import('/assets/js/db.js');
+    const s = await import('/assets/js/services/account-rules.js');
+    const l = s.addAddress(s.addAddress([], { address: 'Οδός Ένα 1', city: 'Α', postalCode: '10563', region: 'Αττική' }), { address: 'Οδός Δύο 2', city: 'Β', postalCode: '10563', region: 'Αττική' });
+    await db.put('customers', { ...(await db.get('customers', cid)), savedAddresses: l });
+  }, id);
+  await go(page, '#/account/addresses');
+  await page.evaluate(async (cid) => {
+    const db = await import('/assets/js/db.js');
+    const c = await db.get('customers', cid);
+    await db.put('customers', { ...c, savedAddresses: c.savedAddresses.slice(0, 1) });
+  }, id);
+  await page.locator('[data-address-card]').nth(1).locator('[data-address-delete]').click();
+  await page.locator('.modal.show [data-ok]').click();
+  await expect(page.locator('.toast-elan').filter({ hasText: 'δεν υπάρχει πια' })).toBeVisible();
+  await expect(page.locator('[data-address-card]')).toHaveCount(1);
+});
+
+test('after a profile save the switcher label reflects the new name', async ({ page }) => {
+  await boot(page);
+  const a = await place(page, { email: 'maria@example.gr' });
+  await place(page, { email: 'nikos@example.gr', firstName: 'Νίκος', prod: prodB });
+  await page.evaluate((id) => localStorage.setItem('elan.activeCustomerId', id), a.customerId);
+  await go(page, '#/account/profile');
+  await page.fill('#ac-pf-firstName', 'Μαριάννα');
+  await page.locator('[data-profile-save]').click();
+  await expect(page.locator(`[data-account-switch] option[value="${a.customerId}"]`)).toContainText('Μαριάννα');
+});
+
+test('markup in names, addresses and notes renders as text everywhere in the account', async ({ page }) => {
+  const errors = trackErrors(page);
+  const X = '<img src=x onerror=window.__xss=1>';
+  await boot(page);
+  const o = await page.evaluate(async ([sku, x]) => {
+    const cart = await import('/assets/js/services/cart.js');
+    const co = await import('/assets/js/services/checkout.js');
+    await cart.addLine(sku, 1);
+    const r = await co.placeOrder({
+      form: { firstName: x, lastName: 'Ψψ', email: 'xss@example.gr', phone: '6912345678', address: `${x} 12`, city: x, postalCode: '10563', region: 'Αττική', company: x, notes: x, acceptTerms: true },
+      shippingMethod: 'courier', paymentMethod: 'cod', requestId: 'r-xss', saveDetails: true,
+    });
+    const db = await import('/assets/js/db.js');
+    const c = await db.get('customers', r.customerId);
+    await db.put('customers', { ...c, savedAddresses: [{ id: 'a1', label: x, address: `${x} 12`, city: x, postalCode: '10563', region: 'Αττική', isDefault: true }] });
+    return r;
+  }, [stocked(prodA, 6).sku, X]);
+  await place(page, { email: 'other@example.gr', prod: prodB });
+  await page.evaluate((id) => localStorage.setItem('elan.activeCustomerId', id), o.customerId);
+  for (const h of ['#/account', '#/account/orders', `#/account/orders/${o.id}`, '#/account/profile', '#/account/addresses', '#/account/newsletter']) {
+    await go(page, h);
+    expect(await page.evaluate(() => window.__xss), h).toBeUndefined();
+    await expect(page.locator('#app img[src="x"]'), h).toHaveCount(0);
+  }
+  await expect(page.locator('[data-account-switch] option').first()).toBeAttached();
+  await go(page, `#/account/orders/${o.id}`);
+  await expect(page.locator('[data-order-detail]')).toContainText(X);
+  expect(errors).toEqual([]);
+});
+
+test('rapid tab switches end on the last tab content only', async ({ page }) => {
+  await boot(page);
+  await place(page);
+  await go(page, '#/account');
+  await page.evaluate(() => {
+    for (const t of ['orders', 'profile', 'newsletter', 'wishlist', 'addresses']) location.hash = `#/account/${t}`;
+  });
+  await expect(page.locator('h1')).toHaveText('Διευθύνσεις');
+  await page.waitForTimeout(300);
+  await expect(page.locator('[data-page="account"]')).toHaveCount(1);
+  await expect(page.locator('[data-page="account"]')).toHaveAttribute('data-tab', 'addresses');
+  await expect(page.locator('[data-account-body] [data-addresses-empty]')).toBeVisible();
+  await expect(page.locator('[data-profile-form], [data-newsletter-form], [data-order-row], .wishlist-embed')).toHaveCount(0);
+});

@@ -2,7 +2,8 @@
 // the saved-address list operations. Validation reuses checkout-rules.js so both flows agree.
 import { validateCheckoutForm, hash36 } from './checkout-rules.js';
 
-export const MAX_ADDRESSES = 10;
+/** Single cap for saved addresses: used by the account UI and by checkout's save-details merge. */
+export const MAX_ADDRESSES = 5;
 export const LABEL_MAX = 30;
 
 export const TRACK_STEPS = [

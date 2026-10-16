@@ -274,9 +274,9 @@ function profilePage(c) {
     if (!showErrors(el, validateProfile(v).errors)) return;
     busy = true;
     try {
-      const saved = await updateProfile(c.id, v);
-      for (const k of ['firstName', 'lastName', 'email', 'phone', 'company', 'vatNumber']) el.elements[k].value = saved[k] || '';
+      await updateProfile(c.id, v);
       toast('Το προφίλ αποθηκεύτηκε.');
+      navigate(location.hash); // re-render so the profile switcher label reflects the new name/email
     } catch (err) {
       if (err.code === 'EMAIL_TAKEN') showErrors(el, { email: 'Αυτό το email υπάρχει ήδη σε άλλο τοπικό προφίλ.' });
       else { console.warn('Profile save failed', err); toast('Η αποθήκευση δεν ολοκληρώθηκε. Δοκιμάστε ξανά.', 'danger'); }
@@ -291,8 +291,31 @@ function addressesPage(c0) {
   let editing = null; // null | 'new' | address id
   const wrap = html('<div class="acct-addresses"></div>');
 
-  const persist = async (fn) => {
-    c = await updateCustomer(c.id, (cur) => ({ ...cur, savedAddresses: fn(cur.savedAddresses), rememberDetails: true }));
+  // Mutate the list inside one DB transaction. A target id that no longer exists (e.g. deleted in
+  // another tab) throws ADDRESS_GONE so the caller never reports a save that did not happen.
+  const persist = async (fn, targetId = null) => {
+    c = await updateCustomer(c.id, (cur) => {
+      const list = normalizeAddresses(cur.savedAddresses);
+      if (targetId && !list.some((a) => a.id === targetId)) throw Object.assign(new Error('ADDRESS_GONE'), { code: 'ADDRESS_GONE' });
+      return { ...cur, savedAddresses: fn(list), rememberDetails: true };
+    });
+  };
+  // Run a mutation; on failure toast an error, reload the record from the DB and redraw.
+  const attempt = async (fn, targetId, okMsg, focusSel) => {
+    try {
+      await persist(fn, targetId);
+    } catch (err) {
+      toast(err.code === 'ADDRESS_GONE' ? 'Η διεύθυνση δεν υπάρχει πια (ίσως διαγράφηκε αλλού). Η λίστα ανανεώθηκε.'
+        : err.message === 'MAX_ADDRESSES' ? `Μπορείτε να αποθηκεύσετε έως ${MAX_ADDRESSES} διευθύνσεις.`
+          : 'Η αποθήκευση δεν ολοκληρώθηκε. Δοκιμάστε ξανά.', 'danger');
+      c = (await getCustomer(c.id)) || c;
+      editing = null;
+      draw('[data-address-add]');
+      return false;
+    }
+    toast(okMsg);
+    draw(focusSel);
+    return true;
   };
 
   const formHtml = (a) => `<form class="acct-form acct-address-form" data-address-form novalidate aria-labelledby="ac-ad-title">
@@ -329,7 +352,7 @@ function addressesPage(c0) {
         </div></li>`).join('')}</ul>`
     : '<div class="acct-empty" data-addresses-empty><i class="bi bi-geo-alt" aria-hidden="true"></i><h2 class="h5">Δεν έχετε αποθηκευμένες διευθύνσεις</h2><p class="text-body-secondary mb-0">Προσθέστε μία για πιο γρήγορο checkout.</p></div>'}
       ${editing ? formHtml(cur || blank) : (list.length >= MAX_ADDRESSES
-    ? `<p class="conf-muted">Φτάσατε το όριο των ${MAX_ADDRESSES} διευθύνσεων.</p>`
+    ? `<p class="conf-muted" data-addresses-full>Φτάσατε το όριο των ${MAX_ADDRESSES} αποθηκευμένων διευθύνσεων. Διαγράψτε μία για να προσθέσετε νέα.</p>`
     : '<button type="button" class="btn btn-dark mt-3" data-address-add><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Νέα διεύθυνση</button>')}`;
     if (focusSel) wrap.querySelector(focusSel)?.focus();
   };
@@ -341,18 +364,15 @@ function addressesPage(c0) {
     if (t.matches('[data-address-cancel]')) { editing = null; draw('[data-address-add]'); return; }
     if (t.dataset.addressEdit) { editing = t.dataset.addressEdit; draw('#ac-ad-title'); return; }
     if (t.dataset.addressDefault) {
-      await persist((l) => setDefaultAddress(l, t.dataset.addressDefault));
-      toast('Η προεπιλεγμένη διεύθυνση άλλαξε.');
-      draw(`[data-address-id="${t.dataset.addressDefault}"] [data-address-edit]`);
+      const id = t.dataset.addressDefault;
+      await attempt((l) => setDefaultAddress(l, id), id, 'Η προεπιλεγμένη διεύθυνση άλλαξε.', `[data-address-id="${id}"] [data-address-edit]`);
       return;
     }
     if (t.dataset.addressDelete) {
       const id = t.dataset.addressDelete;
       if (!(await confirmDialog('Θέλετε να διαγράψετε αυτή τη διεύθυνση;', { title: 'Διαγραφή διεύθυνσης', okLabel: 'Διαγραφή', danger: true }))) return;
-      await persist((l) => removeAddress(l, id));
       if (editing === id) editing = null;
-      toast('Η διεύθυνση διαγράφηκε.');
-      draw(wrap.querySelector('[data-address-add]') ? '[data-address-add]' : null);
+      await attempt((l) => removeAddress(l, id), id, 'Η διεύθυνση διαγράφηκε.', '[data-address-add]');
     }
   });
 
@@ -364,15 +384,9 @@ function addressesPage(c0) {
     if (!showErrors(form, validateAddress(v).errors)) return;
     const makeDefault = form.elements.isDefault.checked || form.elements.isDefault.disabled;
     const id = editing;
-    try {
-      await persist((l) => (id === 'new' ? addAddress(l, v, { makeDefault }) : updateAddress(l, id, v, { makeDefault })));
-    } catch (err) {
-      toast(err.message === 'MAX_ADDRESSES' ? `Μπορείτε να αποθηκεύσετε έως ${MAX_ADDRESSES} διευθύνσεις.` : 'Η αποθήκευση δεν ολοκληρώθηκε. Δοκιμάστε ξανά.', 'danger');
-      return;
-    }
     editing = null;
-    toast('Η διεύθυνση αποθηκεύτηκε.');
-    draw('[data-address-add]');
+    await attempt((l) => (id === 'new' ? addAddress(l, v, { makeDefault }) : updateAddress(l, id, v, { makeDefault })),
+      id === 'new' ? null : id, 'Η διεύθυνση αποθηκεύτηκε.', '[data-address-add]');
   });
 
   draw();
