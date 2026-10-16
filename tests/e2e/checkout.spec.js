@@ -46,7 +46,9 @@ const dbAll = (page, store) => page.evaluate(async (st) => (await import('/asset
 const stockMap = async (page) => Object.fromEntries((await dbAll(page, 'variants')).map((v) => [v.sku, v.stock]));
 
 async function openCheckout(page) {
-  await page.goto('/#/checkout');
+  // goto() to the same hash does not re-render; reload so the page reads the current DB.
+  if (page.url().endsWith('#/checkout')) await page.reload();
+  else await page.goto('/#/checkout');
   await expect(page.locator('[data-page="checkout"] h1')).toHaveText('Ολοκλήρωση παραγγελίας');
   await expect(page.locator('[data-checkout-body]')).not.toHaveAttribute('aria-busy', 'true');
 }
@@ -75,7 +77,9 @@ function expected({ sub, percent = 0, ship = 'courier', pay = 'cod' }) {
 async function readSummary(page) {
   const val = async (sel) => {
     const l = page.locator(sel);
-    return (await l.count()) ? parseEuro(await l.innerText()) : 0;
+    if (!(await l.count())) return 0;
+    const n = parseEuro(await l.innerText()); // «Δωρεάν» (free) parses as NaN -> 0
+    return Number.isNaN(n) ? 0 : n;
   };
   return {
     sub: await val('[data-sum-subtotal]'), disc: await val('[data-sum-discount]'), shipping: await val('[data-sum-shipping]'),
@@ -174,7 +178,6 @@ test('per-field validation messages, error summary and accessible attributes', a
   await page.check('input[name="shippingMethod"][value="pickup"]');
   await expect(page.locator('[data-pickup-note]')).toBeVisible();
   await expect(page.locator('#co-address')).toBeHidden();
-  await page.fill('#co-postalCode', '').catch(() => {});
   await submit(page).click();
   await expect(page.locator('[data-error-summary] a[href="#co-address"]')).toHaveCount(0);
   await expect(page.locator('[data-error-summary] a[href="#co-postalCode"]')).toHaveCount(0);

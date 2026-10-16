@@ -358,3 +358,18 @@ body[data-layout="store"] { padding-bottom: calc(var(--elan-bottom-nav-h) + env(
 body[data-layout="admin"] .site-header,
 body[data-layout="admin"] .site-footer,
 body[data-layout="admin"] .bottom-nav { display: none; }
+
+/* ---------- print (order summary) ---------- */
+@media print {
+  .skip-link, .demo-strip, .site-header, .site-footer, .bottom-nav, .offcanvas, .toast-container,
+  .modal, .modal-backdrop, [data-no-print] { display: none !important; }
+  body, body[data-layout="store"] { background: #fff !important; padding: 0 !important; color: #000; }
+  .page { padding: 0 !important; }
+  .print-only { display: block !important; }
+  .conf-print-head { font-weight: 600; border-bottom: 1px solid #000; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  .conf-check { display: none !important; }
+  .conf-grid { display: block !important; max-width: none; }
+  .conf-card, .alert { border: 1px solid #999 !important; box-shadow: none !important; break-inside: avoid; margin-bottom: 0.75rem; background: #fff !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .co-line-media img { max-width: 48px; }
+}
