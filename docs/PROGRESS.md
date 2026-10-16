@@ -19,16 +19,16 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 9 | Transactional checkout, orders, confirmation | complete, reviewed (1 fix round) |
 | 10 | Customer account, order history, tracking | complete, reviewed (1 fix round) |
 | 11 | Homepage, content service, Instagram | complete, reviewed (no fix round) |
-| 12–19 | Admin (overview, products, orders, customers/coupons, content/settings), Backup/reset, A11y/responsive pass, README/handoff | not started |
+| 12 | Admin shell, demo gate, overview, sample data | complete, reviewed (no fix round) |
+| 13–19 | Admin products, orders, customers+coupons, content+settings; Backup/reset; A11y/responsive pass; README/handoff | not started |
 
-Overall: 11 of 19 tasks complete (~58%). Tests: unit 135, e2e 147, all green.
+Overall: 12 of 19 tasks complete (~63%). Tests: unit 156, e2e 159, all green.
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
 
-## Next task: Task 12 — Admin shell, gate and overview
-Files: `assets/js/pages/admin/{gate,layout,overview}.js`, `assets/css/admin.css`; tests `tests/unit/stats.test.mjs`, `tests/e2e/admin-overview.spec.js`.
-`adminRoute(path, handler)` guarded by `sessionStorage.adminSession`; pure `computeStats(orders,products,customers)` -> {totalOrders,revenueCents,pending,completed,products,lowStock,customers,recent,topProducts,salesByDay}. Gate shows demo credentials + "demo access — not real authentication"; sidebar collapses on mobile; cancelled orders excluded from revenue; creating an order via the storefront changes overview numbers. NOTE: the seed has NO historical orders/customers yet — the brief requires sample customers and historical orders so the dashboard looks populated on first launch: add a seed (data/sample-orders.json or generated deterministic builder in seed.js using real products/variants snapshots; paymentStatus/fulfillmentStatus mix incl. cancelled/returned with correct `restocked` flags and consistent totals via pricing.quote) as part of this task.
+## Next task: Task 13 — Admin product management
+Files: `assets/js/pages/admin/products.js`; extend `services/products.js` with `saveProduct(p)`, `archiveProduct(id)`, `deleteProduct(id)`; test `tests/e2e/admin-products.spec.js`. Product list with search/filter, create/edit form (name, slug, descriptions, category/subcategory, price + sale price, images by URL or local file as data URL, sizes×colors variant matrix with per-variant stock and SKU, featured, visibility), delete only when no orders reference the product else archive, validation (duplicate SKU/slug, negative price). Admin edits must appear in the storefront after reload and must not change historical order snapshots. Use `adminRoute` (pages/admin/gate.js), the admin layout, and the existing placeholder route for #/admin/products. See ledger notes about sample orders (restock caveat belongs to Task 14).
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
