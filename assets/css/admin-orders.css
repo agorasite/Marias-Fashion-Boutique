@@ -1,0 +1,106 @@
+/* ÉLAN admin — order management (list + detail + print). Builds on admin.css / admin-products.css. */
+
+/* ---------------------------------------------------------------- list */
+.admin-ord-toolbar { display: grid; gap: 0.9rem; }
+.admin-ord-filters { display: grid; gap: 0.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; }
+.admin-ord-filters .form-label { font-size: 0.75rem; font-weight: 600; color: var(--admin-muted); margin-bottom: 0.25rem; }
+.admin-ord-filters .form-select, .admin-ord-filters .form-control { min-height: 40px; min-width: 0; }
+@media (min-width: 768px) { .admin-ord-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .admin-ord-filters { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.admin-ord-hint { font-size: 0.8125rem; color: #7a2a1f; margin: -0.25rem 0 0.75rem; }
+.admin-ord-wrap { position: relative; }
+@media (min-width: 768px) { .admin-ord-wrap { overflow-x: auto; } }
+.admin-ord-sample { display: inline-block; margin-left: 0.45rem; padding: 0.05rem 0.4rem; border-radius: 4px; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.04em; color: var(--admin-muted); background: var(--admin-line-soft); vertical-align: middle; }
+@media (min-width: 768px) {
+  .admin-ord-table td[data-label="Πελάτης"] { min-width: 230px; }
+  .admin-ord-table .admin-cust-mail { overflow-wrap: normal; word-break: normal; }
+  .admin-ord-table .admin-ord-items { white-space: nowrap; }
+}
+@media (min-width: 1200px) { .admin-ord-table td[data-label="Κατάσταση"] .admin-badges { flex-wrap: nowrap; } }
+.admin-ord-items { display: block; font-size: 0.75rem; font-weight: 400; color: var(--admin-muted); }
+.admin-ord-go .btn { min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; gap: 0.35rem; }
+@media (max-width: 767.98px) {
+  .admin-ord-table td.admin-ord-go { display: block; padding-top: 0.5rem !important; }
+  .admin-ord-table td.admin-ord-go::before { content: none; }
+  .admin-ord-go .btn { min-height: 44px; width: 100%; justify-content: center; }
+  .admin-ord-items { display: inline; margin-left: 0.4rem; }
+  .admin-ord-table td .admin-order-link { white-space: normal; overflow-wrap: anywhere; }
+}
+
+/* ---------------------------------------------------------------- detail */
+.aod { display: grid; gap: 1rem; }
+.aod-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem 1rem; flex-wrap: wrap; }
+.aod-head-main { min-width: 0; display: grid; gap: 0.35rem; }
+.aod-ref { margin: 0; font-size: 1.05rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.aod-date { margin: 0; color: var(--admin-muted); font-size: 0.875rem; }
+.aod-date strong { color: var(--admin-ink); }
+.aod-head-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.aod-head-actions .btn { min-height: 40px; display: inline-flex; align-items: center; }
+.aod-grid { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+.aod-main, .aod-side { display: grid; gap: 1rem; align-content: start; min-width: 0; }
+@media (max-width: 991.98px) { .aod-side { order: -1; } }
+@media (min-width: 992px) { .aod-grid { grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr); } }
+.aod-card-title { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; }
+.aod-card-title .bi { color: var(--elan-gold-ink); }
+.aod-muted { color: var(--admin-muted); font-size: 0.8125rem; }
+
+.aod-action-group { display: grid; gap: 0.6rem; }
+.aod-action-group + .aod-action-group { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--admin-line-soft); }
+.aod-action-label { margin: 0; font-size: 0.875rem; }
+.aod-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.aod-btns .btn { min-height: 44px; display: inline-flex; align-items: center; }
+.aod-prompt { margin: 0; font-size: 0.8125rem; padding: 0.55rem 0.7rem; border-radius: 6px; background: #fbf1dc; color: #6a4b12; }
+[data-busy="true"] .aod-btns .btn { cursor: progress; }
+
+.aod-dl { margin: 0; display: grid; gap: 0.45rem; font-size: 0.875rem; }
+.aod-dl div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.5rem; }
+.aod-dl dt { color: var(--admin-muted); font-weight: 500; }
+.aod-dl dd { margin: 0; overflow-wrap: anywhere; }
+.aod-dl a { color: var(--admin-ink); }
+.aod-link { margin: 0.6rem 0 -0.6rem; }
+.aod-customer-note { font-size: 0.875rem; padding: 0.55rem 0.7rem; background: #faf8f5; border-radius: 6px; overflow-wrap: anywhere; }
+[data-delivery-card] address, [data-delivery-card] p { overflow-wrap: anywhere; }
+
+.aod-items-wrap { margin-bottom: 0.75rem !important; }
+.aod-items .admin-prod-name { cursor: default; }
+.aod-items .admin-prod-name:hover { color: var(--admin-ink); text-decoration: none; }
+@media (min-width: 768px) { .aod-items td:first-child { min-width: 220px; } }
+.aod-snapshot-note { margin-top: 0.25rem; }
+[data-totals-card] .co-totals { margin-bottom: 0.75rem; }
+
+.aod-timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.aod-timeline li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 0.65rem; position: relative; padding-bottom: 0.85rem; }
+.aod-timeline li:not(:last-child)::before { content: ""; position: absolute; left: 13.5px; top: 28px; bottom: 0; width: 1px; background: var(--admin-line); }
+.aod-tl-dot { width: 28px; height: 28px; border-radius: 50%; display: inline-grid; place-items: center; background: #f6f0e4; color: var(--elan-gold-ink); font-size: 0.8rem; }
+.aod-timeline li[data-type="restock"] .aod-tl-dot, .aod-timeline li[data-type="note"] .aod-tl-dot { background: var(--admin-line-soft); color: var(--admin-muted); }
+.aod-tl-text { margin: 0.2rem 0 0.1rem; font-size: 0.875rem; overflow-wrap: anywhere; }
+.aod-tl-meta { margin: 0; font-size: 0.75rem; color: var(--admin-muted); }
+
+.aod-notes { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.6rem; }
+.aod-notes li { padding: 0.6rem 0.75rem; border-radius: 6px; background: #faf8f5; border: 1px solid var(--admin-line-soft); }
+.aod-note-text { margin: 0 0 0.2rem; font-size: 0.875rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.aod-note-form .form-label { font-size: 0.8125rem; font-weight: 600; }
+.aod-note-form .btn { min-height: 44px; }
+.aod-count { font-size: 0.75rem; color: var(--admin-muted); font-variant-numeric: tabular-nums; }
+.aod-count.is-over { color: var(--elan-danger); font-weight: 600; }
+.aod-print-head { display: none; }
+
+/* ---------------------------------------------------------------- print: order summary without admin chrome */
+@media print {
+  body[data-layout="admin"] { background: #fff !important; }
+  .admin-sidebar, .admin-topbar, .admin-crumbs, .admin-subtitle, .demo-strip, .toast-container, [data-no-print] { display: none !important; }
+  .admin-shell { display: block !important; background: none !important; min-height: 0 !important; }
+  .admin-content { padding: 0 !important; max-width: none !important; }
+  .aod-print-head { display: block !important; font-weight: 600; border-bottom: 1px solid #000; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  .aod-grid { display: block !important; }
+  .aod-side { order: 0 !important; }
+  .aod-card, .aod-head { border: 1px solid #999 !important; box-shadow: none !important; break-inside: avoid; margin-bottom: 0.75rem; }
+  .admin-badge { border: 1px solid #999 !important; background: #fff !important; color: #000 !important; }
+  .admin-table-stack thead { display: table-header-group !important; }
+  .admin-table-stack, .admin-table-stack tbody { display: table !important; width: 100%; }
+  .admin-table-stack tbody { display: table-row-group !important; }
+  .admin-table-stack tr { display: table-row !important; }
+  .admin-table-stack td { display: table-cell !important; }
+  .admin-table-stack td::before { content: none !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+}

@@ -7,6 +7,7 @@ import {
   updateCustomer, ordersForCustomer,
 } from '../services/customers.js';
 import { getOrder } from '../services/orders.js';
+import { isCustomerVisibleHistory } from '../services/order-rules.js';
 import { listActive } from '../services/wishlist.js';
 import { getSettings } from '../services/settings.js';
 import { REGIONS, PAYMENT_LABELS } from '../services/checkout-rules.js';
@@ -190,7 +191,8 @@ function trackingHtml(o) {
 }
 
 function historyHtml(o) {
-  const h = (Array.isArray(o.history) ? o.history : []).slice().sort((a, b) => (a.at < b.at ? -1 : 1));
+  // Internal admin notes and stock bookkeeping are not shown to the customer.
+  const h = (Array.isArray(o.history) ? o.history : []).filter(isCustomerVisibleHistory).sort((a, b) => (a.at < b.at ? -1 : 1));
   if (!h.length) return '<p class="conf-muted mb-0">Δεν υπάρχουν καταγεγραμμένα συμβάντα.</p>';
   return `<ol class="acct-timeline" data-history>${h.map((e) => `<li><time datetime="${esc(e.at)}">${esc(fmtDate(e.at, dateTime))}</time><span>${esc(e.detail || e.type || '')}</span></li>`).join('')}</ol>`;
 }

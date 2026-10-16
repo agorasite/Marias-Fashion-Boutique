@@ -34,6 +34,16 @@ export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel =
       modal.hide();
     });
     el.addEventListener('shown.bs.modal', () => el.querySelector('[data-ok]').focus());
+    // Keep Tab / Shift+Tab cycling inside the dialog (Bootstrap's trap lets focus escape to the browser UI).
+    el.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const f = [...el.querySelectorAll('button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')];
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     el.addEventListener('hidden.bs.modal', () => {
       modal.dispose();
       el.remove();

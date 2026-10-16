@@ -233,9 +233,10 @@ test('recent-order links open an admin view (not a 404)', async ({ page }) => {
   const href = await link.getAttribute('href');
   await link.click();
   await expect(page).toHaveURL(new RegExp(`${href.replace(/[/#]/g, '\\$&')}$`));
-  await expect(page.locator('[data-admin-view="placeholder"]')).toBeVisible();
+  // Task 14: the link opens the real admin detail page of that order
+  await expect(page.locator('[data-admin-view="order-detail"]')).toHaveAttribute('data-ready', 'true');
   await expect(page.locator('[data-page="not-found"]')).toHaveCount(0);
-  await expect(page.locator('[data-admin-view="placeholder"]')).toContainText(href.split('/').pop());
+  await expect(page.locator('[data-order-ref]')).toHaveText(href.split('/').pop());
 });
 
 test('390px: sidebar is an offcanvas that opens, closes and closes on Escape; nav works', async ({ page }) => {
@@ -259,7 +260,7 @@ test('390px: sidebar is an offcanvas that opens, closes and closes on Escape; na
   await toggle.click();
   await sidebar.locator('a[href="#/admin/orders"]').click();
   await expect(page).toHaveURL(/#\/admin\/orders$/);
-  await expect(page.locator('[data-admin-view="placeholder"]')).toBeVisible();
+  await expect(page.locator('[data-admin-view="orders"]')).toBeVisible();
   await expect(sidebar).toBeHidden();
   await expect(page.locator('.offcanvas-backdrop')).toHaveCount(0);
   await expect(page.locator('.site-header')).toBeHidden();
@@ -280,7 +281,8 @@ test('desktop: sidebar is always visible with every section; all nav targets res
   for (const h of hrefs.slice(1)) {
     await sidebar.locator(`nav a[href="${h}"]`).click();
     await expect(page).toHaveURL(new RegExp(`${h.replace(/[/#]/g, '\\$&')}$`));
-    await expect(page.locator(h === '#/admin/products' ? '[data-admin-view="products"]' : '[data-admin-view="placeholder"]'), h).toBeVisible();
+    const real = { '#/admin/products': 'products', '#/admin/orders': 'orders' };
+    await expect(page.locator(`[data-admin-view="${real[h] || 'placeholder'}"]`), h).toBeVisible();
     await expect(sidebar.locator(`nav a[href="${h}"]`)).toHaveAttribute('aria-current', 'page');
   }
   await expect(page.locator('[data-view-store]').first()).toHaveAttribute('href', '#/');

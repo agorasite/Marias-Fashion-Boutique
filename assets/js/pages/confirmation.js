@@ -24,7 +24,7 @@ function paymentBadge(o) {
 }
 
 const FULFILLMENT = {
-  pending: 'Σε αναμονή επεξεργασίας', processing: 'Σε επεξεργασία', shipped: 'Απεστάλη', delivered: 'Παραδόθηκε',
+  pending: 'Σε αναμονή επεξεργασίας', confirmed: 'Επιβεβαιώθηκε', processing: 'Σε επεξεργασία', shipped: 'Απεστάλη', delivered: 'Παραδόθηκε',
   cancelled: 'Ακυρώθηκε', returned: 'Επιστράφηκε',
 };
 
