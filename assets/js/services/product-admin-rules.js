@@ -225,6 +225,8 @@ export function normalizeProductInput(input, { existingSkus = [], editingId = nu
 }
 
 const isInt = (n) => Number.isInteger(n);
+/** Shared with the backup import, which checks slug uniqueness with a precomputed count (linear time). */
+export const SLUG_TAKEN = 'Υπάρχει ήδη προϊόν με αυτό το slug.';
 
 /**
  * @returns {{ok:boolean, errors:Object<string,string>, value:object}} errors keyed by field or
@@ -239,7 +241,7 @@ export function validateProductInput(input, { existingProducts = [], existingSku
 
   if (!value.slug) errors.slug = 'Δεν είναι δυνατή η δημιουργία slug από το όνομα· συμπληρώστε το χειροκίνητα.';
   else if (!SLUG_RE.test(value.slug)) errors.slug = 'Το slug επιτρέπει μόνο μικρά λατινικά γράμματα, αριθμούς και παύλες (π.χ. mavro-forema).';
-  else if ((existingProducts || []).some((p) => p.id !== editingId && p.slug === value.slug)) errors.slug = 'Υπάρχει ήδη προϊόν με αυτό το slug.';
+  else if ((existingProducts || []).some((p) => p.id !== editingId && p.slug === value.slug)) errors.slug = SLUG_TAKEN;
 
   if (!value.brand) errors.brand = 'Συμπληρώστε το brand.';
 

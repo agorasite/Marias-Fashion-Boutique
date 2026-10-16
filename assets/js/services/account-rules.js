@@ -63,7 +63,7 @@ export function validateAddress(a) {
   return { ok: Object.keys(errors).length === 0, errors };
 }
 
-/** Profile validation = the checkout contact rules + AFM check (company is free text). */
+/** Profile validation = the checkout contact rules + AFM check (company: optional text, length-capped by COMPANY_MAX). */
 export function validateProfile(f) {
   const errors = pick(validateCheckoutForm({ ...(f || {}), shippingMethod: 'pickup' }).errors, PROFILE_KEYS);
   return { ok: Object.keys(errors).length === 0, errors };

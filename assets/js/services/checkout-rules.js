@@ -1,4 +1,5 @@
 // Pure checkout rules (no DB, no DOM): form validation, ids and labels. Importable in Node.
+import { PERSON_NAME_MAX, COMPANY_MAX, ADDRESS_MAX, CITY_MAX, EMAIL_MAX } from './limits.js';
 
 /** The 13 Greek administrative regions (περιφέρειες), offered in the checkout select. */
 export const REGIONS = [
@@ -27,8 +28,6 @@ export const ORDER_ID_RE = /^ELAN-\d{8}-[0-9A-Z]{4}$/;
 /** Fields in the order the form shows them (used for the error summary). */
 export const FIELD_ORDER = ['firstName', 'lastName', 'email', 'phone', 'shippingMethod', 'address', 'city',
   'postalCode', 'region', 'company', 'vatNumber', 'paymentMethod', 'notes', 'acceptTerms'];
-
-import { PERSON_NAME_MAX, COMPANY_MAX, ADDRESS_MAX, CITY_MAX, EMAIL_MAX } from './limits.js';
 
 const str = (v) => (v == null ? '' : String(v)).trim();
 

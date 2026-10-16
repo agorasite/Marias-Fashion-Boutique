@@ -194,6 +194,68 @@ test('settings leaves must be strings or null', () => {
   }
 });
 
+// ------------------------------------------------------------------ fix round 2: linear-time validation
+/** A valid backup with `n` extra products (2 variants each) cloned from the first seed product. */
+function bigBackup(n) {
+  const b = fixture();
+  const p0 = b.stores.products[0];
+  const v0 = b.stores.variants.find((v) => v.productId === p0.id);
+  for (let i = 0; i < n; i += 1) {
+    const id = `p-perf-${i}`;
+    b.stores.products.push({ ...p0, id, slug: `perf-${i}` });
+    b.stores.variants.push({ ...v0, sku: `PERF-${i}-A`, productId: id, size: 'S' }, { ...v0, sku: `PERF-${i}-B`, productId: id, size: 'M' });
+  }
+  return b;
+}
+
+test('performance guard: 20.000 products + 40.000 variants validate in well under 2 s (linear time)', () => {
+  const b = bigBackup(20000);
+  const t0 = performance.now();
+  const r = run(b);
+  const ms = performance.now() - t0;
+  assert.deepEqual(r.errors, []);
+  assert.ok(ms < 3000, `validateImport took ${Math.round(ms)} ms`);
+});
+
+test('performance guard: 40.000 products stay fast too (a quadratic check would take > 5 s here)', () => {
+  const b = bigBackup(40000);
+  const t0 = performance.now();
+  const r = run(b);
+  const ms = performance.now() - t0;
+  assert.deepEqual(r.errors, []);
+  assert.ok(ms < 3000, `validateImport took ${Math.round(ms)} ms`);
+});
+
+test('performance guard: hostile objects with very many keys are scanned in linear time', () => {
+  const b = fixture();
+  const wide = {};
+  for (let i = 0; i < 200000; i += 1) wide[`k${i}`] = i;
+  b.stores.products[0].attributes = wide;
+  const t0 = performance.now();
+  run(b);
+  assert.ok(performance.now() - t0 < 3000);
+});
+
+test('duplicate slug / id / sku messages are unchanged', () => {
+  const a = bigBackup(3);
+  a.stores.products.find((p) => p.id === 'p-perf-1').slug = 'perf-0';
+  const ra = run(a);
+  assert.deepEqual(ra.errors.filter((e) => /slug/.test(e)), [
+    'Προϊόντα «p-perf-0»: Υπάρχει ήδη προϊόν με αυτό το slug.',
+    'Προϊόντα «p-perf-1»: Υπάρχει ήδη προϊόν με αυτό το slug.',
+  ]);
+  const b = bigBackup(3);
+  b.stores.products.push({ ...b.stores.products.find((p) => p.id === 'p-perf-2') });
+  assert.ok(run(b).errors.includes('Προϊόντα: το κλειδί «p-perf-2» εμφανίζεται περισσότερες από μία φορές.'));
+  const c = bigBackup(3);
+  c.stores.variants.push({ ...c.stores.variants.find((v) => v.sku === 'PERF-1-A'), size: 'XL' });
+  assert.ok(run(c).errors.includes('Παραλλαγές: το κλειδί «PERF-1-A» εμφανίζεται περισσότερες από μία φορές.'));
+  // The product editor itself still reports a taken slug through existingProducts.
+  const p = { ...a.stores.products[0], variants: a.stores.variants.filter((v) => v.productId === a.stores.products[0].id) };
+  const r = validateProductInput({ ...p, slug: a.stores.products[1].slug }, { existingProducts: a.stores.products, categories: a.stores.categories, editingId: p.id });
+  assert.equal(r.errors.slug, 'Υπάρχει ήδη προϊόν με αυτό το slug.');
+});
+
 test('hostile property names are truncated in error messages', () => {
   const b = fixture();
   b.stores.products[0].attributes = { ['κ'.repeat(5000)]: 'x'.repeat(LIMITS.IMPORT_STRING_MAX + 1) };

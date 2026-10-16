@@ -32,7 +32,7 @@
 // - Errors are Greek, ordered (envelope, then stores in schema order, records in file order) and capped at
 //   MAX_ERRORS plus a final «…και άλλα N σφάλματα».
 import { SCHEMA_VERSION, DB_NAME, STORE_DEFS } from '../schema.js';
-import { validateProductInput, imageSourceError, isValidHex, centsToEuros, MAX_DATA_URL_CHARS, SLUG_RE } from './product-admin-rules.js';
+import { validateProductInput, normalizeProductInput, SLUG_TAKEN, imageSourceError, isValidHex, centsToEuros, MAX_DATA_URL_CHARS, SLUG_RE } from './product-admin-rules.js';
 import { validateSettingsInput, settingsToForm, irisInstructionsError } from './settings-rules.js';
 import { validateCouponInput, COUPON_CODE_RE, COUPON_TYPES } from './coupon-rules.js';
 import { CONTENT_KEYS, NEWSLETTER_KEY, validateContent, validateNewsletterEmail } from './content-rules.js';
@@ -161,7 +161,7 @@ function scanAndCopy(value, report) {
       out[k] = walk(v[k], `${p}.${seg(k)}`, depth + 1);
     }
     // Own keys hidden from Object.keys (e.g. a non-enumerable __proto__) are suspicious too.
-    for (const k of Object.getOwnPropertyNames(v)) if (FORBIDDEN_KEYS.has(k) && !Object.keys(v).includes(k)) report(`${p}: μη επιτρεπτό κλειδί «${k}».`);
+    for (const k of Object.getOwnPropertyNames(v)) if (FORBIDDEN_KEYS.has(k) && !Object.prototype.propertyIsEnumerable.call(v, k)) report(`${p}: μη επιτρεπτό κλειδί «${k}».`);
     return out;
   };
   return walk(value, 'αρχείο', 0);
@@ -198,7 +198,11 @@ function validateCategory(c, ctx) {
 
 function validateProduct(p, ctx) {
   const variants = (ctx.variantsByProduct.get(p.id) || []).filter((v) => !v.archived);
-  const r = validateProductInput({ ...p, variants }, { existingProducts: ctx.stores.products, categories: ctx.stores.categories, editingId: p.id });
+  // Linear time: the editor's per-product scans (slug uniqueness over every product, category lookup over every
+  // category) are replaced by precomputed maps; the messages stay identical.
+  const categories = [ctx.byId.categories.get(p.categoryId), ctx.byId.categories.get(p.subcategoryId)].filter(Boolean);
+  const r = validateProductInput({ ...p, variants }, { existingProducts: [], categories, editingId: p.id });
+  if (!r.errors.slug && (ctx.slugCounts.get(r.value.slug) || 0) > 1) r.errors.slug = SLUG_TAKEN;
   for (const [field, msg] of Object.entries(r.errors)) {
     if (field.startsWith('variants[')) continue; // variant fields are checked per record in the variants store
     ctx.err(msg);
@@ -528,7 +532,13 @@ export function validateImport(obj, { now = new Date() } = {}) {
     if (!variantsByProduct.has(v.productId)) variantsByProduct.set(v.productId, []);
     variantsByProduct.get(v.productId).push(v);
   }
-  const ctxBase = { now, stores: validRecords, byId, variantsByProduct, emails: new Map(), combos: new Set() };
+  // Slug occurrences, computed once like the editor derives them (explicit slug, else slugify(name)).
+  const slugCounts = new Map();
+  for (const p of validRecords.products) {
+    const slug = normalizeProductInput(p).slug;
+    slugCounts.set(slug, (slugCounts.get(slug) || 0) + 1);
+  }
+  const ctxBase = { now, stores: validRecords, byId, variantsByProduct, slugCounts, emails: new Map(), combos: new Set() };
   for (const name of STORE_NAMES) {
     const keyPath = STORE_DEFS[name].keyPath;
     for (const rec of validRecords[name]) {
