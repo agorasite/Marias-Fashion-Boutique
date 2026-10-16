@@ -55,6 +55,12 @@ export async function toggle(productId) {
   return active;
 }
 
+/** Tell listeners the stored ids changed outside toggle() (e.g. a product was deleted in the admin). */
+export function notifyExternalChange(ids) {
+  version += 1;
+  window.dispatchEvent(new CustomEvent('wishlist:changed', { detail: { ids, productId: null, active: null, version } }));
+}
+
 if (typeof window !== 'undefined' && !window.__elanWishlistBound) {
   window.__elanWishlistBound = true;
   window.addEventListener('wishlist:toggle', (e) => {

@@ -1,6 +1,6 @@
 import { escapeHtml as esc } from '../ui.js';
 
-const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
+import { smOf } from '../services/image-path.js';
 
 /**
  * Product image gallery: main image, thumbnails and a keyboard-accessible lightbox.

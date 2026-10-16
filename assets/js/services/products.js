@@ -34,6 +34,7 @@ export function compareSizes(a, b) {
 const groupByProduct = (variants) => {
   const m = new Map();
   for (const v of variants || []) {
+    if (v.archived) continue; // archived variants are never shown or purchasable
     if (!m.has(v.productId)) m.set(v.productId, []);
     m.get(v.productId).push(v);
   }
@@ -41,7 +42,7 @@ const groupByProduct = (variants) => {
 };
 
 export function productAvailability(product, variants) {
-  const own = (variants || []).filter((v) => v.productId === product.id);
+  const own = (variants || []).filter((v) => v.productId === product.id && !v.archived);
   const total = own.reduce((s, v) => s + Math.max(0, v.stock || 0), 0);
   const inStock = total > 0;
   return {
@@ -182,7 +183,7 @@ export async function getProduct(idOrSlug) {
     let p = await reqP(t.objectStore('products').get(idOrSlug));
     if (!p) p = await reqP(t.objectStore('products').index('slug').get(idOrSlug));
     if (!p) return null;
-    const vs = await reqP(t.objectStore('variants').index('productId').getAll(p.id));
+    const vs = (await reqP(t.objectStore('variants').index('productId').getAll(p.id))).filter((v) => !v.archived);
     return { p, vs };
   });
   if (!result) return null;
@@ -216,7 +217,7 @@ export function findVariant(variants, size, color) {
 
 export async function getVariant(productId, size, color) {
   const vs = await tx(['variants'], 'readonly', (t) => reqP(t.objectStore('variants').index('productId').getAll(productId)));
-  return findVariant(vs, size, color);
+  return findVariant(vs.filter((v) => !v.archived), size, color);
 }
 
 export async function getVariantBySku(sku) {

@@ -5,7 +5,7 @@ import { getSettings } from '../services/settings.js';
 import { confirmIrisSimulation } from '../services/checkout.js';
 import { sizeLabel } from '../services/products.js';
 
-const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
+import { smOf } from '../services/image-path.js';
 const dateFmt = new Intl.DateTimeFormat('el-GR', { dateStyle: 'long', timeStyle: 'short' });
 
 const PAYMENT_STATUS = {

@@ -10,7 +10,7 @@ import { placeOrder, CheckoutError, lineSignature } from '../services/checkout.j
 import { getActiveCustomer } from '../services/customers.js';
 import { pickDefaultAddress } from '../services/account-rules.js';
 
-const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
+import { smOf } from '../services/image-path.js';
 const ADDRESS_FIELDS = ['address', 'city', 'postalCode', 'region'];
 const TEXT_FIELDS = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'postalCode', 'region', 'company', 'vatNumber', 'notes'];
 

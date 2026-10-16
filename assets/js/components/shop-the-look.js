@@ -4,7 +4,7 @@ import { getProduct } from '../services/products.js';
 
 export const DEMO_FEED_LABEL = 'Επιλεγμένο περιεχόμενο — demo, όχι ζωντανή σύνδεση με Instagram';
 
-const smOf = (src) => String(src).replace(/\.webp$/, '-sm.webp');
+import { smOf } from '../services/image-path.js';
 
 function productRow(p) {
   const img = p.images?.[0];

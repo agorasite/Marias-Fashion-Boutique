@@ -67,7 +67,7 @@ export function fallbackTile(name) {
   return d;
 }
 
-const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
+import { smOf, hasSm } from '../services/image-path.js';
 
 /**
  * Build a product card element.
@@ -90,8 +90,7 @@ export function productCard(p, { onQuickView } = {}) {
   el.dataset.slug = p.slug;
   el.dataset.price = String(p.priceCents);
   el.innerHTML = `<div class="product-card-media">
-      ${src ? `<img src="${esc(smOf(src))}" srcset="${esc(smOf(src))} 320w, ${esc(src)} 800w"
-        sizes="(min-width: 1200px) 25vw, (min-width: 768px) 33vw, 50vw"
+      ${src ? `<img src="${esc(smOf(src))}"${hasSm(src) ? ` srcset="${esc(smOf(src))} 320w, ${esc(src)} 800w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 33vw, 50vw"` : ''}
         width="320" height="480" loading="lazy" decoding="async" alt="${esc(p.name)}">` : ''}
       <div class="product-card-badges">${badges.join('')}</div>
       <button type="button" class="product-card-wish" data-wish="${esc(p.id)}" data-name="${esc(p.name)}"

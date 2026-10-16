@@ -1,0 +1,137 @@
+/* ÉLAN admin — product management (list + editor). Builds on admin.css tokens and components. */
+.admin-badge.st-active { background: #e6f2ea; color: #1f5638; border-color: #cfe5d7; }
+.admin-badge.st-archived { background: #efebe5; color: #574a3b; border-color: #e2dbd0; }
+.admin-badge.st-sale { background: #f7e6e3; color: #7a2a1f; border-color: #eed0ca; margin-left: 0.35rem; }
+
+.admin-prod-toolbar { display: grid; gap: 0.9rem; }
+.admin-toolbar-top { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+.admin-search { position: relative; flex: 1 1 260px; min-width: 0; }
+.admin-search .bi { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--admin-muted); pointer-events: none; }
+.admin-search .form-control { padding-left: 2.3rem; min-height: 44px; }
+.admin-toolbar-top .btn { min-height: 44px; display: inline-flex; align-items: center; }
+.admin-filters { display: grid; gap: 0.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; }
+.admin-filters .form-label { font-size: 0.75rem; font-weight: 600; color: var(--admin-muted); margin-bottom: 0.25rem; }
+.admin-filter-checks { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+@media (min-width: 768px) {
+  .admin-filters { grid-template-columns: repeat(3, minmax(0, 1fr)) auto; }
+  .admin-filter-checks { grid-column: auto; flex-direction: column; gap: 0.1rem; }
+}
+
+.admin-count { margin: 0 0 0.75rem; font-size: 0.875rem; }
+.admin-count span { color: var(--admin-muted); }
+.admin-prod-wrap, .admin-variants-wrap { position: relative; } /* contain the visually-hidden header cells */
+.admin-prod-wrap { margin-bottom: 0; }
+.admin-prod { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+.admin-prod-text { display: grid; min-width: 0; }
+.admin-prod-name { font-weight: 600; color: var(--admin-ink); text-decoration: none; overflow-wrap: anywhere; line-height: 1.3; }
+.admin-prod-name:hover { color: var(--elan-gold-ink); text-decoration: underline; }
+.admin-prod-meta { font-size: 0.75rem; color: var(--admin-muted); overflow-wrap: anywhere; }
+.admin-old-price { color: var(--admin-muted); font-weight: 400; margin-left: 0.4rem; font-size: 0.8125rem; }
+.admin-stock-ok { font-variant-numeric: tabular-nums; font-size: 0.8125rem; }
+.admin-star { background: transparent; border: 0; width: 44px; height: 44px; margin: -0.5rem 0; border-radius: 6px; color: var(--admin-muted); font-size: 1.15rem; display: inline-grid; place-items: center; }
+.admin-star:hover, .admin-star:focus-visible { background: var(--admin-line-soft); color: var(--admin-ink); }
+.admin-star.is-on { color: var(--elan-gold); }
+.admin-actions { display: flex; gap: 0.35rem; flex-wrap: wrap; justify-content: flex-end; }
+.admin-actions .btn { min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; }
+.admin-action-label { display: none; }
+@media (max-width: 767.98px) {
+  .admin-action-label { display: inline; }
+  .admin-actions { justify-content: flex-start; }
+  .admin-actions .btn { min-height: 44px; padding-inline: 0.8rem; }
+  .admin-star { margin: -0.4rem 0; }
+}
+@media (min-width: 768px) {
+  .admin-prod-wrap { overflow-x: auto; }
+  .admin-prod-table td:first-child { min-width: 240px; }
+  .admin-prod-table td:last-child { white-space: nowrap; }
+}
+.admin-pager { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--admin-line-soft); }
+.admin-pager-info, .admin-pager-page { margin: 0; font-size: 0.8125rem; color: var(--admin-muted); }
+.admin-pager-btns { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem 0.6rem; flex-wrap: wrap; }
+@media (max-width: 575.98px) { .admin-pager-btns { width: 100%; } .admin-pager-page { order: -1; width: 100%; text-align: center; } .admin-pager-btns .btn { flex: 1 1 0; } }
+.admin-pager .btn { min-height: 40px; }
+
+/* ---------------------------------------------------------------- editor */
+.admin-product-form { display: grid; gap: 1rem; padding-bottom: 1rem; }
+.admin-store-link { margin: 0; font-size: 0.875rem; color: var(--admin-muted); overflow-wrap: anywhere; }
+.admin-store-link a { color: var(--admin-ink); font-weight: 600; }
+.admin-req { color: var(--elan-danger); }
+.admin-product-form .form-label { font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.25rem; }
+.admin-product-form .form-control, .admin-product-form .form-select { border-radius: 6px; }
+.admin-product-form .form-control:not(.form-control-sm):not([type="color"]), .admin-product-form .form-select:not(.form-select-sm) { min-height: 44px; }
+.admin-product-form textarea.form-control { min-height: 120px; }
+.admin-error-summary { margin: 0; }
+.admin-error-link { font-weight: 600; vertical-align: baseline; color: inherit; }
+.admin-switch-row .form-check-input { width: 2.5em; height: 1.3em; }
+.admin-flags { border: 0; padding: 0; margin: 0; }
+.admin-flags legend { float: none; padding: 0; width: auto; }
+.admin-discount { margin: 0; min-height: 1.4em; font-size: 0.875rem; color: var(--elan-success); font-weight: 500; }
+
+.admin-images { display: grid; gap: 0.6rem; margin: 0 0 1rem; padding: 0; }
+.admin-image { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem; border: 1px solid var(--admin-line-soft); border-radius: 8px; flex-wrap: wrap; }
+.admin-image-thumb { flex: none; width: 48px; height: 64px; object-fit: cover; border-radius: 4px; background: var(--elan-sand); }
+.admin-image-broken { display: inline-grid; place-items: center; font-size: 0.625rem; text-align: center; color: var(--elan-danger); border: 1px dashed var(--elan-danger); }
+.admin-image-info { display: grid; flex: 1 1 160px; min-width: 0; }
+.admin-image-n { font-weight: 600; font-size: 0.875rem; }
+.admin-image-src { font-size: 0.75rem; color: var(--admin-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-image-btns { display: flex; gap: 0.35rem; }
+.admin-image-btns .btn { min-width: 40px; min-height: 40px; }
+.admin-image-empty { color: var(--admin-muted); font-size: 0.875rem; padding: 0.5rem 0; }
+.admin-image-add { display: grid; gap: 1rem; }
+@media (min-width: 768px) { .admin-image-add { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); } }
+.admin-url-preview { margin-top: 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.8125rem; }
+.admin-url-preview img { width: 48px; height: 64px; object-fit: cover; border-radius: 4px; }
+.admin-url-preview.is-error { color: var(--elan-danger); }
+.admin-url-preview.is-ok { color: var(--elan-success); }
+.admin-url-preview.is-loading { color: var(--admin-muted); }
+.admin-image-msg { margin: 0.75rem 0 0; color: var(--elan-danger); font-size: 0.875rem; }
+
+.admin-matrix { display: grid; gap: 1.25rem; margin-bottom: 1rem; }
+@media (min-width: 768px) { .admin-matrix { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.admin-matrix-title { font-size: 0.8125rem; font-weight: 600; margin: 0 0 0.4rem; }
+.admin-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.6rem; padding: 0; min-height: 34px; }
+.admin-chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.15rem 0.2rem 0.15rem 0.7rem; border-radius: 999px; background: var(--elan-sand); border: 1px solid var(--elan-beige); font-size: 0.8125rem; font-weight: 500; }
+.admin-chip .swatch { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.2); display: inline-block; }
+.admin-chip button { border: 0; background: transparent; width: 28px; height: 28px; border-radius: 50%; display: inline-grid; place-items: center; color: var(--admin-muted); padding: 0; }
+.admin-chip button:hover, .admin-chip button:focus-visible { background: rgba(0, 0, 0, 0.08); color: var(--admin-ink); }
+.admin-chip-empty { color: var(--admin-muted); font-size: 0.8125rem; align-self: center; }
+.admin-presets { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.admin-presets .btn { min-height: 36px; }
+.admin-matrix .input-group .btn, .admin-matrix .input-group .form-control { min-height: 40px; }
+.admin-matrix .form-control-color { max-width: 3.2rem; padding: 0.25rem; }
+.admin-matrix-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 1rem; }
+.admin-matrix-actions .btn { min-height: 40px; }
+.admin-bulk { display: flex; gap: 0.4rem; align-items: center; margin-left: auto; }
+.admin-bulk .form-control { width: 5.5rem; min-height: 40px; }
+@media (max-width: 575.98px) { .admin-bulk { margin-left: 0; width: 100%; } }
+.admin-empty-line { color: var(--admin-muted); font-size: 0.875rem; margin: 0; }
+.admin-variants-table td { vertical-align: top; }
+.admin-variants-table .form-control { min-width: 0; }
+.admin-hex { display: flex; gap: 0.35rem; align-items: center; }
+.admin-hex .form-control-color { width: 2.4rem; flex: none; padding: 0.15rem; height: 31px; }
+@media (min-width: 768px) {
+  .admin-variants-wrap { overflow-x: auto; }
+  .admin-variants-table { min-width: 720px; }
+  .admin-variants-table td:last-child { white-space: nowrap; }
+}
+@media (max-width: 767.98px) {
+  .admin-variants-table tr { padding-block: 0.8rem; }
+  .admin-variants-table td > div { min-width: 0; }
+  .admin-variants-table .admin-hex .form-control-color { height: 38px; }
+  .admin-variants-table .form-control { min-height: 40px; }
+}
+
+.admin-formbar {
+  position: sticky; bottom: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+  margin-inline: -1rem; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.96); border-top: 1px solid var(--admin-line);
+  backdrop-filter: blur(6px);
+}
+@media (min-width: 768px) { .admin-formbar { margin-inline: -1.75rem; padding-inline: 1.75rem; } }
+.admin-formbar-btns { display: flex; gap: 0.5rem; margin-left: auto; }
+.admin-formbar .btn { min-height: 44px; }
+.admin-dirty { margin: 0; font-size: 0.8125rem; font-weight: 600; color: #6a4b12; display: inline-flex; align-items: center; }
+.admin-dirty .bi { font-size: 1.6rem; margin: -0.3rem -0.2rem -0.3rem -0.5rem; color: var(--elan-gold); }
+
+.admin-filters .form-select { padding-right: 2rem; text-overflow: ellipsis; }
+@media (max-width: 575.98px) { .admin-filters { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 768px) { .admin-actions { flex-wrap: nowrap; } }

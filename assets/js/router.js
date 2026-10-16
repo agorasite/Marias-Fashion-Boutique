@@ -60,6 +60,13 @@ let hooks = {};
 let renderSeq = 0;
 let current = null;
 let started = false;
+let guard = null; // optional page-owned leave check: (targetHash) => boolean | Promise<boolean>
+let committedHash = null; // location.hash of the page currently rendered
+
+/** Let the current page veto navigation (unsaved changes). Cleared automatically by the next render. */
+export function setNavigationGuard(fn) {
+  guard = typeof fn === 'function' ? fn : null;
+}
 
 /** Register (or replace) a route. Later registrations of the same pattern win. */
 export function route(pattern, handler, options = {}) {
@@ -113,6 +120,7 @@ async function render() {
   // Non-route fragments (e.g. '#app' from a skip link) are not navigations.
   if (raw && !raw.startsWith('#/')) return;
   const seq = ++renderSeq;
+  guard = null;
   const { path, query } = parseHash(raw);
   const found = resolve(path);
   const entry = found ? found.entry : null;
@@ -134,6 +142,7 @@ async function render() {
   if (node) outlet.replaceChildren(node);
   outlet.removeAttribute('aria-busy');
   current = { path, query, params, pattern: entry ? entry.pattern : null, layout };
+  committedHash = raw;
   hooks.afterRender?.({ ...current, isFirst });
 }
 
@@ -141,7 +150,16 @@ async function render() {
 export function start(options) {
   ({ outlet, ...hooks } = options);
   if (!started) {
-    window.addEventListener('hashchange', () => render());
+    window.addEventListener('hashchange', () => {
+      if (guard && committedHash !== null && location.hash !== committedHash) {
+        // Undo the URL change, ask the page, and only then go where the user wanted.
+        const target = location.hash;
+        history.replaceState(history.state, '', committedHash);
+        Promise.resolve(guard(target)).then((ok) => { if (ok) { guard = null; navigate(target); } });
+        return;
+      }
+      render();
+    });
     started = true;
   }
   if (!location.hash || location.hash === '#') history.replaceState(history.state, '', '#/');

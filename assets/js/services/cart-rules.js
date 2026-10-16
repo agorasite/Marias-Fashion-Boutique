@@ -41,7 +41,7 @@ export function changeVariantLines(lines, oldSku, newSku, newStock) {
 /** { available, problem } for a cart line given its variant and product records. */
 export function classifyLine({ qty, variant, product }) {
   if (!variant || !product) return { available: 0, problem: 'unknown' };
-  if (product.status && product.status !== 'active') return { available: 0, problem: 'archived' };
+  if ((product.status && product.status !== 'active') || variant.archived) return { available: 0, problem: 'archived' };
   const stock = Math.max(0, Number(variant.stock) || 0);
   if (stock <= 0) return { available: 0, problem: 'out-of-stock' };
   if (qty > stock) return { available: stock, problem: 'insufficient' };

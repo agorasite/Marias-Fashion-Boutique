@@ -80,7 +80,7 @@ export async function addLine(sku, qty = 1) {
     const variant = await reqP(t.objectStore('variants').get(sku));
     if (!variant) return { ok: false, reason: 'unknown-sku', available: 0 };
     const product = await reqP(t.objectStore('products').get(variant.productId));
-    if (!isActive(product)) return { ok: false, reason: 'archived', available: 0 };
+    if (!isActive(product) || variant.archived) return { ok: false, reason: 'archived', available: 0 };
     const cart = (await reqP(t.objectStore('carts').get(CART_ID))) || emptyCart();
     const line = cart.lines.find((l) => l.sku === sku);
     const inCart = line ? line.qty : 0;
@@ -144,7 +144,7 @@ export async function changeVariant(oldSku, newSku) {
       reqP(t.objectStore('variants').get(oldSku)),
       reqP(t.objectStore('variants').get(newSku)),
     ]);
-    if (!to) return { ok: false, reason: 'unknown-sku', cart };
+    if (!to || to.archived) return { ok: false, reason: 'unknown-sku', cart };
     if (!from || from.productId !== to.productId) return { ok: false, reason: 'different-product', cart };
     const r = changeVariantLines(cart.lines, oldSku, newSku, to.stock || 0);
     if (!r.ok) return { ok: false, reason: r.reason, cart };

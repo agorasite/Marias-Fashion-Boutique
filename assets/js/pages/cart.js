@@ -4,7 +4,7 @@ import { getAll } from '../db.js';
 import { sizeLabel, compareSizes } from '../services/products.js';
 import { couponMessage, freeShippingProgress, isPriced } from '../services/cart-rules.js';
 
-const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
+import { smOf } from '../services/image-path.js';
 const PROBLEM_TEXT = {
   'out-of-stock': 'Το προϊόν είναι προσωρινά εξαντλημένο. Αφαιρέστε το ή αλλάξτε επιλογή.',
   archived: 'Το προϊόν δεν είναι πλέον διαθέσιμο. Αφαιρέστε το από το καλάθι.',
@@ -151,7 +151,7 @@ export default async function render() {
   async function loadVariants() {
     const all = await getAll('variants');
     variantsByProduct = new Map();
-    all.forEach((v) => {
+    all.filter((v) => !v.archived).forEach((v) => {
       if (!variantsByProduct.has(v.productId)) variantsByProduct.set(v.productId, []);
       variantsByProduct.get(v.productId).push(v);
     });

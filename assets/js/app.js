@@ -38,8 +38,10 @@ route('/account/*', lazy(() => import('./pages/account.js')));
 // placeholders; those tasks replace them by calling adminRoute() with the same path.
 const adminLayoutModule = () => import('./pages/admin/layout.js');
 adminRoute('/admin', lazy(() => import('./pages/admin/overview.js')));
+adminRoute('/admin/products', lazy(() => import('./pages/admin/products.js')));
+adminRoute('/admin/products/new', lazy(() => import('./pages/admin/product-editor.js')));
+adminRoute('/admin/products/:id', lazy(() => import('./pages/admin/product-editor.js')));
 const ADMIN_SOON = [
-  ['/admin/products', 'products', 'Προϊόντα', 'Διαχείριση καταλόγου: προσθήκη, επεξεργασία, τιμές, παραλλαγές και απόθεμα.'],
   ['/admin/orders', 'orders', 'Παραγγελίες', 'Αναζήτηση, φίλτρα και αλλαγή κατάστασης παραγγελιών.'],
   ['/admin/customers', 'customers', 'Πελάτες', 'Οι τοπικοί πελάτες demo και το ιστορικό τους.'],
   ['/admin/promotions', 'promotions', 'Προωθήσεις', 'Κουπόνια έκπτωσης και προσφορές.'],

@@ -149,7 +149,7 @@ test('any admin URL without a session shows the gate; logout clears the session'
     await expect(page.locator(GATE), hash).toBeVisible();
   }
   await login(page);
-  await expect(page.locator('[data-admin-view="placeholder"]')).toBeVisible();
+  await expect(page.locator('[data-admin-view="products"]')).toBeVisible();
   await page.goto('/#/admin/anything');
   await expect(page.locator('[data-admin-view="not-found"]')).toBeVisible();
   await expect(page.locator('[data-admin-shell]')).toBeVisible();
@@ -280,7 +280,7 @@ test('desktop: sidebar is always visible with every section; all nav targets res
   for (const h of hrefs.slice(1)) {
     await sidebar.locator(`nav a[href="${h}"]`).click();
     await expect(page).toHaveURL(new RegExp(`${h.replace(/[/#]/g, '\\$&')}$`));
-    await expect(page.locator('[data-admin-view="placeholder"]'), h).toBeVisible();
+    await expect(page.locator(h === '#/admin/products' ? '[data-admin-view="products"]' : '[data-admin-view="placeholder"]'), h).toBeVisible();
     await expect(sidebar.locator(`nav a[href="${h}"]`)).toHaveAttribute('aria-current', 'page');
   }
   await expect(page.locator('[data-view-store]').first()).toHaveAttribute('href', '#/');

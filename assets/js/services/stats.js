@@ -54,7 +54,7 @@ export function computeStats(orders = [], products = [], variants = [], customer
   const lowStockVariants = [];
   for (const v of vs) {
     const p = activeById.get(v.productId);
-    if (!p) continue;
+    if (!p || v.archived) continue;
     const stock = Number(v.stock) || 0;
     stockByProduct.set(p.id, stockByProduct.get(p.id) + stock);
     if (stock > 0 && stock <= LOW_VARIANT_STOCK) {

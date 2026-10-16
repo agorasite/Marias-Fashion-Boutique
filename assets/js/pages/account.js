@@ -16,7 +16,7 @@ import {
 } from '../services/account-rules.js';
 import { linesHtml, totalsHtml } from './confirmation.js';
 
-const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
+import { smOf } from '../services/image-path.js';
 const dateLong = new Intl.DateTimeFormat('el-GR', { dateStyle: 'long' });
 const dateTime = new Intl.DateTimeFormat('el-GR', { dateStyle: 'long', timeStyle: 'short' });
 const fmtDate = (iso, f = dateLong) => { const d = new Date(iso); return Number.isNaN(d.getTime()) ? '' : f.format(d); };
