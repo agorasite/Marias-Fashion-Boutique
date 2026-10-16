@@ -17,16 +17,17 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 7 | Product detail page (+ minimal cart, reviews) | complete, reviewed |
 | 8 | Cart + wishlist | complete, reviewed (1 fix round) |
 | 9 | Transactional checkout, orders, confirmation | complete, reviewed (1 fix round) |
-| 10–19 | Account, Home/Instagram, Admin (overview, products, orders, customers/coupons, content/settings), Backup/reset, A11y/responsive pass, README/handoff | not started |
+| 10 | Customer account, order history, tracking | complete, reviewed (1 fix round) |
+| 11–19 | Home/Instagram, Admin (overview, products, orders, customers/coupons, content/settings), Backup/reset, A11y/responsive pass, README/handoff | not started |
 
-Overall: 9 of 19 tasks complete (~47%). Tests: unit 104, e2e 106, all green.
+Overall: 10 of 19 tasks complete (~53%). Tests: unit 122, e2e 131, all green.
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
 
-## Next task (next): Task 10 — Customer account
-Files: `assets/js/pages/account.js`, extend `services/customers.js`; test `tests/e2e/account.spec.js`.
-Routes `#/account`, `#/account/orders`, `#/account/orders/:id`; wishlist page already exists at `#/account/wishlist` (`pages/wishlist.js`) and should be embedded in the account area. Order history from `listOrdersForCustomer`, tracking steps derived from `fulfillmentStatus`, profile + saved addresses + newsletter edits persisted, "stored only in this browser" notice, switch between local customers.
+## Next task: Task 11 — Homepage, content and Instagram
+Files: `assets/js/pages/home.js`, `assets/js/services/content.js`; test `tests/e2e/home.spec.js`.
+`getContent(key)`/`saveContent(key,val)` for hero, banners, collections, instagram, promos, newsletter, footer (seed from `data/editorial.json` stored under content key `editorial` + defaults in catalog-meta.json). Home sections: hero, new collection, per-department (Γυναικεία/Ανδρικά/Παπούτσια/Αξεσουάρ), best sellers, new arrivals, promo banners, featured collections, Instagram shop-the-look (productIds per tile in editorial.json; curated demo feed, not a live API), newsletter demo form. Hero mobile needs `object-position: 65% center`.
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
