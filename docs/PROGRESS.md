@@ -18,16 +18,17 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 8 | Cart + wishlist | complete, reviewed (1 fix round) |
 | 9 | Transactional checkout, orders, confirmation | complete, reviewed (1 fix round) |
 | 10 | Customer account, order history, tracking | complete, reviewed (1 fix round) |
-| 11–19 | Home/Instagram, Admin (overview, products, orders, customers/coupons, content/settings), Backup/reset, A11y/responsive pass, README/handoff | not started |
+| 11 | Homepage, content service, Instagram | complete, reviewed (no fix round) |
+| 12–19 | Admin (overview, products, orders, customers/coupons, content/settings), Backup/reset, A11y/responsive pass, README/handoff | not started |
 
-Overall: 10 of 19 tasks complete (~53%). Tests: unit 122, e2e 131, all green.
+Overall: 11 of 19 tasks complete (~58%). Tests: unit 135, e2e 147, all green.
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
 
-## Next task: Task 11 — Homepage, content and Instagram
-Files: `assets/js/pages/home.js`, `assets/js/services/content.js`; test `tests/e2e/home.spec.js`.
-`getContent(key)`/`saveContent(key,val)` for hero, banners, collections, instagram, promos, newsletter, footer (seed from `data/editorial.json` stored under content key `editorial` + defaults in catalog-meta.json). Home sections: hero, new collection, per-department (Γυναικεία/Ανδρικά/Παπούτσια/Αξεσουάρ), best sellers, new arrivals, promo banners, featured collections, Instagram shop-the-look (productIds per tile in editorial.json; curated demo feed, not a live API), newsletter demo form. Hero mobile needs `object-position: 65% center`.
+## Next task: Task 12 — Admin shell, gate and overview
+Files: `assets/js/pages/admin/{gate,layout,overview}.js`, `assets/css/admin.css`; tests `tests/unit/stats.test.mjs`, `tests/e2e/admin-overview.spec.js`.
+`adminRoute(path, handler)` guarded by `sessionStorage.adminSession`; pure `computeStats(orders,products,customers)` -> {totalOrders,revenueCents,pending,completed,products,lowStock,customers,recent,topProducts,salesByDay}. Gate shows demo credentials + "demo access — not real authentication"; sidebar collapses on mobile; cancelled orders excluded from revenue; creating an order via the storefront changes overview numbers. NOTE: the seed has NO historical orders/customers yet — the brief requires sample customers and historical orders so the dashboard looks populated on first launch: add a seed (data/sample-orders.json or generated deterministic builder in seed.js using real products/variants snapshots; paymentStatus/fulfillmentStatus mix incl. cancelled/returned with correct `restocked` flags and consistent totals via pricing.quote) as part of this task.
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
