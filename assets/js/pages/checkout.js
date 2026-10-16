@@ -8,6 +8,7 @@ import { sizeLabel } from '../services/products.js';
 import { REGIONS, FIELD_ORDER, NOTES_MAX, SHIPPING_LABELS, validateCheckoutForm, uuid } from '../services/checkout-rules.js';
 import { placeOrder, CheckoutError, lineSignature } from '../services/checkout.js';
 import { getActiveCustomer } from '../services/customers.js';
+import { pickDefaultAddress } from '../services/account-rules.js';
 
 const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
 const ADDRESS_FIELDS = ['address', 'city', 'postalCode', 'region'];
@@ -462,7 +463,7 @@ export default async function render() {
   if (fillBtn) {
     fillBtn.addEventListener('click', () => {
       const c = savedCustomer;
-      const a = (c.savedAddresses && c.savedAddresses[0]) || {};
+      const a = pickDefaultAddress(c.savedAddresses) || {};
       const values = {
         firstName: c.firstName, lastName: c.lastName, email: c.email, phone: c.phone, company: c.company,
         vatNumber: c.vatNumber, address: a.address, city: a.city, postalCode: a.postalCode, region: a.region,

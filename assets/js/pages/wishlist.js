@@ -14,11 +14,17 @@ const emptyHtml = () => `<div class="cart-empty" data-empty>
 // One live listener at a time: each render detaches the previous page's listener first.
 let detach = null;
 
-/** Simple wishlist grid. Task 10 embeds this inside the account area. */
-export default async function render() {
+/** Wishlist grid. With ctx.embedded it renders only the body, for the account layout (Task 10). */
+export default async function render(ctx = {}) {
   if (detach) detach();
   detach = null;
-  const root = html(`<section class="page wishlist-page" data-page="wishlist" data-route="/account/wishlist">
+  // embedded: the account layout owns the h1 and the container.
+  const root = html(ctx.embedded
+    ? `<div class="wishlist-embed" data-wishlist-embed>
+      <p class="text-body-secondary" data-count></p>
+      <div data-body></div>
+    </div>`
+    : `<section class="page wishlist-page" data-page="wishlist" data-route="/account/wishlist">
     <div class="container-xl">
       <h1 class="display-title">Αγαπημένα</h1>
       <p class="text-body-secondary" data-count></p>

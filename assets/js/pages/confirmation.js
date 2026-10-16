@@ -75,7 +75,7 @@ function paymentHtml(o, settings) {
   </div>`;
 }
 
-function linesHtml(o) {
+export function linesHtml(o) {
   return o.lines.map((l) => `<li class="co-line" data-order-line>
     <span class="co-line-media">${l.image ? `<img src="${esc(smOf(l.image))}" alt="" width="64" height="85" loading="lazy">` : ''}
       <span class="co-line-qty" aria-hidden="true">${l.qty}</span></span>
@@ -89,7 +89,7 @@ function linesHtml(o) {
   </li>`).join('');
 }
 
-function totalsHtml(o) {
+export function totalsHtml(o) {
   const t = o.totals;
   const rate = o.vatRate ?? o.lines[0]?.vatRate ?? 0.24;
   return `<dl class="cart-totals co-totals">
