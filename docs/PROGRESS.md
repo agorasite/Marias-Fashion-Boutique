@@ -23,9 +23,10 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 13 | Admin product management | complete, reviewed (1 fix round) |
 | 14 | Admin order management | complete (pending review) |
 | 15 | Admin customers and coupons | complete (pending review) |
-| 16–19 | Admin customers+coupons, content+settings; Backup/reset; A11y/responsive pass (incl. flaky-test stability); README/handoff | not started |
+| 16 | Admin content and settings | complete, reviewed (1 fix round) |
+| 17–19 | Admin customers+coupons, content+settings; Backup/reset; A11y/responsive pass (incl. flaky-test stability); README/handoff | not started |
 
-Overall: 15 of 19 tasks complete (~79%). Tests: unit 244, e2e 229 (known rare flake: catalog.spec.js:226), all green.
+Overall: 16 of 19 tasks complete (~84%). Tests: unit 289, e2e 278, all green (known rare flakes: catalog.spec.js:226 and :206 — to be fixed in Task 18).
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
@@ -33,9 +34,9 @@ Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout har
 ## Task 14 — done
 State machine, restock and CSV rules live in `services/order-rules.js` (pure, decision block at the top); `services/orders.js` wraps them in one-tx mutations. Sample orders and `restocked:true` orders never touch stock; deleted variants are skipped with a history note; archived variants get stock back but stay archived. Cancel/return do not change paymentStatus or customer/coupon aggregates. Internal history entries (note/restock) are hidden on the customer account page. `/admin/customers/:id` is a placeholder for Task 15 (linked from order detail). Report: `.superpowers/sdd/2026-10-16-elan-fashion-boutique/task-14-report.md`.
 
-## Next task: Task 16 — Admin content and settings
-Files: `assets/js/pages/admin/{content,settings}.js`; test `tests/e2e/admin-content-settings.spec.js`.
-Content editors (use `services/content.js` getContent/saveContent + `content-rules.js` validators; keys hero, banners, collections, instagram, promos, newsletter, footer): hero title/subtitle/CTA/link/image/focal, banners, featured collections (title/image/link), Instagram demo feed (profile URL, handle, posts: image, caption, permalink, productIds), homepage promo sections, newsletter display, footer content; links must pass the validators (only `#/` or `https://`). Settings editor (services/settings.js getSettings/saveSettings): store name, contact, logo configuration, currency (display), VAT rate, shipping fees (courier), free-shipping threshold, COD surcharge, demo IRIS instructions (Greek; must keep the honesty rule: never imply real payment), social links. Changes must show immediately in the storefront (home, cart free-shipping indicator, checkout totals, footer) and persist after reload; validation (money in EUR with comma/dot → cents, VAT 0–100%, URLs). Routes `#/admin/content`, `#/admin/settings` (currently placeholders in app.js loop). Reminder: resetToSeed does not dispatch content:changed/settings:changed (fix here or in Task 17 where reset UI lives); settings saves must dispatch `settings:changed`.
+## Next task: Task 17 — Backup, import, reset
+Files: `assets/js/services/backup.js`, `assets/js/pages/admin/backup.js` (route `#/admin/backup`, currently a placeholder in app.js); tests `tests/unit/backup-validate.test.mjs`, `tests/e2e/backup.spec.js`.
+API: `exportAll(): {schemaVersion, exportedAt, stores:{[name]:any[]}}` (all 11 stores; metadata incl. DB name; labelled as a local backup, NOT a cloud backup), `validateImport(obj): {ok, errors[]}` (schemaVersion, known store names only, arrays, unique keys per store, referential checks variants→products, orders lines qty = safe positive integers (planRestock accepts negatives/fractions — carry from Task 14), status enums, restocked flags boolean, coupon shape via coupon-rules, settings via settings-rules incl. IRIS honesty guard, content via content-rules validators, image allow-list for products/content), `importAll(obj)` stage-validate then ONE readwrite tx clearing and replacing all stores (failure leaves DB untouched), `resetToSeed()` exists in seed.js (needs confirm UI; dispatches content:changed/settings:changed after commit already; ensure catalog:changed/cart:changed/wishlist:changed/orders:changed/coupons:changed so open pages refresh). UI: Export JSON download (filename elan-backup-YYYY-MM-DD.json), Import (file input; show validation errors; preview counts of what will be replaced; typed confirmation before destructive replace), Reset demo (typed confirmation «ΕΠΑΝΑΦΟΡΑ»), clear statement that data lives only in this browser. Include customers/orders `sample` flags; imports of foreign/malformed JSON must fail safely with Greek errors.
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
