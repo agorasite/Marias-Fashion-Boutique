@@ -533,7 +533,7 @@ async function mount({ root, body, view }) {
         view.dataset.saved = String(Date.now());
       } catch (err) {
         console.warn('Content reset failed', err);
-        toast('Η επαναφορά δεν ολοκληρώθηκε.', 'danger');
+        toast(err && err.name === 'QuotaExceededError' ? 'Δεν υπάρχει αρκετός χώρος αποθήκευσης στον περιηγητή.' : 'Η επαναφορά δεν ολοκληρώθηκε.', 'danger');
       }
     }
   });

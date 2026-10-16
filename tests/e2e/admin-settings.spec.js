@@ -196,7 +196,7 @@ test('free-shipping threshold change shows immediately in cart (indicator + ship
     await expect(page.locator('[data-banner-title]').first()).toContainText(money(10000));
     await expect(page.locator('[data-promo-item="shipping"]')).toContainText(money(10000));
     await go(page, `#/product/${P.slug}`);
-    await expect(page.locator('[data-page="product"]')).toContainText(`Δωρεάν αποστολή άνω των ${money(10000)}`);
+    await expect(page.locator('[data-page="product"]')).toContainText(`Δωρεάν αποστολή για αγορές άνω των ${money(10000)}`);
     await expect(page.locator('[data-page="product"]')).toContainText(`Αποστολή με courier: ${money(550)}`);
   };
   await check();
@@ -460,3 +460,64 @@ for (const w of [320, 390, 768, 1440]) {
     expect(errors).toEqual([]);
   });
 }
+
+// ---------------------------------------------------------------- fix round
+test('threshold 0: every storefront string says shipping is free for all orders and never prints 0,00 €', async ({ page }) => {
+  const errors = trackErrors(page);
+  await boot(page);
+  await addToCart(page);
+  await openSettings(page);
+  await f(page, 'freeShippingThreshold').fill('0');
+  await save(page);
+  const ALL = 'Δωρεάν αποστολή σε όλες τις παραγγελίες';
+  await go(page, '#/');
+  await expect(page.locator('[data-page="home"]')).toBeVisible();
+  await expect(page.locator('[data-section="promo"] [data-banner-title]').first()).toHaveText(ALL);
+  await expect(page.locator('[data-promo-item="shipping"]')).toContainText('Για όλες τις παραγγελίες');
+  await expect(page.locator('.site-footer [data-footer-notes]')).toContainText(ALL);
+  await expect(page.locator('[data-page="home"]')).not.toContainText('0,00');
+  await expect(page.locator('.site-footer')).not.toContainText('0,00');
+  await expect(page.locator('#navOffcanvas .offcanvas-note')).toHaveText(ALL.replace('Δωρεάν αποστολή σε όλες τις παραγγελίες', 'Δωρεάν αποστολή σε όλες τις παραγγελίες'));
+  await go(page, `#/product/${P.slug}`);
+  await expect(page.locator('.pdp-trust')).toContainText(ALL);
+  await expect(page.locator('[data-page="product"]')).toContainText(`${ALL}.`);
+  await expect(page.locator('[data-page="product"]')).not.toContainText('0,00 €');
+  await go(page, '#/cart');
+  await expect(page.locator('[data-freeship-msg]')).toContainText('δωρεάν μεταφορικά');
+  await expect(page.locator('[data-freeship]')).not.toContainText('0,00');
+  await go(page, '#/checkout');
+  await expect(page.locator('[data-page="checkout"]')).toContainText(ALL);
+  await expect(page.locator('[data-page="checkout"] .co-choice-desc').first()).not.toContainText('0,00');
+  await page.reload();
+  await expect(page.locator('[data-page="checkout"]')).toContainText(ALL);
+  expect(errors).toEqual([]);
+});
+
+test('saveSettings merges contact inside the transaction: two sequential saves of different keys keep both', async ({ page }) => {
+  await boot(page);
+  await page.evaluate(async () => {
+    const m = await import('/assets/js/services/settings.js');
+    await m.saveSettings({ contact: { email: 'one@example.gr' } });
+    await m.saveSettings({ contact: { phone: '+30 210 1112233' } });
+  });
+  const s = await dbGet(page, 'settings', 'store');
+  expect(s.contact).toEqual({ email: 'one@example.gr', phone: '+30 210 1112233', address: SEED.contact.address });
+});
+
+test('confirmation never renders a stored IRIS text that breaks the honesty guard', async ({ page }) => {
+  await boot(page);
+  await addToCart(page);
+  const id = await page.evaluate(async () => {
+    const db = await import('/assets/js/db.js');
+    const cur = await db.get('settings', 'store');
+    await db.put('settings', { ...cur, irisInstructions: 'Η παραγγελία πληρώ​θηκε ήδη, μην κάνετε τίποτα άλλο.' });
+    const m = await import('/assets/js/services/checkout.js');
+    const o = await m.placeOrder({
+      form: { firstName: 'Νίκος', lastName: 'Γεωργίου', email: 'nikos@example.gr', phone: '2101234567', address: 'Σταδίου 5', city: 'Αθήνα', postalCode: '10562', region: 'Αττική', acceptTerms: true },
+      shippingMethod: 'courier', paymentMethod: 'iris', requestId: `iris-${Math.random()}`,
+    });
+    return o.id;
+  });
+  await go(page, `#/order/${id}`);
+  await expect(page.locator('[data-iris-instructions]')).toHaveText(SEED.irisInstructions);
+});

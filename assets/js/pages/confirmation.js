@@ -2,6 +2,10 @@
 import { html, escapeHtml as esc, formatMoney, toast } from '../ui.js';
 import { getOrder } from '../services/orders.js';
 import { getSettings } from '../services/settings.js';
+import { irisInstructionsError, DEFAULT_IRIS_INSTRUCTIONS } from '../services/settings-rules.js';
+
+// Defence in depth: a stored text that fails the honesty guard (old/imported data) is never shown.
+const safeIrisText = (t) => (t && irisInstructionsError(t) === '' ? t : DEFAULT_IRIS_INSTRUCTIONS);
 import { confirmIrisSimulation } from '../services/checkout.js';
 import { sizeLabel } from '../services/products.js';
 
@@ -60,7 +64,7 @@ function paymentHtml(o, settings) {
   return `<div class="conf-card conf-iris" data-payment-block="iris">
     <h2 class="conf-card-title"><i class="bi bi-phone" aria-hidden="true"></i>Πληρωμή με IRIS <span class="co-sim-badge">Προσομοίωση</span></h2>
     <p class="co-iris-flag"><i class="bi bi-shield-exclamation" aria-hidden="true"></i><strong>Προσομοίωση — δεν πραγματοποιείται πραγματική πληρωμή</strong></p>
-    <p data-iris-instructions>${esc(settings.irisInstructions || '')}</p>
+    <p data-iris-instructions>${esc(safeIrisText(settings.irisInstructions))}</p>
     <dl class="conf-iris-details">
       <div><dt>Δικαιούχος</dt><dd>${esc(settings.storeName || 'ÉLAN Fashion Boutique')} (demo)</dd></div>
       <div><dt>Ποσό</dt><dd>${total}</dd></div>

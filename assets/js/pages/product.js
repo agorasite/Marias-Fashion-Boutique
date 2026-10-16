@@ -1,5 +1,6 @@
 import { getAll } from '../db.js';
 import { html, escapeHtml as esc, formatMoney, toast } from '../ui.js';
+import { freeShippingPhrase } from '../services/pricing.js';
 import { getProduct, listRelated, compareSizes, sizeLabel, findVariant } from '../services/products.js';
 import { getSettings } from '../services/settings.js';
 import { addLine, getCartRecord } from '../services/cart.js';
@@ -152,7 +153,7 @@ export default async function render(ctx) {
           <p class="pdp-hint" data-hint hidden></p>
 
           <div class="pdp-trust">
-            <span><i class="bi bi-truck" aria-hidden="true"></i> Δωρεάν αποστολή άνω των ${esc(formatMoney(settings.freeShippingThresholdCents ?? 6000))}</span>
+            <span><i class="bi bi-truck" aria-hidden="true"></i> ${esc(freeShippingPhrase(settings.freeShippingThresholdCents ?? 6000))}</span>
             <span><i class="bi bi-arrow-repeat" aria-hidden="true"></i> Επιστροφές εντός 14 ημερών (demo)</span>
           </div>
         </div>
@@ -178,7 +179,7 @@ export default async function render(ctx) {
           <h2 class="pdp-h2" id="shipTitle">Αποστολή και επιστροφές</h2>
           <ul class="pdp-list">
             <li>Αποστολή με courier: ${esc(formatMoney(settings.courierCents ?? 390))}.</li>
-            <li>Δωρεάν αποστολή για παραγγελίες άνω των ${esc(formatMoney(settings.freeShippingThresholdCents ?? 6000))}.</li>
+            <li>${esc(freeShippingPhrase(settings.freeShippingThresholdCents ?? 6000))}.</li>
             <li>Παράδοση σε 1–3 εργάσιμες ημέρες (ενδεικτικά).</li>
             <li>Επιστροφές εντός 14 ημερών από την παραλαβή, με τα προϊόντα αχρησιμοποίητα και στην αρχική τους συσκευασία.</li>
           </ul>

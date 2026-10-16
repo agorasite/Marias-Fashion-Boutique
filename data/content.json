@@ -20,7 +20,7 @@
         "id": "banner-2",
         "placement": "promo",
         "eyebrow": "Προνόμια ÉLAN",
-        "title": "Δωρεάν αποστολή για αγορές άνω των {freeShipping}",
+        "title": "{freeShippingText}",
         "text": "Παράδοση με courier σε όλη την Ελλάδα ή δωρεάν παραλαβή από το κατάστημά μας στην Ερμού.",
         "ctaLabel": "Ψωνίστε τώρα",
         "ctaHref": "#/catalog",
@@ -243,7 +243,7 @@
   },
   "promos": {
     "items": [
-      { "id": "shipping", "icon": "truck", "title": "Δωρεάν αποστολή", "text": "Για αγορές άνω των {freeShipping}" },
+      { "id": "shipping", "icon": "truck", "title": "Δωρεάν αποστολή", "text": "{freeShippingCondition}" },
       { "id": "pickup", "icon": "shop", "title": "Παραλαβή από το κατάστημα", "text": "Ερμού 10, Αθήνα · χωρίς χρέωση" },
       { "id": "payment", "icon": "credit-card-2-front", "title": "Αντικαταβολή ή IRIS", "text": "Πληρωμή με τον τρόπο που προτιμάτε (demo)" },
       { "id": "welcome", "icon": "gift", "title": "WELCOME10", "text": "10% στην πρώτη σας παραγγελία άνω των 30 €" }
@@ -281,7 +281,7 @@
       }
     ],
     "notes": [
-      "Αποστολή με courier σε όλη την Ελλάδα, δωρεάν για αγορές άνω των {freeShipping}.",
+      "Αποστολή με courier σε όλη την Ελλάδα. {freeShippingText}.",
       "Πληρωμή με αντικαταβολή ή IRIS (προσομοίωση, χωρίς πραγματική χρέωση).",
       "Demo κατάστημα: οι παραγγελίες είναι προσομοίωση και τα δεδομένα μένουν μόνο στον περιηγητή σας."
     ]

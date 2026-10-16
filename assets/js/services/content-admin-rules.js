@@ -6,7 +6,9 @@ export const LIBRARY_PREFIX = 'assets/images/content/';
 
 /** Placeholders understood by fillTokens() (services/content-rules.js) on the storefront. */
 export const TOKEN_DOCS = [
-  { token: '{freeShipping}', description: 'Το όριο δωρεάν αποστολής από τις Ρυθμίσεις (π.χ. 60,00 €).' },
+  { token: '{freeShippingText}', description: 'Ολόκληρη η φράση: «Δωρεάν αποστολή για αγορές άνω των 60,00 €» ή, αν το όριο είναι 0, «Δωρεάν αποστολή σε όλες τις παραγγελίες».' },
+  { token: '{freeShippingCondition}', description: 'Μόνο η συνθήκη: «Για αγορές άνω των 60,00 €» ή «Για όλες τις παραγγελίες».' },
+  { token: '{freeShipping}', description: 'Το όριο δωρεάν αποστολής ως ποσό (π.χ. 60,00 €). Ισοδύναμο: {freeShippingThreshold}. Με όριο 0 δίνει 0,00 €· προτιμήστε τα παραπάνω.' },
   { token: '{storeName}', description: 'Η επωνυμία του καταστήματος από τις Ρυθμίσεις.' },
 ];
 

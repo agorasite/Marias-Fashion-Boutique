@@ -157,17 +157,13 @@ function mount({ root, body, view, settings: initial }) {
       const btn = f.querySelector('[data-save]');
       btn.disabled = true;
       try {
-        const patch = {
-          ...r.value,
-          contact: { ...(settings.contact || {}), ...r.value.contact },
-        };
-        settings = await saveSettings(patch);
+        settings = await saveSettings(r.value);
         clean();
         toast('Οι ρυθμίσεις αποθηκεύτηκαν και ισχύουν αμέσως στο κατάστημα.', 'success');
         view.dataset.saved = String(Date.now());
       } catch (err) {
         console.warn('Settings save failed', err);
-        toast('Η αποθήκευση δεν ολοκληρώθηκε. Δοκιμάστε ξανά.', 'danger');
+        toast(err && err.name === 'QuotaExceededError' ? 'Δεν υπάρχει αρκετός χώρος αποθήκευσης στον περιηγητή. Μικρύνετε την εικόνα λογοτύπου.' : 'Η αποθήκευση δεν ολοκληρώθηκε. Δοκιμάστε ξανά.', 'danger');
       } finally {
         saving = false;
         btn.disabled = false;
@@ -187,7 +183,7 @@ function mount({ root, body, view, settings: initial }) {
         view.dataset.saved = String(Date.now());
       } catch (err) {
         console.warn('Settings reset failed', err);
-        toast('Η επαναφορά δεν ολοκληρώθηκε.', 'danger');
+        toast(err && err.name === 'QuotaExceededError' ? 'Δεν υπάρχει αρκετός χώρος αποθήκευσης στον περιηγητή.' : 'Η επαναφορά δεν ολοκληρώθηκε.', 'danger');
       }
     });
   }

@@ -153,3 +153,41 @@ test('errors are keyed by form field and nothing leaks into value when invalid',
   assert.equal(r.ok, false);
   assert.deepEqual(Object.keys(r.errors).sort(), ['contactEmail', 'courier', 'vatPercent']);
 });
+
+// ---------------------------------------------------------------- Task 16 fix round: IRIS honesty guard hardening
+import { DEFAULT_IRIS_INSTRUCTIONS, normalizeIrisText } from '../../assets/js/services/settings-rules.js';
+const honest = (extra) => `Προσομοίωση IRIS, καμία πραγματική χρέωση. ${extra}`;
+test('IRIS guard: default constant equals the seed text and passes', () => {
+  assert.equal(DEFAULT_IRIS_INSTRUCTIONS, SEED.irisInstructions);
+  assert.equal(irisInstructionsError(DEFAULT_IRIS_INSTRUCTIONS), '');
+});
+test('IRIS guard: claims of payment are rejected in every spelling', () => {
+  const bad = [
+    'Η παραγγελία πληρώθηκε', 'Η παραγγελία πληρωθηκε', 'Η ΠΑΡΑΓΓΕΛΙΑ ΠΛΗΡΩΘΗΚΕ', 'ΠΛΗΡΩΘΗΚΕ', 'πληρωθήκατε',
+    'είναι πληρωμένη', 'είναι πληρωμένο', 'είναι πληρωμένες', 'ο πελάτης είναι πληρωμένος', 'ΠΛΗΡΩΜΕΝΗ',
+    'εξοφλήθηκε', 'εξοφλημένη', 'χρεώθηκε η κάρτα', 'χρεωθήκατε', 'ολοκληρώθηκε η πληρωμή',
+  ];
+  for (const b of bad) assert.notEqual(irisInstructionsError(honest(b)), '', b);
+});
+test('IRIS guard: zero-width and soft-hyphen characters cannot hide a claim', () => {
+  const bad = ['πληρώ​θηκε', 'πληρω­μένη', 'πλη‌ρώθηκε', 'πληρώ‍θηκε', 'πλη⁠ρωμένη', 'πλη﻿ρώθηκε', 'ε​ξοφλήθηκε'];
+  for (const b of bad) assert.notEqual(irisInstructionsError(honest(b)), '', JSON.stringify(b));
+  // the word itself may also be disguised when it is required
+  assert.equal(irisInstructionsError('προσο​μοίωση IRIS, χωρίς πραγματική χρέωση σε αυτό το demo.'), '');
+});
+test('IRIS guard: final sigma and combining accents are normalised', () => {
+  assert.equal(normalizeIrisText('ΠΡΟΣΟΜΟΊΩΣΗΣ'), 'προσομοιωσησ');
+  assert.equal(normalizeIrisText('Πληρώθηκε'), 'πληρωθηκε');
+  assert.equal(irisInstructionsError('Αυτό είναι ΠΡΟΣΟΜΟΊΩΣΗΣ και δεν γίνεται χρέωση καμία.'), '');
+});
+test('IRIS guard: only the exact qualified phrase «Προσομοίωση: πληρώθηκε» is allowed', () => {
+  assert.equal(irisInstructionsError('Προσομοίωση IRIS, δεν γίνεται χρέωση. Η κατάσταση γίνεται «Προσομοίωση: πληρώθηκε» μόνο μετά το κουμπί.'), '');
+  assert.notEqual(irisInstructionsError('Προσομοίωση IRIS, δεν γίνεται χρέωση. Η κατάσταση γίνεται «Προσομοίωση – πληρώθηκε» μετά το κουμπί.'), '');
+  assert.notEqual(irisInstructionsError('Προσομοίωση IRIS, δεν γίνεται χρέωση. Η κατάσταση γίνεται «Προσομοίωση: πληρώθηκε» και μετά πληρώθηκε πραγματικά.'), '');
+  assert.notEqual(irisInstructionsError('Προσομοίωση IRIS, δεν γίνεται χρέωση. «Προσομοίωση: πληρωμένη» στην οθόνη σας.'), '');
+});
+test('IRIS guard: HTML angle brackets are rejected', () => {
+  assert.match(irisInstructionsError('Προσομοίωση IRIS, <b>καμία</b> πραγματική χρέωση σε αυτό το demo.'), /<|>|HTML/);
+  assert.notEqual(irisInstructionsError('Προσομοίωση IRIS, a > b πραγματική χρέωση σε αυτό το demo.'), '');
+});
+// Out of scope (documented): Latin/Greek homoglyph mixes such as «πλήρωθηκε» typed with a Latin letter are not detected.

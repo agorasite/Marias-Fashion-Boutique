@@ -59,3 +59,15 @@ export function quote({ lines, coupon = null, shipping, payment, settings, now =
     totalCents, vatIncludedCents, freeShippingRemainingCents, couponError,
   };
 }
+
+/** Storefront wording for the free-shipping rule; a 0 threshold means EVERY order ships free (never «άνω των 0,00 €»). */
+export function freeShippingPhrase(thresholdCents) {
+  return Number(thresholdCents) > 0
+    ? `Δωρεάν αποστολή για αγορές άνω των ${formatMoney(thresholdCents)}`
+    : 'Δωρεάν αποστολή σε όλες τις παραγγελίες';
+}
+
+/** Condition-only variant for strips that already carry the «Δωρεάν αποστολή» title. */
+export function freeShippingCondition(thresholdCents) {
+  return Number(thresholdCents) > 0 ? `Για αγορές άνω των ${formatMoney(thresholdCents)}` : 'Για όλες τις παραγγελίες';
+}

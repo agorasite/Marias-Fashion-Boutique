@@ -16,7 +16,12 @@ export async function saveSettings(patch) {
   await tx(['settings'], 'readwrite', async (t) => {
     const store = t.objectStore('settings');
     const current = (await reqP(store.get('store'))) || { key: 'store' };
-    await reqP(store.put({ ...current, ...clean, key: 'store' }));
+    // Nested objects the form only partly owns are merged against the stored value INSIDE the transaction.
+    const merged = { ...current, ...clean, key: 'store' };
+    for (const k of ['contact']) {
+      if (clean[k] && typeof clean[k] === 'object') merged[k] = { ...(current[k] || {}), ...clean[k] };
+    }
+    await reqP(store.put(merged));
   });
   const next = await getSettings();
   notify(next);

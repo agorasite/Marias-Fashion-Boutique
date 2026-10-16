@@ -2,7 +2,6 @@
 // The admin settings page feeds raw form strings to validateSettingsInput() and saves `value`.
 // Importable in Node.
 import { eurosToCents, centsToEuros, imageSourceError } from './product-admin-rules.js';
-import { fold } from './order-rules.js';
 
 const HTTPS_RE = /^https:\/\/[^\s"'<>]+$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -18,16 +17,37 @@ export const MAX_THRESHOLD_CENTS = 10000000; // 100.000 €
 
 const str = (v) => String(v ?? '').trim();
 
-/** Greek error for the demo IRIS text, or '' when it is acceptable (length, says «προσομοίωση», claims no real payment). */
+/** Honest default wording (identical to data/catalog-meta.json); used when a stored text fails the guard. */
+export const DEFAULT_IRIS_INSTRUCTIONS = "Πρόκειται για προσομοίωση IRIS: δεν γίνεται καμία πραγματική χρέωση ή τραπεζική συναλλαγή. Η παραγγελία καταχωρείται με κατάσταση «Εκκρεμεί πληρωμή». Παρακάτω θα δείτε προσομοιωμένες οδηγίες και κωδικό πληρωμής· η πληρωμή σημειώνεται ως «Προσομοίωση: πληρώθηκε» μόνο όταν πατήσετε «Προσομοίωση πληρωμής IRIS».";
+
+/**
+ * Comparison form of IRIS text: NFD, invisible/format characters (zero-width, soft hyphen, BOM, word joiner…) and
+ * combining marks removed, lowercased, final sigma folded, whitespace collapsed. Latin/Greek homoglyph mixes are out of scope.
+ */
+export function normalizeIrisText(text) {
+  return String(text ?? '')
+    .normalize('NFD')
+    .replace(/[\p{Cf}\p{M}\u00AD\u034F]/gu, '')
+    .toLowerCase()
+    .replace(/ς/g, 'σ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Stems (accent-free) of claims that money was taken: πληρώθηκε/πληρωθήκατε, πληρωμένη/-ο/-ες/-ος, εξοφλήθηκε/εξοφλημένη, χρεώθηκε/χρεωθήκατε, «ολοκληρώθηκε η πληρωμή».
+const CLAIM_RE = /πληρωθ|πληρωμεν|εξοφλ|χρεωθ|ολοκληρωθηκ\S*\s+(?:η\s+)?πληρωμ/;
+const QUALIFIED_RE = /προσομοιωση: πληρωθηκε(?![α-ω])/g;
+
+/** Greek error for the demo IRIS text, or '' when it is acceptable (length, says «προσομοίωση», claims no real payment, no HTML). */
 export function irisInstructionsError(text) {
   const s = str(text);
   if (s.length < IRIS_MIN) return `Οι οδηγίες IRIS πρέπει να έχουν τουλάχιστον ${IRIS_MIN} χαρακτήρες.`;
   if (s.length > IRIS_MAX) return `Οι οδηγίες IRIS δεν μπορούν να ξεπερνούν τους ${IRIS_MAX} χαρακτήρες.`;
-  const f = fold(s);
+  if (/[<>]/.test(s)) return 'Το κείμενο δεν επιτρέπεται να περιέχει HTML ή τα σύμβολα < και >.';
+  const f = normalizeIrisText(s);
   if (!f.includes('προσομοιωση')) return 'Το κείμενο πρέπει να αναφέρει ρητά ότι πρόκειται για «προσομοίωση» (δεν γίνεται πραγματική πληρωμή).';
-  // The seeded wording quotes the simulated status label «Προσομοίωση: πληρώθηκε»; only that qualified form is allowed.
-  const rest = f.replace(/προσομοιωση\s*:\s*(πληρωθηκε|πληρωμενη)/g, '');
-  if (/πληρωθηκε|πληρωμενη/.test(rest)) return 'Το κείμενο δεν επιτρέπεται να δηλώνει ότι η παραγγελία «πληρώθηκε» ή είναι «πληρωμένη» εκτός από τη διατύπωση «Προσομοίωση: πληρώθηκε».';
+  // The seeded wording quotes the simulated status label «Προσομοίωση: πληρώθηκε»; only that exact qualified form is allowed.
+  if (CLAIM_RE.test(f.replace(QUALIFIED_RE, ''))) return 'Το κείμενο δεν επιτρέπεται να δηλώνει ότι η παραγγελία «πληρώθηκε», είναι «πληρωμένη» ή «εξοφλήθηκε» (εκτός από τη διατύπωση «Προσομοίωση: πληρώθηκε»).';
   return '';
 }
 

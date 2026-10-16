@@ -118,3 +118,37 @@ test('content validator accepts uploaded data URLs and still rejects svg/javascr
   assert.equal(validateContent('hero', { ...defaults.hero, image: 'data:image/svg+xml;base64,AAAA' }).ok, false);
   assert.equal(validateContent('hero', { ...defaults.hero, image: 'javascript:alert(1)' }).ok, false);
 });
+
+// ---------------------------------------------------------------- Task 16 fix round: free-shipping phrase, imageSm
+import { freeShippingPhrase, freeShippingCondition } from '../../assets/js/services/pricing.js';
+test('freeShippingPhrase: 0 means every order, otherwise the threshold', () => {
+  assert.equal(freeShippingPhrase(0), 'Δωρεάν αποστολή σε όλες τις παραγγελίες');
+  assert.match(freeShippingPhrase(1), /άνω των/);
+  assert.match(freeShippingPhrase(1), /0,01/);
+  assert.match(freeShippingPhrase(6000).replace(/\s/g, ' '), /^Δωρεάν αποστολή για αγορές άνω των 60,00 €$/);
+  assert.match(freeShippingPhrase(12345678).replace(/\s/g, ' '), /123\.456,78 €$/);
+  assert.equal(freeShippingCondition(0), 'Για όλες τις παραγγελίες');
+  assert.match(freeShippingCondition(6000), /^Για αγορές άνω των/);
+});
+test('tokens: {freeShippingText}, {freeShippingCondition} and the legacy {freeShippingThreshold} alias', () => {
+  const z = { freeShippingThresholdCents: 0 };
+  const s = { freeShippingThresholdCents: 6000 };
+  assert.equal(fillTokens('{freeShippingText}', z), 'Δωρεάν αποστολή σε όλες τις παραγγελίες');
+  assert.match(fillTokens('{freeShippingText}', s), /60,00/);
+  assert.equal(fillTokens('{freeShippingCondition}', z), 'Για όλες τις παραγγελίες');
+  assert.match(fillTokens('{freeShippingThreshold}', s), /60,00/);
+  assert.match(fillTokens('{freeShipping}', s), /60,00/);
+  const docs = TOKEN_DOCS.map((t) => t.token);
+  for (const t of ['{freeShippingText}', '{freeShippingCondition}']) assert.ok(docs.includes(t), t);
+});
+test('default content never prints a 0 threshold', () => {
+  const all = JSON.stringify(defaults);
+  assert.ok(!all.includes('{freeShipping}'), 'defaults use the phrase tokens');
+  for (const t of all.match(/\{\w+\}/g) || []) assert.ok(['{freeShippingText}', '{freeShippingCondition}', '{storeName}'].includes(t), t);
+  assert.doesNotMatch(fillTokens(all, { freeShippingThresholdCents: 0 }), /0,00/);
+});
+test('imageSm must not be a data URL', () => {
+  const r = validateContent('hero', { ...defaults.hero, imageSm: 'data:image/webp;base64,AAAA' });
+  assert.equal(r.ok, false);
+  assert.ok(r.errors.some((e) => e.startsWith('hero.imageSm')));
+});

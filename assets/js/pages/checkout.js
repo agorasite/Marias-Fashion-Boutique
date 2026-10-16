@@ -3,7 +3,7 @@
 import { vatRateToPercent } from '../services/settings-rules.js';
 import { html, escapeHtml as esc, formatMoney, navigate, toast } from '../ui.js';
 import { getQuoteForCart } from '../services/cart.js';
-import { quote } from '../services/pricing.js';
+import { quote, freeShippingPhrase } from '../services/pricing.js';
 import { pricedLines, couponMessage } from '../services/cart-rules.js';
 import { sizeLabel } from '../services/products.js';
 import { REGIONS, FIELD_ORDER, NOTES_MAX, SHIPPING_LABELS, validateCheckoutForm, uuid } from '../services/checkout-rules.js';
@@ -81,7 +81,7 @@ function formHtml(data, saved) {
           <input type="radio" name="shippingMethod" value="courier" checked>
           <span class="co-choice-body">
             <span class="co-choice-title"><i class="bi bi-truck" aria-hidden="true"></i>${esc(SHIPPING_LABELS.courier)}</span>
-            <span class="co-choice-desc">Παράδοση σε 1–3 εργάσιμες. Δωρεάν για παραγγελίες από ${esc(formatMoney(s.freeShippingThresholdCents))}.</span>
+            <span class="co-choice-desc">Παράδοση σε 1–3 εργάσιμες. ${esc(freeShippingPhrase(s.freeShippingThresholdCents))}.</span>
           </span>
           <span class="co-choice-price" data-ship-price="courier"></span>
         </label>

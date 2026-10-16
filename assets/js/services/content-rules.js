@@ -1,6 +1,6 @@
 // Pure content rules (no DB, no DOM): content keys, shape validators, token filling and
 // newsletter helpers. Importable in Node; re-exported by content.js.
-import { formatMoney } from './pricing.js';
+import { formatMoney, freeShippingPhrase, freeShippingCondition } from './pricing.js';
 import { imageSourceError } from './product-admin-rules.js';
 
 export const CONTENT_KEYS = ['hero', 'banners', 'collections', 'instagram', 'promos', 'newsletter', 'footer'];
@@ -54,17 +54,18 @@ function checker() {
       if (!ok) at(`${p}.${field}`, 'ο σύνδεσμος πρέπει να ξεκινά με #/ ή https://');
     },
     // Seeded paths and https URLs, plus raster data URLs from local uploads (same allow-list as product images).
-    imageSrc(obj, field, p, { required = true } = {}) {
+    imageSrc(obj, field, p, { required = true, allowData = true } = {}) {
       const v = obj[field];
       if (v === undefined || v === null || v === '') { if (required) at(p + '.' + field, 'υποχρεωτικό'); return; }
       if (!isStr(v)) return at(p + '.' + field, 'μη έγκυρη διαδρομή εικόνας');
+      if (v.startsWith('data:') && !allowData) return at(p + '.' + field, 'δεν επιτρέπεται data: URL');
       if (v.startsWith('data:')) { const e = imageSourceError(v); if (e) at(p + '.' + field, e); return; }
       if (!IMAGE_RE.test(v)) at(p + '.' + field, 'μη έγκυρη διαδρομή εικόνας');
     },
     image(obj, p, { required = true } = {}) {
       if (!obj.image && !required) return;
       c.imageSrc(obj, 'image', p);
-      c.imageSrc(obj, 'imageSm', p, { required: false });
+      c.imageSrc(obj, 'imageSm', p, { required: false, allowData: false });
       c.text(obj, 'alt', p, { max: 300 });
       for (const d of ['width', 'height']) {
         if (obj[d] !== undefined && !(Number.isInteger(obj[d]) && obj[d] > 0 && obj[d] <= 10000)) at(`${p}.${d}`, 'θετικός ακέραιος');
@@ -239,7 +240,10 @@ export function resolveContent(key, stored, defaults) {
 /** Replace {freeShipping} / {storeName} tokens with live settings values. Unknown tokens stay. */
 export function fillTokens(text, settings = {}) {
   return String(text ?? '').replace(/\{(\w+)\}/g, (m, name) => {
-    if (name === 'freeShipping' && Number.isFinite(settings.freeShippingThresholdCents)) return formatMoney(settings.freeShippingThresholdCents);
+    const t = settings.freeShippingThresholdCents;
+    if ((name === 'freeShipping' || name === 'freeShippingThreshold') && Number.isFinite(t)) return formatMoney(t);
+    if (name === 'freeShippingText' && Number.isFinite(t)) return freeShippingPhrase(t);
+    if (name === 'freeShippingCondition' && Number.isFinite(t)) return freeShippingCondition(t);
     if (name === 'storeName' && settings.storeName) return settings.storeName;
     return m;
   });
