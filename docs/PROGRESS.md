@@ -24,7 +24,7 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 14 | Admin order management | complete (pending review) |
 | 15–19 | Admin customers+coupons, content+settings; Backup/reset; A11y/responsive pass (incl. flaky-test stability); README/handoff | not started |
 
-Overall: 14 of 19 tasks complete (~74%). Tests: unit 205, e2e 202 (one intermittent flake noted: catalog.spec.js:226), all otherwise green.
+Overall: 14 of 19 tasks complete (~74%). Tests: unit 205, e2e 202 (known rare flake: catalog.spec.js:226), all green.
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
@@ -32,8 +32,9 @@ Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout har
 ## Task 14 — done
 State machine, restock and CSV rules live in `services/order-rules.js` (pure, decision block at the top); `services/orders.js` wraps them in one-tx mutations. Sample orders and `restocked:true` orders never touch stock; deleted variants are skipped with a history note; archived variants get stock back but stay archived. Cancel/return do not change paymentStatus or customer/coupon aggregates. Internal history entries (note/restock) are hidden on the customer account page. `/admin/customers/:id` is a placeholder for Task 15 (linked from order detail). Report: `.superpowers/sdd/2026-10-16-elan-fashion-boutique/task-14-report.md`.
 
-## Next task: Task 15 — Admin customers + coupons
-Compute displayed customer aggregates from orders (cancel/return do not adjust stored customer.orderCount/totalCents or coupon usedCount). Replace the `/admin/customers/:id` placeholder registered in app.js.
+## Next task: Task 15 — Admin customers and coupons
+Files: `assets/js/pages/admin/{customers,coupons}.js`; extend `services/coupons.js` (CRUD) and customers service; tests `tests/e2e/admin-customers.spec.js`, `tests/e2e/admin-coupons.spec.js`.
+Coupons: CRUD `{code,type:percent|fixed,value,minSubtotalCents,expiresAt,maxUses,usedCount,active}` with validation (unique code case-insensitive, percent 1–100, fixed >0 and cents conversion, expiry date, min spend, usage limit ≥ usedCount) — must really affect cart/checkout math (pricing.validateCoupon/quote), checkout increments usedCount. Customers: list with search/sort, profile (`#/admin/customers/:id`, replaces the placeholder registered in app.js), order history, totals COMPUTED FROM ORDERS (exclude cancelled/returned from spend; show counts per status), basic editing (name/email-unique/phone/company/AFM/newsletter), sample customers flagged `sample:true`. Routes `#/admin/customers`, `#/admin/customers/:id`, `#/admin/promotions` (coupons).
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
