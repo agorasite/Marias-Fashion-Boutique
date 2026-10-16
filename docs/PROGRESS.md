@@ -21,12 +21,14 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 11 | Homepage, content service, Instagram | complete, reviewed (no fix round) |
 | 12 | Admin shell, demo gate, overview, sample data | complete, reviewed (no fix round) |
 | 13 | Admin product management | complete, reviewed (1 fix round) |
-| 14 | Admin order management | complete (pending review) |
-| 15 | Admin customers and coupons | complete (pending review) |
+| 14 | Admin order management | complete, reviewed (no fix round) |
+| 15 | Admin customers and coupons | complete, reviewed (no fix round) |
 | 16 | Admin content and settings | complete, reviewed (1 fix round) |
-| 17–19 | Admin customers+coupons, content+settings; Backup/reset; A11y/responsive pass (incl. flaky-test stability); README/handoff | not started |
+| 17 | Backup, import, reset | complete, reviewed (2 fix rounds) |
+| 18 | Accessibility, responsive and resilience pass (incl. flaky-test stability, deferred minors) | not started |
+| 19 | README, full regression, handoff report (qa-gates 1–14) | not started |
 
-Overall: 16 of 19 tasks complete (~84%). Tests: unit 289, e2e 278, all green (known rare flakes: catalog.spec.js:226 and :206 — to be fixed in Task 18).
+Overall: 17 of 19 tasks complete (~89%). Tests: unit 336, e2e 293, all green (known rare flakes: catalog.spec.js:226 and :206 — to be fixed in Task 18).
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
@@ -34,9 +36,12 @@ Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout har
 ## Task 14 — done
 State machine, restock and CSV rules live in `services/order-rules.js` (pure, decision block at the top); `services/orders.js` wraps them in one-tx mutations. Sample orders and `restocked:true` orders never touch stock; deleted variants are skipped with a history note; archived variants get stock back but stay archived. Cancel/return do not change paymentStatus or customer/coupon aggregates. Internal history entries (note/restock) are hidden on the customer account page. `/admin/customers/:id` is a placeholder for Task 15 (linked from order detail). Report: `.superpowers/sdd/2026-10-16-elan-fashion-boutique/task-14-report.md`.
 
-## Next task: Task 17 — Backup, import, reset
-Files: `assets/js/services/backup.js`, `assets/js/pages/admin/backup.js` (route `#/admin/backup`, currently a placeholder in app.js); tests `tests/unit/backup-validate.test.mjs`, `tests/e2e/backup.spec.js`.
-API: `exportAll(): {schemaVersion, exportedAt, stores:{[name]:any[]}}` (all 11 stores; metadata incl. DB name; labelled as a local backup, NOT a cloud backup), `validateImport(obj): {ok, errors[]}` (schemaVersion, known store names only, arrays, unique keys per store, referential checks variants→products, orders lines qty = safe positive integers (planRestock accepts negatives/fractions — carry from Task 14), status enums, restocked flags boolean, coupon shape via coupon-rules, settings via settings-rules incl. IRIS honesty guard, content via content-rules validators, image allow-list for products/content), `importAll(obj)` stage-validate then ONE readwrite tx clearing and replacing all stores (failure leaves DB untouched), `resetToSeed()` exists in seed.js (needs confirm UI; dispatches content:changed/settings:changed after commit already; ensure catalog:changed/cart:changed/wishlist:changed/orders:changed/coupons:changed so open pages refresh). UI: Export JSON download (filename elan-backup-YYYY-MM-DD.json), Import (file input; show validation errors; preview counts of what will be replaced; typed confirmation before destructive replace), Reset demo (typed confirmation «ΕΠΑΝΑΦΟΡΑ»), clear statement that data lives only in this browser. Include customers/orders `sample` flags; imports of foreign/malformed JSON must fail safely with Greek errors.
+## Next task: Task 18 — Accessibility, responsive and resilience pass
+Files: tests `tests/e2e/responsive.spec.js`, `tests/e2e/a11y.spec.js`, `tests/e2e/resilience.spec.js`; fixes across CSS/components as needed.
+1. Viewport matrix 320/375/390/430/768/1024/1440 over the main storefront and admin routes: no horizontal overflow, header/bottom-nav/offcanvas/modal usable, tap targets ≥ 44px on mobile, no console errors/failed requests (incl. images).
+2. Keyboard: Tab order through catalog → PDP → cart → checkout; Escape closes modals; labels/aria on forms; `prefers-reduced-motion`; image-error fallback; IndexedDB-unavailable error screen.
+3. FLAKES: catalog.spec.js:226 (filter state URL back/forward) and :206 (heart without wishlist listener) fail rarely in full runs but pass in isolation — reproduce with the whole suite under `--repeat-each` / reduced workers, find the race (suspect router history tracking `elanIdx`/pushState in catalog or shared state), fix root cause, then run the full e2e suite 5 times green.
+4. Deferred minors worth fixing here (see ledger `minor (deferred)` lines): account tab strip scrolls sideways at 390 (Προφίλ cut off); catalog search debounce timer not cleared on teardown / loadMore-vs-refresh race; quickView helpers duplicate sizeLabel/compareSizes/raw Intl; combat boots image 2 is a mirrored duplicate (drop it from data/products.json + manifest/credits consistency); hero mobile `sizes` downloads 1920w on phones; mobile-menu free-shipping phrases duplicated inline in app.js (use freeShippingPhrase); migrateContent/seed optional files failure tolerance already done; shop-the-look old modal not disposed; admin lists don’t listen to orders:changed/coupons:changed; saveCoupon no-expiresOn already fixed.
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
