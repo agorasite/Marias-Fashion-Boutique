@@ -108,3 +108,4 @@
 .conf-card address { font-style: normal; }
 .print-only { display: none; }
 .co-error-summary, .co-banner, .co-form input, .co-form select, .co-form textarea { scroll-margin-top: calc(var(--elan-header-h) + 1.5rem); }
+.co-save-hint { margin: -0.25rem 0 0.5rem 1.85rem; font-size: 0.8125rem; }

@@ -7,6 +7,13 @@ const products = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'
 const meta = JSON.parse(fs.readFileSync(path.join(root, 'data/catalog-meta.json'), 'utf8'));
 const S = meta.settings;
 const ORDER_RE = /^ELAN-\d{8}-[0-9A-Z]{4}$/;
+const IRIS_TEXT = 'Πρόκειται για προσομοίωση IRIS: δεν γίνεται καμία πραγματική χρέωση ή τραπεζική συναλλαγή. Η παραγγελία καταχωρείται με κατάσταση «Εκκρεμεί πληρωμή». Παρακάτω θα δείτε προσομοιωμένες οδηγίες και κωδικό πληρωμής· η πληρωμή σημειώνεται ως «Προσομοίωση: πληρώθηκε» μόνο όταν πατήσετε «Προσομοίωση πληρωμής IRIS».';
+/** Page text with the quoted IRIS instructions removed: they name the post-click label by design. */
+const textWithoutInstructions = (page) => page.evaluate(() => {
+  const c = document.querySelector('[data-page="confirmation"]').cloneNode(true);
+  c.querySelectorAll('[data-iris-instructions]').forEach((n) => n.remove());
+  return c.textContent;
+});
 
 const ok = (p) => p.status !== 'archived';
 const stocked = (p, min = 1) => p.variants.find((v) => v.stock >= min);
@@ -322,7 +329,8 @@ test('IRIS: explanation and simulation labels; payment flips only after the simu
   const info = page.locator('[data-iris-info]');
   await expect(info).toBeVisible();
   await expect(info).toContainText('Προσομοίωση — δεν πραγματοποιείται πραγματική πληρωμή');
-  await expect(page.locator('[data-page="checkout"]')).not.toContainText('πληρώθηκε');
+  await expect(page.locator('[data-page="checkout"]')).not.toContainText(/πληρώθηκε|πληρωμένη/);
+  await expect(page.locator('label.co-choice', { has: page.locator('input[value="iris"]') })).toContainText('Προσομοίωση πληρωμής IRIS — καμία πραγματική συναλλαγή');
   await submit(page).click();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
   const id = (await page.locator('[data-order-ref]').innerText()).trim();
@@ -332,9 +340,12 @@ test('IRIS: explanation and simulation labels; payment flips only after the simu
   expect(o.fulfillmentStatus).toBe('pending');
   expect(o.totals.codFeeCents).toBe(0);
   const conf = page.locator('[data-page="confirmation"]');
-  await expect(conf).toContainText(S.irisInstructions.slice(0, 40));
+  expect(S.irisInstructions).toBe(IRIS_TEXT);
+  await expect(page.locator('[data-iris-instructions]')).toHaveText(IRIS_TEXT);
+  expect(IRIS_TEXT).not.toMatch(/πληρωμένη/);
   await expect(conf).toContainText('Προσομοίωση');
-  await expect(conf).not.toContainText('πληρώθηκε');
+  expect(await textWithoutInstructions(page)).not.toMatch(/πληρώθηκε|πληρωμένη/);
+  await expect(page.locator('[data-payment-status]')).not.toHaveText(/πληρώθηκε|πληρωμένη/);
   await expect(page.locator('[data-payment-status]')).toContainText('Εκκρεμεί');
   const btn = page.locator('[data-iris-simulate]');
   await expect(btn).toHaveText(/Προσομοίωση πληρωμής IRIS/);
@@ -449,6 +460,8 @@ test('returning local customer can reuse saved details; orderCount grows', async
   await expect(page.locator('[data-fill-saved]')).toHaveCount(0);
   await fillForm(page, { region: 'Κρήτη', city: 'Ηράκλειο', postalCode: '71201', address: 'Λεωφόρος Καλοκαιρινού 10' });
   await page.fill('#co-vatNumber', '090000045');
+  await expect(page.locator('label[for="co-saveDetails"]')).toHaveText('Να προτείνονται αυτά τα στοιχεία για την επόμενη αγορά σε αυτόν τον περιηγητή');
+  await expect(page.locator('#co-saveDetails-hint')).toContainText('καταχωρούνται πάντα τοπικά');
   await page.check('#co-saveDetails');
   await submit(page).click();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
@@ -503,4 +516,148 @@ test('390px: no horizontal overflow on checkout and confirmation', async ({ page
   await expect(page.locator('[data-page="confirmation"]')).toBeVisible();
   expect(await overflow()).toBeLessThanOrEqual(0);
   expect(errors).toEqual([]);
+});
+
+// ---- review fixes ----
+const FORM = { firstName: 'Νίκος', lastName: 'Γεωργίου', email: 'nikos@example.gr', phone: '2101234567', address: 'Σταδίου 5', city: 'Αθήνα', postalCode: '10562', region: 'Αττική', acceptTerms: true };
+async function place(page, extra = {}) {
+  return page.evaluate(async ([form, x]) => {
+    const m = await import('/assets/js/services/checkout.js');
+    try {
+      const o = await m.placeOrder({ form, shippingMethod: 'courier', paymentMethod: 'cod', requestId: `r-${Math.random()}`, ...x });
+      return { ok: true, id: o.id, lines: o.lines.map((l) => [l.sku, l.qty]) };
+    } catch (e) { return { ok: false, code: e.code || e.message }; }
+  }, [FORM, extra]);
+}
+const twoVariantProduct = products.find((p) => ok(p) && p.variants.filter((v) => v.stock >= 2).length >= 2);
+
+test('duplicate SKU rows in the cart are aggregated: no oversell, exact decrement', async ({ page }) => {
+  await boot(page);
+  const v = stocked(mid, 5);
+  await dbPatch(page, 'variants', v.sku, { stock: 3 });
+  await dbPatch(page, 'carts', 'local', { id: 'local', lines: [{ sku: v.sku, qty: 2 }, { sku: v.sku, qty: 2 }], couponCode: null });
+  expect(await place(page)).toEqual({ ok: false, code: 'STOCK' });
+  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect((await dbGet(page, 'variants', v.sku)).stock).toBe(3);
+  await dbPatch(page, 'variants', v.sku, { stock: 5 });
+  const r2 = await place(page);
+  expect(r2.ok).toBe(true);
+  expect(r2.lines).toEqual([[v.sku, 4]]);
+  expect((await dbGet(page, 'variants', v.sku)).stock).toBe(1);
+  expect((await dbGet(page, 'carts', 'local')).lines).toEqual([]);
+});
+
+test('PRICE guard: a same-price variant swap after the page loaded is refused', async ({ page }) => {
+  expect(twoVariantProduct).toBeTruthy();
+  const [a, b] = twoVariantProduct.variants.filter((v) => v.stock >= 2);
+  await boot(page);
+  await addSku(page, a.sku, 1);
+  await openCheckout(page);
+  await fillForm(page);
+  const swapped = await page.evaluate(async ([x, y]) => (await import('/assets/js/services/cart.js')).changeVariant(x, y), [a.sku, b.sku]);
+  expect(swapped.ok).toBe(true);
+  const before = await stockMap(page);
+  await submit(page).click();
+  await expect(page.locator('[data-checkout-error="PRICE"]')).toBeVisible();
+  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await stockMap(page)).toEqual(before);
+  // summary refreshed to the new line; resubmitting now succeeds with the new variant
+  await expect(page.locator(`[data-summary-line][data-sku="${b.sku}"]`)).toHaveCount(1);
+  await submit(page).click();
+  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  const [o] = await dbAll(page, 'orders');
+  expect(o.lines.map((l) => l.sku)).toEqual([b.sku]);
+  // service level: a mismatching signature is refused
+  await addSku(page, a.sku, 1);
+  expect(await place(page, { expectedSignature: 'nope:1' })).toEqual({ ok: false, code: 'PRICE' });
+});
+
+test('PRICE guard: a price change after the page loaded is refused and the summary refreshes', async ({ page }) => {
+  await boot(page);
+  await addSku(page, stocked(mid, 5).sku, 1);
+  await openCheckout(page);
+  await fillForm(page);
+  await dbPatch(page, 'products', mid.id, { priceCents: mid.priceCents + 1000 });
+  await submit(page).click();
+  await expect(page.locator('[data-checkout-error="PRICE"]')).toBeVisible();
+  expect(await dbAll(page, 'orders')).toEqual([]);
+  const e = expected({ sub: mid.priceCents + 1000, ship: 'courier', pay: 'cod' });
+  await expect.poll(async () => (await readSummary(page)).total).toBe(e.total);
+  await submit(page).click();
+  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  expect((await dbAll(page, 'orders'))[0].totals.totalCents).toBe(e.total);
+});
+
+test('pickup order: no shipping address, pickup text on the confirmation', async ({ page }) => {
+  const errors = trackErrors(page);
+  await boot(page);
+  await addSku(page, stocked(mid, 5).sku, 1);
+  await openCheckout(page);
+  await page.check('input[name="shippingMethod"][value="pickup"]');
+  for (const k of ['firstName', 'lastName', 'email', 'phone']) await page.fill(`#co-${k}`, DETAILS[k]);
+  await page.check('#co-acceptTerms');
+  await submit(page).click();
+  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  const [o] = await dbAll(page, 'orders');
+  expect(o.shippingAddress).toBeNull();
+  expect(o.shipping.method).toBe('pickup');
+  expect(o.shipping.costCents).toBe(0);
+  const conf = page.locator('[data-page="confirmation"]');
+  await expect(conf).toContainText('Παραλαβή από το κατάστημα');
+  await expect(conf).toContainText(S.contact.address);
+  await expect(conf).toContainText('στο κατάστημα κατά την παραλαβή');
+  expect(errors).toEqual([]);
+});
+
+test('unchecked "save details": order and customer kept, but details are not offered for reuse', async ({ page }) => {
+  await boot(page);
+  await addSku(page, stocked(mid, 5).sku, 1);
+  await openCheckout(page);
+  await fillForm(page);
+  await expect(page.locator('#co-saveDetails')).not.toBeChecked();
+  await submit(page).click();
+  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  const [c] = await dbAll(page, 'customers');
+  expect(c).toMatchObject({ rememberDetails: false, savedAddresses: [], orderCount: 1, email: 'maria@example.gr' });
+  await addSku(page, stocked(other, 3).sku, 1);
+  await openCheckout(page);
+  await expect(page.locator('[data-fill-saved]')).toHaveCount(0);
+});
+
+test('IRIS simulation is refused for cancelled/returned orders', async ({ page }) => {
+  await boot(page);
+  for (const status of ['cancelled', 'returned']) {
+    await addSku(page, stocked(mid, 5).sku, 1);
+    const r = await place(page, { paymentMethod: 'iris' });
+    expect(r.ok).toBe(true);
+    await dbPatch(page, 'orders', r.id, { fulfillmentStatus: status });
+    const code = await page.evaluate(async (id) => {
+      try { await (await import('/assets/js/services/checkout.js')).confirmIrisSimulation(id); return 'ok'; } catch (e) { return e.code; }
+    }, r.id);
+    expect(code).toBe('NOT_ALLOWED');
+    const o = await dbGet(page, 'orders', r.id);
+    expect(o.paymentStatus).toBe('pending');
+    expect(o.history).toHaveLength(1);
+    await page.goto(`/#/order/${r.id}`);
+    await expect(page.locator('[data-page="confirmation"]')).toBeVisible();
+    await expect(page.locator('[data-iris-simulate]')).toHaveCount(0);
+  }
+});
+
+test('payment status badge has a Greek label for every status', async ({ page }) => {
+  await boot(page);
+  await addSku(page, stocked(mid, 5).sku, 1);
+  const r = await place(page, { paymentMethod: 'iris' });
+  const LABELS = {
+    pending: /Εκκρεμεί πληρωμή/, 'simulated-paid': /Προσομοίωση: πληρώθηκε/, refunded: /Επιστροφή χρημάτων/,
+    failed: /Αποτυχία πληρωμής/, cancelled: /Ακυρώθηκε η πληρωμή/,
+  };
+  await page.goto(`/#/order/${r.id}`);
+  for (const [status, re] of Object.entries(LABELS)) {
+    await dbPatch(page, 'orders', r.id, { paymentStatus: status });
+    await page.reload();
+    const badge = page.locator('[data-payment-status]');
+    await expect(badge).toHaveText(re);
+    expect(await badge.innerText()).not.toMatch(/[a-z]{4,}/); // no raw English status ids
+  }
 });

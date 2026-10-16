@@ -8,14 +8,19 @@ import { sizeLabel } from '../services/products.js';
 const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
 const dateFmt = new Intl.DateTimeFormat('el-GR', { dateStyle: 'long', timeStyle: 'short' });
 
+const PAYMENT_STATUS = {
+  pending: { icon: 'bi-hourglass-split', cls: 'is-pending', label: (o) => `Εκκρεμεί πληρωμή${o.payment.method === 'cod' ? ' (αντικαταβολή)' : ''}` },
+  'simulated-paid': { icon: 'bi-check2-circle', cls: 'is-sim-paid', label: () => 'Προσομοίωση: πληρώθηκε' },
+  refunded: { icon: 'bi-arrow-counterclockwise', cls: '', label: () => 'Επιστροφή χρημάτων (προσομοίωση)' },
+  failed: { icon: 'bi-x-circle', cls: 'is-failed', label: () => 'Αποτυχία πληρωμής' },
+  cancelled: { icon: 'bi-slash-circle', cls: '', label: () => 'Ακυρώθηκε η πληρωμή' },
+};
+const UNKNOWN_STATUS = { icon: 'bi-question-circle', cls: '', label: () => 'Άγνωστη κατάσταση πληρωμής' };
+const paymentLabel = (o) => (PAYMENT_STATUS[o.paymentStatus] || UNKNOWN_STATUS).label(o);
+
 function paymentBadge(o) {
-  if (o.paymentStatus === 'simulated-paid') {
-    return '<span class="conf-badge is-sim-paid" data-payment-status="simulated-paid"><i class="bi bi-check2-circle" aria-hidden="true"></i>Προσομοίωση: πληρώθηκε</span>';
-  }
-  if (o.paymentStatus === 'pending') {
-    return `<span class="conf-badge is-pending" data-payment-status="pending"><i class="bi bi-hourglass-split" aria-hidden="true"></i>Εκκρεμεί πληρωμή${o.payment.method === 'cod' ? ' (αντικαταβολή)' : ''}</span>`;
-  }
-  return `<span class="conf-badge" data-payment-status="${esc(o.paymentStatus)}">Πληρωμή: ${esc(o.paymentStatus)}</span>`;
+  const st = PAYMENT_STATUS[o.paymentStatus] || UNKNOWN_STATUS;
+  return `<span class="conf-badge ${st.cls}" data-payment-status="${esc(o.paymentStatus)}"><i class="bi ${st.icon}" aria-hidden="true"></i>${esc(st.label(o))}</span>`;
 }
 
 const FULFILLMENT = {
@@ -47,11 +52,15 @@ function paymentHtml(o, settings) {
       <p class="conf-muted mb-0">Η πληρωμή καταγράφεται ως εκκρεμής μέχρι την παράδοση.</p>
     </div>`;
   }
-  const pending = o.paymentStatus === 'pending';
+  const closed = ['cancelled', 'returned'].includes(o.fulfillmentStatus);
+  const pending = o.paymentStatus === 'pending' && !closed;
+  let after = '<p class="conf-sim-done mb-0" data-iris-done><i class="bi bi-check2-circle" aria-hidden="true"></i> Η πληρωμή καταγράφηκε ως <strong>προσομοίωση</strong> — δεν έγινε πραγματική τραπεζική συναλλαγή.</p>';
+  if (closed) after = '<p class="conf-muted mb-0" data-iris-closed>Η παραγγελία έχει ακυρωθεί ή επιστραφεί· δεν απαιτείται πληρωμή.</p>';
+  else if (o.paymentStatus !== 'simulated-paid') after = `<p class="conf-muted mb-0">Κατάσταση πληρωμής: ${esc(paymentLabel(o))}.</p>`;
   return `<div class="conf-card conf-iris" data-payment-block="iris">
     <h2 class="conf-card-title"><i class="bi bi-phone" aria-hidden="true"></i>Πληρωμή με IRIS <span class="co-sim-badge">Προσομοίωση</span></h2>
     <p class="co-iris-flag"><i class="bi bi-shield-exclamation" aria-hidden="true"></i><strong>Προσομοίωση — δεν πραγματοποιείται πραγματική πληρωμή</strong></p>
-    <p>${esc(settings.irisInstructions || '')}</p>
+    <p data-iris-instructions>${esc(settings.irisInstructions || '')}</p>
     <dl class="conf-iris-details">
       <div><dt>Δικαιούχος</dt><dd>${esc(settings.storeName || 'ÉLAN Fashion Boutique')} (demo)</dd></div>
       <div><dt>Ποσό</dt><dd>${total}</dd></div>
@@ -62,7 +71,7 @@ function paymentHtml(o, settings) {
       ? `<button type="button" class="btn btn-dark" data-iris-simulate data-no-print>
           <span class="spinner-border spinner-border-sm me-2" aria-hidden="true" hidden data-spinner></span>Προσομοίωση πληρωμής IRIS</button>
          <p class="conf-muted mt-2 mb-0">Το κουμπί απλώς σημειώνει την πληρωμή ως προσομοιωμένη σε αυτό το demo. Δεν μεταφέρονται χρήματα.</p>`
-      : '<p class="conf-sim-done mb-0" data-iris-done><i class="bi bi-check2-circle" aria-hidden="true"></i> Η πληρωμή καταγράφηκε ως <strong>προσομοίωση</strong> — δεν έγινε πραγματική τραπεζική συναλλαγή.</p>'}</div>
+      : after}</div>
   </div>`;
 }
 

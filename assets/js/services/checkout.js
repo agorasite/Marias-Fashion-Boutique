@@ -25,6 +25,25 @@ export class CheckoutError extends Error {
   }
 }
 
+/** Merge rows with the same SKU (first position wins), summing quantities. */
+export function aggregateLines(lines) {
+  const map = new Map();
+  for (const l of lines || []) {
+    const hit = map.get(l.sku);
+    if (hit) hit.qty += Number(l.qty) || 0;
+    else map.set(l.sku, { sku: l.sku, qty: Number(l.qty) || 0 });
+  }
+  return [...map.values()];
+}
+
+/** Stable "sku:qty|sku:qty" signature of the purchasable lines (aggregated, sorted by SKU). */
+export function lineSignature(lines) {
+  return aggregateLines(lines).map((l) => `${l.sku}:${l.qty}`).sort().join('|');
+}
+
+/** Fulfilment states in which a payment simulation makes no sense. */
+export const NO_PAYMENT_FULFILLMENT = ['cancelled', 'returned'];
+
 async function findByRequestId(t, requestId) {
   // Demo-scale scan (orders store has no requestId index; avoids a schema migration).
   const all = await reqP(t.objectStore('orders').getAll());
@@ -58,7 +77,9 @@ function snapshotLine(line, variant, product, vatRate) {
  * @returns {Promise<object>} the order (the existing one when requestId was already used)
  * @throws {CheckoutError}
  */
-export async function placeOrder({ form, shippingMethod, paymentMethod, requestId, saveDetails = false, expectedTotalCents } = {}) {
+export async function placeOrder({
+  form, shippingMethod, paymentMethod, requestId, saveDetails = false, expectedTotalCents, expectedSignature,
+} = {}) {
   const data = {
     ...(form || {}),
     shippingMethod: shippingMethod ?? form?.shippingMethod,
@@ -90,8 +111,9 @@ export async function placeOrder({ form, shippingMethod, paymentMethod, requestI
     const settingsRec = (await reqP(os('settings').get('store'))) || {};
     const { key, ...settings } = settingsRec;
 
+    // Aggregate by SKU so duplicate rows can never be checked/decremented separately.
     const rows = [];
-    for (const line of cart.lines) {
+    for (const line of aggregateLines(cart.lines)) {
       const variant = (await reqP(os('variants').get(line.sku))) || null;
       const product = variant ? (await reqP(os('products').get(variant.productId))) || null : null;
       rows.push({ line, variant, product, ...classifyLine({ qty: line.qty, variant, product }) });
@@ -123,8 +145,12 @@ export async function placeOrder({ form, shippingMethod, paymentMethod, requestI
     }
 
     const q = quote({ lines: priced, coupon, shipping: { method: ship }, payment: pay, settings, now });
-    if (expectedTotalCents != null && q.totalCents !== expectedTotalCents) {
-      throw new CheckoutError('PRICE', 'Το σύνολο της παραγγελίας άλλαξε.', { expectedTotalCents, totalCents: q.totalCents });
+    const signature = lineSignature(rows.map((r) => r.line));
+    if ((expectedTotalCents != null && q.totalCents !== expectedTotalCents)
+      || (expectedSignature != null && signature !== expectedSignature)) {
+      throw new CheckoutError('PRICE', 'Το καλάθι ή το σύνολο της παραγγελίας άλλαξε.', {
+        expectedTotalCents, totalCents: q.totalCents, expectedSignature, signature,
+      });
     }
 
     let id = null;
@@ -208,6 +234,9 @@ export async function confirmIrisSimulation(orderId) {
     const o = await reqP(store.get(String(orderId)));
     if (!o) throw Object.assign(new Error('Order not found'), { code: 'NOT_FOUND' });
     if (!o.payment || o.payment.method !== 'iris') throw Object.assign(new Error('Not an IRIS order'), { code: 'NOT_IRIS' });
+    if (NO_PAYMENT_FULFILLMENT.includes(o.fulfillmentStatus)) {
+      throw Object.assign(new Error('Order is cancelled or returned'), { code: 'NOT_ALLOWED' });
+    }
     if (o.paymentStatus !== 'pending') return o;
     const next = {
       ...o,

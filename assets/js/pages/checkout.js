@@ -6,7 +6,7 @@ import { quote } from '../services/pricing.js';
 import { pricedLines, couponMessage } from '../services/cart-rules.js';
 import { sizeLabel } from '../services/products.js';
 import { REGIONS, FIELD_ORDER, NOTES_MAX, SHIPPING_LABELS, validateCheckoutForm, uuid } from '../services/checkout-rules.js';
-import { placeOrder, CheckoutError } from '../services/checkout.js';
+import { placeOrder, CheckoutError, lineSignature } from '../services/checkout.js';
 import { getActiveCustomer } from '../services/customers.js';
 
 const smOf = (src) => src.replace(/\.webp$/, '-sm.webp');
@@ -137,7 +137,7 @@ function formHtml(data, saved) {
           <input type="radio" name="paymentMethod" value="iris">
           <span class="co-choice-body">
             <span class="co-choice-title"><i class="bi bi-phone" aria-hidden="true"></i>IRIS <span class="co-sim-badge">Προσομοίωση</span></span>
-            <span class="co-choice-desc">Άμεση πληρωμή από την εφαρμογή της τράπεζάς σας.</span>
+            <span class="co-choice-desc">Προσομοίωση πληρωμής IRIS — καμία πραγματική συναλλαγή</span>
           </span>
           <span class="co-choice-price">Χωρίς χρέωση</span>
         </label>
@@ -160,9 +160,10 @@ function formHtml(data, saved) {
       <div class="co-error" id="co-notes-error" data-error-for="notes"></div>
 
       <div class="form-check mt-3">
-        <input class="form-check-input" type="checkbox" id="co-saveDetails" name="saveDetails" ${saved ? 'checked' : ''}>
-        <label class="form-check-label" for="co-saveDetails">Αποθήκευση των στοιχείων μου σε αυτόν τον περιηγητή για την επόμενη αγορά</label>
+        <input class="form-check-input" type="checkbox" id="co-saveDetails" name="saveDetails" aria-describedby="co-saveDetails-hint" ${saved ? 'checked' : ''}>
+        <label class="form-check-label" for="co-saveDetails">Να προτείνονται αυτά τα στοιχεία για την επόμενη αγορά σε αυτόν τον περιηγητή</label>
       </div>
+      <p class="form-text co-save-hint" id="co-saveDetails-hint">Η παραγγελία και τα στοιχεία επικοινωνίας σας καταχωρούνται πάντα τοπικά σε αυτόν τον περιηγητή (demo), για το ιστορικό παραγγελιών. Η επιλογή ορίζει μόνο αν θα σας προτείνονται για συμπλήρωση και αν η διεύθυνση θα μπει στις αποθηκευμένες διευθύνσεις.</p>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="co-acceptTerms" name="acceptTerms" aria-required="true" aria-describedby="co-acceptTerms-error">
         <label class="form-check-label" for="co-acceptTerms">Αποδέχομαι τους όρους (demo) ${req}</label>
@@ -251,8 +252,8 @@ function errorBannerHtml(err) {
       link = '<a href="#/cart" class="btn btn-sm btn-dark">Μετάβαση στο καλάθι</a>';
       break;
     case 'PRICE':
-      title = 'Το σύνολο της παραγγελίας άλλαξε';
-      body = 'Οι τιμές ενημερώθηκαν. Ελέγξτε το νέο σύνολο στη σύνοψη και υποβάλετε ξανά.';
+      title = 'Το καλάθι ή οι τιμές άλλαξαν';
+      body = 'Δεν καταχωρήθηκε παραγγελία. Η σύνοψη ενημερώθηκε με τα τρέχοντα προϊόντα και τιμές — ελέγξτε τη και υποβάλετε ξανά.';
       break;
     default:
   }
@@ -496,6 +497,7 @@ export default async function render() {
         requestId,
         saveDetails: el('saveDetails').checked,
         expectedTotalCents: current ? current.totalCents : undefined,
+        expectedSignature: lineSignature(pricedLines(state.lines)),
       });
       navigate(`/order/${encodeURIComponent(order.id)}`);
     } catch (err) {
