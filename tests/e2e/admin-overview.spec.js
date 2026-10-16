@@ -128,11 +128,11 @@ test('wrong credentials are rejected with an error and no session', async ({ pag
 test('correct credentials continue to the requested admin route; reload keeps the session; a new context needs login', async ({ page, browser }) => {
   await enter(page, '#/admin/customers');
   await expect(page).toHaveURL(/#\/admin\/customers$/);
-  await expect(page.locator('[data-admin-view="placeholder"]')).toBeVisible();
-  await expect(page.locator('[data-admin-view="placeholder"]')).toContainText('Σύντομα διαθέσιμο');
+  await expect(page.locator('[data-admin-view="customers"]')).toBeVisible();
+  await expect(page.locator('[data-admin-view="customers"]')).toContainText('Πελάτες');
   expect(await page.evaluate(() => sessionStorage.getItem('adminSession'))).toBe('1');
   await page.reload();
-  await expect(page.locator('[data-admin-view="placeholder"]')).toBeVisible();
+  await expect(page.locator('[data-admin-view="customers"]')).toBeVisible();
   await expect(page.locator(GATE)).toHaveCount(0);
 
   const ctx = await browser.newContext({ baseURL: 'http://127.0.0.1:4173' });
@@ -281,7 +281,7 @@ test('desktop: sidebar is always visible with every section; all nav targets res
   for (const h of hrefs.slice(1)) {
     await sidebar.locator(`nav a[href="${h}"]`).click();
     await expect(page).toHaveURL(new RegExp(`${h.replace(/[/#]/g, '\\$&')}$`));
-    const real = { '#/admin/products': 'products', '#/admin/orders': 'orders' };
+    const real = { '#/admin/products': 'products', '#/admin/orders': 'orders', '#/admin/customers': 'customers', '#/admin/promotions': 'promotions' };
     await expect(page.locator(`[data-admin-view="${real[h] || 'placeholder'}"]`), h).toBeVisible();
     await expect(sidebar.locator(`nav a[href="${h}"]`)).toHaveAttribute('aria-current', 'page');
   }

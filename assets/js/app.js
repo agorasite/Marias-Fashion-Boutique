@@ -43,9 +43,10 @@ adminRoute('/admin/products/new', lazy(() => import('./pages/admin/product-edito
 adminRoute('/admin/products/:id', lazy(() => import('./pages/admin/product-editor.js')));
 adminRoute('/admin/orders', lazy(() => import('./pages/admin/orders.js')));
 adminRoute('/admin/orders/:id', lazy(() => import('./pages/admin/orders-detail.js')));
+adminRoute('/admin/customers', lazy(() => import('./pages/admin/customers.js')));
+adminRoute('/admin/customers/:id', lazy(() => import('./pages/admin/customer-detail.js')));
+adminRoute('/admin/promotions', lazy(() => import('./pages/admin/coupons.js')));
 const ADMIN_SOON = [
-  ['/admin/customers', 'customers', 'Πελάτες', 'Οι τοπικοί πελάτες demo και το ιστορικό τους.'],
-  ['/admin/promotions', 'promotions', 'Προωθήσεις', 'Κουπόνια έκπτωσης και προσφορές.'],
   ['/admin/content', 'content', 'Περιεχόμενο', 'Αρχική σελίδα, banners, συλλογές και Instagram.'],
   ['/admin/settings', 'settings', 'Ρυθμίσεις', 'Στοιχεία καταστήματος, αποστολή, ΦΠΑ και πληρωμές.'],
   ['/admin/backup', 'backup', 'Αντίγραφα', 'Εξαγωγή, εισαγωγή και επαναφορά των τοπικών δεδομένων.'],
@@ -53,14 +54,6 @@ const ADMIN_SOON = [
 for (const [path, active, title, text] of ADMIN_SOON) {
   adminRoute(path, async () => (await adminLayoutModule()).adminPlaceholder({ active, title, route: path, text }));
 }
-// Customer cards are linked from order details; Task 15 replaces this placeholder.
-adminRoute('/admin/customers/:id', async (ctx) => (await adminLayoutModule()).adminPlaceholder({
-  active: 'customers',
-  title: 'Καρτέλα πελάτη',
-  route: '/admin/customers/:id',
-  crumbs: [{ href: '#/admin/customers', label: 'Πελάτες' }, { label: ctx.params.id }],
-  text: `Η καρτέλα του πελάτη ${ctx.params.id} (στοιχεία, ιστορικό και σύνολα παραγγελιών) ετοιμάζεται.`,
-}));
 adminRoute('/admin/*', async (ctx) => (await adminLayoutModule()).adminNotFound(ctx));
 setNotFound(lazy(() => import('./pages/not-found.js')));
 

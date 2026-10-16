@@ -372,10 +372,10 @@ test('pickup order (no shipping address) and a null-image line render; unknown i
   await expect(page.locator('[data-pickup-text]')).toBeVisible();
   await expect(page.locator('[data-shipping-address]')).toHaveCount(0);
   await expect(page.locator('[data-items] .admin-thumb-empty')).toHaveCount(1);
-  // customer link resolves to an admin view (Task 15 placeholder), not a 404
+  // customer link lands on the real customer profile, not a 404
   await page.locator('[data-customer-link]').click();
   await expect(page).toHaveURL(new RegExp(`#/admin/customers/${o.customerId}$`));
-  await expect(page.locator('[data-admin-view="placeholder"]')).toBeVisible();
+  await expect(page.locator('[data-admin-view="customer-detail"]')).toBeVisible();
   await expect(page.locator('[data-page="not-found"]')).toHaveCount(0);
 
   await page.goto('/#/admin/orders/ELAN-20990101-ZZZZ');

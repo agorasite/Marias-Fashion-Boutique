@@ -1,0 +1,86 @@
+/* ÉLAN admin — customers (list + profile) and promotions (coupons). Builds on admin.css / admin-products.css / admin-orders.css. */
+
+/* ---------------------------------------------------------------- customer list */
+.admin-cu-toolbar { display: grid; gap: 0.9rem; }
+.admin-cu-filters { display: grid; gap: 0.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; }
+.admin-cu-filters .form-label { font-size: 0.75rem; font-weight: 600; color: var(--admin-muted); margin-bottom: 0.25rem; }
+.admin-cu-filters .form-select { min-height: 40px; min-width: 0; padding-right: 2rem; text-overflow: ellipsis; }
+@media (min-width: 992px) { .admin-cu-filters { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.admin-cu-wrap { position: relative; }
+@media (min-width: 768px) {
+  .admin-cu-wrap { overflow-x: auto; }
+  .admin-cu-table td[data-label="Πελάτης"] { min-width: 230px; }
+  .admin-cu-table .admin-cust-mail { overflow-wrap: normal; word-break: normal; }
+  .admin-cu-table td[data-cell="spend"], .admin-cu-table td[data-cell="orders"] { white-space: nowrap; }
+}
+.admin-cu-name { white-space: normal; overflow-wrap: anywhere; min-height: 0; padding: 0.15rem 0; }
+.admin-cu-table .admin-ord-sample { margin-left: 0.5rem; }
+.cu-news-yes, .admin-badge.cu-news-yes { background: #e6f2ea; color: #1f5638; border-color: #cfe5d7; }
+.admin-cp-none, .admin-num .admin-cp-none { color: var(--admin-muted); font-weight: 400; }
+.admin-cu-table th[title] { cursor: help; }
+@media (max-width: 767.98px) {
+  .admin-cu-table td.admin-ord-go { display: block; padding-top: 0.5rem !important; }
+  .admin-cu-table td.admin-ord-go::before { content: none; }
+}
+
+/* ---------------------------------------------------------------- customer profile */
+.acu { min-width: 0; }
+.acu-grid { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "stats" "contact" "addresses" "history"; }
+.acu-grid > * { min-width: 0; }
+.acu-area-stats { grid-area: stats; }
+.acu-area-contact { grid-area: contact; }
+.acu-area-addresses { grid-area: addresses; }
+.acu-area-history { grid-area: history; }
+@media (min-width: 992px) {
+  .acu-grid { grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); grid-template-areas: "stats contact" "history contact" "history addresses"; align-items: start; }
+}
+.acu-card-title { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; }
+.acu-card-title .bi { color: var(--elan-gold-ink); }
+.acu-stats { margin: 0; display: grid; gap: 0.75rem 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 576px) { .acu-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.acu-stat dt { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--admin-muted); font-weight: 600; }
+.acu-stat dd { margin: 0.1rem 0 0; font-size: 1.2rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--admin-ink); overflow-wrap: anywhere; }
+.acu-stat[data-stat-wrap="first"] dd, .acu-stat[data-stat-wrap="last"] dd { font-size: 1rem; }
+.acu-note { margin: 1rem 0 0; font-size: 0.8125rem; color: var(--admin-muted); }
+.acu-muted { color: var(--admin-muted); font-size: 0.8125rem; }
+.acu-status-chips { list-style: none; margin: 0.9rem 0 0; padding: 0.9rem 0 0; border-top: 1px solid var(--admin-line-soft); display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem; }
+.acu-status-chips li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.acu-chip-n { font-weight: 600; font-variant-numeric: tabular-nums; font-size: 0.875rem; }
+.acu-sample-note { font-size: 0.8125rem; color: var(--admin-muted); margin: -0.2rem 0 0.9rem; }
+.acu-sample-note .admin-ord-sample { margin: 0 0.4rem 0 0; }
+.acu-form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-top: 1.1rem; }
+.acu-form-foot .btn { min-height: 44px; }
+.acu-form-foot code { overflow-wrap: anywhere; color: var(--admin-ink); }
+.acu .form-label { font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.25rem; }
+.acu .form-control { min-height: 42px; border-radius: 6px; }
+.acu-addresses { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.acu-addresses li { padding: 0.65rem 0.8rem; border: 1px solid var(--admin-line-soft); border-radius: 6px; background: #fcfbf9; font-size: 0.875rem; overflow-wrap: anywhere; }
+.acu-addr-head { margin: 0 0 0.15rem; }
+.acu-default { margin-left: 0.5rem; }
+.acu-orders-wrap { position: relative; margin-bottom: 0 !important; }
+@media (min-width: 768px) { .acu-orders-wrap { overflow-x: auto; } }
+.acu-orders .admin-time { display: block; }
+@media (max-width: 767.98px) { .acu-orders .admin-order-link { white-space: normal; overflow-wrap: anywhere; } }
+
+/* ---------------------------------------------------------------- promotions */
+.admin-cp-toolbar .admin-toolbar-top { flex-wrap: wrap; }
+.admin-cp-status { flex: 0 1 220px; min-width: 160px; }
+.admin-cp-status .form-select { min-height: 44px; }
+@media (max-width: 575.98px) { .admin-cp-status { flex: 1 1 100%; } .admin-cp-toolbar .admin-toolbar-top .btn { flex: 1 1 100%; justify-content: center; } }
+.admin-cp-wrap { position: relative; }
+@media (min-width: 768px) { .admin-cp-wrap { overflow-x: auto; } .admin-cp-table td:last-child { white-space: nowrap; } }
+.admin-cp-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; letter-spacing: 0.02em; overflow-wrap: anywhere; }
+.admin-badge.cp-active { background: #e6f2ea; color: #1f5638; border-color: #cfe5d7; }
+.admin-badge.cp-inactive { background: #efebe5; color: #574a3b; border-color: #e2dbd0; }
+.admin-badge.cp-expired { background: #f7e6e3; color: #7a2a1f; border-color: #eed0ca; }
+.admin-badge.cp-exhausted { background: #fbf1dc; color: #6a4b12; border-color: #f0dfb8; }
+.admin-switch { position: relative; width: 44px; height: 26px; border-radius: 999px; border: 1px solid var(--admin-line); background: #e7e2d9; padding: 0; cursor: pointer; transition: background 0.15s; flex: none; }
+.admin-switch::before { content: ""; position: absolute; inset: -9px -2px; } /* 44px touch target */
+.admin-switch-knob { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); transition: transform 0.15s; }
+.admin-switch.is-on { background: var(--admin-bar); border-color: var(--admin-bar); }
+.admin-switch.is-on .admin-switch-knob { transform: translateX(18px); }
+.admin-switch:focus-visible { outline: 2px solid var(--admin-ink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .admin-switch, .admin-switch-knob { transition: none; } }
+.admin-cp-preview { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.7rem 0.85rem; border-radius: 6px; background: #faf6ec; border: 1px solid #f0e6cf; font-size: 0.875rem; color: var(--admin-ink); }
+.admin-cp-preview .bi { color: var(--elan-gold-ink); margin-top: 0.15rem; }
+.modal-elan .invalid-feedback { font-size: 0.8125rem; }

@@ -5,6 +5,7 @@ import { tx, reqP, get, getAll } from '../db.js';
 import { cleanForm, customerIdFromEmail, normalizePhone, normalizeAfm } from './checkout-rules.js';
 import { listOrdersForCustomer } from './orders.js';
 import { MAX_ADDRESSES } from './account-rules.js';
+import { normalizeEmail, buildCustomerUpdate } from './customer-rules.js';
 
 const ACTIVE_KEY = 'elan.activeCustomerId';
 
@@ -30,8 +31,8 @@ export async function getActiveCustomer() {
 
 export const ordersForCustomer = listOrdersForCustomer;
 
-/** Canonical form used for every email comparison: trimmed, lower-case. */
-export const normalizeEmail = (v) => String(v == null ? '' : v).trim().toLowerCase();
+// normalizeEmail (trimmed, lower-case: the canonical form for every email comparison) lives in customer-rules.js.
+export { normalizeEmail };
 
 /** All local customers, most recently active first. */
 export async function listCustomers() {
@@ -193,4 +194,37 @@ export async function upsertCustomerFromCheckout(form, opts = {}) {
     return next;
   };
   return t ? run(t) : tx(['customers'], 'readwrite', run);
+}
+
+/**
+ * Admin edit of a customer profile (Task 15): validation is the shared account/checkout rule set
+ * (customer-rules.buildCustomerUpdate), the email must stay unique across customers by the stored field
+ * (case/whitespace-insensitive), and the read-modify-write happens in ONE readwrite transaction. The id,
+ * aggregates, addresses and sample flag are never touched. Throws { code: 'invalid', errors } or
+ * { code: 'NOT_FOUND' }; dispatches window 'customers:changed' {id}.
+ */
+export async function updateCustomerAdmin(id, patch) {
+  const next = await tx(['customers'], 'readwrite', async (t) => {
+    const store = t.objectStore('customers');
+    const cur = await reqP(store.get(id));
+    if (!cur) throw Object.assign(new Error('NOT_FOUND'), { code: 'NOT_FOUND' });
+    const r = buildCustomerUpdate(cur, patch);
+    if (!r.ok) throw Object.assign(new Error('INVALID'), { code: 'invalid', errors: r.errors });
+    if (await findByEmail(store, r.value.email, cur.id)) {
+      throw Object.assign(new Error('INVALID'), { code: 'invalid', errors: { email: 'Αυτό το email ανήκει ήδη σε άλλον πελάτη.' } });
+    }
+    const updated = { ...cur, ...r.value, id: cur.id, updatedAt: new Date().toISOString() };
+    await reqP(store.put(updated));
+    return updated;
+  });
+  if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('customers:changed', { detail: { id } }));
+  return next;
+}
+
+/** Every customer and every order in one read, for the admin list (stats are computed in customer-rules). */
+export async function loadCustomersAndOrders() {
+  return tx(['customers', 'orders'], 'readonly', async (t) => {
+    const [customers, orders] = await Promise.all([reqP(t.objectStore('customers').getAll()), reqP(t.objectStore('orders').getAll())]);
+    return { customers, orders };
+  });
 }

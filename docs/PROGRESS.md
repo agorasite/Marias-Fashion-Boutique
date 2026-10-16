@@ -22,7 +22,8 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 12 | Admin shell, demo gate, overview, sample data | complete, reviewed (no fix round) |
 | 13 | Admin product management | complete, reviewed (1 fix round) |
 | 14 | Admin order management | complete (pending review) |
-| 15–19 | Admin customers+coupons, content+settings; Backup/reset; A11y/responsive pass (incl. flaky-test stability); README/handoff | not started |
+| 15 | Admin customers and coupons | complete (pending review) |
+| 16–19 | Admin customers+coupons, content+settings; Backup/reset; A11y/responsive pass (incl. flaky-test stability); README/handoff | not started |
 
 Overall: 14 of 19 tasks complete (~74%). Tests: unit 205, e2e 202 (known rare flake: catalog.spec.js:226), all green.
 

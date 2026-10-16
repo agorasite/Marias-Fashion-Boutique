@@ -8,6 +8,7 @@ import { fulfillmentBadge, paymentBadge } from './overview.js';
 import { fulfillmentLabel } from '../../services/account-rules.js';
 import { PAYMENT_LABELS } from '../../services/checkout-rules.js';
 import { sizeLabel } from '../../services/products.js';
+import { getCustomer } from '../../services/customers.js';
 import { smOf } from '../../services/image-path.js';
 import { totalsHtml } from '../confirmation.js';
 import {
@@ -79,7 +80,7 @@ function actionsHtml(o) {
   return card('<i class="bi bi-lightning-charge" aria-hidden="true"></i>Ενέργειες', `${fulfil}${pay}`, 'data-actions data-no-print');
 }
 
-function customerHtml(o) {
+function customerHtml(o, profileExists = true) {
   const c = o.customer || {};
   const name = `${c.firstName || ''} ${c.lastName || ''}`.trim() || '—';
   const body = `<dl class="aod-dl">
@@ -89,7 +90,7 @@ function customerHtml(o) {
       ${c.company ? `<div><dt>Εταιρεία</dt><dd>${esc(c.company)}</dd></div>` : ''}
       ${c.vatNumber ? `<div><dt>ΑΦΜ</dt><dd>${esc(c.vatNumber)}</dd></div>` : ''}
     </dl>
-    ${o.customerId ? `<a class="admin-card-link aod-link" href="#/admin/customers/${encodeURIComponent(o.customerId)}" data-customer-link data-no-print>Καρτέλα πελάτη <i class="bi bi-arrow-right" aria-hidden="true"></i></a>` : ''}`;
+    ${o.customerId && profileExists ? `<a class="admin-card-link aod-link" href="#/admin/customers/${encodeURIComponent(o.customerId)}" data-customer-link data-no-print>Καρτέλα πελάτη <i class="bi bi-arrow-right" aria-hidden="true"></i></a>` : '<p class="aod-muted mb-0 mt-2" data-customer-gone>Η καρτέλα αυτού του πελάτη δεν υπάρχει πλέον· εμφανίζονται τα στοιχεία της παραγγελίας.</p>'}`;
   return card('<i class="bi bi-person" aria-hidden="true"></i>Πελάτης', body, 'data-customer-card');
 }
 
@@ -165,13 +166,13 @@ function notesHtml(o) {
     </form>`, 'data-notes-card');
 }
 
-function contentHtml(o) {
+function contentHtml(o, profileExists = true) {
   return `<div class="aod" data-order-detail="${esc(o.id)}">
     <p class="print-only aod-print-head">ÉLAN Fashion Boutique — Σύνοψη παραγγελίας ${esc(o.id)} (demo)</p>
     ${headHtml(o)}
     <div class="aod-grid">
       <div class="aod-main">${itemsHtml(o)}${totalsCard(o)}${historyHtml(o)}${notesHtml(o)}</div>
-      <aside class="aod-side">${actionsHtml(o)}${customerHtml(o)}${deliveryHtml(o)}</aside>
+      <aside class="aod-side">${actionsHtml(o)}${customerHtml(o, profileExists)}${deliveryHtml(o)}</aside>
     </div>
   </div>`;
 }
@@ -207,9 +208,11 @@ export default async function render(ctx) {
   const view = root.querySelector('[data-admin-view]');
   const live = html('<div class="visually-hidden" role="status" aria-live="polite" data-announce></div>');
   let busy = false;
+  // The order keeps its own customer snapshot; the profile link only shows while the customer record exists.
+  const profileExists = !!(o.customerId && await getCustomer(o.customerId).catch(() => null));
 
   function paint(focusSel) {
-    body.innerHTML = contentHtml(o);
+    body.innerHTML = contentHtml(o, profileExists);
     body.append(live);
     view.dataset.fulfillment = o.fulfillmentStatus;
     view.dataset.payment = o.paymentStatus;
