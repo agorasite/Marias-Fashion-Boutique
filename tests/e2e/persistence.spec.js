@@ -107,3 +107,32 @@ test('unavailable IndexedDB shows Greek error screen', async ({ page }) => {
   await expect(body).toContainText('Σφάλμα');
   await expect(page.locator('#app')).not.toBeEmpty();
 });
+
+test('first install seeds the sample customers/orders (re-dated, stock untouched); resetToSeed restores them', async ({ page }) => {
+  const sample = JSON.parse(fs.readFileSync(path.join(__dirname, '../../data/sample-data.json'), 'utf8'));
+  await ready(page);
+  const snap = () => run(page, async (m) => ({
+    orders: await m.db.getAll('orders'),
+    customers: await m.db.getAll('customers'),
+    coupons: await m.db.getAll('coupons'),
+    variants: await m.db.getAll('variants'),
+  }));
+  const r = await snap();
+  expect(r.orders).toHaveLength(sample.orders.length);
+  expect(r.customers).toHaveLength(sample.customers.length);
+  expect(r.orders.every((o) => o.sample && o.demo)).toBe(true);
+  const newest = r.orders.map((o) => o.createdAt).sort().pop();
+  expect(new Date(newest).getTime()).toBeLessThanOrEqual(Date.now());
+  expect(Date.now() - new Date(newest).getTime()).toBeLessThan(2 * 86400000); // re-dated to the install day
+  for (const [code, n] of Object.entries(sample.couponUsage)) expect(r.coupons.find((c) => c.code === code).usedCount).toBe(n);
+  const stock = Object.fromEntries(catalog.flatMap((p) => p.variants.map((v) => [v.sku, v.stock])));
+  expect(r.variants.every((v) => v.stock === stock[v.sku])).toBe(true);
+  await run(page, async (m) => { await m.db.tx(['orders', 'customers'], 'readwrite', (t) => { t.objectStore('orders').clear(); t.objectStore('customers').clear(); }); });
+  await page.reload();
+  await ready(page);
+  expect((await snap()).orders).toHaveLength(0); // not re-seeded on reload
+  await run(page, async (m) => { await m.seed.resetToSeed(); });
+  const after = await snap();
+  expect(after.orders).toHaveLength(sample.orders.length);
+  expect(after.customers).toHaveLength(sample.customers.length);
+});

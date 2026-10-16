@@ -1,6 +1,7 @@
 import { tx, reqP } from './db.js';
 import { STORE_DEFS } from './schema.js';
 import { CONTENT_KEYS, planContentMigration } from './services/content-rules.js';
+import { shiftSampleData, withCouponUsage } from './services/sample-data.js';
 
 const load = async (name) => {
   const res = await fetch(new URL(`../../data/${name}.json`, import.meta.url));
@@ -9,20 +10,29 @@ const load = async (name) => {
 };
 
 async function loadSeedData() {
-  const [meta, prod, content, rev] = await Promise.all([load('catalog-meta'), load('products'), load('content'), load('reviews')]);
-  return { meta, products: prod.products || [], content, reviews: rev.reviews || [] };
+  const [meta, prod, content, rev, sampleRaw] = await Promise.all([
+    load('catalog-meta'), load('products'), load('content'), load('reviews'), load('sample-data'),
+  ]);
+  // Sample customers / historical orders, re-dated to the install day (see services/sample-data.js).
+  const sample = shiftSampleData(sampleRaw, new Date());
+  return { meta, products: prod.products || [], content, reviews: rev.reviews || [], sample };
 }
 
-function writeSeed(t, { meta, products, content, reviews = [] }) {
+function writeSeed(t, { meta, products, content, reviews = [], sample = null }) {
   const put = (store, v) => t.objectStore(store).put(v);
   meta.categories.forEach((c) => put('categories', c));
-  meta.coupons.forEach((c) => put('coupons', c));
+  withCouponUsage(meta.coupons, sample ? sample.couponUsage : {}).forEach((c) => put('coupons', c));
   for (const p of products) {
     const { variants = [], ...rest } = p;
     put('products', rest);
     variants.forEach((v) => put('variants', { ...v, productId: p.id }));
   }
   reviews.forEach((r) => put('reviews', r));
+  // Historical orders do not touch variant stock: products.json holds the CURRENT stock.
+  if (sample) {
+    sample.customers.forEach((c) => put('customers', c));
+    sample.orders.forEach((o) => put('orders', o));
+  }
   put('settings', { key: 'store', ...meta.settings });
   // One document per content key (data/content.json is the single source).
   for (const key of CONTENT_KEYS) put('content', { ...content[key], key });

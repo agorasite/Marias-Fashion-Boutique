@@ -50,6 +50,8 @@ async function dbPatch(page, store, key, patch) {
 }
 const dbGet = (page, store, key) => page.evaluate(async ([st, k]) => (await import('/assets/js/db.js')).get(st, k), [store, key]);
 const dbAll = (page, store) => page.evaluate(async (st) => (await import('/assets/js/db.js')).getAll(st), store);
+// Orders/customers created by this test: the seed also installs sample records (flagged `sample: true`).
+const dbOwn = async (page, store) => (await dbAll(page, store)).filter((r) => !r.sample);
 const stockMap = async (page) => Object.fromEntries((await dbAll(page, 'variants')).map((v) => [v.sku, v.stock]));
 
 async function openCheckout(page) {
@@ -140,7 +142,7 @@ test('direct navigation with problem lines refuses checkout and links to the car
     } catch (e) { return e.code; }
   });
   expect(code).toBe('PROBLEMS');
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
 });
 
 test('per-field validation messages, error summary and accessible attributes', async ({ page }) => {
@@ -188,7 +190,7 @@ test('per-field validation messages, error summary and accessible attributes', a
   await submit(page).click();
   await expect(page.locator('[data-error-summary] a[href="#co-address"]')).toHaveCount(0);
   await expect(page.locator('[data-error-summary] a[href="#co-postalCode"]')).toHaveCount(0);
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
   expect(errors).toEqual([]);
 });
 
@@ -257,7 +259,7 @@ test('COD order: one order, exact stock decrement, cart cleared, coupon used, cu
   const ref = (await page.locator('[data-order-ref]').innerText()).trim();
   expect(ref).toMatch(ORDER_RE);
 
-  const orders = await dbAll(page, 'orders');
+  const orders = await dbOwn(page, 'orders');
   expect(orders).toHaveLength(1);
   const o = orders[0];
   expect(o.id).toBe(ref);
@@ -293,7 +295,7 @@ test('COD order: one order, exact stock decrement, cart cleared, coupon used, cu
   await expect(page.locator('.header-end [data-badge="cart"]')).toBeHidden();
   expect((await dbGet(page, 'coupons', 'WELCOME10')).usedCount).toBe(couponBefore + 1);
 
-  const customers = await dbAll(page, 'customers');
+  const customers = await dbOwn(page, 'customers');
   expect(customers).toHaveLength(1);
   expect(customers[0]).toMatchObject({ id: o.customerId, email: 'maria@example.gr', orderCount: 1, totalCents: e.total });
   expect(customers[0].id).toMatch(/^c-/);
@@ -378,7 +380,7 @@ test('double-click on submit creates one order and decrements once', async ({ pa
   await submit(page).dblclick();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
   await expect(page.locator('[data-page="confirmation"]')).toBeVisible();
-  expect(await dbAll(page, 'orders')).toHaveLength(1);
+  expect(await dbOwn(page, 'orders')).toHaveLength(1);
   expect((await dbGet(page, 'variants', v.sku)).stock).toBe(before - 2);
 });
 
@@ -400,9 +402,9 @@ test('placeOrder twice with the same requestId returns the same order without si
   });
   expect(ids[0]).toMatch(ORDER_RE);
   expect(new Set(ids).size).toBe(1);
-  expect(await dbAll(page, 'orders')).toHaveLength(1);
+  expect(await dbOwn(page, 'orders')).toHaveLength(1);
   expect((await dbGet(page, 'variants', v.sku)).stock).toBe(before - 1);
-  expect((await dbAll(page, 'customers'))[0].orderCount).toBe(1);
+  expect((await dbOwn(page, 'customers'))[0].orderCount).toBe(1);
 });
 
 test('stock lowered after the checkout loaded: STOCK error, no order, no decrement', async ({ page }) => {
@@ -422,7 +424,7 @@ test('stock lowered after the checkout loaded: STOCK error, no order, no decreme
   await expect(banner.locator('a[href="#/cart"]')).toBeVisible();
   await expect(banner).toContainText(mid.name);
   await expect(page).toHaveURL(/#\/checkout$/);
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
   expect(await stockMap(page)).toEqual(before);
   expect((await dbGet(page, 'carts', 'local')).lines).toHaveLength(2);
   await expect(submit(page)).toBeEnabled();
@@ -442,14 +444,14 @@ test('coupon exhausted or expired between cart and submit: COUPON error, no orde
   const banner = page.locator('[data-checkout-error="COUPON"]');
   await expect(banner).toBeVisible();
   await expect(banner.locator('a[href="#/cart"]')).toBeVisible();
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
   expect(await stockMap(page)).toEqual(before);
   expect((await dbGet(page, 'coupons', 'WELCOME10')).usedCount).toBe(3);
   // expired
   await dbPatch(page, 'coupons', 'WELCOME10', { maxUses: null, usedCount: 0, expiresAt: '2020-01-01T00:00:00Z' });
   await submit(page).click();
   await expect(page.locator('[data-checkout-error="COUPON"]')).toBeVisible();
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
   expect((await dbGet(page, 'coupons', 'WELCOME10')).usedCount).toBe(0);
 });
 
@@ -484,7 +486,7 @@ test('returning local customer can reuse saved details; orderCount grows', async
   await page.check('#co-acceptTerms');
   await submit(page).click();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
-  const customers = await dbAll(page, 'customers');
+  const customers = await dbOwn(page, 'customers');
   expect(customers).toHaveLength(1);
   expect(customers[0].orderCount).toBe(2);
   expect(customers[0].savedAddresses[0]).toMatchObject({ city: 'Ηράκλειο', region: 'Κρήτη' });
@@ -537,7 +539,7 @@ test('duplicate SKU rows in the cart are aggregated: no oversell, exact decremen
   await dbPatch(page, 'variants', v.sku, { stock: 3 });
   await dbPatch(page, 'carts', 'local', { id: 'local', lines: [{ sku: v.sku, qty: 2 }, { sku: v.sku, qty: 2 }], couponCode: null });
   expect(await place(page)).toEqual({ ok: false, code: 'STOCK' });
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
   expect((await dbGet(page, 'variants', v.sku)).stock).toBe(3);
   await dbPatch(page, 'variants', v.sku, { stock: 5 });
   const r2 = await place(page);
@@ -559,13 +561,13 @@ test('PRICE guard: a same-price variant swap after the page loaded is refused', 
   const before = await stockMap(page);
   await submit(page).click();
   await expect(page.locator('[data-checkout-error="PRICE"]')).toBeVisible();
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
   expect(await stockMap(page)).toEqual(before);
   // summary refreshed to the new line; resubmitting now succeeds with the new variant
   await expect(page.locator(`[data-summary-line][data-sku="${b.sku}"]`)).toHaveCount(1);
   await submit(page).click();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
-  const [o] = await dbAll(page, 'orders');
+  const [o] = await dbOwn(page, 'orders');
   expect(o.lines.map((l) => l.sku)).toEqual([b.sku]);
   // service level: a mismatching signature is refused
   await addSku(page, a.sku, 1);
@@ -580,12 +582,12 @@ test('PRICE guard: a price change after the page loaded is refused and the summa
   await dbPatch(page, 'products', mid.id, { priceCents: mid.priceCents + 1000 });
   await submit(page).click();
   await expect(page.locator('[data-checkout-error="PRICE"]')).toBeVisible();
-  expect(await dbAll(page, 'orders')).toEqual([]);
+  expect(await dbOwn(page, 'orders')).toEqual([]);
   const e = expected({ sub: mid.priceCents + 1000, ship: 'courier', pay: 'cod' });
   await expect.poll(async () => (await readSummary(page)).total).toBe(e.total);
   await submit(page).click();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
-  expect((await dbAll(page, 'orders'))[0].totals.totalCents).toBe(e.total);
+  expect((await dbOwn(page, 'orders'))[0].totals.totalCents).toBe(e.total);
 });
 
 test('pickup order: no shipping address, pickup text on the confirmation', async ({ page }) => {
@@ -598,7 +600,7 @@ test('pickup order: no shipping address, pickup text on the confirmation', async
   await page.check('#co-acceptTerms');
   await submit(page).click();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
-  const [o] = await dbAll(page, 'orders');
+  const [o] = await dbOwn(page, 'orders');
   expect(o.shippingAddress).toBeNull();
   expect(o.shipping.method).toBe('pickup');
   expect(o.shipping.costCents).toBe(0);
@@ -617,7 +619,7 @@ test('unchecked "save details": order and customer kept, but details are not off
   await expect(page.locator('#co-saveDetails')).not.toBeChecked();
   await submit(page).click();
   await expect(page).toHaveURL(/#\/order\/ELAN-/);
-  const [c] = await dbAll(page, 'customers');
+  const [c] = await dbOwn(page, 'customers');
   expect(c).toMatchObject({ rememberDetails: false, savedAddresses: [], orderCount: 1, email: 'maria@example.gr' });
   await addSku(page, stocked(other, 3).sku, 1);
   await openCheckout(page);

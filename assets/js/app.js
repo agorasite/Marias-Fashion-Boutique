@@ -1,7 +1,8 @@
 import { onDbError } from './db.js';
 import { ensureSeeded } from './seed.js';
 import { route, setNotFound, start } from './router.js';
-import { focusHeading, html, placeholderPage } from './ui.js';
+import { focusHeading, html } from './ui.js';
+import { adminRoute } from './pages/admin/gate.js';
 import { renderHeader, bindBadges } from './components/header.js';
 import { renderFooter, applySettings, applyFooterContent } from './components/footer.js';
 import { renderBottomNav } from './components/bottom-nav.js';
@@ -33,12 +34,30 @@ route('/checkout', lazy(() => import('./pages/checkout.js')));
 route('/order/:id', lazy(() => import('./pages/confirmation.js')));
 route('/account/orders/:id', lazy(() => import('./pages/account.js')));
 route('/account/*', lazy(() => import('./pages/account.js')));
-route('/admin/*', async () => placeholderPage({
-  route: '/admin',
-  title: 'Διαχείριση καταστήματος',
-  text: 'Ο πίνακας διαχείρισης (παραγγελίες, προϊόντα, πελάτες, προωθήσεις, περιεχόμενο) ετοιμάζεται.',
-  links: [{ href: '#/', label: 'Επιστροφή στο κατάστημα', primary: true }],
+// Admin (demo access gate: see pages/admin/gate.js). Sections of later tasks are «Σύντομα διαθέσιμο»
+// placeholders; those tasks replace them by calling adminRoute() with the same path.
+const adminLayoutModule = () => import('./pages/admin/layout.js');
+adminRoute('/admin', lazy(() => import('./pages/admin/overview.js')));
+const ADMIN_SOON = [
+  ['/admin/products', 'products', 'Προϊόντα', 'Διαχείριση καταλόγου: προσθήκη, επεξεργασία, τιμές, παραλλαγές και απόθεμα.'],
+  ['/admin/orders', 'orders', 'Παραγγελίες', 'Αναζήτηση, φίλτρα και αλλαγή κατάστασης παραγγελιών.'],
+  ['/admin/customers', 'customers', 'Πελάτες', 'Οι τοπικοί πελάτες demo και το ιστορικό τους.'],
+  ['/admin/promotions', 'promotions', 'Προωθήσεις', 'Κουπόνια έκπτωσης και προσφορές.'],
+  ['/admin/content', 'content', 'Περιεχόμενο', 'Αρχική σελίδα, banners, συλλογές και Instagram.'],
+  ['/admin/settings', 'settings', 'Ρυθμίσεις', 'Στοιχεία καταστήματος, αποστολή, ΦΠΑ και πληρωμές.'],
+  ['/admin/backup', 'backup', 'Αντίγραφα', 'Εξαγωγή, εισαγωγή και επαναφορά των τοπικών δεδομένων.'],
+];
+for (const [path, active, title, text] of ADMIN_SOON) {
+  adminRoute(path, async () => (await adminLayoutModule()).adminPlaceholder({ active, title, route: path, text }));
+}
+adminRoute('/admin/orders/:id', async (ctx) => (await adminLayoutModule()).adminPlaceholder({
+  active: 'orders',
+  title: `Παραγγελία ${ctx.params.id}`,
+  route: '/admin/orders/:id',
+  crumbs: [{ href: '#/admin/orders', label: 'Παραγγελίες' }, { label: ctx.params.id }],
+  text: `Η καρτέλα της παραγγελίας ${ctx.params.id} (λεπτομέρειες, αλλαγή κατάστασης, σημειώσεις) ετοιμάζεται.`,
 }));
+adminRoute('/admin/*', async (ctx) => (await adminLayoutModule()).adminNotFound(ctx));
 setNotFound(lazy(() => import('./pages/not-found.js')));
 
 const PAGE_ERROR = () => html(`<section class="page" data-page="error" data-route="error">
@@ -73,6 +92,8 @@ function mountShell() {
 
 function closeOpenModals() {
   document.querySelectorAll('.modal.show').forEach((m) => window.bootstrap.Modal.getInstance(m)?.hide());
+  // Page-owned offcanvas (the admin sidebar on mobile) is replaced with the page: close it first.
+  document.querySelectorAll('#app .offcanvas.show, #app .offcanvas.showing').forEach((o) => window.bootstrap.Offcanvas.getInstance(o)?.hide());
 }
 
 (async () => {

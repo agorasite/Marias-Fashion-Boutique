@@ -41,6 +41,8 @@ async function dbPatch(page, store, key, patch) {
 }
 const dbGet = (page, store, key) => page.evaluate(async ([st, k]) => (await import('/assets/js/db.js')).get(st, k), [store, key]);
 const dbAll = (page, store) => page.evaluate(async (st) => (await import('/assets/js/db.js')).getAll(st), store);
+// Orders/customers created by this test: the seed also installs sample records (flagged `sample: true`).
+const dbOwn = async (page, store) => (await dbAll(page, store)).filter((r) => !r.sample);
 async function go(page, hash) {
   await page.goto(`/${hash}`);
   await page.reload();
@@ -79,7 +81,7 @@ test('create a local profile, then a checkout with the same email attaches to it
   await page.fill('#ac-new-phone', '6912345678');
   await page.locator('[data-create-submit]').click();
   await expect(page.locator('[data-account-greeting]')).toContainText('Μαρία');
-  const list = await dbAll(page, 'customers');
+  const list = await dbOwn(page, 'customers');
   expect(list).toHaveLength(1);
   const id = list[0].id;
   expect(list[0].email).toBe('maria@example.gr');
@@ -88,7 +90,7 @@ test('create a local profile, then a checkout with the same email attaches to it
   expect(o.customerId).toBe(id);
   const c = await dbGet(page, 'customers', id);
   expect(c.orderCount).toBe(1);
-  expect(await dbAll(page, 'customers')).toHaveLength(1);
+  expect(await dbOwn(page, 'customers')).toHaveLength(1);
   await go(page, '#/account/orders');
   await expect(page.locator('[data-order-row]')).toHaveCount(1);
   expect(errors).toEqual([]);
@@ -459,7 +461,7 @@ test('email edit A to B: checkout with A makes a separate customer, checkout wit
   expect(o3.customerId).toBe(id);
   expect((await dbGet(page, 'customers', id)).orderCount).toBe(2);
   expect((await dbGet(page, 'customers', id)).email).toBe('b@example.gr');
-  const all = await dbAll(page, 'customers');
+  const all = await dbOwn(page, 'customers');
   expect(all).toHaveLength(2);
   expect(new Set(all.map((c) => c.email)).size).toBe(2);
 });
@@ -475,7 +477,7 @@ test('email uniqueness is by the stored field, case-insensitive and trimmed', as
   await expect(page.locator('[data-profile-form] [data-error-for="email"]')).toContainText('υπάρχει ήδη');
   const r = await svc(page, (m) => m.createLocalProfile({ firstName: 'Χ', lastName: 'Ψ', email: ' NIKOS@Example.gr ', phone: '6912345678' }));
   expect(r.existed).toBe(true);
-  expect(await dbAll(page, 'customers')).toHaveLength(2);
+  expect(await dbOwn(page, 'customers')).toHaveLength(2);
 });
 
 test('uniqueness has no false negatives or positives after id/email divergence', async ({ page }) => {
@@ -489,7 +491,7 @@ test('uniqueness has no false negatives or positives after id/email divergence',
   const b = await mk('c2@example.gr');
   expect(await edit(b, 'c@example.gr')).toBe('ok');
   expect(await edit(x, 'c2@example.gr')).toBe('ok');
-  const all = await dbAll(page, 'customers');
+  const all = await dbOwn(page, 'customers');
   expect(new Set(all.map((c) => c.email)).size).toBe(all.length);
 });
 

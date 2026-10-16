@@ -1,0 +1,5745 @@
+{
+  "version": 1,
+  "generatedBy": "tools/build-sample-data.mjs",
+  "anchor": "2026-10-16T08:00:00.000Z",
+  "note": "Demo sample data (fictional customers, @example.gr emails). Dates are shifted to the install day by the seed.",
+  "couponUsage": {
+    "ELAN5": 6,
+    "WELCOME10": 7
+  },
+  "customers": [
+    {
+      "id": "c-tq8m3jwrzv",
+      "email": "eleni.georgiou@example.gr",
+      "firstName": "Ελένη",
+      "lastName": "Γεωργίου",
+      "phone": "6918689791",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-07-11T10:32:05.000Z",
+      "updatedAt": "2026-10-13T10:22:50.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": true
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s01-1",
+          "label": "Σπίτι",
+          "address": "Τσιμισκή 45",
+          "city": "Θεσσαλονίκη",
+          "postalCode": "54623",
+          "region": "Κεντρική Μακεδονία",
+          "isDefault": true
+        },
+        {
+          "id": "a-s01-2",
+          "label": "Γραφείο",
+          "address": "Εγνατία 120",
+          "city": "Θεσσαλονίκη",
+          "postalCode": "54630",
+          "region": "Κεντρική Μακεδονία",
+          "isDefault": false
+        }
+      ],
+      "orderCount": 6,
+      "totalCents": 101990,
+      "lastOrderAt": "2026-10-13T10:22:50.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-s68nywxbzh",
+      "email": "katerina.nikolaou@example.gr",
+      "firstName": "Κατερίνα",
+      "lastName": "Νικολάου",
+      "phone": "6952676796",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-07-16T08:47:18.000Z",
+      "updatedAt": "2026-10-12T15:41:54.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": false
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s02-1",
+          "label": "Σπίτι",
+          "address": "Πατησίων 112",
+          "city": "Αθήνα",
+          "postalCode": "11257",
+          "region": "Αττική",
+          "isDefault": true
+        }
+      ],
+      "orderCount": 5,
+      "totalCents": 70600,
+      "lastOrderAt": "2026-10-12T15:41:54.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-19djbxp7jnb",
+      "email": "sofia.antoniou@example.gr",
+      "firstName": "Σοφία",
+      "lastName": "Αντωνίου",
+      "phone": "6903695652",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-09-03T11:00:49.000Z",
+      "updatedAt": "2026-10-16T06:45:26.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": true
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s03-1",
+          "label": "Σπίτι",
+          "address": "Κασσαβέτη 18",
+          "city": "Κηφισιά",
+          "postalCode": "14562",
+          "region": "Αττική",
+          "isDefault": true
+        }
+      ],
+      "orderCount": 5,
+      "totalCents": 81690,
+      "lastOrderAt": "2026-10-16T06:45:26.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-2gopxfiwt7b",
+      "email": "dimitris.papadakis@example.gr",
+      "firstName": "Δημήτρης",
+      "lastName": "Παπαδάκης",
+      "phone": "6919033258",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-07-03T19:54:41.000Z",
+      "updatedAt": "2026-10-16T05:49:21.000Z",
+      "newsletter": false,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": false
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s04-1",
+          "label": "Σπίτι",
+          "address": "Λεωφόρος Ικάρου 23",
+          "city": "Ηράκλειο",
+          "postalCode": "71306",
+          "region": "Κρήτη",
+          "isDefault": true
+        }
+      ],
+      "orderCount": 4,
+      "totalCents": 68810,
+      "lastOrderAt": "2026-10-16T05:49:21.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-z6ckiy4yqj",
+      "email": "christina.makri@example.gr",
+      "firstName": "Χριστίνα",
+      "lastName": "Μακρή",
+      "phone": "6927266927",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-06-25T12:04:54.000Z",
+      "updatedAt": "2026-10-07T15:03:18.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": true
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s05-1",
+          "label": "Σπίτι",
+          "address": "Μεταξά 9",
+          "city": "Γλυφάδα",
+          "postalCode": "16674",
+          "region": "Αττική",
+          "isDefault": true
+        },
+        {
+          "id": "a-s05-2",
+          "label": "Γραφείο",
+          "address": "Βουλιαγμένης 210",
+          "city": "Άλιμος",
+          "postalCode": "17456",
+          "region": "Αττική",
+          "isDefault": false
+        }
+      ],
+      "orderCount": 4,
+      "totalCents": 40810,
+      "lastOrderAt": "2026-10-07T15:03:18.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-143daqcn7g1",
+      "email": "giorgos.oikonomou@example.gr",
+      "firstName": "Γιώργος",
+      "lastName": "Οικονόμου",
+      "phone": "6937796662",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-07-04T05:24:32.000Z",
+      "updatedAt": "2026-09-25T13:19:46.000Z",
+      "newsletter": false,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": false
+      },
+      "savedAddresses": [],
+      "orderCount": 4,
+      "totalCents": 58390,
+      "lastOrderAt": "2026-09-25T13:19:46.000Z",
+      "rememberDetails": false,
+      "sample": true
+    },
+    {
+      "id": "c-16bz676rt72",
+      "email": "anastasia.konstantinou@example.gr",
+      "firstName": "Αναστασία",
+      "lastName": "Κωνσταντίνου",
+      "phone": "6951129878",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-06-20T13:08:12.000Z",
+      "updatedAt": "2026-10-15T16:27:39.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": false
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s07-1",
+          "label": "Σπίτι",
+          "address": "Παπαναστασίου 31",
+          "city": "Λάρισα",
+          "postalCode": "41222",
+          "region": "Θεσσαλία",
+          "isDefault": true
+        }
+      ],
+      "orderCount": 3,
+      "totalCents": 44890,
+      "lastOrderAt": "2026-10-15T16:27:39.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-wudsckcpv3",
+      "email": "alexandros.stathopoulos@example.gr",
+      "firstName": "Αλέξανδρος",
+      "lastName": "Σταθόπουλος",
+      "phone": "6978159194",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-10-06T07:15:09.000Z",
+      "updatedAt": "2026-10-16T06:22:07.000Z",
+      "newsletter": false,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": false
+      },
+      "savedAddresses": [],
+      "orderCount": 3,
+      "totalCents": 54720,
+      "lastOrderAt": "2026-10-16T06:22:07.000Z",
+      "rememberDetails": false,
+      "sample": true
+    },
+    {
+      "id": "c-q7dp3msge3",
+      "email": "ioanna.dimitriou@example.gr",
+      "firstName": "Ιωάννα",
+      "lastName": "Δημητρίου",
+      "phone": "6938609081",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-07-29T07:30:08.000Z",
+      "updatedAt": "2026-09-18T13:10:20.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": true
+      },
+      "savedAddresses": [],
+      "orderCount": 3,
+      "totalCents": 45800,
+      "lastOrderAt": "2026-09-18T13:10:20.000Z",
+      "rememberDetails": false,
+      "sample": true
+    },
+    {
+      "id": "c-1fbbfrtauh",
+      "email": "marina.karagianni@example.gr",
+      "firstName": "Μαρίνα",
+      "lastName": "Καραγιάννη",
+      "phone": "6962614867",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-09-18T16:52:32.000Z",
+      "updatedAt": "2026-10-07T19:16:16.000Z",
+      "newsletter": false,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": false
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s10-1",
+          "label": "Σπίτι",
+          "address": "Χάληδων 27",
+          "city": "Χανιά",
+          "postalCode": "73132",
+          "region": "Κρήτη",
+          "isDefault": true
+        }
+      ],
+      "orderCount": 3,
+      "totalCents": 58520,
+      "lastOrderAt": "2026-10-07T19:16:16.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-1kjs7o7e4en",
+      "email": "theodoros.alexiou@example.gr",
+      "firstName": "Θεόδωρος",
+      "lastName": "Αλεξίου",
+      "phone": "6979836992",
+      "company": "Αλεξίου Concept Store",
+      "vatNumber": "090000045",
+      "createdAt": "2026-07-30T13:41:48.000Z",
+      "updatedAt": "2026-10-04T16:06:06.000Z",
+      "newsletter": false,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": false
+      },
+      "savedAddresses": [],
+      "orderCount": 3,
+      "totalCents": 33280,
+      "lastOrderAt": "2026-10-04T16:06:06.000Z",
+      "rememberDetails": false,
+      "sample": true
+    },
+    {
+      "id": "c-1kfi42x1vdm",
+      "email": "nikolaos.vlachos@example.gr",
+      "firstName": "Νικόλαος",
+      "lastName": "Βλάχος",
+      "phone": "6906453288",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-09-18T19:42:57.000Z",
+      "updatedAt": "2026-10-15T07:21:19.000Z",
+      "newsletter": false,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": false
+      },
+      "savedAddresses": [],
+      "orderCount": 3,
+      "totalCents": 33090,
+      "lastOrderAt": "2026-10-15T07:21:19.000Z",
+      "rememberDetails": false,
+      "sample": true
+    },
+    {
+      "id": "c-j3ifcq3bdt",
+      "email": "vasiliki.lampropoulou@example.gr",
+      "firstName": "Βασιλική",
+      "lastName": "Λαμπροπούλου",
+      "phone": "6960614688",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-07-06T09:05:42.000Z",
+      "updatedAt": "2026-07-06T10:48:56.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": true
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s13-1",
+          "label": "Σπίτι",
+          "address": "Αμμοχώστου 12",
+          "city": "Ρόδος",
+          "postalCode": "85100",
+          "region": "Νότιο Αιγαίο",
+          "isDefault": true
+        }
+      ],
+      "orderCount": 2,
+      "totalCents": 24810,
+      "lastOrderAt": "2026-07-06T10:48:56.000Z",
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-h6vas890wl",
+      "email": "panagiotis.zachariou@example.gr",
+      "firstName": "Παναγιώτης",
+      "lastName": "Ζαχαρίου",
+      "phone": "6948529388",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-09-12T08:43:21.000Z",
+      "updatedAt": "2026-10-05T13:27:02.000Z",
+      "newsletter": false,
+      "newsletterTopics": {
+        "collections": false,
+        "offers": false
+      },
+      "savedAddresses": [],
+      "orderCount": 2,
+      "totalCents": 26000,
+      "lastOrderAt": "2026-10-05T13:27:02.000Z",
+      "rememberDetails": false,
+      "sample": true
+    },
+    {
+      "id": "c-1z3b5xs8fns",
+      "email": "evangelia.rafailidou@example.gr",
+      "firstName": "Ευαγγελία",
+      "lastName": "Ραφαηλίδου",
+      "phone": "6983780500",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-08-05T11:29:03.000Z",
+      "updatedAt": "2026-09-15T17:18:33.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": false
+      },
+      "savedAddresses": [],
+      "orderCount": 2,
+      "totalCents": 9980,
+      "lastOrderAt": "2026-09-15T17:18:33.000Z",
+      "rememberDetails": false,
+      "sample": true
+    },
+    {
+      "id": "c-1w89qlwgh1n",
+      "email": "stefanos.michailidis@example.gr",
+      "firstName": "Στέφανος",
+      "lastName": "Μιχαηλίδης",
+      "phone": "6943353456",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-10-07T07:00:00.000Z",
+      "updatedAt": "2026-10-07T07:00:00.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": true
+      },
+      "savedAddresses": [
+        {
+          "id": "a-s16-1",
+          "label": "Σπίτι",
+          "address": "Δημοκρατίας 7",
+          "city": "Κοζάνη",
+          "postalCode": "50100",
+          "region": "Δυτική Μακεδονία",
+          "isDefault": true
+        }
+      ],
+      "orderCount": 0,
+      "totalCents": 0,
+      "lastOrderAt": null,
+      "rememberDetails": true,
+      "sample": true
+    },
+    {
+      "id": "c-1n6p6um5vpb",
+      "email": "angeliki.tsolaki@example.gr",
+      "firstName": "Αγγελική",
+      "lastName": "Τσολάκη",
+      "phone": "6920541162",
+      "company": "",
+      "vatNumber": "",
+      "createdAt": "2026-10-13T07:00:00.000Z",
+      "updatedAt": "2026-10-13T07:00:00.000Z",
+      "newsletter": true,
+      "newsletterTopics": {
+        "collections": true,
+        "offers": true
+      },
+      "savedAddresses": [],
+      "orderCount": 0,
+      "totalCents": 0,
+      "lastOrderAt": null,
+      "rememberDetails": true,
+      "sample": true
+    }
+  ],
+  "orders": [
+    {
+      "id": "ELAN-20260620-XLEA",
+      "requestId": "sample-001",
+      "customerId": "c-16bz676rt72",
+      "createdAt": "2026-06-20T13:08:12.000Z",
+      "customer": {
+        "firstName": "Αναστασία",
+        "lastName": "Κωνσταντίνου",
+        "email": "anastasia.konstantinou@example.gr",
+        "phone": "6951129878",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Παπαναστασίου 31",
+        "city": "Λάρισα",
+        "postalCode": "41222",
+        "region": "Θεσσαλία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "cancelled",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "A-LCT-ONE-TAN",
+          "productId": "a-leather-clutch-tan",
+          "slug": "a-leather-clutch-tan",
+          "name": "Δερμάτινος φάκελος clutch",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Ταμπά",
+          "colorHex": "#C0602A",
+          "image": "assets/images/products/a-leather-clutch-tan-1.webp",
+          "qty": 2,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 9800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 9800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 10000,
+        "vatIncludedCents": 1935
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-06-20T13:08:12.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-06-20T17:05:10.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-06-20T23:00:08.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Ακυρώθηκε»."
+        },
+        {
+          "at": "2026-06-20T23:01:08.000Z",
+          "type": "restock",
+          "detail": "Το απόθεμα των προϊόντων επανήλθε."
+        }
+      ],
+      "restocked": true,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260625-SP8V",
+      "requestId": "sample-002",
+      "customerId": "c-z6ckiy4yqj",
+      "createdAt": "2026-06-25T12:04:54.000Z",
+      "customer": {
+        "firstName": "Χριστίνα",
+        "lastName": "Μακρή",
+        "email": "christina.makri@example.gr",
+        "phone": "6927266927",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μεταξά 9",
+        "city": "Γλυφάδα",
+        "postalCode": "16674",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "refunded",
+        "simulated": true
+      },
+      "fulfillmentStatus": "returned",
+      "paymentStatus": "refunded",
+      "lines": [
+        {
+          "sku": "M-LBC-S-NVY",
+          "productId": "m-linen-band-collar-shirt",
+          "slug": "m-linen-band-collar-shirt",
+          "name": "Λινό κοντομάνικο πουκάμισο με μάο γιακά",
+          "brand": "Nordica",
+          "size": "S",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "image": "assets/images/products/m-linen-band-collar-shirt-1.webp",
+          "qty": 2,
+          "unitCents": 4900,
+          "compareAtCents": 5900,
+          "lineTotalCents": 9800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "WELCOME10",
+      "totals": {
+        "subtotalCents": 9800,
+        "discountCents": 980,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 9020,
+        "vatIncludedCents": 1746
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-06-25T12:04:54.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-06-25T18:15:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-06-26T21:35:03.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-06-27T09:23:26.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-06-28T06:38:22.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-06-28T06:39:22.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        },
+        {
+          "at": "2026-07-04T06:45:37.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιστράφηκε»."
+        },
+        {
+          "at": "2026-07-04T06:46:37.000Z",
+          "type": "restock",
+          "detail": "Το απόθεμα των προϊόντων επανήλθε."
+        },
+        {
+          "at": "2026-07-04T23:47:57.000Z",
+          "type": "payment-refunded",
+          "detail": "Επιστροφή χρημάτων (προσομοίωση) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        }
+      ],
+      "restocked": true,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260627-WJT4",
+      "requestId": "sample-003",
+      "customerId": "c-z6ckiy4yqj",
+      "createdAt": "2026-06-27T15:28:15.000Z",
+      "customer": {
+        "firstName": "Χριστίνα",
+        "lastName": "Μακρή",
+        "email": "christina.makri@example.gr",
+        "phone": "6927266927",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μεταξά 9",
+        "city": "Γλυφάδα",
+        "postalCode": "16674",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-LCT-ONE-TAN",
+          "productId": "a-leather-clutch-tan",
+          "slug": "a-leather-clutch-tan",
+          "name": "Δερμάτινος φάκελος clutch",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Ταμπά",
+          "colorHex": "#C0602A",
+          "image": "assets/images/products/a-leather-clutch-tan-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "ELAN5",
+      "totals": {
+        "subtotalCents": 4900,
+        "discountCents": 500,
+        "shippingCents": 390,
+        "codFeeCents": 200,
+        "totalCents": 4990,
+        "vatIncludedCents": 966
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-06-27T15:28:15.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-06-27T19:57:38.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-06-28T10:14:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-06-28T22:38:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-06-30T08:49:38.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-06-30T08:50:38.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260703-A1LY",
+      "requestId": "sample-004",
+      "customerId": "c-2gopxfiwt7b",
+      "createdAt": "2026-07-03T19:54:41.000Z",
+      "customer": {
+        "firstName": "Δημήτρης",
+        "lastName": "Παπαδάκης",
+        "email": "dimitris.papadakis@example.gr",
+        "phone": "6919033258",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Λεωφόρος Ικάρου 23",
+        "city": "Ηράκλειο",
+        "postalCode": "71306",
+        "region": "Κρήτη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-COG-XXL-GRY",
+          "productId": "m-check-overshirt-grey",
+          "slug": "m-check-overshirt-grey",
+          "name": "Καρό overshirt γκρι-μαύρο",
+          "brand": "Nordica",
+          "size": "XXL",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "image": "assets/images/products/m-check-overshirt-grey-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "WELCOME10",
+      "totals": {
+        "subtotalCents": 6900,
+        "discountCents": 690,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 6410,
+        "vatIncludedCents": 1241
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-03T19:54:41.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-04T03:20:37.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-04T18:18:28.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-07-05T05:04:52.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-07-06T14:34:03.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-07-06T14:35:03.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260704-4WDO",
+      "requestId": "sample-005",
+      "customerId": "c-143daqcn7g1",
+      "createdAt": "2026-07-04T05:24:32.000Z",
+      "customer": {
+        "firstName": "Γιώργος",
+        "lastName": "Οικονόμου",
+        "email": "giorgos.oikonomou@example.gr",
+        "phone": "6937796662",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μαιζώνος 76",
+        "city": "Πάτρα",
+        "postalCode": "26221",
+        "region": "Δυτική Ελλάδα"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WEMB-XS-WBL",
+          "productId": "w-embroidered-blouse",
+          "slug": "w-embroidered-blouse",
+          "name": "Κεντημένη μπλούζα με κιπούρ",
+          "brand": "Maison Aura",
+          "size": "XS",
+          "color": "Λευκό/Μπλε",
+          "colorHex": "#F2F0EA",
+          "image": "assets/images/products/w-embroidered-blouse-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-RSJ-30-LBL",
+          "productId": "m-ripped-straight-jeans",
+          "slug": "m-ripped-straight-jeans",
+          "name": "Ίσιο τζιν με σκισίματα",
+          "brand": "ÉLAN Denim",
+          "size": "30",
+          "color": "Γαλάζιο",
+          "colorHex": "#86A9D1",
+          "image": "assets/images/products/m-ripped-straight-jeans-1.webp",
+          "qty": 1,
+          "unitCents": 7900,
+          "compareAtCents": null,
+          "lineTotalCents": 7900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 12800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 13000,
+        "vatIncludedCents": 2516
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-04T05:24:32.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-04T11:25:19.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-05T11:41:36.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-07-06T07:39:01.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-07-07T23:58:06.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-07-07T23:59:06.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260706-0Y54",
+      "requestId": "sample-006",
+      "customerId": "c-j3ifcq3bdt",
+      "createdAt": "2026-07-06T09:05:42.000Z",
+      "customer": {
+        "firstName": "Βασιλική",
+        "lastName": "Λαμπροπούλου",
+        "email": "vasiliki.lampropoulou@example.gr",
+        "phone": "6960614688",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Αμμοχώστου 12",
+        "city": "Ρόδος",
+        "postalCode": "85100",
+        "region": "Νότιο Αιγαίο"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "refunded",
+        "simulated": true,
+        "simulatedAt": "2026-07-06T09:45:35.000Z"
+      },
+      "fulfillmentStatus": "cancelled",
+      "paymentStatus": "refunded",
+      "lines": [
+        {
+          "sku": "WTRB-L-BLK",
+          "productId": "w-trench-black",
+          "slug": "w-trench-black",
+          "name": "Καμπαρντίνα μακριά μαύρη",
+          "brand": "Nordica",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "image": "assets/images/products/w-trench-black-1.webp",
+          "qty": 1,
+          "unitCents": 15900,
+          "compareAtCents": 17900,
+          "lineTotalCents": 15900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-COG-XXL-GRY",
+          "productId": "m-check-overshirt-grey",
+          "slug": "m-check-overshirt-grey",
+          "name": "Καρό overshirt γκρι-μαύρο",
+          "brand": "Nordica",
+          "size": "XXL",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "image": "assets/images/products/m-check-overshirt-grey-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "WELCOME10",
+      "totals": {
+        "subtotalCents": 22800,
+        "discountCents": 2280,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 20520,
+        "vatIncludedCents": 3972
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-06T09:05:42.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-06T09:45:35.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-07-06T16:15:00.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-07T02:24:55.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Ακυρώθηκε»."
+        },
+        {
+          "at": "2026-07-07T02:25:55.000Z",
+          "type": "restock",
+          "detail": "Το απόθεμα των προϊόντων επανήλθε."
+        },
+        {
+          "at": "2026-07-07T03:26:11.000Z",
+          "type": "payment-refunded",
+          "detail": "Επιστροφή χρημάτων (προσομοίωση) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        }
+      ],
+      "restocked": true,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260706-YS76",
+      "requestId": "sample-007",
+      "customerId": "c-j3ifcq3bdt",
+      "createdAt": "2026-07-06T10:48:56.000Z",
+      "customer": {
+        "firstName": "Βασιλική",
+        "lastName": "Λαμπροπούλου",
+        "email": "vasiliki.lampropoulou@example.gr",
+        "phone": "6960614688",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Αμμοχώστου 12",
+        "city": "Ρόδος",
+        "postalCode": "85100",
+        "region": "Νότιο Αιγαίο"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-07-06T11:14:57.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-WSG-ONE-GRM",
+          "productId": "a-wool-scarf-grey",
+          "slug": "a-wool-scarf-grey",
+          "name": "Μάλλινο κασκόλ γκρι",
+          "brand": "Nordica",
+          "size": "ONE",
+          "color": "Γκρι μελανζέ",
+          "colorHex": "#A7A9AC",
+          "image": "assets/images/products/a-wool-scarf-grey-1.webp",
+          "qty": 1,
+          "unitCents": 3900,
+          "compareAtCents": null,
+          "lineTotalCents": 3900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 3900,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 0,
+        "totalCents": 4290,
+        "vatIncludedCents": 830
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-06T10:48:56.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-06T11:14:57.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-07-06T18:27:04.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-07T08:56:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-07-07T23:49:06.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-07-09T12:53:57.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260711-VXW3",
+      "requestId": "sample-008",
+      "customerId": "c-tq8m3jwrzv",
+      "createdAt": "2026-07-11T10:32:05.000Z",
+      "customer": {
+        "firstName": "Ελένη",
+        "lastName": "Γεωργίου",
+        "email": "eleni.georgiou@example.gr",
+        "phone": "6918689791",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Εγνατία 120",
+        "city": "Θεσσαλονίκη",
+        "postalCode": "54630",
+        "region": "Κεντρική Μακεδονία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "refunded",
+        "simulated": true,
+        "simulatedAt": "2026-07-11T10:41:52.000Z"
+      },
+      "fulfillmentStatus": "returned",
+      "paymentStatus": "refunded",
+      "lines": [
+        {
+          "sku": "WBJL-XS-BLK",
+          "productId": "w-biker-jacket-leather",
+          "slug": "w-biker-jacket-leather",
+          "name": "Δερμάτινο biker jacket μαύρο",
+          "brand": "ÉLAN",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "image": "assets/images/products/w-biker-jacket-leather-1.webp",
+          "qty": 2,
+          "unitCents": 17900,
+          "compareAtCents": null,
+          "lineTotalCents": 35800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 35800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 35800,
+        "vatIncludedCents": 6929
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-11T10:32:05.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-11T10:41:52.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-07-11T16:28:38.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-12T12:21:27.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-07-13T02:06:01.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-07-15T01:18:58.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-07-23T16:14:32.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιστράφηκε»."
+        },
+        {
+          "at": "2026-07-23T16:15:32.000Z",
+          "type": "restock",
+          "detail": "Το απόθεμα των προϊόντων επανήλθε."
+        },
+        {
+          "at": "2026-07-24T02:37:17.000Z",
+          "type": "payment-refunded",
+          "detail": "Επιστροφή χρημάτων (προσομοίωση) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        }
+      ],
+      "restocked": true,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260716-NE99",
+      "requestId": "sample-009",
+      "customerId": "c-s68nywxbzh",
+      "createdAt": "2026-07-16T08:47:18.000Z",
+      "customer": {
+        "firstName": "Κατερίνα",
+        "lastName": "Νικολάου",
+        "email": "katerina.nikolaou@example.gr",
+        "phone": "6952676796",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Πατησίων 112",
+        "city": "Αθήνα",
+        "postalCode": "11257",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-07-16T08:51:55.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WTRB-XL-BLK",
+          "productId": "w-trench-black",
+          "slug": "w-trench-black",
+          "name": "Καμπαρντίνα μακριά μαύρη",
+          "brand": "Nordica",
+          "size": "XL",
+          "color": "Μαύρο",
+          "colorHex": "#1B1B1D",
+          "image": "assets/images/products/w-trench-black-1.webp",
+          "qty": 1,
+          "unitCents": 15900,
+          "compareAtCents": 17900,
+          "lineTotalCents": 15900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "WELCOME10",
+      "totals": {
+        "subtotalCents": 15900,
+        "discountCents": 1590,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 14310,
+        "vatIncludedCents": 2770
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-16T08:47:18.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-16T08:51:55.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-07-16T13:35:22.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-17T00:06:51.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-07-17T23:59:52.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-07-19T05:37:11.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260724-7LZ2",
+      "requestId": "sample-010",
+      "customerId": "c-s68nywxbzh",
+      "createdAt": "2026-07-24T08:29:52.000Z",
+      "customer": {
+        "firstName": "Κατερίνα",
+        "lastName": "Νικολάου",
+        "email": "katerina.nikolaou@example.gr",
+        "phone": "6952676796",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Πατησίων 112",
+        "city": "Αθήνα",
+        "postalCode": "11257",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WLCB-XS-WHT",
+          "productId": "w-lace-collar-blouse",
+          "slug": "w-lace-collar-blouse",
+          "name": "Ρομαντική μπλούζα με δαντελένιο γιακά",
+          "brand": "ÉLAN",
+          "size": "XS",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "image": "assets/images/products/w-lace-collar-blouse-1.webp",
+          "qty": 1,
+          "unitCents": 5400,
+          "compareAtCents": null,
+          "lineTotalCents": 5400,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 5400,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 200,
+        "totalCents": 5990,
+        "vatIncludedCents": 1159
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-24T08:29:52.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-24T15:07:47.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-25T15:38:15.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-07-26T01:08:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-07-27T09:32:41.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-07-27T09:33:41.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260729-7ESC",
+      "requestId": "sample-011",
+      "customerId": "c-q7dp3msge3",
+      "createdAt": "2026-07-29T07:30:08.000Z",
+      "customer": {
+        "firstName": "Ιωάννα",
+        "lastName": "Δημητρίου",
+        "email": "ioanna.dimitriou@example.gr",
+        "phone": "6938609081",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Ιάσονος 88",
+        "city": "Βόλος",
+        "postalCode": "38221",
+        "region": "Θεσσαλία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-07-29T08:02:06.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-LBB-S-BLK",
+          "productId": "a-leather-belt-brass",
+          "slug": "a-leather-belt-brass",
+          "name": "Δερμάτινη ζώνη με ορειχάλκινη αγκράφα",
+          "brand": "Nordica",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/a-leather-belt-brass-1.webp",
+          "qty": 2,
+          "unitCents": 4500,
+          "compareAtCents": 5500,
+          "lineTotalCents": 9000,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 9000,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 9000,
+        "vatIncludedCents": 1742
+      },
+      "vatRate": 0.24,
+      "notes": "Αν γίνεται, παράδοση μετά τις 17:00.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-29T07:30:08.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-29T08:02:06.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-07-29T10:10:04.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-29T20:32:26.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-07-30T08:40:44.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-07-31T09:42:50.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260730-IQEF",
+      "requestId": "sample-012",
+      "customerId": "c-1kjs7o7e4en",
+      "createdAt": "2026-07-30T13:41:48.000Z",
+      "customer": {
+        "firstName": "Θεόδωρος",
+        "lastName": "Αλεξίου",
+        "email": "theodoros.alexiou@example.gr",
+        "phone": "6979836992",
+        "company": "Αλεξίου Concept Store",
+        "vatNumber": "090000045"
+      },
+      "shippingAddress": {
+        "address": "Ομονοίας 102",
+        "city": "Καβάλα",
+        "postalCode": "65302",
+        "region": "Ανατολική Μακεδονία και Θράκη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-07-30T14:20:55.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-RJL-38-LBL",
+          "productId": "m-relaxed-jeans-light",
+          "slug": "m-relaxed-jeans-light",
+          "name": "Relaxed τζιν ανοιχτό μπλε",
+          "brand": "ÉLAN Denim",
+          "size": "38",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "image": "assets/images/products/m-relaxed-jeans-light-1.webp",
+          "qty": 1,
+          "unitCents": 7400,
+          "compareAtCents": null,
+          "lineTotalCents": 7400,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-LBC-XL-LBL",
+          "productId": "m-linen-band-collar-shirt",
+          "slug": "m-linen-band-collar-shirt",
+          "name": "Λινό κοντομάνικο πουκάμισο με μάο γιακά",
+          "brand": "Nordica",
+          "size": "XL",
+          "color": "Γαλάζιο μελανζέ",
+          "colorHex": "#A9B8CC",
+          "image": "assets/images/products/m-linen-band-collar-shirt-1.webp",
+          "qty": 2,
+          "unitCents": 4900,
+          "compareAtCents": 5900,
+          "lineTotalCents": 9800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "WELCOME10",
+      "totals": {
+        "subtotalCents": 17200,
+        "discountCents": 1720,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 15480,
+        "vatIncludedCents": 2996
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-30T13:41:48.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-30T14:20:55.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-07-30T18:36:55.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-31T11:54:03.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-08-01T10:27:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-08-02T07:48:35.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260730-U9JW",
+      "requestId": "sample-013",
+      "customerId": "c-s68nywxbzh",
+      "createdAt": "2026-07-30T15:14:46.000Z",
+      "customer": {
+        "firstName": "Κατερίνα",
+        "lastName": "Νικολάου",
+        "email": "katerina.nikolaou@example.gr",
+        "phone": "6952676796",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Πατησίων 112",
+        "city": "Αθήνα",
+        "postalCode": "11257",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-07-30T15:18:53.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-LTC-ONE-CGN",
+          "productId": "a-leather-tote-cognac",
+          "slug": "a-leather-tote-cognac",
+          "name": "Δερμάτινη τσάντα tote κονιάκ",
+          "brand": "Maison Aura",
+          "size": "ONE",
+          "color": "Κονιάκ",
+          "colorHex": "#8B4A22",
+          "image": "assets/images/products/a-leather-tote-cognac-1.webp",
+          "qty": 2,
+          "unitCents": 12900,
+          "compareAtCents": null,
+          "lineTotalCents": 25800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "ELAN5",
+      "totals": {
+        "subtotalCents": 25800,
+        "discountCents": 500,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 25300,
+        "vatIncludedCents": 4897
+      },
+      "vatRate": 0.24,
+      "notes": "Αν γίνεται, παράδοση μετά τις 17:00.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-07-30T15:14:46.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-07-30T15:18:53.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-07-30T18:40:13.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-07-31T19:51:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-08-01T06:20:19.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-08-03T00:15:46.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260802-FMTL",
+      "requestId": "sample-014",
+      "customerId": "c-143daqcn7g1",
+      "createdAt": "2026-08-02T15:31:48.000Z",
+      "customer": {
+        "firstName": "Γιώργος",
+        "lastName": "Οικονόμου",
+        "email": "giorgos.oikonomou@example.gr",
+        "phone": "6937796662",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μαιζώνος 76",
+        "city": "Πάτρα",
+        "postalCode": "26221",
+        "region": "Δυτική Ελλάδα"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-COG-M-GRY",
+          "productId": "m-check-overshirt-grey",
+          "slug": "m-check-overshirt-grey",
+          "name": "Καρό overshirt γκρι-μαύρο",
+          "brand": "Nordica",
+          "size": "M",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "image": "assets/images/products/m-check-overshirt-grey-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "WBJL-L-BLK",
+          "productId": "w-biker-jacket-leather",
+          "slug": "w-biker-jacket-leather",
+          "name": "Δερμάτινο biker jacket μαύρο",
+          "brand": "ÉLAN",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "image": "assets/images/products/w-biker-jacket-leather-1.webp",
+          "qty": 1,
+          "unitCents": 17900,
+          "compareAtCents": null,
+          "lineTotalCents": 17900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 24800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 25000,
+        "vatIncludedCents": 4839
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-08-02T15:31:48.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-08-02T23:28:41.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-08-03T20:32:13.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-08-04T07:23:37.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-08-06T13:14:06.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-08-06T13:15:06.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260805-1HPM",
+      "requestId": "sample-015",
+      "customerId": "c-1z3b5xs8fns",
+      "createdAt": "2026-08-05T11:29:03.000Z",
+      "customer": {
+        "firstName": "Ευαγγελία",
+        "lastName": "Ραφαηλίδου",
+        "email": "evangelia.rafailidou@example.gr",
+        "phone": "6983780500",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Ευγενίου Βουλγάρεως 15",
+        "city": "Κέρκυρα",
+        "postalCode": "49100",
+        "region": "Ιόνια Νησιά"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "S-CSN-45-NVY",
+          "productId": "s-canvas-sneakers-navy",
+          "slug": "s-canvas-sneakers-navy",
+          "name": "Υφασμάτινα sneakers μπλε",
+          "brand": "ÉLAN",
+          "size": "45",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "image": "assets/images/products/s-canvas-sneakers-navy-1.webp",
+          "qty": 1,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 5900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 5900,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 200,
+        "totalCents": 6490,
+        "vatIncludedCents": 1256
+      },
+      "vatRate": 0.24,
+      "notes": "Παρακαλώ καλέστε πριν την παράδοση.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-08-05T11:29:03.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-08-05T14:54:28.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-08-06T06:16:43.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-08-07T05:01:39.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-08-08T16:18:58.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-08-08T16:19:58.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260808-JFE3",
+      "requestId": "sample-016",
+      "customerId": "c-tq8m3jwrzv",
+      "createdAt": "2026-08-08T08:41:41.000Z",
+      "customer": {
+        "firstName": "Ελένη",
+        "lastName": "Γεωργίου",
+        "email": "eleni.georgiou@example.gr",
+        "phone": "6918689791",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Τσιμισκή 45",
+        "city": "Θεσσαλονίκη",
+        "postalCode": "54623",
+        "region": "Κεντρική Μακεδονία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-08-08T09:03:05.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WSDM-S-MUS",
+          "productId": "w-shirt-dress-mustard",
+          "slug": "w-shirt-dress-mustard",
+          "name": "Σεμιζιέ φόρεμα αμάνικο μουσταρδί",
+          "brand": "ÉLAN",
+          "size": "S",
+          "color": "Μουσταρδί",
+          "colorHex": "#D9A21B",
+          "image": "assets/images/products/w-shirt-dress-mustard-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "A-RSB-ONE-BLK",
+          "productId": "a-rectangle-sunglasses-black",
+          "slug": "a-rectangle-sunglasses-black",
+          "name": "Ορθογώνια μαύρα γυαλιά ηλίου",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/a-rectangle-sunglasses-black-1.webp",
+          "qty": 2,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 9800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 16700,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 16700,
+        "vatIncludedCents": 3232
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-08-08T08:41:41.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-08-08T09:03:05.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-08-08T14:06:09.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-08-09T12:46:54.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-08-10T04:23:55.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-08-12T12:43:51.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260827-GU1B",
+      "requestId": "sample-017",
+      "customerId": "c-q7dp3msge3",
+      "createdAt": "2026-08-27T11:04:08.000Z",
+      "customer": {
+        "firstName": "Ιωάννα",
+        "lastName": "Δημητρίου",
+        "email": "ioanna.dimitriou@example.gr",
+        "phone": "6938609081",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Ιάσονος 88",
+        "city": "Βόλος",
+        "postalCode": "38221",
+        "region": "Θεσσαλία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WOVT-S-BLK",
+          "productId": "w-oversized-tee",
+          "slug": "w-oversized-tee",
+          "name": "Oversized T-shirt βαμβακερό",
+          "brand": "ÉLAN",
+          "size": "S",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "image": "assets/images/products/w-oversized-tee-1.webp",
+          "qty": 1,
+          "unitCents": 2900,
+          "compareAtCents": null,
+          "lineTotalCents": 2900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "A-LTC-ONE-CGN",
+          "productId": "a-leather-tote-cognac",
+          "slug": "a-leather-tote-cognac",
+          "name": "Δερμάτινη τσάντα tote κονιάκ",
+          "brand": "Maison Aura",
+          "size": "ONE",
+          "color": "Κονιάκ",
+          "colorHex": "#8B4A22",
+          "image": "assets/images/products/a-leather-tote-cognac-1.webp",
+          "qty": 2,
+          "unitCents": 12900,
+          "compareAtCents": null,
+          "lineTotalCents": 25800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 28700,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 28900,
+        "vatIncludedCents": 5594
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-08-27T11:04:08.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-08-27T18:54:51.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-08-28T08:51:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-08-29T07:53:39.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-08-31T16:24:57.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-08-31T16:25:57.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260903-VXKV",
+      "requestId": "sample-018",
+      "customerId": "c-19djbxp7jnb",
+      "createdAt": "2026-09-03T11:00:49.000Z",
+      "customer": {
+        "firstName": "Σοφία",
+        "lastName": "Αντωνίου",
+        "email": "sofia.antoniou@example.gr",
+        "phone": "6903695652",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Κασσαβέτη 18",
+        "city": "Κηφισιά",
+        "postalCode": "14562",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WBJL-M-BLK",
+          "productId": "w-biker-jacket-leather",
+          "slug": "w-biker-jacket-leather",
+          "name": "Δερμάτινο biker jacket μαύρο",
+          "brand": "ÉLAN",
+          "size": "M",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "image": "assets/images/products/w-biker-jacket-leather-1.webp",
+          "qty": 1,
+          "unitCents": 17900,
+          "compareAtCents": null,
+          "lineTotalCents": 17900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-DSI-XL-IND",
+          "productId": "m-denim-shirt-indigo",
+          "slug": "m-denim-shirt-indigo",
+          "name": "Τζιν πουκάμισο indigo",
+          "brand": "ÉLAN Denim",
+          "size": "XL",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "image": "assets/images/products/m-denim-shirt-indigo-1.webp",
+          "qty": 1,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 5900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 23800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 24000,
+        "vatIncludedCents": 4645
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-03T11:00:49.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-03T14:02:33.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-04T06:14:41.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-04T14:22:03.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-05T21:35:32.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-05T21:36:32.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260906-1YHT",
+      "requestId": "sample-019",
+      "customerId": "c-tq8m3jwrzv",
+      "createdAt": "2026-09-06T05:57:49.000Z",
+      "customer": {
+        "firstName": "Ελένη",
+        "lastName": "Γεωργίου",
+        "email": "eleni.georgiou@example.gr",
+        "phone": "6918689791",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Τσιμισκή 45",
+        "city": "Θεσσαλονίκη",
+        "postalCode": "54623",
+        "region": "Κεντρική Μακεδονία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-CBB-ONE-BLK",
+          "productId": "a-crossbody-bag-black",
+          "slug": "a-crossbody-bag-black",
+          "name": "Μαύρη τσάντα χιαστί",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/a-crossbody-bag-black-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "S-CHB-42-TAN",
+          "productId": "s-chelsea-boots-tan",
+          "slug": "s-chelsea-boots-tan",
+          "name": "Δερμάτινα chelsea μποτάκια ταμπά",
+          "brand": "Nordica",
+          "size": "42",
+          "color": "Ταμπά",
+          "colorHex": "#C68E5E",
+          "image": "assets/images/products/s-chelsea-boots-tan-1.webp",
+          "qty": 1,
+          "unitCents": 14900,
+          "compareAtCents": null,
+          "lineTotalCents": 14900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 21800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 22000,
+        "vatIncludedCents": 4258
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-06T05:57:49.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-06T12:51:03.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-07T09:59:11.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-08T05:04:27.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-09T10:29:13.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-09T10:30:13.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260906-X3YC",
+      "requestId": "sample-020",
+      "customerId": "c-tq8m3jwrzv",
+      "createdAt": "2026-09-06T08:22:14.000Z",
+      "customer": {
+        "firstName": "Ελένη",
+        "lastName": "Γεωργίου",
+        "email": "eleni.georgiou@example.gr",
+        "phone": "6918689791",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Εγνατία 120",
+        "city": "Θεσσαλονίκη",
+        "postalCode": "54630",
+        "region": "Κεντρική Μακεδονία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-09-06T08:43:52.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-RJL-34-LBL",
+          "productId": "m-relaxed-jeans-light",
+          "slug": "m-relaxed-jeans-light",
+          "name": "Relaxed τζιν ανοιχτό μπλε",
+          "brand": "ÉLAN Denim",
+          "size": "34",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "image": "assets/images/products/m-relaxed-jeans-light-1.webp",
+          "qty": 1,
+          "unitCents": 7400,
+          "compareAtCents": null,
+          "lineTotalCents": 7400,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 7400,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 7400,
+        "vatIncludedCents": 1432
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-06T08:22:14.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-06T08:43:52.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-09-06T13:57:50.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-07T15:49:51.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-08T04:21:03.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-09T05:14:24.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260908-IQ6Y",
+      "requestId": "sample-021",
+      "customerId": "c-143daqcn7g1",
+      "createdAt": "2026-09-08T18:51:55.000Z",
+      "customer": {
+        "firstName": "Γιώργος",
+        "lastName": "Οικονόμου",
+        "email": "giorgos.oikonomou@example.gr",
+        "phone": "6937796662",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μαιζώνος 76",
+        "city": "Πάτρα",
+        "postalCode": "26221",
+        "region": "Δυτική Ελλάδα"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WLCB-L-WHT",
+          "productId": "w-lace-collar-blouse",
+          "slug": "w-lace-collar-blouse",
+          "name": "Ρομαντική μπλούζα με δαντελένιο γιακά",
+          "brand": "ÉLAN",
+          "size": "L",
+          "color": "Λευκό",
+          "colorHex": "#FBFAF6",
+          "image": "assets/images/products/w-lace-collar-blouse-1.webp",
+          "qty": 1,
+          "unitCents": 5400,
+          "compareAtCents": null,
+          "lineTotalCents": 5400,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "A-RSB-ONE-BLK",
+          "productId": "a-rectangle-sunglasses-black",
+          "slug": "a-rectangle-sunglasses-black",
+          "name": "Ορθογώνια μαύρα γυαλιά ηλίου",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/a-rectangle-sunglasses-black-1.webp",
+          "qty": 2,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 9800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "ELAN5",
+      "totals": {
+        "subtotalCents": 15200,
+        "discountCents": 500,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 14900,
+        "vatIncludedCents": 2884
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-08T18:51:55.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-08T22:01:48.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-09T13:05:11.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-10T08:04:55.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-12T02:23:22.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-12T02:24:22.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260912-95L0",
+      "requestId": "sample-022",
+      "customerId": "c-h6vas890wl",
+      "createdAt": "2026-09-12T08:43:21.000Z",
+      "customer": {
+        "firstName": "Παναγιώτης",
+        "lastName": "Ζαχαρίου",
+        "email": "panagiotis.zachariou@example.gr",
+        "phone": "6948529388",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Αριστομένους 63",
+        "city": "Καλαμάτα",
+        "postalCode": "24100",
+        "region": "Πελοπόννησος"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-09-12T09:05:48.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-RSJ-34-BLK",
+          "productId": "m-ripped-straight-jeans",
+          "slug": "m-ripped-straight-jeans",
+          "name": "Ίσιο τζιν με σκισίματα",
+          "brand": "ÉLAN Denim",
+          "size": "34",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "image": "assets/images/products/m-ripped-straight-jeans-1.webp",
+          "qty": 1,
+          "unitCents": 7900,
+          "compareAtCents": null,
+          "lineTotalCents": 7900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 7900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 7900,
+        "vatIncludedCents": 1529
+      },
+      "vatRate": 0.24,
+      "notes": "Αν γίνεται, παράδοση μετά τις 17:00.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-12T08:43:21.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-12T09:05:48.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-09-12T14:31:36.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-13T18:26:53.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-14T14:09:38.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-15T13:47:07.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260915-O5ZC",
+      "requestId": "sample-023",
+      "customerId": "c-1z3b5xs8fns",
+      "createdAt": "2026-09-15T17:18:33.000Z",
+      "customer": {
+        "firstName": "Ευαγγελία",
+        "lastName": "Ραφαηλίδου",
+        "email": "evangelia.rafailidou@example.gr",
+        "phone": "6983780500",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Ευγενίου Βουλγάρεως 15",
+        "city": "Κέρκυρα",
+        "postalCode": "49100",
+        "region": "Ιόνια Νησιά"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WOVT-L-BLK",
+          "productId": "w-oversized-tee",
+          "slug": "w-oversized-tee",
+          "name": "Oversized T-shirt βαμβακερό",
+          "brand": "ÉLAN",
+          "size": "L",
+          "color": "Μαύρο",
+          "colorHex": "#151515",
+          "image": "assets/images/products/w-oversized-tee-1.webp",
+          "qty": 1,
+          "unitCents": 2900,
+          "compareAtCents": null,
+          "lineTotalCents": 2900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 2900,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 200,
+        "totalCents": 3490,
+        "vatIncludedCents": 675
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-15T17:18:33.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-16T00:39:29.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-17T01:48:51.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-17T12:12:19.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-18T14:28:47.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-18T14:29:47.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260918-PURW",
+      "requestId": "sample-024",
+      "customerId": "c-q7dp3msge3",
+      "createdAt": "2026-09-18T13:10:20.000Z",
+      "customer": {
+        "firstName": "Ιωάννα",
+        "lastName": "Δημητρίου",
+        "email": "ioanna.dimitriou@example.gr",
+        "phone": "6938609081",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Ιάσονος 88",
+        "city": "Βόλος",
+        "postalCode": "38221",
+        "region": "Θεσσαλία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-09-18T13:16:07.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-TSG-ONE-TRT",
+          "productId": "a-tortoise-sunglasses",
+          "slug": "a-tortoise-sunglasses",
+          "name": "Γυαλιά ηλίου ταρταρούγα",
+          "brand": "Maison Aura",
+          "size": "ONE",
+          "color": "Ταρταρούγα",
+          "colorHex": "#6B3E1F",
+          "image": "assets/images/products/a-tortoise-sunglasses-2.webp",
+          "qty": 1,
+          "unitCents": 7900,
+          "compareAtCents": null,
+          "lineTotalCents": 7900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 7900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 7900,
+        "vatIncludedCents": 1529
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-18T13:10:20.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-18T13:16:07.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-09-18T17:47:02.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-19T11:08:43.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-19T22:00:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-21T04:26:52.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260918-EYA8",
+      "requestId": "sample-025",
+      "customerId": "c-1fbbfrtauh",
+      "createdAt": "2026-09-18T16:52:32.000Z",
+      "customer": {
+        "firstName": "Μαρίνα",
+        "lastName": "Καραγιάννη",
+        "email": "marina.karagianni@example.gr",
+        "phone": "6962614867",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Χάληδων 27",
+        "city": "Χανιά",
+        "postalCode": "73132",
+        "region": "Κρήτη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-TSG-ONE-TRT",
+          "productId": "a-tortoise-sunglasses",
+          "slug": "a-tortoise-sunglasses",
+          "name": "Γυαλιά ηλίου ταρταρούγα",
+          "brand": "Maison Aura",
+          "size": "ONE",
+          "color": "Ταρταρούγα",
+          "colorHex": "#6B3E1F",
+          "image": "assets/images/products/a-tortoise-sunglasses-2.webp",
+          "qty": 1,
+          "unitCents": 7900,
+          "compareAtCents": null,
+          "lineTotalCents": 7900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "A-LCT-ONE-TAN",
+          "productId": "a-leather-clutch-tan",
+          "slug": "a-leather-clutch-tan",
+          "name": "Δερμάτινος φάκελος clutch",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Ταμπά",
+          "colorHex": "#C0602A",
+          "image": "assets/images/products/a-leather-clutch-tan-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "WELCOME10",
+      "totals": {
+        "subtotalCents": 12800,
+        "discountCents": 1280,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 11720,
+        "vatIncludedCents": 2268
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-18T16:52:32.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-18T20:20:35.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-19T23:10:58.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-20T10:22:40.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-22T17:31:59.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-22T17:32:59.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260918-900W",
+      "requestId": "sample-026",
+      "customerId": "c-1kfi42x1vdm",
+      "createdAt": "2026-09-18T19:42:57.000Z",
+      "customer": {
+        "firstName": "Νικόλαος",
+        "lastName": "Βλάχος",
+        "email": "nikolaos.vlachos@example.gr",
+        "phone": "6906453288",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Δωδώνης 54",
+        "city": "Ιωάννινα",
+        "postalCode": "45221",
+        "region": "Ήπειρος"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "WOVT-M-WHT",
+          "productId": "w-oversized-tee",
+          "slug": "w-oversized-tee",
+          "name": "Oversized T-shirt βαμβακερό",
+          "brand": "ÉLAN",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "image": "assets/images/products/w-oversized-tee-1.webp",
+          "qty": 1,
+          "unitCents": 2900,
+          "compareAtCents": null,
+          "lineTotalCents": 2900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 2900,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 200,
+        "totalCents": 3490,
+        "vatIncludedCents": 675
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-18T19:42:57.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-19T00:04:24.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-20T03:43:18.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-20T12:56:19.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-22T08:51:06.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-22T08:52:06.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260925-40SD",
+      "requestId": "sample-027",
+      "customerId": "c-143daqcn7g1",
+      "createdAt": "2026-09-25T13:19:46.000Z",
+      "customer": {
+        "firstName": "Γιώργος",
+        "lastName": "Οικονόμου",
+        "email": "giorgos.oikonomou@example.gr",
+        "phone": "6937796662",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μαιζώνος 76",
+        "city": "Πάτρα",
+        "postalCode": "26221",
+        "region": "Δυτική Ελλάδα"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-FCB-S-BRD",
+          "productId": "m-flannel-check-burgundy",
+          "slug": "m-flannel-check-burgundy",
+          "name": "Καρό φλανέλα πουκάμισο μπορντό",
+          "brand": "ÉLAN",
+          "size": "S",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "image": "assets/images/products/m-flannel-check-burgundy-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 4900,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 200,
+        "totalCents": 5490,
+        "vatIncludedCents": 1063
+      },
+      "vatRate": 0.24,
+      "notes": "Αν γίνεται, παράδοση μετά τις 17:00.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-25T13:19:46.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-25T17:00:58.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-26T04:10:23.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-27T00:35:41.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-28T16:51:46.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-28T16:52:46.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260926-FVF0",
+      "requestId": "sample-028",
+      "customerId": "c-2gopxfiwt7b",
+      "createdAt": "2026-09-26T19:14:13.000Z",
+      "customer": {
+        "firstName": "Δημήτρης",
+        "lastName": "Παπαδάκης",
+        "email": "dimitris.papadakis@example.gr",
+        "phone": "6919033258",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Λεωφόρος Ικάρου 23",
+        "city": "Ηράκλειο",
+        "postalCode": "71306",
+        "region": "Κρήτη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-FCB-M-BRD",
+          "productId": "m-flannel-check-burgundy",
+          "slug": "m-flannel-check-burgundy",
+          "name": "Καρό φλανέλα πουκάμισο μπορντό",
+          "brand": "ÉLAN",
+          "size": "M",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "image": "assets/images/products/m-flannel-check-burgundy-1.webp",
+          "qty": 2,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 9800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "ELAN5",
+      "totals": {
+        "subtotalCents": 9800,
+        "discountCents": 500,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 9500,
+        "vatIncludedCents": 1839
+      },
+      "vatRate": 0.24,
+      "notes": "Κουδούνι «Γεωργίου», 3ος όροφος.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-26T19:14:13.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-27T02:05:27.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-28T00:24:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-28T23:35:03.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-09-30T01:01:43.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-09-30T01:02:43.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260927-S91E",
+      "requestId": "sample-029",
+      "customerId": "c-19djbxp7jnb",
+      "createdAt": "2026-09-27T16:35:06.000Z",
+      "customer": {
+        "firstName": "Σοφία",
+        "lastName": "Αντωνίου",
+        "email": "sofia.antoniou@example.gr",
+        "phone": "6903695652",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Κασσαβέτη 18",
+        "city": "Κηφισιά",
+        "postalCode": "14562",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-PPW-M-WHT",
+          "productId": "m-poplin-shirt-white",
+          "slug": "m-poplin-shirt-white",
+          "name": "Λευκό πουκάμισο ποπλίνα",
+          "brand": "Maison Aura",
+          "size": "M",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "image": "assets/images/products/m-poplin-shirt-white-1.webp",
+          "qty": 1,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 5900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "ELAN5",
+      "totals": {
+        "subtotalCents": 5900,
+        "discountCents": 500,
+        "shippingCents": 390,
+        "codFeeCents": 200,
+        "totalCents": 5990,
+        "vatIncludedCents": 1159
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-27T16:35:06.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-27T19:42:39.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-28T22:10:26.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-29T18:13:52.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-10-01T21:20:19.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-10-01T21:21:19.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260927-N5M1",
+      "requestId": "sample-030",
+      "customerId": "c-z6ckiy4yqj",
+      "createdAt": "2026-09-27T20:02:07.000Z",
+      "customer": {
+        "firstName": "Χριστίνα",
+        "lastName": "Μακρή",
+        "email": "christina.makri@example.gr",
+        "phone": "6927266927",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μεταξά 9",
+        "city": "Γλυφάδα",
+        "postalCode": "16674",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-09-27T20:18:55.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-SJB-32-DBL",
+          "productId": "m-slim-jeans-blue",
+          "slug": "m-slim-jeans-blue",
+          "name": "Slim τζιν stretch",
+          "brand": "ÉLAN Denim",
+          "size": "32",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2F4560",
+          "image": "assets/images/products/m-slim-jeans-blue-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 6900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 6900,
+        "vatIncludedCents": 1335
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-27T20:02:07.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-27T20:18:55.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-09-28T01:04:48.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-09-29T05:08:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-09-30T00:16:55.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-10-01T13:48:09.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260929-UXI0",
+      "requestId": "sample-031",
+      "customerId": "c-1kjs7o7e4en",
+      "createdAt": "2026-09-29T14:31:20.000Z",
+      "customer": {
+        "firstName": "Θεόδωρος",
+        "lastName": "Αλεξίου",
+        "email": "theodoros.alexiou@example.gr",
+        "phone": "6979836992",
+        "company": "Αλεξίου Concept Store",
+        "vatNumber": "090000045"
+      },
+      "shippingAddress": {
+        "address": "Ομονοίας 102",
+        "city": "Καβάλα",
+        "postalCode": "65302",
+        "region": "Ανατολική Μακεδονία και Θράκη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "refunded",
+        "simulated": true,
+        "simulatedAt": "2026-09-29T14:41:18.000Z"
+      },
+      "fulfillmentStatus": "cancelled",
+      "paymentStatus": "refunded",
+      "lines": [
+        {
+          "sku": "WLWD-XS-ORA",
+          "productId": "w-linen-wrap-dress-orange",
+          "slug": "w-linen-wrap-dress-orange",
+          "name": "Λινό κρουαζέ φόρεμα πορτοκαλί",
+          "brand": "Nordica",
+          "size": "XS",
+          "color": "Πορτοκαλί",
+          "colorHex": "#E8892B",
+          "image": "assets/images/products/w-linen-wrap-dress-orange-1.webp",
+          "qty": 1,
+          "unitCents": 10900,
+          "compareAtCents": null,
+          "lineTotalCents": 10900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 10900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 10900,
+        "vatIncludedCents": 2110
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-29T14:31:20.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-29T14:41:18.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-09-30T00:30:41.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Ακυρώθηκε»."
+        },
+        {
+          "at": "2026-09-30T00:31:41.000Z",
+          "type": "restock",
+          "detail": "Το απόθεμα των προϊόντων επανήλθε."
+        },
+        {
+          "at": "2026-09-30T02:05:57.000Z",
+          "type": "payment-refunded",
+          "detail": "Επιστροφή χρημάτων (προσομοίωση) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        }
+      ],
+      "restocked": true,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20260930-47V2",
+      "requestId": "sample-032",
+      "customerId": "c-tq8m3jwrzv",
+      "createdAt": "2026-09-30T11:29:41.000Z",
+      "customer": {
+        "firstName": "Ελένη",
+        "lastName": "Γεωργίου",
+        "email": "eleni.georgiou@example.gr",
+        "phone": "6918689791",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Τσιμισκή 45",
+        "city": "Θεσσαλονίκη",
+        "postalCode": "54623",
+        "region": "Κεντρική Μακεδονία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-09-30T12:00:40.000Z"
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "A-LCT-ONE-TAN",
+          "productId": "a-leather-clutch-tan",
+          "slug": "a-leather-clutch-tan",
+          "name": "Δερμάτινος φάκελος clutch",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Ταμπά",
+          "colorHex": "#C0602A",
+          "image": "assets/images/products/a-leather-clutch-tan-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "WDJC-XS-MBL",
+          "productId": "w-denim-jacket-cropped",
+          "slug": "w-denim-jacket-cropped",
+          "name": "Κοντό τζιν μπουφάν oversized",
+          "brand": "ÉLAN Denim",
+          "size": "XS",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "image": "assets/images/products/w-denim-jacket-cropped-1.webp",
+          "qty": 1,
+          "unitCents": 8900,
+          "compareAtCents": null,
+          "lineTotalCents": 8900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 13800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 13800,
+        "vatIncludedCents": 2671
+      },
+      "vatRate": 0.24,
+      "notes": "Κουδούνι «Γεωργίου», 3ος όροφος.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-09-30T11:29:41.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-09-30T12:00:40.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-09-30T17:25:44.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-01T17:57:36.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-02T08:24:18.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-10-03T05:16:59.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261002-EQM7",
+      "requestId": "sample-033",
+      "customerId": "c-19djbxp7jnb",
+      "createdAt": "2026-10-02T17:48:06.000Z",
+      "customer": {
+        "firstName": "Σοφία",
+        "lastName": "Αντωνίου",
+        "email": "sofia.antoniou@example.gr",
+        "phone": "6903695652",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Κασσαβέτη 18",
+        "city": "Κηφισιά",
+        "postalCode": "14562",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-RJL-36-LBL",
+          "productId": "m-relaxed-jeans-light",
+          "slug": "m-relaxed-jeans-light",
+          "name": "Relaxed τζιν ανοιχτό μπλε",
+          "brand": "ÉLAN Denim",
+          "size": "36",
+          "color": "Ανοιχτό μπλε",
+          "colorHex": "#9DB7D5",
+          "image": "assets/images/products/m-relaxed-jeans-light-1.webp",
+          "qty": 1,
+          "unitCents": 7400,
+          "compareAtCents": null,
+          "lineTotalCents": 7400,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-LBC-M-ECR",
+          "productId": "m-linen-band-collar-shirt",
+          "slug": "m-linen-band-collar-shirt",
+          "name": "Λινό κοντομάνικο πουκάμισο με μάο γιακά",
+          "brand": "Nordica",
+          "size": "M",
+          "color": "Εκρού",
+          "colorHex": "#EDE6D6",
+          "image": "assets/images/products/m-linen-band-collar-shirt-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": 5900,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "WCMD-S-WHB",
+          "productId": "w-chiffon-midi-dress-ink",
+          "slug": "w-chiffon-midi-dress-ink",
+          "name": "Μίντι φόρεμα σιφόν κρουαζέ με print",
+          "brand": "Maison Aura",
+          "size": "S",
+          "color": "Λευκό/Μαύρο",
+          "colorHex": "#F4F1EA",
+          "image": "assets/images/products/w-chiffon-midi-dress-ink-1.webp",
+          "qty": 2,
+          "unitCents": 8900,
+          "compareAtCents": 11900,
+          "lineTotalCents": 17800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 30100,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 30300,
+        "vatIncludedCents": 5865
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-02T17:48:06.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-03T01:22:27.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-03T15:36:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-04T13:39:48.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-10-05T12:43:20.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-10-05T12:44:20.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261003-JG8Y",
+      "requestId": "sample-034",
+      "customerId": "c-1fbbfrtauh",
+      "createdAt": "2026-10-03T19:13:46.000Z",
+      "customer": {
+        "firstName": "Μαρίνα",
+        "lastName": "Καραγιάννη",
+        "email": "marina.karagianni@example.gr",
+        "phone": "6962614867",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Χάληδων 27",
+        "city": "Χανιά",
+        "postalCode": "73132",
+        "region": "Κρήτη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "simulated-paid",
+        "simulated": true
+      },
+      "fulfillmentStatus": "delivered",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-PPW-XXL-WHT",
+          "productId": "m-poplin-shirt-white",
+          "slug": "m-poplin-shirt-white",
+          "name": "Λευκό πουκάμισο ποπλίνα",
+          "brand": "Maison Aura",
+          "size": "XXL",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "image": "assets/images/products/m-poplin-shirt-white-1.webp",
+          "qty": 2,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 11800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 11800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 12000,
+        "vatIncludedCents": 2323
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-03T19:13:46.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-03T21:16:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-04T21:24:51.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-05T11:06:02.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        },
+        {
+          "at": "2026-10-06T20:09:19.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Παραδόθηκε»."
+        },
+        {
+          "at": "2026-10-06T20:10:19.000Z",
+          "type": "payment-collected",
+          "detail": "Είσπραξη κατά την παράδοση (demo)"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261004-DXNR",
+      "requestId": "sample-035",
+      "customerId": "c-1kjs7o7e4en",
+      "createdAt": "2026-10-04T16:06:06.000Z",
+      "customer": {
+        "firstName": "Θεόδωρος",
+        "lastName": "Αλεξίου",
+        "email": "theodoros.alexiou@example.gr",
+        "phone": "6979836992",
+        "company": "Αλεξίου Concept Store",
+        "vatNumber": "090000045"
+      },
+      "shippingAddress": {
+        "address": "Ομονοίας 102",
+        "city": "Καβάλα",
+        "postalCode": "65302",
+        "region": "Ανατολική Μακεδονία και Θράκη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-10-04T16:16:39.000Z"
+      },
+      "fulfillmentStatus": "shipped",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-COG-S-GRY",
+          "productId": "m-check-overshirt-grey",
+          "slug": "m-check-overshirt-grey",
+          "name": "Καρό overshirt γκρι-μαύρο",
+          "brand": "Nordica",
+          "size": "S",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "image": "assets/images/products/m-check-overshirt-grey-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 6900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 6900,
+        "vatIncludedCents": 1335
+      },
+      "vatRate": 0.24,
+      "notes": "Παρακαλώ καλέστε πριν την παράδοση.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-04T16:06:06.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-04T16:16:39.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-10-05T00:13:57.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-05T12:47:14.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-06T12:08:18.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261005-2XEV",
+      "requestId": "sample-036",
+      "customerId": "c-h6vas890wl",
+      "createdAt": "2026-10-05T13:27:02.000Z",
+      "customer": {
+        "firstName": "Παναγιώτης",
+        "lastName": "Ζαχαρίου",
+        "email": "panagiotis.zachariou@example.gr",
+        "phone": "6948529388",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Αριστομένους 63",
+        "city": "Καλαμάτα",
+        "postalCode": "24100",
+        "region": "Πελοπόννησος"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "shipped",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "WBJL-XS-BLK",
+          "productId": "w-biker-jacket-leather",
+          "slug": "w-biker-jacket-leather",
+          "name": "Δερμάτινο biker jacket μαύρο",
+          "brand": "ÉLAN",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "image": "assets/images/products/w-biker-jacket-leather-1.webp",
+          "qty": 1,
+          "unitCents": 17900,
+          "compareAtCents": null,
+          "lineTotalCents": 17900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 17900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 18100,
+        "vatIncludedCents": 3503
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-05T13:27:02.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-05T15:05:57.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-06T01:13:12.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-06T18:49:41.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261005-LBT9",
+      "requestId": "sample-037",
+      "customerId": "c-1kfi42x1vdm",
+      "createdAt": "2026-10-05T14:34:12.000Z",
+      "customer": {
+        "firstName": "Νικόλαος",
+        "lastName": "Βλάχος",
+        "email": "nikolaos.vlachos@example.gr",
+        "phone": "6906453288",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Δωδώνης 54",
+        "city": "Ιωάννινα",
+        "postalCode": "45221",
+        "region": "Ήπειρος"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "shipped",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "S-WLS-36-WHT",
+          "productId": "s-white-leather-sneakers",
+          "slug": "s-white-leather-sneakers",
+          "name": "Λευκά δερμάτινα sneakers",
+          "brand": "Passo",
+          "size": "36",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "image": "assets/images/products/s-white-leather-sneakers-1.webp",
+          "qty": 1,
+          "unitCents": 8900,
+          "compareAtCents": null,
+          "lineTotalCents": 8900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "ELAN5",
+      "totals": {
+        "subtotalCents": 8900,
+        "discountCents": 500,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 8600,
+        "vatIncludedCents": 1665
+      },
+      "vatRate": 0.24,
+      "notes": "Είναι δώρο — χωρίς απόδειξη τιμής στη συσκευασία, ευχαριστώ.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-05T14:34:12.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-05T21:57:52.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-06T08:06:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-07T01:21:22.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261006-2MA4",
+      "requestId": "sample-038",
+      "customerId": "c-wudsckcpv3",
+      "createdAt": "2026-10-06T07:15:09.000Z",
+      "customer": {
+        "firstName": "Αλέξανδρος",
+        "lastName": "Σταθόπουλος",
+        "email": "alexandros.stathopoulos@example.gr",
+        "phone": "6978159194",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": null,
+      "shipping": {
+        "method": "pickup",
+        "label": "Παραλαβή από το κατάστημα (Ερμού 10, Αθήνα)",
+        "costCents": 0,
+        "pickupAddress": "Ερμού 10, Αθήνα"
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-10-06T07:48:27.000Z"
+      },
+      "fulfillmentStatus": "shipped",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-FCB-S-BRD",
+          "productId": "m-flannel-check-burgundy",
+          "slug": "m-flannel-check-burgundy",
+          "name": "Καρό φλανέλα πουκάμισο μπορντό",
+          "brand": "ÉLAN",
+          "size": "S",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "image": "assets/images/products/m-flannel-check-burgundy-1.webp",
+          "qty": 2,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 9800,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": "WELCOME10",
+      "totals": {
+        "subtotalCents": 9800,
+        "discountCents": 980,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 8820,
+        "vatIncludedCents": 1707
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-06T07:15:09.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Παραλαβή από το κατάστημα (Ερμού 10, Αθήνα)"
+        },
+        {
+          "at": "2026-10-06T07:48:27.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-10-06T12:31:31.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-07T18:15:26.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-08T07:48:44.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη» · έτοιμη για παραλαβή από το κατάστημα."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261006-RQTL",
+      "requestId": "sample-039",
+      "customerId": "c-19djbxp7jnb",
+      "createdAt": "2026-10-06T12:34:45.000Z",
+      "customer": {
+        "firstName": "Σοφία",
+        "lastName": "Αντωνίου",
+        "email": "sofia.antoniou@example.gr",
+        "phone": "6903695652",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Κασσαβέτη 18",
+        "city": "Κηφισιά",
+        "postalCode": "14562",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-10-06T13:07:27.000Z"
+      },
+      "fulfillmentStatus": "shipped",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "S-MRS-37-SLV",
+          "productId": "s-metallic-retro-sneakers",
+          "slug": "s-metallic-retro-sneakers",
+          "name": "Ασημί retro sneakers",
+          "brand": "Passo",
+          "size": "37",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "image": "assets/images/products/s-metallic-retro-sneakers-1.webp",
+          "qty": 1,
+          "unitCents": 9900,
+          "compareAtCents": 11900,
+          "lineTotalCents": 9900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 9900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 9900,
+        "vatIncludedCents": 1916
+      },
+      "vatRate": 0.24,
+      "notes": "Είναι δώρο — χωρίς απόδειξη τιμής στη συσκευασία, ευχαριστώ.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-06T12:34:45.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-06T13:07:27.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-10-06T14:57:22.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-07T16:34:37.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-08T15:36:25.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261007-CMJU",
+      "requestId": "sample-040",
+      "customerId": "c-z6ckiy4yqj",
+      "createdAt": "2026-10-07T15:03:18.000Z",
+      "customer": {
+        "firstName": "Χριστίνα",
+        "lastName": "Μακρή",
+        "email": "christina.makri@example.gr",
+        "phone": "6927266927",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Μεταξά 9",
+        "city": "Γλυφάδα",
+        "postalCode": "16674",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "shipped",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "M-LBC-XL-NVY",
+          "productId": "m-linen-band-collar-shirt",
+          "slug": "m-linen-band-collar-shirt",
+          "name": "Λινό κοντομάνικο πουκάμισο με μάο γιακά",
+          "brand": "Nordica",
+          "size": "XL",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#2C3E55",
+          "image": "assets/images/products/m-linen-band-collar-shirt-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": 5900,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "S-CSN-41-NVY",
+          "productId": "s-canvas-sneakers-navy",
+          "slug": "s-canvas-sneakers-navy",
+          "name": "Υφασμάτινα sneakers μπλε",
+          "brand": "ÉLAN",
+          "size": "41",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "image": "assets/images/products/s-canvas-sneakers-navy-1.webp",
+          "qty": 1,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 5900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "WDJC-XS-MBL",
+          "productId": "w-denim-jacket-cropped",
+          "slug": "w-denim-jacket-cropped",
+          "name": "Κοντό τζιν μπουφάν oversized",
+          "brand": "ÉLAN Denim",
+          "size": "XS",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "image": "assets/images/products/w-denim-jacket-cropped-1.webp",
+          "qty": 1,
+          "unitCents": 8900,
+          "compareAtCents": null,
+          "lineTotalCents": 8900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 19700,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 19900,
+        "vatIncludedCents": 3852
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-07T15:03:18.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-07T19:26:10.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-08T19:22:19.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        },
+        {
+          "at": "2026-10-09T10:06:58.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Απεστάλη»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261007-I4M0",
+      "requestId": "sample-041",
+      "customerId": "c-1fbbfrtauh",
+      "createdAt": "2026-10-07T19:16:16.000Z",
+      "customer": {
+        "firstName": "Μαρίνα",
+        "lastName": "Καραγιάννη",
+        "email": "marina.karagianni@example.gr",
+        "phone": "6962614867",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Χάληδων 27",
+        "city": "Χανιά",
+        "postalCode": "73132",
+        "region": "Κρήτη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "processing",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "S-CBB-39-BLK",
+          "productId": "s-combat-boots-black",
+          "slug": "s-combat-boots-black",
+          "name": "Μαύρα δερμάτινα αρβυλάκια",
+          "brand": "Passo",
+          "size": "39",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/s-combat-boots-black-1.webp",
+          "qty": 1,
+          "unitCents": 12900,
+          "compareAtCents": null,
+          "lineTotalCents": 12900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "A-TSG-ONE-TRT",
+          "productId": "a-tortoise-sunglasses",
+          "slug": "a-tortoise-sunglasses",
+          "name": "Γυαλιά ηλίου ταρταρούγα",
+          "brand": "Maison Aura",
+          "size": "ONE",
+          "color": "Ταρταρούγα",
+          "colorHex": "#6B3E1F",
+          "image": "assets/images/products/a-tortoise-sunglasses-2.webp",
+          "qty": 2,
+          "unitCents": 7900,
+          "compareAtCents": null,
+          "lineTotalCents": 15800,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "S-CSN-42-NVY",
+          "productId": "s-canvas-sneakers-navy",
+          "slug": "s-canvas-sneakers-navy",
+          "name": "Υφασμάτινα sneakers μπλε",
+          "brand": "ÉLAN",
+          "size": "42",
+          "color": "Σκούρο μπλε",
+          "colorHex": "#1F2F4F",
+          "image": "assets/images/products/s-canvas-sneakers-navy-1.webp",
+          "qty": 1,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 5900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 34600,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 34800,
+        "vatIncludedCents": 6735
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-07T19:16:16.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-07T23:13:14.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-08T18:01:21.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261007-HWTR",
+      "requestId": "sample-042",
+      "customerId": "c-wudsckcpv3",
+      "createdAt": "2026-10-07T19:28:27.000Z",
+      "customer": {
+        "firstName": "Αλέξανδρος",
+        "lastName": "Σταθόπουλος",
+        "email": "alexandros.stathopoulos@example.gr",
+        "phone": "6978159194",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Ηρώων Πολυτεχνείου 40",
+        "city": "Πειραιάς",
+        "postalCode": "18535",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "processing",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "WDJC-S-MBL",
+          "productId": "w-denim-jacket-cropped",
+          "slug": "w-denim-jacket-cropped",
+          "name": "Κοντό τζιν μπουφάν oversized",
+          "brand": "ÉLAN Denim",
+          "size": "S",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "image": "assets/images/products/w-denim-jacket-cropped-1.webp",
+          "qty": 1,
+          "unitCents": 8900,
+          "compareAtCents": null,
+          "lineTotalCents": 8900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-PPW-S-WHT",
+          "productId": "m-poplin-shirt-white",
+          "slug": "m-poplin-shirt-white",
+          "name": "Λευκό πουκάμισο ποπλίνα",
+          "brand": "Maison Aura",
+          "size": "S",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "image": "assets/images/products/m-poplin-shirt-white-1.webp",
+          "qty": 1,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 5900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 14800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 15000,
+        "vatIncludedCents": 2903
+      },
+      "vatRate": 0.24,
+      "notes": "Αν γίνεται, παράδοση μετά τις 17:00.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-07T19:28:27.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-07T23:39:55.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-08T13:18:58.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261010-F95X",
+      "requestId": "sample-043",
+      "customerId": "c-16bz676rt72",
+      "createdAt": "2026-10-10T11:57:28.000Z",
+      "customer": {
+        "firstName": "Αναστασία",
+        "lastName": "Κωνσταντίνου",
+        "email": "anastasia.konstantinou@example.gr",
+        "phone": "6951129878",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Παπαναστασίου 31",
+        "city": "Λάρισα",
+        "postalCode": "41222",
+        "region": "Θεσσαλία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-10-10T12:29:22.000Z"
+      },
+      "fulfillmentStatus": "processing",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-FCB-XXL-BRD",
+          "productId": "m-flannel-check-burgundy",
+          "slug": "m-flannel-check-burgundy",
+          "name": "Καρό φλανέλα πουκάμισο μπορντό",
+          "brand": "ÉLAN",
+          "size": "XXL",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "image": "assets/images/products/m-flannel-check-burgundy-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 4900,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 0,
+        "totalCents": 5290,
+        "vatIncludedCents": 1024
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-10T11:57:28.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-10T12:29:22.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-10-10T17:56:21.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-11T23:33:18.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261010-909A",
+      "requestId": "sample-044",
+      "customerId": "c-2gopxfiwt7b",
+      "createdAt": "2026-10-10T13:55:54.000Z",
+      "customer": {
+        "firstName": "Δημήτρης",
+        "lastName": "Παπαδάκης",
+        "email": "dimitris.papadakis@example.gr",
+        "phone": "6919033258",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Λεωφόρος Ικάρου 23",
+        "city": "Ηράκλειο",
+        "postalCode": "71306",
+        "region": "Κρήτη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "processing",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "WBJL-XS-BLK",
+          "productId": "w-biker-jacket-leather",
+          "slug": "w-biker-jacket-leather",
+          "name": "Δερμάτινο biker jacket μαύρο",
+          "brand": "ÉLAN",
+          "size": "XS",
+          "color": "Μαύρο",
+          "colorHex": "#121212",
+          "image": "assets/images/products/w-biker-jacket-leather-1.webp",
+          "qty": 1,
+          "unitCents": 17900,
+          "compareAtCents": null,
+          "lineTotalCents": 17900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 17900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 18100,
+        "vatIncludedCents": 3503
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-10T13:55:54.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-10T20:51:12.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        },
+        {
+          "at": "2026-10-11T08:11:11.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Σε προετοιμασία»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261011-CNAD",
+      "requestId": "sample-045",
+      "customerId": "c-s68nywxbzh",
+      "createdAt": "2026-10-11T12:19:50.000Z",
+      "customer": {
+        "firstName": "Κατερίνα",
+        "lastName": "Νικολάου",
+        "email": "katerina.nikolaou@example.gr",
+        "phone": "6952676796",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": null,
+      "shipping": {
+        "method": "pickup",
+        "label": "Παραλαβή από το κατάστημα (Ερμού 10, Αθήνα)",
+        "costCents": 0,
+        "pickupAddress": "Ερμού 10, Αθήνα"
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-10-11T12:56:57.000Z"
+      },
+      "fulfillmentStatus": "confirmed",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "S-SPB-36-BLK",
+          "productId": "s-stiletto-pumps-black",
+          "slug": "s-stiletto-pumps-black",
+          "name": "Μαύρες γόβες στιλέτο",
+          "brand": "Maison Aura",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/s-stiletto-pumps-black-1.webp",
+          "qty": 1,
+          "unitCents": 10900,
+          "compareAtCents": null,
+          "lineTotalCents": 10900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 10900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 10900,
+        "vatIncludedCents": 2110
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-11T12:19:50.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Παραλαβή από το κατάστημα (Ερμού 10, Αθήνα)"
+        },
+        {
+          "at": "2026-10-11T12:56:57.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-10-11T14:51:14.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261012-223N",
+      "requestId": "sample-046",
+      "customerId": "c-s68nywxbzh",
+      "createdAt": "2026-10-12T15:41:54.000Z",
+      "customer": {
+        "firstName": "Κατερίνα",
+        "lastName": "Νικολάου",
+        "email": "katerina.nikolaou@example.gr",
+        "phone": "6952676796",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": null,
+      "shipping": {
+        "method": "pickup",
+        "label": "Παραλαβή από το κατάστημα (Ερμού 10, Αθήνα)",
+        "costCents": 0,
+        "pickupAddress": "Ερμού 10, Αθήνα"
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "confirmed",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "S-SLB-41-BRN",
+          "productId": "s-suede-lace-up-boots",
+          "slug": "s-suede-lace-up-boots",
+          "name": "Σουέτ μποτάκια με κορδόνια",
+          "brand": "Nordica",
+          "size": "41",
+          "color": "Καφέ",
+          "colorHex": "#7A5C48",
+          "image": "assets/images/products/s-suede-lace-up-boots-1.webp",
+          "qty": 1,
+          "unitCents": 13900,
+          "compareAtCents": 15900,
+          "lineTotalCents": 13900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 13900,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 14100,
+        "vatIncludedCents": 2729
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-12T15:41:54.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Παραλαβή από το κατάστημα (Ερμού 10, Αθήνα)"
+        },
+        {
+          "at": "2026-10-12T20:04:45.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261013-P5NF",
+      "requestId": "sample-047",
+      "customerId": "c-tq8m3jwrzv",
+      "createdAt": "2026-10-13T10:22:50.000Z",
+      "customer": {
+        "firstName": "Ελένη",
+        "lastName": "Γεωργίου",
+        "email": "eleni.georgiou@example.gr",
+        "phone": "6918689791",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Τσιμισκή 45",
+        "city": "Θεσσαλονίκη",
+        "postalCode": "54623",
+        "region": "Κεντρική Μακεδονία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 390
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "simulated-paid",
+        "simulated": true,
+        "simulatedAt": "2026-10-13T10:27:25.000Z"
+      },
+      "fulfillmentStatus": "confirmed",
+      "paymentStatus": "simulated-paid",
+      "lines": [
+        {
+          "sku": "M-DSI-XXL-IND",
+          "productId": "m-denim-shirt-indigo",
+          "slug": "m-denim-shirt-indigo",
+          "name": "Τζιν πουκάμισο indigo",
+          "brand": "ÉLAN Denim",
+          "size": "XXL",
+          "color": "Indigo",
+          "colorHex": "#3E5A78",
+          "image": "assets/images/products/m-denim-shirt-indigo-1.webp",
+          "qty": 1,
+          "unitCents": 5900,
+          "compareAtCents": null,
+          "lineTotalCents": 5900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 5900,
+        "discountCents": 0,
+        "shippingCents": 390,
+        "codFeeCents": 0,
+        "totalCents": 6290,
+        "vatIncludedCents": 1217
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-13T10:22:50.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-13T10:27:25.000Z",
+          "type": "payment-simulated",
+          "detail": "Προσομοίωση πληρωμής IRIS (demo) — δεν πραγματοποιήθηκε πραγματική τραπεζική συναλλαγή."
+        },
+        {
+          "at": "2026-10-13T14:31:00.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261015-H7PI",
+      "requestId": "sample-048",
+      "customerId": "c-1kfi42x1vdm",
+      "createdAt": "2026-10-15T07:21:19.000Z",
+      "customer": {
+        "firstName": "Νικόλαος",
+        "lastName": "Βλάχος",
+        "email": "nikolaos.vlachos@example.gr",
+        "phone": "6906453288",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Δωδώνης 54",
+        "city": "Ιωάννινα",
+        "postalCode": "45221",
+        "region": "Ήπειρος"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "confirmed",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "S-CBB-40-BLK",
+          "productId": "s-combat-boots-black",
+          "slug": "s-combat-boots-black",
+          "name": "Μαύρα δερμάτινα αρβυλάκια",
+          "brand": "Passo",
+          "size": "40",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/s-combat-boots-black-1.webp",
+          "qty": 1,
+          "unitCents": 12900,
+          "compareAtCents": null,
+          "lineTotalCents": 12900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-RSJ-32-BLK",
+          "productId": "m-ripped-straight-jeans",
+          "slug": "m-ripped-straight-jeans",
+          "name": "Ίσιο τζιν με σκισίματα",
+          "brand": "ÉLAN Denim",
+          "size": "32",
+          "color": "Μαύρο",
+          "colorHex": "#222222",
+          "image": "assets/images/products/m-ripped-straight-jeans-1.webp",
+          "qty": 1,
+          "unitCents": 7900,
+          "compareAtCents": null,
+          "lineTotalCents": 7900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 20800,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 21000,
+        "vatIncludedCents": 4065
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-15T07:21:19.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        },
+        {
+          "at": "2026-10-15T11:02:55.000Z",
+          "type": "status",
+          "detail": "Η κατάσταση άλλαξε σε «Επιβεβαιώθηκε»."
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261015-3D5G",
+      "requestId": "sample-049",
+      "customerId": "c-16bz676rt72",
+      "createdAt": "2026-10-15T16:27:39.000Z",
+      "customer": {
+        "firstName": "Αναστασία",
+        "lastName": "Κωνσταντίνου",
+        "email": "anastasia.konstantinou@example.gr",
+        "phone": "6951129878",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Παπαναστασίου 31",
+        "city": "Λάρισα",
+        "postalCode": "41222",
+        "region": "Θεσσαλία"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "iris",
+        "label": "IRIS (προσομοίωση)",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "pending",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "M-COG-XL-GRY",
+          "productId": "m-check-overshirt-grey",
+          "slug": "m-check-overshirt-grey",
+          "name": "Καρό overshirt γκρι-μαύρο",
+          "brand": "Nordica",
+          "size": "XL",
+          "color": "Γκρι-μαύρο καρό",
+          "colorHex": "#6E6E6E",
+          "image": "assets/images/products/m-check-overshirt-grey-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "S-WLS-38-WHT",
+          "productId": "s-white-leather-sneakers",
+          "slug": "s-white-leather-sneakers",
+          "name": "Λευκά δερμάτινα sneakers",
+          "brand": "Passo",
+          "size": "38",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "image": "assets/images/products/s-white-leather-sneakers-1.webp",
+          "qty": 2,
+          "unitCents": 8900,
+          "compareAtCents": null,
+          "lineTotalCents": 17800,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "M-FCB-M-BRD",
+          "productId": "m-flannel-check-burgundy",
+          "slug": "m-flannel-check-burgundy",
+          "name": "Καρό φλανέλα πουκάμισο μπορντό",
+          "brand": "ÉLAN",
+          "size": "M",
+          "color": "Μπορντό καρό",
+          "colorHex": "#6B2430",
+          "image": "assets/images/products/m-flannel-check-burgundy-1.webp",
+          "qty": 1,
+          "unitCents": 4900,
+          "compareAtCents": null,
+          "lineTotalCents": 4900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 29600,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 0,
+        "totalCents": 29600,
+        "vatIncludedCents": 5729
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-15T16:27:39.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · IRIS (προσομοίωση) · Courier στο σπίτι"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261016-CDNV",
+      "requestId": "sample-050",
+      "customerId": "c-2gopxfiwt7b",
+      "createdAt": "2026-10-16T05:49:21.000Z",
+      "customer": {
+        "firstName": "Δημήτρης",
+        "lastName": "Παπαδάκης",
+        "email": "dimitris.papadakis@example.gr",
+        "phone": "6919033258",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Λεωφόρος Ικάρου 23",
+        "city": "Ηράκλειο",
+        "postalCode": "71306",
+        "region": "Κρήτη"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "pending",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "WDJC-M-MBL",
+          "productId": "w-denim-jacket-cropped",
+          "slug": "w-denim-jacket-cropped",
+          "name": "Κοντό τζιν μπουφάν oversized",
+          "brand": "ÉLAN Denim",
+          "size": "M",
+          "color": "Μεσαίο μπλε",
+          "colorHex": "#6F8FB3",
+          "image": "assets/images/products/w-denim-jacket-cropped-1.webp",
+          "qty": 2,
+          "unitCents": 8900,
+          "compareAtCents": null,
+          "lineTotalCents": 17800,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "A-CBB-ONE-BLK",
+          "productId": "a-crossbody-bag-black",
+          "slug": "a-crossbody-bag-black",
+          "name": "Μαύρη τσάντα χιαστί",
+          "brand": "ÉLAN",
+          "size": "ONE",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/a-crossbody-bag-black-1.webp",
+          "qty": 1,
+          "unitCents": 6900,
+          "compareAtCents": null,
+          "lineTotalCents": 6900,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "S-MRS-36-SLV",
+          "productId": "s-metallic-retro-sneakers",
+          "slug": "s-metallic-retro-sneakers",
+          "name": "Ασημί retro sneakers",
+          "brand": "Passo",
+          "size": "36",
+          "color": "Ασημί",
+          "colorHex": "#C0C6CF",
+          "image": "assets/images/products/s-metallic-retro-sneakers-1.webp",
+          "qty": 1,
+          "unitCents": 9900,
+          "compareAtCents": 11900,
+          "lineTotalCents": 9900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 34600,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 34800,
+        "vatIncludedCents": 6735
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-16T05:49:21.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261016-WL0P",
+      "requestId": "sample-051",
+      "customerId": "c-wudsckcpv3",
+      "createdAt": "2026-10-16T06:22:07.000Z",
+      "customer": {
+        "firstName": "Αλέξανδρος",
+        "lastName": "Σταθόπουλος",
+        "email": "alexandros.stathopoulos@example.gr",
+        "phone": "6978159194",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Ηρώων Πολυτεχνείου 40",
+        "city": "Πειραιάς",
+        "postalCode": "18535",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "pending",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "S-WLS-36-WHT",
+          "productId": "s-white-leather-sneakers",
+          "slug": "s-white-leather-sneakers",
+          "name": "Λευκά δερμάτινα sneakers",
+          "brand": "Passo",
+          "size": "36",
+          "color": "Λευκό",
+          "colorHex": "#FFFFFF",
+          "image": "assets/images/products/s-white-leather-sneakers-1.webp",
+          "qty": 2,
+          "unitCents": 8900,
+          "compareAtCents": null,
+          "lineTotalCents": 17800,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "S-CBB-36-BLK",
+          "productId": "s-combat-boots-black",
+          "slug": "s-combat-boots-black",
+          "name": "Μαύρα δερμάτινα αρβυλάκια",
+          "brand": "Passo",
+          "size": "36",
+          "color": "Μαύρο",
+          "colorHex": "#111111",
+          "image": "assets/images/products/s-combat-boots-black-1.webp",
+          "qty": 1,
+          "unitCents": 12900,
+          "compareAtCents": null,
+          "lineTotalCents": 12900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 30700,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 30900,
+        "vatIncludedCents": 5981
+      },
+      "vatRate": 0.24,
+      "notes": "Κουδούνι «Γεωργίου», 3ος όροφος.",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-16T06:22:07.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    },
+    {
+      "id": "ELAN-20261016-A7PF",
+      "requestId": "sample-052",
+      "customerId": "c-19djbxp7jnb",
+      "createdAt": "2026-10-16T06:45:26.000Z",
+      "customer": {
+        "firstName": "Σοφία",
+        "lastName": "Αντωνίου",
+        "email": "sofia.antoniou@example.gr",
+        "phone": "6903695652",
+        "company": "",
+        "vatNumber": ""
+      },
+      "shippingAddress": {
+        "address": "Κασσαβέτη 18",
+        "city": "Κηφισιά",
+        "postalCode": "14562",
+        "region": "Αττική"
+      },
+      "shipping": {
+        "method": "courier",
+        "label": "Courier στο σπίτι",
+        "costCents": 0
+      },
+      "payment": {
+        "method": "cod",
+        "label": "Αντικαταβολή",
+        "status": "pending",
+        "simulated": true
+      },
+      "fulfillmentStatus": "pending",
+      "paymentStatus": "pending",
+      "lines": [
+        {
+          "sku": "WBRD-XL-WHT",
+          "productId": "w-broderie-dress-white",
+          "slug": "w-broderie-dress-white",
+          "name": "Φόρεμα κιπούρ λευκό με βολάν",
+          "brand": "ÉLAN",
+          "size": "XL",
+          "color": "Λευκό",
+          "colorHex": "#FAFAF7",
+          "image": "assets/images/products/w-broderie-dress-white-1.webp",
+          "qty": 1,
+          "unitCents": 7400,
+          "compareAtCents": 8900,
+          "lineTotalCents": 7400,
+          "vatRate": 0.24
+        },
+        {
+          "sku": "A-WSG-ONE-GRM",
+          "productId": "a-wool-scarf-grey",
+          "slug": "a-wool-scarf-grey",
+          "name": "Μάλλινο κασκόλ γκρι",
+          "brand": "Nordica",
+          "size": "ONE",
+          "color": "Γκρι μελανζέ",
+          "colorHex": "#A7A9AC",
+          "image": "assets/images/products/a-wool-scarf-grey-1.webp",
+          "qty": 1,
+          "unitCents": 3900,
+          "compareAtCents": null,
+          "lineTotalCents": 3900,
+          "vatRate": 0.24
+        }
+      ],
+      "couponCode": null,
+      "totals": {
+        "subtotalCents": 11300,
+        "discountCents": 0,
+        "shippingCents": 0,
+        "codFeeCents": 200,
+        "totalCents": 11500,
+        "vatIncludedCents": 2226
+      },
+      "vatRate": 0.24,
+      "notes": "",
+      "internalNotes": [],
+      "history": [
+        {
+          "at": "2026-10-16T06:45:26.000Z",
+          "type": "created",
+          "detail": "Η παραγγελία καταχωρήθηκε · Αντικαταβολή · Courier στο σπίτι"
+        }
+      ],
+      "restocked": false,
+      "demo": true,
+      "sample": true
+    }
+  ]
+}

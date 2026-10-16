@@ -444,8 +444,12 @@ export default async function render(ctx) {
     return (await import('./not-found.js')).default(ctx);
   }
 
-  const customers = await listCustomers();
-  let active = await getCustomer(getActiveCustomerId());
+  // Seeded sample customers (`sample: true`) are store data for the admin demo, not profiles of this
+  // visitor: they are never offered in the switcher or as a fallback, unless this browser is already
+  // using one (a checkout with a sample email attaches to it and makes it active).
+  const activeId = getActiveCustomerId();
+  const customers = (await listCustomers()).filter((c) => !c.sample || c.id === activeId);
+  let active = await getCustomer(activeId);
   if (!active && customers.length) { // stale/missing preference: fall back to the most recently active profile
     [active] = customers;
     setActiveCustomerId(active.id);
