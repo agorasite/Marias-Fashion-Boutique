@@ -48,12 +48,12 @@ test('first load seeds settings, categories, products and variants', async ({ pa
   expect(r.coupons).toBe(4);
 });
 
-test('every catalog product has its variants stored; editorial content is seeded', async ({ page }) => {
+test('every catalog product has its variants stored; one document per content key is seeded', async ({ page }) => {
   await ready(page);
   const r = await run(page, async (m) => ({
     products: await m.db.getAll('products'),
     variants: await m.db.getAll('variants'),
-    editorial: await m.db.get('content', 'editorial'),
+    content: await m.db.getAll('content'),
   }));
   expect(r.products.length).toBe(catalog.length);
   for (const p of catalog) {
@@ -61,8 +61,16 @@ test('every catalog product has its variants stored; editorial content is seeded
     expect(stored).toEqual(p.variants.map((v) => v.sku).sort());
   }
   expect(r.variants.length).toBe(catalog.reduce((n, p) => n + p.variants.length, 0));
-  expect(r.editorial.hero.image).toBeTruthy();
-  expect(r.editorial.collections.length).toBeGreaterThan(0);
+  const byKey = Object.fromEntries(r.content.map((c) => [c.key, c]));
+  expect(Object.keys(byKey).sort()).toEqual(['banners', 'collections', 'footer', 'hero', 'instagram', 'newsletter', 'promos']);
+  expect(byKey.editorial).toBeUndefined();
+  expect(byKey.hero.image).toBe('assets/images/content/hero-1.webp');
+  expect(byKey.hero.title).toBeTruthy();
+  expect(byKey.hero.focal).toBe('65% center');
+  expect(byKey.collections.items).toHaveLength(4);
+  expect(byKey.instagram.posts).toHaveLength(9);
+  expect(byKey.instagram.mode).toBe('curated');
+  expect(byKey.instagram.posts.every((x) => x.productIds.length > 0)).toBe(true);
 });
 
 test('settings persist across reload and seed does not re-run', async ({ page }) => {

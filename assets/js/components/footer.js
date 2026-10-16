@@ -7,6 +7,21 @@ const DEFAULTS = {
   social: {},
 };
 
+// Shown until the `footer` content document loads (and if it ever fails to load).
+const FALLBACK_CONTENT = {
+  tagline: 'Σύγχρονη ευρωπαϊκή μόδα με προσεγμένες γραμμές, ποιοτικά υλικά και διαχρονικό χαρακτήρα.',
+  columns: [
+    { title: 'Κατάστημα', links: [...DEPARTMENTS.map((d) => ({ label: d.label, href: `#/catalog/${d.id}` })), { label: 'Όλα τα προϊόντα', href: '#/catalog' }] },
+    { title: 'Εξυπηρέτηση', links: [
+      { label: 'Ο λογαριασμός μου', href: '#/account' },
+      { label: 'Οι παραγγελίες μου', href: '#/account/orders' },
+      { label: 'Αγαπημένα', href: '#/account/wishlist' },
+      { label: 'Καλάθι', href: '#/cart' },
+    ] },
+  ],
+  notes: [],
+};
+
 const SOCIAL = [
   ['instagram', 'bi-instagram', 'Instagram'],
   ['facebook', 'bi-facebook', 'Facebook'],
@@ -14,6 +29,7 @@ const SOCIAL = [
 ];
 
 const safeUrl = (u) => (/^https:\/\//i.test(String(u || '')) ? u : null);
+const safeHref = (u) => (/^(#\/|https:\/\/)/.test(String(u || '')) ? u : '#/');
 
 function text(el, sel, value) {
   const node = el.querySelector(sel);
@@ -27,25 +43,11 @@ export function renderFooter() {
       <div class="row g-4 g-lg-5">
         <div class="col-12 col-lg-4">
           <a class="brand brand-footer" href="#/" aria-label="ÉLAN Fashion Boutique — Αρχική"><span class="brand-mark">ÉLAN</span><span class="brand-sub">Fashion Boutique</span></a>
-          <p class="footer-tagline">Σύγχρονη ευρωπαϊκή μόδα με προσεγμένες γραμμές, ποιοτικά υλικά και διαχρονικό χαρακτήρα.</p>
+          <p class="footer-tagline"></p>
           <ul class="footer-social list-unstyled d-flex gap-2 mb-0"></ul>
         </div>
-        <div class="col-6 col-lg-2">
-          <h2 class="footer-heading">Κατάστημα</h2>
-          <ul class="list-unstyled footer-links">
-            ${DEPARTMENTS.map((d) => `<li><a href="#/catalog/${d.id}">${d.label}</a></li>`).join('')}
-            <li><a href="#/catalog">Όλα τα προϊόντα</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-lg-3">
-          <h2 class="footer-heading">Εξυπηρέτηση</h2>
-          <ul class="list-unstyled footer-links">
-            <li><a href="#/account">Ο λογαριασμός μου</a></li>
-            <li><a href="#/account/orders">Οι παραγγελίες μου</a></li>
-            <li><a href="#/account/wishlist">Αγαπημένα</a></li>
-            <li><a href="#/cart">Καλάθι</a></li>
-            <li><button type="button" class="btn btn-link footer-link-btn" data-about-demo>Σχετικά με το demo</button></li>
-          </ul>
+        <div class="col-12 col-lg-5">
+          <div class="row g-4" data-footer-columns></div>
         </div>
         <div class="col-12 col-lg-3">
           <h2 class="footer-heading">Επικοινωνία</h2>
@@ -54,8 +56,10 @@ export function renderFooter() {
             <a data-f="phone" href="#"><i class="bi bi-telephone" aria-hidden="true"></i><span></span></a>
             <a data-f="email" href="#"><i class="bi bi-envelope" aria-hidden="true"></i><span></span></a>
           </address>
+          <button type="button" class="btn btn-link footer-link-btn mt-2" data-about-demo><i class="bi bi-info-circle" aria-hidden="true"></i>Σχετικά με το demo</button>
         </div>
       </div>
+      <ul class="footer-notes list-unstyled" data-footer-notes></ul>
       <div class="footer-bottom">
         <span>© ${new Date().getFullYear()} <span data-f="name"></span></span>
         <span>Demo κατάστημα από την AgoraSite · Οι τιμές περιλαμβάνουν ΦΠΑ</span>
@@ -63,7 +67,46 @@ export function renderFooter() {
     </div>`;
   footer.querySelector('[data-about-demo]').addEventListener('click', () => aboutDemoModal().show());
   applySettings(footer, DEFAULTS);
+  applyFooterContent(footer, FALLBACK_CONTENT);
   return footer;
+}
+
+/**
+ * Render the `footer` content document: tagline, link columns and notes.
+ * `fill(text)` resolves tokens such as {freeShipping} (defaults to identity).
+ */
+export function applyFooterContent(footer, content, fill = (s) => s) {
+  const c = content || FALLBACK_CONTENT;
+  text(footer, '.footer-tagline', c.tagline || FALLBACK_CONTENT.tagline);
+  const cols = footer.querySelector('[data-footer-columns]');
+  cols.replaceChildren();
+  for (const col of (c.columns || [])) {
+    const div = document.createElement('div');
+    div.className = 'col-6';
+    const h = document.createElement('h2');
+    h.className = 'footer-heading';
+    h.textContent = col.title;
+    const ul = document.createElement('ul');
+    ul.className = 'list-unstyled footer-links';
+    for (const l of (col.links || [])) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = safeHref(l.href);
+      a.textContent = l.label;
+      if (a.getAttribute('href').startsWith('https://')) { a.target = '_blank'; a.rel = 'noopener'; }
+      li.append(a);
+      ul.append(li);
+    }
+    div.append(h, ul);
+    cols.append(div);
+  }
+  const notes = footer.querySelector('[data-footer-notes]');
+  notes.replaceChildren(...(c.notes || []).map((n) => {
+    const li = document.createElement('li');
+    li.textContent = fill(n);
+    return li;
+  }));
+  notes.hidden = !notes.children.length;
 }
 
 /** Fill store name, contact and social links from settings (falls back to defaults). */

@@ -1,0 +1,289 @@
+{
+  "hero": {
+    "eyebrow": "Νέα συλλογή · Φθινόπωρο 2026",
+    "title": "Η ησυχία της καλής ραφής",
+    "subtitle": "Καμπαρντίνες, πλεκτά και δερμάτινα σε ζεστούς ουδέτερους τόνους. Κομμάτια που φοριούνται ξανά και ξανά.",
+    "ctaLabel": "Ανακαλύψτε τη συλλογή",
+    "ctaHref": "#/catalog?sort=newest",
+    "secondaryLabel": "Γυναικεία",
+    "secondaryHref": "#/catalog/women",
+    "image": "assets/images/content/hero-1.webp",
+    "imageSm": "assets/images/content/hero-1-sm.webp",
+    "width": 1920,
+    "height": 1280,
+    "alt": "Γυναίκα με μπεζ μακριά καμπαρντίνα και μαύρα δερμάτινα παπούτσια περπατά δίπλα σε ηλιόλουστο μπεζ τοίχο με σκιές",
+    "focal": "65% center"
+  },
+  "banners": {
+    "items": [
+      {
+        "id": "banner-2",
+        "placement": "promo",
+        "eyebrow": "Προνόμια ÉLAN",
+        "title": "Δωρεάν αποστολή για αγορές άνω των {freeShipping}",
+        "text": "Παράδοση με courier σε όλη την Ελλάδα ή δωρεάν παραλαβή από το κατάστημά μας στην Ερμού.",
+        "ctaLabel": "Ψωνίστε τώρα",
+        "ctaHref": "#/catalog",
+        "image": "assets/images/content/banner-2.webp",
+        "imageSm": "assets/images/content/banner-2-sm.webp",
+        "width": 1200,
+        "height": 801,
+        "alt": "Φωτεινή μπουτίκ με ρούχα σε ουδέτερους και παστέλ τόνους κρεμασμένα σε χρυσές ράγες, ανάμεσα σε φυτά σε γλάστρες"
+      },
+      {
+        "id": "banner-3",
+        "placement": "shoes",
+        "eyebrow": "Παπούτσια",
+        "title": "Βήματα με χαρακτήρα",
+        "text": "Chelsea μποτάκια, λευκά sneakers και γόβες από γνήσιο δέρμα.",
+        "ctaLabel": "Όλα τα παπούτσια",
+        "ctaHref": "#/catalog/shoes",
+        "image": "assets/images/content/banner-3.webp",
+        "imageSm": "assets/images/content/banner-3-sm.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "Ζευγάρι δερμάτινα chelsea μποτάκια σε φυσικό ταμπά με κρεπ σόλα, πάνω σε ξύλινο πάτωμα στο φως του ήλιου"
+      },
+      {
+        "id": "banner-1",
+        "placement": "accessories",
+        "eyebrow": "Αξεσουάρ",
+        "title": "Η τελευταία πινελιά",
+        "text": "Τσάντες, γυαλιά ηλίου, καπέλα και κασκόλ που ολοκληρώνουν κάθε εμφάνιση.",
+        "ctaLabel": "Όλα τα αξεσουάρ",
+        "ctaHref": "#/catalog/accessories",
+        "image": "assets/images/content/banner-1.webp",
+        "imageSm": "assets/images/content/banner-1-sm.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "Γυναίκα με λευκό μακρύ φόρεμα και ψάθινο καπέλο περπατά σε αμμουδιά ανάμεσα σε ψάθινες ομπρέλες, με γαλάζια θάλασσα και ουρανό"
+      }
+    ]
+  },
+  "collections": {
+    "departments": [
+      {
+        "id": "women",
+        "image": "assets/images/products/w-trench-black-1.webp",
+        "imageSm": "assets/images/products/w-trench-black-1-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Γυναίκα με μακριά μαύρη καμπαρντίνα με ζώνη περπατά σε φωτεινό διάδρομο"
+      },
+      {
+        "id": "men",
+        "image": "assets/images/products/m-check-overshirt-grey-1.webp",
+        "imageSm": "assets/images/products/m-check-overshirt-grey-1-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Άνδρας με γκρι-μαύρο καρό χοντρό πουκάμισο με τσέπες στο στήθος πάνω από λευκό T-shirt"
+      },
+      {
+        "id": "shoes",
+        "image": "assets/images/products/s-white-leather-sneakers-1.webp",
+        "imageSm": "assets/images/products/s-white-leather-sneakers-1-sm.webp",
+        "width": 1200,
+        "height": 1200,
+        "alt": "Λευκά δερμάτινα sneakers με λευκή σόλα, φορεμένα με μαύρο κολάν σε γκρι στούντιο"
+      },
+      {
+        "id": "accessories",
+        "image": "assets/images/products/a-leather-tote-cognac-1.webp",
+        "imageSm": "assets/images/products/a-leather-tote-cognac-1-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Δερμάτινη τσάντα tote σε απόχρωση κονιάκ με μακριά χερούλια, στα χέρια μοντέλου"
+      }
+    ],
+    "items": [
+      {
+        "id": "collection-1",
+        "title": "Καλοκαίρι στο Ιόνιο",
+        "text": "Ανάλαφρα φορέματα για μεγάλες μέρες δίπλα στη θάλασσα.",
+        "href": "#/catalog/women?sub=dresses",
+        "image": "assets/images/content/collection-1.webp",
+        "imageSm": "assets/images/content/collection-1-sm.webp",
+        "width": 1200,
+        "height": 798,
+        "alt": "Γυναίκα με λευκό κρουαζέ μάξι φόρεμα με κόκκινα λουλούδια κρατά ψάθινη τσάντα σε παραθαλάσσιο πεζόδρομο της Κέρκυρας"
+      },
+      {
+        "id": "collection-2",
+        "title": "Πλεκτά σε ουδέτερους τόνους",
+        "text": "Καμηλό, εκρού και μαλακές υφές για τις πρώτες κρύες μέρες.",
+        "href": "#/catalog/women?sub=tops",
+        "image": "assets/images/content/collection-2.webp",
+        "imageSm": "assets/images/content/collection-2-sm.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "Δύο γυναίκες πλάτη με πλάτη με πλεκτά ριμπ σύνολα σε καμηλό και εκρού, σε ανοιχτόχρωμο φόντο"
+      },
+      {
+        "id": "collection-3",
+        "title": "Denim για κάθε μέρα",
+        "text": "Τζιν μπουφάν, πουκάμισα και παντελόνια σε κάθε απόχρωση του μπλε.",
+        "href": "#/catalog?q=τζιν",
+        "image": "assets/images/content/collection-3.webp",
+        "imageSm": "assets/images/content/collection-3-sm.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "Δύο άτομα με ανοιχτόχρωμα τζιν μπουφάν, λευκά T-shirt και μαύρα τζιν κρατιούνται από το χέρι μπροστά σε μπλε τοίχο"
+      },
+      {
+        "id": "collection-4",
+        "title": "Τσάντες & δέρμα",
+        "text": "Φυσικά δέρματα σε κονιάκ, ταμπά και μαύρο που ωριμάζουν όμορφα.",
+        "href": "#/catalog/accessories?sub=bags",
+        "image": "assets/images/content/collection-4.webp",
+        "imageSm": "assets/images/content/collection-4-sm.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "Καφέ δερμάτινη τσάντα χειρός με ψάθινες στρογγυλές λαβές και μαύρα στρογγυλά γυαλιά ηλίου πάνω σε λευκή άμμο"
+      }
+    ]
+  },
+  "instagram": {
+    "mode": "curated",
+    "handle": "@elan.boutique",
+    "profileUrl": "",
+    "title": "Εμπνευστείτε από το #ÉLANstyle",
+    "text": "Εμφανίσεις από την κοινότητά μας. Πατήστε σε μια φωτογραφία για να δείτε τα κομμάτια της.",
+    "posts": [
+      {
+        "id": "insta-1",
+        "image": "assets/images/content/insta-1.webp",
+        "imageSm": "assets/images/content/insta-1-sm.webp",
+        "width": 1200,
+        "height": 801,
+        "alt": "Γυναίκα με καμηλό πλεκτό πουλόβερ και τζιν κρατά ψάθινο καλάθι με πλεκτό και βελόνες",
+        "caption": "Κυριακάτικο πλέξιμο με το αγαπημένο μας ριμπ πουλόβερ σε καμηλό.",
+        "productIds": ["w-ribbed-sweater-camel"]
+      },
+      {
+        "id": "insta-2",
+        "image": "assets/images/content/insta-2.webp",
+        "imageSm": "assets/images/content/insta-2-sm.webp",
+        "width": 675,
+        "height": 1200,
+        "alt": "Γυναίκα με γκρι τσόχινο καπέλο fedora και λευκό πουκάμισο με πουά πιάνει το γείσο του καπέλου",
+        "caption": "Ένα fedora αρκεί για να αλλάξει όλη η εμφάνιση.",
+        "productIds": ["a-felt-fedora-grey"]
+      },
+      {
+        "id": "insta-3",
+        "image": "assets/images/content/insta-3.webp",
+        "imageSm": "assets/images/content/insta-3-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Γυναίκα με λευκό αμάνικο σακάκι και φαρδύ παντελόνι κρατά δερμάτινη τσάντα tote σε χρώμα κονιάκ με μια εφημερίδα μέσα",
+        "caption": "Πρωινός καφές, εφημερίδα και η tote σε κονιάκ που χωράει τα πάντα.",
+        "productIds": ["a-leather-tote-cognac"]
+      },
+      {
+        "id": "insta-4",
+        "image": "assets/images/content/insta-4.webp",
+        "imageSm": "assets/images/content/insta-4-sm.webp",
+        "width": 1200,
+        "height": 800,
+        "alt": "Γυναίκα με γκρι μάλλινο κασκόλ πάνω από καφέ πλεκτό πουλόβερ, καθισμένη μπροστά σε γκρι τοίχο",
+        "caption": "Μαλλί πάνω σε μαλλί: το γκρι κασκόλ με ζεστό πλεκτό.",
+        "productIds": ["a-wool-scarf-grey", "w-ribbed-sweater-camel"]
+      },
+      {
+        "id": "insta-5",
+        "image": "assets/images/content/insta-5.webp",
+        "imageSm": "assets/images/content/insta-5-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Γυναίκα με πορτοκαλί λινό κρουαζέ φόρεμα κρατά ψάθινο καπέλο σε ροζ φόντο",
+        "caption": "Λινό, πορτοκαλί και πολύ φως. Το κρουαζέ φόρεμα της σεζόν.",
+        "productIds": ["w-linen-wrap-dress-orange"]
+      },
+      {
+        "id": "insta-6",
+        "image": "assets/images/content/insta-6.webp",
+        "imageSm": "assets/images/content/insta-6-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Γυναίκα με λευκή ρομαντική μπλούζα με βολάν, μπεζ φούστα και ψηλές μπότες σε λιβάδι στο ηλιοβασίλεμα",
+        "caption": "Ρομαντική διάθεση στο ηλιοβασίλεμα, με δαντελένιο γιακά και σουέτ μπότες.",
+        "productIds": ["w-lace-collar-blouse", "s-suede-lace-up-boots"]
+      },
+      {
+        "id": "insta-7",
+        "image": "assets/images/content/insta-7.webp",
+        "imageSm": "assets/images/content/insta-7-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Άντρας με καρό πουκάμισο φλανέλα σε μπορντό και σκούρο μπλε πάνω από γκρι T-shirt, στις γραμμές του τρένου",
+        "caption": "Φλανέλα σε μπορντό για τις φθινοπωρινές αποδράσεις.",
+        "productIds": ["m-flannel-check-burgundy", "m-slim-jeans-blue"]
+      },
+      {
+        "id": "insta-8",
+        "image": "assets/images/content/insta-8.webp",
+        "imageSm": "assets/images/content/insta-8-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Ζευγάρι ταμπά δερμάτινα chelsea μποτάκια από ψηλά, σε ξύλινο πάτωμα με έντονο φως και σκιές",
+        "caption": "Ταμπά chelsea: το μποτάκι που ταιριάζει με όλα.",
+        "productIds": ["s-chelsea-boots-tan"]
+      },
+      {
+        "id": "insta-9",
+        "image": "assets/images/content/insta-9.webp",
+        "imageSm": "assets/images/content/insta-9-sm.webp",
+        "width": 800,
+        "height": 1200,
+        "alt": "Άντρας με γκρι-μαύρο καρό overshirt, λευκό T-shirt και σκούρο τζιν κατεβαίνει μαρμάρινα σκαλιά",
+        "caption": "Overshirt, λευκό T-shirt, σκούρο τζιν. Απλά και σωστά.",
+        "productIds": ["m-check-overshirt-grey", "m-slim-jeans-black"]
+      }
+    ]
+  },
+  "promos": {
+    "items": [
+      { "id": "shipping", "icon": "truck", "title": "Δωρεάν αποστολή", "text": "Για αγορές άνω των {freeShipping}" },
+      { "id": "pickup", "icon": "shop", "title": "Παραλαβή από το κατάστημα", "text": "Ερμού 10, Αθήνα · χωρίς χρέωση" },
+      { "id": "payment", "icon": "credit-card-2-front", "title": "Αντικαταβολή ή IRIS", "text": "Πληρωμή με τον τρόπο που προτιμάτε (demo)" },
+      { "id": "welcome", "icon": "gift", "title": "WELCOME10", "text": "10% στην πρώτη σας παραγγελία άνω των 30 €" }
+    ]
+  },
+  "newsletter": {
+    "enabled": true,
+    "eyebrow": "Newsletter",
+    "title": "Πρώτοι στις νέες αφίξεις",
+    "text": "Εγγραφείτε για να μαθαίνετε πρώτοι για νέες συλλογές, ιδέες styling και ιδιωτικές προσφορές.",
+    "buttonLabel": "Εγγραφή",
+    "successText": "Ευχαριστούμε! Η εγγραφή σας καταχωρήθηκε."
+  },
+  "footer": {
+    "tagline": "Σύγχρονη ευρωπαϊκή μόδα με προσεγμένες γραμμές, ποιοτικά υλικά και διαχρονικό χαρακτήρα.",
+    "columns": [
+      {
+        "title": "Κατάστημα",
+        "links": [
+          { "label": "Γυναικεία", "href": "#/catalog/women" },
+          { "label": "Ανδρικά", "href": "#/catalog/men" },
+          { "label": "Παπούτσια", "href": "#/catalog/shoes" },
+          { "label": "Αξεσουάρ", "href": "#/catalog/accessories" },
+          { "label": "Όλα τα προϊόντα", "href": "#/catalog" }
+        ]
+      },
+      {
+        "title": "Εξυπηρέτηση",
+        "links": [
+          { "label": "Ο λογαριασμός μου", "href": "#/account" },
+          { "label": "Οι παραγγελίες μου", "href": "#/account/orders" },
+          { "label": "Αγαπημένα", "href": "#/account/wishlist" },
+          { "label": "Καλάθι", "href": "#/cart" }
+        ]
+      }
+    ],
+    "notes": [
+      "Αποστολή με courier σε όλη την Ελλάδα, δωρεάν για αγορές άνω των {freeShipping}.",
+      "Πληρωμή με αντικαταβολή ή IRIS (προσομοίωση, χωρίς πραγματική χρέωση).",
+      "Demo κατάστημα: οι παραγγελίες είναι προσομοίωση και τα δεδομένα μένουν μόνο στον περιηγητή σας."
+    ]
+  }
+}

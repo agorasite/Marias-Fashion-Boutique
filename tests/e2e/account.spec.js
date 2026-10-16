@@ -226,7 +226,7 @@ test('overview: greeting, counts, last order card, quick links', async ({ page }
   await boot(page);
   const o = await place(page);
   await page.goto('/#/catalog');
-  await page.locator('.product-card [data-wish]').first().click();
+  await page.locator('[data-page="catalog"] .product-card [data-wish]').first().click();
   await go(page, '#/account');
   await expect(page.locator('[data-account-greeting]')).toContainText('Μαρία');
   await expect(page.locator('[data-overview-orders]')).toContainText('1');
@@ -386,7 +386,8 @@ test('wishlist tab is embedded in the account layout and lists wished products',
   const errors = trackErrors(page);
   await boot(page);
   await page.goto('/#/catalog');
-  const card = page.locator('.product-card[data-product-id]').first();
+  // the homepage also shows product cards now: scope to the catalog view once it has rendered
+  const card = page.locator('[data-page="catalog"] .product-card[data-product-id]').first();
   const id = await card.getAttribute('data-product-id');
   await card.locator('[data-wish]').click();
   await go(page, '#/account/wishlist');
@@ -419,7 +420,7 @@ test('no horizontal overflow on account subpages at 390px and orders at 320px', 
   const o = await place(page);
   await place(page, { prod: prodB, ship: 'pickup', pay: 'iris', qty: 2 });
   await page.goto('/#/catalog');
-  await page.locator('.product-card [data-wish]').first().click();
+  await page.locator('[data-page="catalog"] .product-card [data-wish]').first().click();
   const over = () => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   for (const h of ['#/account', '#/account/orders', `#/account/orders/${o.id}`, '#/account/profile', '#/account/addresses', '#/account/newsletter', '#/account/wishlist', '#/account/orders/nope']) {
     await go(page, h);

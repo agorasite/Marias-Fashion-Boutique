@@ -188,53 +188,5 @@
       "usedCount": 0,
       "active": false
     }
-  ],
-  "content": {
-    "hero": {
-      "title": "Νέα συλλογή Φθινόπωρο",
-      "subtitle": "Ανακαλύψτε τις τάσεις της σεζόν",
-      "cta": "Αγόρασε τώρα",
-      "link": "#/shop"
-    },
-    "banners": {
-      "items": [
-        {
-          "title": "Δωρεάν αποστολή άνω των 60€",
-          "link": "#/shop"
-        }
-      ]
-    },
-    "collections": {
-      "items": [
-        {
-          "title": "Γυναικεία",
-          "link": "#/shop?category=women"
-        },
-        {
-          "title": "Ανδρικά",
-          "link": "#/shop?category=men"
-        }
-      ]
-    },
-    "instagram": {
-      "handle": "@elan.boutique",
-      "items": []
-    },
-    "promos": {
-      "items": [
-        {
-          "title": "Κωδικός WELCOME10",
-          "text": "10% στην πρώτη σας παραγγελία"
-        }
-      ]
-    },
-    "newsletter": {
-      "title": "Μείνετε ενημερωμένοι",
-      "text": "Εγγραφείτε για αποκλειστικές προσφορές"
-    },
-    "footer": {
-      "about": "Η ÉLAN είναι ένα demo κατάστημα μόδας.",
-      "copyright": "© 2026 ÉLAN Fashion Boutique (demo)"
-    }
-  }
+  ]
 }

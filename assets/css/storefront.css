@@ -184,41 +184,7 @@
 }
 .placeholder-panel .lead-text { margin-inline: auto; }
 .placeholder-panel .display-title { font-size: clamp(1.9rem, 6vw, 3rem); }
-.placeholder-note { margin: var(--elan-space-4) 0 0; font-size: 0.875rem; color: var(--elan-muted); text-align: center; }
 @media (min-width: 768px) { .placeholder-panel { padding: var(--elan-space-6) var(--elan-space-5); } }
-
-/* simple editorial hero (home placeholder; reusable) */
-.home-placeholder { padding-top: 0; }
-.hero-simple { display: grid; background: var(--elan-sand); }
-.hero-simple img { width: 100%; aspect-ratio: 4 / 5; max-height: 52vh; object-fit: cover; object-position: center 30%; }
-.hero-simple-copy { padding-block: var(--elan-space-5); }
-.hero-simple-copy .lead-text { margin-bottom: var(--elan-space-4); }
-@media (min-width: 992px) {
-  .hero-simple { grid-template-columns: 1fr 1fr; align-items: center; min-height: 78vh; }
-  .hero-simple img { order: 2; height: 100%; max-height: none; aspect-ratio: auto; min-height: 78vh; }
-  .hero-simple-copy { order: 1; padding-inline: max(2rem, calc((100vw - 1320px) / 2 + 1.5rem)) 3rem; }
-}
-
-.dept-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 0; }
-.dept-tile {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 72px;
-  gap: 0.5rem;
-  padding: 1rem 0.9rem;
-  background: var(--elan-paper);
-  border: 1px solid var(--elan-line);
-  color: var(--elan-ink);
-  text-decoration: none;
-  font-family: var(--elan-font-display);
-  font-size: clamp(1.05rem, 4.6vw, 1.25rem);
-  overflow-wrap: anywhere;
-  transition: border-color var(--elan-dur) var(--elan-ease), background-color var(--elan-dur) var(--elan-ease);
-}
-.dept-tile i { font-size: 1rem; color: var(--elan-taupe); }
-.dept-tile:hover { border-color: var(--elan-ink); color: var(--elan-ink); }
-@media (min-width: 768px) { .dept-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; } .dept-tile { min-height: 110px; font-size: 1.5rem; } }
 
 /* ---------- product card base (used by catalog/home later) ---------- */
 .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.75rem; }
@@ -353,6 +319,11 @@ body[data-layout="store"] { padding-bottom: calc(var(--elan-bottom-nav-h) + env(
   color: var(--elan-muted);
 }
 @media (min-width: 768px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+.footer-notes { display: grid; gap: 0.6rem; margin: var(--elan-space-5) 0 0; padding: 1.5rem 0 0; border-top: 1px solid var(--elan-line-strong); font-size: 0.8125rem; line-height: 1.5; color: var(--elan-muted); }
+.footer-notes li { display: flex; gap: 0.6rem; }
+.footer-notes li::before { content: ""; flex: none; width: 5px; height: 5px; margin-top: 0.55em; border-radius: 50%; background: var(--elan-gold); }
+.footer-notes:not([hidden]) + .footer-bottom { margin-top: 1.5rem; }
+@media (min-width: 992px) { .footer-notes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; } }
 
 /* ---------- admin layout: storefront chrome hidden, demo strip kept ---------- */
 body[data-layout="admin"] .site-header,

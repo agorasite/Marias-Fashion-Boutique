@@ -3,7 +3,7 @@ import { ensureSeeded } from './seed.js';
 import { route, setNotFound, start } from './router.js';
 import { focusHeading, html, placeholderPage } from './ui.js';
 import { renderHeader, bindBadges } from './components/header.js';
-import { renderFooter, applySettings } from './components/footer.js';
+import { renderFooter, applySettings, applyFooterContent } from './components/footer.js';
 import { renderBottomNav } from './components/bottom-nav.js';
 import { renderDemoStrip } from './components/modals.js';
 
@@ -84,10 +84,17 @@ function closeOpenModals() {
     showError(e);
     return;
   }
-  import('./services/settings.js')
-    .then((m) => m.getSettings())
-    .then((s) => applySettings(shell.footer, s))
-    .catch(() => { /* defaults already shown */ });
+  const refreshFooter = async () => {
+    try {
+      const [{ getSettings }, content] = await Promise.all([import('./services/settings.js'), import('./services/content.js')]);
+      const [s, footerContent] = await Promise.all([getSettings(), content.getContent('footer')]);
+      applySettings(shell.footer, s);
+      applyFooterContent(shell.footer, footerContent, (t) => content.fillTokens(t, s));
+    } catch (e) { /* defaults already shown */ }
+  };
+  refreshFooter();
+  window.addEventListener('content:changed', (e) => { if (e.detail?.key === 'footer') refreshFooter(); });
+  window.addEventListener('settings:changed', refreshFooter);
   await start({
     outlet: app,
     beforeRender({ path, query, layout }) {
