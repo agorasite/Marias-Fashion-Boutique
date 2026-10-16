@@ -16,27 +16,15 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 6 | Product service + catalog page | complete, reviewed |
 | 7 | Product detail page (+ minimal cart, reviews) | complete, reviewed |
 | 8 | Cart + wishlist | complete, reviewed (1 fix round) |
-| 9 | Transactional checkout, orders, confirmation | **IMPLEMENTED, NOT COMPLETE** — see below |
+| 9 | Transactional checkout, orders, confirmation | complete, reviewed (1 fix round) |
 | 10–19 | Account, Home/Instagram, Admin (overview, products, orders, customers/coupons, content/settings), Backup/reset, A11y/responsive pass, README/handoff | not started |
 
-Overall: 8 of 19 tasks complete (~42%); Task 9 implemented but with 2 failing e2e tests and no review.
+Overall: 9 of 19 tasks complete (~47%). Tests: unit 104, e2e 106, all green.
 
-## Task 9 — exact state
+## Task 9 — done
+Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
 
-Committed as WIP. Test state at commit time: `npm test` (in `tests/`) 104/104 pass; `npx playwright test` 97 pass / **2 fail**, both in `tests/e2e/checkout.spec.js`:
-
-1. `checkout.spec.js:135` "per-field validation messages, error summary and accessible attributes" — test timeout (30 s).
-2. `checkout.spec.js:185` "shipping, COD and coupon change totals live and match the pricing math" — `s.shipping` is `NaN` at line 203 (the test parses the shipping amount from the DOM; for a free/«Δωρεάν» or pickup line the text is not a number, or the selector/format differs). Decide whether the test's parser or the page's text is wrong.
-
-The implementer (opus subagent `a5ec5f27d461cac04`) was cut off by the session limit before delivering its report, so there is **no task-9 report file and no review yet**.
-
-### To finish Task 9 (next steps, in order)
-1. Fix the two failing e2e tests (investigate each failure's `test-results/*/error-context.md`; fix the page or the test, whichever is wrong).
-2. Run `npm test` and `npx playwright test` in `tests/` — all green.
-3. Verify the Task 8 carry-over rules in checkout: recompute with `pricedLines/isPriced`; refuse when `cart.hasProblems` or empty cart on direct navigation to `#/checkout`; `placeOrder` is one readwrite tx (carts, variants, coupons, orders, customers), idempotent by `requestId`; IRIS never shows "paid" before the simulation click.
-4. Dispatch a task reviewer (spec + quality) on the diff `537915f..HEAD`; fix rounds as needed; then mark Task 9 complete.
-
-## Next task after 9: Task 10 — Customer account
+## Next task (next): Task 10 — Customer account
 Files: `assets/js/pages/account.js`, extend `services/customers.js`; test `tests/e2e/account.spec.js`.
 Routes `#/account`, `#/account/orders`, `#/account/orders/:id`; wishlist page already exists at `#/account/wishlist` (`pages/wishlist.js`) and should be embedded in the account area. Order history from `listOrdersForCustomer`, tracking steps derived from `fulfillmentStatus`, profile + saved addresses + newsletter edits persisted, "stored only in this browser" notice, switch between local customers.
 
