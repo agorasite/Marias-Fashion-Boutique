@@ -143,10 +143,10 @@ test('stores: unknown, missing and non-array stores are rejected; empty arrays a
   assert.equal(run(empty).ok, true, run(empty).errors.join('\n'));
 });
 
-test('oversized stores (> 20.000 records) are rejected before any record check', () => {
+test('oversized stores (> MAX_RECORDS_PER_STORE = 100.000 records) are rejected before any record check', () => {
   const b = fixture();
   b.stores.reviews = new Array(MAX_RECORDS_PER_STORE + 1).fill(0).map((_, i) => ({ id: `r${i}` }));
-  const r = rejects(b, /20\.000/);
+  const r = rejects(b, /100\.000/);
   assert.ok(r.errors.length < 5, 'no per-record noise for an oversized store');
 });
 

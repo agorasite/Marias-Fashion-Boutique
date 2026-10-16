@@ -164,7 +164,7 @@ export function buildCustomerUpdate(cur, patch) {
   const p = patch || {};
   const pick = (k) => (Object.prototype.hasOwnProperty.call(p, k) ? p[k] : base[k]);
   const merged = {
-    firstName: pick('firstName'), lastName: pick('lastName'), email: pick('email'), phone: pick('phone'), vatNumber: pick('vatNumber'),
+    firstName: pick('firstName'), lastName: pick('lastName'), email: pick('email'), phone: pick('phone'), company: pick('company'), vatNumber: pick('vatNumber'),
   };
   const v = validateProfile(merged);
   if (!v.ok) return { ok: false, errors: v.errors };

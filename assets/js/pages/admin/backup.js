@@ -13,6 +13,7 @@ import {
 export const IMPORT_CONFIRM_TEXT = 'ΑΝΤΙΚΑΤΑΣΤΑΣΗ';
 export const RESET_CONFIRM_TEXT = 'ΕΠΑΝΑΦΟΡΑ';
 const IMPORT_FAILED = 'Η εισαγωγή απέτυχε — τα υπάρχοντα δεδομένα δεν άλλαξαν.';
+const REFRESH_FAILED = 'Η εισαγωγή ολοκληρώθηκε αλλά η ανανέωση της προβολής απέτυχε — φορτώστε ξανά τη σελίδα.';
 const RESET_ITEMS = [
   'Όλα τα προϊόντα, οι παραλλαγές και το απόθεμα όπως τα αλλάξατε',
   'Όλες οι παραγγελίες, οι πελάτες και οι κριτικές που δημιουργήθηκαν τοπικά',
@@ -167,9 +168,10 @@ function mount(body, view) {
       <div class="backup-scroll" tabindex="0" role="region" aria-label="Προειδοποιήσεις ελέγχου αρχείου">${listHtml(warnings, 'backup-warnings')}</div>
     </div>`;
 
-  async function showReady(obj, v, file) {
+  async function showReady(obj, v, file, seq) {
     let current = {};
     try { current = await storeCounts(); } catch (e) { /* preview without current counts */ }
+    if (seq !== readSeq || busy) return; // a newer file was chosen while the counts were read
     pending = obj;
     view.dataset.importState = 'valid';
     const exported = obj.exportedAt && !Number.isNaN(new Date(obj.exportedAt).getTime())
@@ -211,21 +213,29 @@ function mount(body, view) {
     runBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Εισαγωγή…';
     setStatus('Γίνεται εισαγωγή των δεδομένων…');
     view.dataset.importState = 'importing';
-    try {
-      const r = await importAll(pending);
+    const done = (counts, refreshFailed) => {
       pending = null;
-      view.dataset.importState = 'done';
-      setStatus('Η εισαγωγή ολοκληρώθηκε.', 'ok');
-      const total = Object.values(r.counts).reduce((a, b) => a + b, 0);
-      result.innerHTML = `<div class="backup-report is-ok" data-import-success>
-          <p class="backup-report-title"><i class="bi bi-check2-circle me-1" aria-hidden="true"></i>Τα δεδομένα αντικαταστάθηκαν (${n(total)} εγγραφές).</p>
-          <p class="backup-text mb-2">Η σελίδα θα φορτωθεί ξανά ώστε όλο το κατάστημα να εμφανίσει τα δεδομένα του αντιγράφου.</p>
+      view.dataset.importState = refreshFailed ? 'done-refresh-failed' : 'done';
+      setStatus(refreshFailed ? REFRESH_FAILED : 'Η εισαγωγή ολοκληρώθηκε.', refreshFailed ? 'error' : 'ok');
+      const total = Object.values(counts).reduce((a, b) => a + b, 0);
+      result.innerHTML = `<div class="backup-report ${refreshFailed ? 'is-warning' : 'is-ok'}" data-import-success${refreshFailed ? ' data-refresh-failed' : ''}>
+          <p class="backup-report-title"><i class="bi ${refreshFailed ? 'bi-exclamation-triangle' : 'bi-check2-circle'} me-1" aria-hidden="true"></i>${refreshFailed ? esc(REFRESH_FAILED) : `Τα δεδομένα αντικαταστάθηκαν (${n(total)} εγγραφές).`}</p>
+          <p class="backup-text mb-2">${refreshFailed ? `Τα δεδομένα του αντιγράφου (${n(total)} εγγραφές) έχουν ήδη αποθηκευτεί.` : 'Η σελίδα θα φορτωθεί ξανά ώστε όλο το κατάστημα να εμφανίσει τα δεδομένα του αντιγράφου.'}</p>
           <button type="button" class="btn btn-dark" data-import-continue>Συνέχεια</button>
         </div>`;
       const cont = result.querySelector('[data-import-continue]');
       cont.addEventListener('click', () => { cont.disabled = true; window.location.reload(); });
       cont.focus();
+    };
+    try {
+      const r = await importAll(pending);
+      done(r.counts, false);
     } catch (err) {
+      if (err && err.code === 'committed') {
+        console.warn('Backup imported; view refresh failed', err.cause || err);
+        done(err.counts || {}, true);
+        return;
+      }
       if (!(err && err.code === 'invalid')) console.warn('Backup import failed', err);
       const errors = err && err.code === 'invalid' ? err.errors
         : [err && err.name === 'QuotaExceededError' ? 'Δεν υπάρχει αρκετός χώρος αποθήκευσης στον περιηγητή.' : 'Σφάλμα κατά την εγγραφή στη βάση δεδομένων του περιηγητή.'];
@@ -267,7 +277,7 @@ function mount(body, view) {
       return;
     }
     setStatus('Το αρχείο ελέγχθηκε: έτοιμο για εισαγωγή.', 'ok');
-    await showReady(parsed.value, v, file);
+    await showReady(parsed.value, v, file, seq);
   });
 
   // ---------------------------------------------------------------- reset

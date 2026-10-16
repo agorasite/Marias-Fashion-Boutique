@@ -6,6 +6,7 @@ import { getSettings } from './settings.js';
 import { getCoupon } from './coupons.js';
 import { quote, validateCoupon, subtotalCents } from './pricing.js';
 import { clampQty, mergeLine, changeVariantLines, classifyLine, pricedLines } from './cart-rules.js';
+import { LINE_QTY_MAX } from './limits.js';
 
 const CART_ID = 'local';
 
@@ -84,7 +85,7 @@ export async function addLine(sku, qty = 1) {
     const cart = (await reqP(t.objectStore('carts').get(CART_ID))) || emptyCart();
     const line = cart.lines.find((l) => l.sku === sku);
     const inCart = line ? line.qty : 0;
-    const available = Math.max(0, (variant.stock || 0) - inCart);
+    const available = Math.max(0, Math.min(variant.stock || 0, LINE_QTY_MAX) - inCart);
     if ((variant.stock || 0) <= 0) return { ok: false, reason: 'out-of-stock', available: 0 };
     if (want > available) return { ok: false, reason: 'insufficient', available };
     cart.lines = mergeLine(cart.lines, sku, want);

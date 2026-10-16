@@ -28,6 +28,8 @@ export const ORDER_ID_RE = /^ELAN-\d{8}-[0-9A-Z]{4}$/;
 export const FIELD_ORDER = ['firstName', 'lastName', 'email', 'phone', 'shippingMethod', 'address', 'city',
   'postalCode', 'region', 'company', 'vatNumber', 'paymentMethod', 'notes', 'acceptTerms'];
 
+import { PERSON_NAME_MAX, COMPANY_MAX, ADDRESS_MAX, CITY_MAX, EMAIL_MAX } from './limits.js';
+
 const str = (v) => (v == null ? '' : String(v)).trim();
 
 /** Strip separators and +30/0030 prefix; returns the bare 10-digit candidate. */
@@ -68,12 +70,14 @@ export function validateCheckoutForm(data) {
     const v = str(d[field]);
     if (!v) errors[field] = `Συμπληρώστε το ${label}.`;
     else if (v.length < 2) errors[field] = `Το ${label} πρέπει να έχει τουλάχιστον 2 χαρακτήρες.`;
+    else if (v.length > PERSON_NAME_MAX) errors[field] = `Το ${label} μπορεί να έχει έως ${PERSON_NAME_MAX} χαρακτήρες.`;
   };
   name('firstName', 'όνομα');
   name('lastName', 'επώνυμο');
 
   const email = str(d.email);
   if (!email) errors.email = 'Συμπληρώστε το email σας.';
+  else if (email.length > EMAIL_MAX) errors.email = `Το email μπορεί να έχει έως ${EMAIL_MAX} χαρακτήρες.`;
   else if (!EMAIL_RE.test(email)) errors.email = 'Το email δεν είναι έγκυρο (π.χ. maria@example.gr).';
 
   if (!str(d.phone)) errors.phone = 'Συμπληρώστε το τηλέφωνό σας.';
@@ -87,13 +91,17 @@ export function validateCheckoutForm(data) {
     const address = str(d.address);
     if (!address) errors.address = 'Συμπληρώστε τη διεύθυνση αποστολής.';
     else if (address.length < 5) errors.address = 'Η διεύθυνση πρέπει να έχει τουλάχιστον 5 χαρακτήρες (οδός και αριθμός).';
+    else if (address.length > ADDRESS_MAX) errors.address = `Η διεύθυνση μπορεί να έχει έως ${ADDRESS_MAX} χαρακτήρες.`;
     if (!str(d.city)) errors.city = 'Συμπληρώστε την πόλη.';
+    else if (str(d.city).length > CITY_MAX) errors.city = `Η πόλη μπορεί να έχει έως ${CITY_MAX} χαρακτήρες.`;
     const pc = normalizePostalCode(d.postalCode);
     if (!pc) errors.postalCode = 'Συμπληρώστε τον ταχυδρομικό κώδικα.';
     else if (!/^\d{5}$/.test(pc)) errors.postalCode = 'Ο ταχυδρομικός κώδικας πρέπει να έχει 5 ψηφία.';
     if (!str(d.region)) errors.region = 'Επιλέξτε περιφέρεια.';
     else if (!REGIONS.includes(str(d.region))) errors.region = 'Επιλέξτε περιφέρεια από τη λίστα.';
   }
+
+  if (str(d.company).length > COMPANY_MAX) errors.company = `Η επωνυμία εταιρείας μπορεί να έχει έως ${COMPANY_MAX} χαρακτήρες.`;
 
   const afm = normalizeAfm(d.vatNumber);
   if (afm) {

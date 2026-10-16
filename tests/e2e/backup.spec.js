@@ -427,3 +427,108 @@ test('no horizontal overflow at 320–1440 (idle and with a long error list)', a
     await expect(page.locator(`${VIEW} [data-import-errors] li`)).toHaveCount(51);
   }
 });
+
+// ------------------------------------------------------------------ Task 17 fix round
+test('roundtrip parity: everything the app itself writes (at the editors’ limits) exports and validates', async ({ page }) => {
+  const errors = trackErrors(page);
+  await boot(page);
+  const r = await page.evaluate(async ([sku]) => {
+    const L = await import('/assets/js/services/limits.js');
+    const pa = await import('/assets/js/services/product-admin.js');
+    const cart = await import('/assets/js/services/cart.js');
+    const co = await import('/assets/js/services/checkout.js');
+    const coupons = await import('/assets/js/services/coupons.js');
+    const orders = await import('/assets/js/services/orders.js');
+    const reviews = await import('/assets/js/services/reviews.js');
+    const content = await import('/assets/js/services/content.js');
+    const customers = await import('/assets/js/services/customers.js');
+    const bk = await import('/assets/js/services/backup.js');
+    const form = (email, extra = {}) => ({
+      firstName: 'Α'.repeat(L.PERSON_NAME_MAX), lastName: 'Β'.repeat(L.PERSON_NAME_MAX), email, phone: '6912345678', company: 'Γ'.repeat(L.COMPANY_MAX),
+      address: 'Δ'.repeat(L.ADDRESS_MAX), city: 'Π'.repeat(L.CITY_MAX), postalCode: '10563', region: 'Αττική', acceptTerms: true, notes: 'Σ'.repeat(500), ...extra,
+    });
+    // Product at the editor maxima.
+    const { products } = await pa.loadAdminCatalog();
+    const p = await pa.getAdminProduct(products[2].id);
+    await pa.saveProduct({
+      ...p, name: 'Ν'.repeat(L.PRODUCT_NAME_MAX), description: 'Π'.repeat(L.DESCRIPTION_MAX),
+      attributes: { ...p.attributes, material: 'Μ'.repeat(L.ATTRIBUTE_MAX), care: 'Φ'.repeat(L.ATTRIBUTE_MAX), fit: 'Ε'.repeat(L.ATTRIBUTE_MAX) },
+      variants: p.variants.map((v, i) => ({ ...v, stock: i === 0 ? L.STOCK_MAX : v.stock })),
+    });
+    // Coupon with an end-of-day expiry, used by an order.
+    const day = new Date(Date.now() + 10 * 86400000);
+    const ymd = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`;
+    await coupons.saveCoupon({ code: 'PARITY10', type: 'percent', value: '10', minSubtotal: '', expiresOn: ymd, maxUses: '5', active: true });
+    await cart.addLine(sku, 2);
+    await cart.applyCoupon('PARITY10');
+    const o1 = await co.placeOrder({ form: form('parity.one@example.gr'), shippingMethod: 'courier', paymentMethod: 'cod', requestId: 'r-p1', saveDetails: true });
+    await cart.addLine(sku, 1);
+    const o2 = await co.placeOrder({ form: form('parity.two@example.gr'), shippingMethod: 'pickup', paymentMethod: 'iris', requestId: 'r-p2' });
+    await co.confirmIrisSimulation(o2.id);
+    await orders.updateFulfillment(o1.id, 'confirmed');
+    await orders.addNote(o1.id, 'Ε'.repeat(1000));
+    await orders.cancelOrder(o1.id);
+    await orders.updatePayment(o2.id, 'refunded');
+    await reviews.addReview({ productId: products[0].id, rating: 4, title: 'Τ'.repeat(80), body: 'Κ'.repeat(1000), name: 'Ο'.repeat(40) });
+    await content.subscribeNewsletter('parity.news@example.gr');
+    await customers.createLocalProfile(form('parity.profile@example.gr'));
+    await cart.addLine(sku, 1);
+    const obj = JSON.parse(bk.serializeBackup(await bk.exportAll()));
+    return { v: bk.validateImport(obj), coupon: obj.stores.coupons.find((c) => c.code === 'PARITY10'), o1: obj.stores.orders.find((o) => o.id === o1.id) };
+  }, [SKU]);
+  expect(r.v.errors).toEqual([]);
+  expect(r.v.ok).toBe(true);
+  expect(r.coupon.usedCount).toBe(1);
+  expect(r.o1.fulfillmentStatus).toBe('cancelled');
+  expect(r.o1.couponCode).toBe('PARITY10');
+  expect(errors).toEqual([]);
+});
+
+test('a stale preview never comes back after a newer file was chosen', async ({ page }) => {
+  await boot(page);
+  await openBackup(page);
+  const good = await backupObject(page);
+  // As soon as file A passes validation (status text set, counts still being read), choose an empty file B.
+  await page.evaluate((json) => {
+    const input = document.querySelector('[data-import-file]');
+    const status = document.querySelector('[data-import-status]');
+    const pick = (file) => {
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    };
+    const mo = new MutationObserver(() => {
+      if (/ελέγχθηκε/.test(status.textContent)) { mo.disconnect(); pick(new File([], 'empty.json', { type: 'application/json' })); }
+    });
+    mo.observe(status, { childList: true, characterData: true, subtree: true });
+    pick(new File([json], 'good.json', { type: 'application/json' }));
+  }, JSON.stringify(good));
+  await expect(page.locator(`${VIEW} [data-import-errors]`)).toContainText('κενό');
+  await page.waitForTimeout(300); // let file A's pending storeCounts() resolve
+  await expect(page.locator(`${VIEW} [data-import-errors]`)).toContainText('κενό');
+  await expect(page.locator(`${VIEW} [data-import-preview]`)).toHaveCount(0);
+  await expect(page.locator(`${VIEW} [data-import-run]`)).toHaveCount(0);
+  await expect(page.locator(VIEW)).toHaveAttribute('data-import-state', 'invalid');
+});
+
+test('a failure AFTER the commit (view refresh) says the import completed, not that nothing changed', async ({ page }) => {
+  await boot(page);
+  await openBackup(page);
+  const changed = await backupObject(page);
+  changed.stores.products[0].priceCents += 777;
+  await chooseFile(page, fileOf('changed.json', changed));
+  await page.locator(`${VIEW} [data-import-confirm]`).fill('ΑΝΤΙΚΑΤΑΣΤΑΣΗ');
+  await page.evaluate(() => {
+    const orig = window.dispatchEvent.bind(window);
+    window.dispatchEvent = (ev) => { if (ev.type === 'catalog:changed') throw new Error('listener exploded'); return orig(ev); };
+  });
+  await page.locator(`${VIEW} [data-import-run]`).click();
+  const box = page.locator(`${VIEW} [data-refresh-failed]`);
+  await expect(box).toContainText('Η εισαγωγή ολοκληρώθηκε αλλά η ανανέωση της προβολής απέτυχε — φορτώστε ξανά τη σελίδα');
+  await expect(page.locator(`${VIEW}`)).not.toContainText('τα υπάρχοντα δεδομένα δεν άλλαξαν');
+  const price = await page.evaluate(async (id) => (await (await import('/assets/js/db.js')).get('products', id)).priceCents, changed.stores.products[0].id);
+  expect(price).toBe(changed.stores.products[0].priceCents);
+  await Promise.all([page.waitForEvent('load'), box.locator('[data-import-continue]').click()]);
+  await expect(page.locator(VIEW)).toHaveAttribute('data-ready', 'true');
+});

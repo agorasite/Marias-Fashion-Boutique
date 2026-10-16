@@ -41,17 +41,17 @@ import { ORDER_ID_RE, PAYMENT_METHODS, SHIPPING_METHODS, isValidAfm, normalizeAf
 import { MAX_ADDRESSES } from './account-rules.js';
 import { normalizeEmail } from './customer-rules.js';
 import { normalizeText } from './products.js';
+import { IMPORT_STRING_MAX, IMPORT_RECORDS_MAX, LINE_QTY_MAX } from './limits.js';
 
 export const BACKUP_FORMAT = 'elan-demo-backup';
 export const BACKUP_APP = Object.freeze({ name: 'ÉLAN Fashion Boutique', demo: true });
 export const STORE_NAMES = Object.keys(STORE_DEFS);
-export const MAX_RECORDS_PER_STORE = 20000;
+export const MAX_RECORDS_PER_STORE = IMPORT_RECORDS_MAX;
 export const MAX_BACKUP_BYTES = 50 * 1024 * 1024;
 export const MAX_ERRORS = 50;
-export const MAX_STRING = 20000;
+export const MAX_STRING = IMPORT_STRING_MAX;
 export const MAX_DEPTH = 32;
-export const MAX_LINE_QTY = 10000;
-export const MAX_STOCK = 1000000;
+export const MAX_LINE_QTY = LINE_QTY_MAX;
 export const FUTURE_TOLERANCE_MS = 86400000;
 
 export const STORE_LABELS = {
@@ -62,7 +62,9 @@ export const STORE_LABELS = {
 const FORBIDDEN_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 const SKU_RE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,39}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const MONEY_LIMIT = 1e11; // 1 δισ. € in cents: anything above is not a demo value
+// Import caps are never stricter than the app (services/limits.js): money and counters only need to be safe integers.
+const ISO_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,9})?)?(?:Z|[+-]\d{2}:\d{2})$/;
+const SEGMENT_MAX = 60;
 
 const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 const isPlain = (v) => {
@@ -73,11 +75,14 @@ const isPlain = (v) => {
 const isStr = (v) => typeof v === 'string';
 const isBool = (v) => typeof v === 'boolean';
 const isIntIn = (v, min, max) => Number.isSafeInteger(v) && v >= min && v <= max;
-const isCents = (v) => isIntIn(v, 0, MONEY_LIMIT);
+const isCents = (v) => isIntIn(v, 0, Number.MAX_SAFE_INTEGER);
 const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
 const fmtInt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-const time = (v) => (isStr(v) || (typeof v === 'number' && Number.isFinite(v)) ? new Date(v).getTime() : NaN);
+/** ISO-8601 date-time strings only (what toISOString and the seed files write); numbers and free text are refused. */
+const time = (v) => (isStr(v) && ISO_RE.test(v) ? new Date(v).getTime() : NaN);
 const validDate = (v) => !Number.isNaN(time(v));
+/** Property names come from the file: keep error paths short. */
+const seg = (k) => (k.length > SEGMENT_MAX ? `${k.slice(0, SEGMENT_MAX)}…` : k);
 const quote = (v) => `«${String(v).slice(0, 80)}»`;
 
 // ------------------------------------------------------------------ envelope + file helpers
@@ -129,9 +134,7 @@ export function parseBackupText(text) {
  * Walk the whole value once: reject forbidden keys, non-JSON values, excessive depth and long strings,
  * and build a deep copy at the same time (so the result can never share references with the input).
  */
-function scanAndCopy(value, err) {
-  let reported = 0;
-  const report = (msg) => { if (reported < MAX_ERRORS + 1) { reported += 1; err(msg); } };
+function scanAndCopy(value, report) {
   const walk = (v, p, depth) => {
     if (depth > MAX_DEPTH) { report(`${p}: υπερβολικό βάθος εμφώλευσης δεδομένων.`); return null; }
     if (v === null || typeof v === 'boolean') return v;
@@ -155,7 +158,7 @@ function scanAndCopy(value, err) {
     const out = {};
     for (const k of Object.keys(v)) {
       if (FORBIDDEN_KEYS.has(k)) { report(`${p}: μη επιτρεπτό κλειδί «${k}».`); continue; }
-      out[k] = walk(v[k], `${p}.${k}`, depth + 1);
+      out[k] = walk(v[k], `${p}.${seg(k)}`, depth + 1);
     }
     // Own keys hidden from Object.keys (e.g. a non-enumerable __proto__) are suspicious too.
     for (const k of Object.getOwnPropertyNames(v)) if (FORBIDDEN_KEYS.has(k) && !Object.keys(v).includes(k)) report(`${p}: μη επιτρεπτό κλειδί «${k}».`);
@@ -222,7 +225,8 @@ function validateVariant(v, ctx) {
   if (!isStr(v.size) || !v.size.trim()) ctx.err('λείπει το μέγεθος.');
   if (!isStr(v.color) || !v.color.trim()) ctx.err('λείπει το χρώμα.');
   if (!isValidHex(v.colorHex)) ctx.err('μη έγκυρο χρώμα (μορφή #rrggbb).');
-  if (!isIntIn(v.stock, 0, MAX_STOCK)) ctx.err('το stock πρέπει να είναι ακέραιος αριθμός ≥ 0.');
+  // Safe integer only: the editor caps stock at STOCK_MAX, but a restock after cancel/return may exceed it.
+  if (!isIntIn(v.stock, 0, Number.MAX_SAFE_INTEGER)) ctx.err('το stock πρέπει να είναι ακέραιος αριθμός ≥ 0.');
   optionalBool(ctx, v, 'archived');
   if (!v.archived && isStr(v.size) && isStr(v.color) && isStr(v.productId)) {
     const k = `${v.productId}|${comboKey(v)}`;
@@ -233,7 +237,7 @@ function validateVariant(v, ctx) {
 
 function validateCart(c, ctx) {
   if (!Array.isArray(c.lines)) { ctx.err('το πεδίο «lines» πρέπει να είναι λίστα.'); return; }
-  if (c.lines.length > 500) ctx.err('το καλάθι έχει υπερβολικά πολλές γραμμές.');
+  if (c.lines.length > IMPORT_RECORDS_MAX) ctx.err('το καλάθι έχει υπερβολικά πολλές γραμμές.');
   c.lines.forEach((l, i) => {
     const n = i + 1;
     if (!isObj(l) || !isStr(l.sku) || !l.sku) { ctx.err(`η γραμμή ${n} δεν έχει έγκυρο SKU.`); return; }
@@ -245,7 +249,7 @@ function validateCart(c, ctx) {
 
 function validateWishlist(w, ctx) {
   if (!Array.isArray(w.productIds)) { ctx.err('το πεδίο «productIds» πρέπει να είναι λίστα.'); return; }
-  if (w.productIds.length > 2000) ctx.err('υπερβολικά πολλά αγαπημένα προϊόντα.');
+  if (w.productIds.length > IMPORT_RECORDS_MAX) ctx.err('υπερβολικά πολλά αγαπημένα προϊόντα.');
   for (const id of w.productIds) {
     if (!isStr(id) || !ctx.byId.products.has(id)) ctx.err(`αναφέρεται σε προϊόν ${quote(id)} που δεν υπάρχει στο αντίγραφο.`);
   }
@@ -256,7 +260,7 @@ function validateCustomer(c, ctx) {
   if (!isStr(c.email) || !email || email.length > 254 || !EMAIL_RE.test(email)) ctx.err('μη έγκυρο email πελάτη.');
   else if (ctx.emails.has(email)) ctx.err(`το email ${quote(email)} χρησιμοποιείται ήδη από άλλον πελάτη (${quote(ctx.emails.get(email))}) — χωρίς διάκριση κεφαλαίων/πεζών.`);
   else ctx.emails.set(email, c.id);
-  for (const f of ['firstName', 'lastName', 'phone', 'company']) optionalStr(ctx, c, f, 200);
+  for (const f of ['firstName', 'lastName', 'phone', 'company']) optionalStr(ctx, c, f);
   if (c.vatNumber !== undefined && c.vatNumber !== null && c.vatNumber !== '') {
     if (!isStr(c.vatNumber) || !isValidAfm(normalizeAfm(c.vatNumber))) ctx.err('μη έγκυρο ΑΦΜ.');
   }
@@ -333,11 +337,20 @@ function validateOrder(o, ctx) {
   if (t.totalCents !== Math.max(0, t.subtotalCents - t.discountCents + t.shippingCents + t.codFeeCents)) {
     ctx.err('το τελικό σύνολο δεν ισούται με υποσύνολο − έκπτωση + αποστολή + αντικαταβολή.');
   }
+  // Same formulas as pricing.quote / checkout (verified against placeOrder and all sample orders).
+  if (o.vatRate !== undefined) {
+    if (!(typeof o.vatRate === 'number' && o.vatRate >= 0 && o.vatRate <= 1)) ctx.err('μη έγκυρος συντελεστής ΦΠΑ της παραγγελίας.');
+    else if (t.vatIncludedCents !== undefined && t.vatIncludedCents !== t.totalCents - Math.round(t.totalCents / (1 + o.vatRate))) ctx.err('ο ΦΠΑ που περιλαμβάνεται δεν αντιστοιχεί στο τελικό σύνολο.');
+  }
+  if (isObj(o.shipping)) {
+    if (o.shipping.costCents !== undefined && o.shipping.costCents !== t.shippingCents) ctx.err('τα έξοδα αποστολής διαφέρουν από τα σύνολα της παραγγελίας.');
+    if (o.shipping.method === 'pickup' && t.shippingCents !== 0) ctx.err('η παραλαβή από το κατάστημα δεν έχει έξοδα αποστολής.');
+  }
 }
 
 function validateCoupon(c, ctx) {
   if (!isStr(c.code) || !COUPON_CODE_RE.test(c.code)) ctx.err('ο κωδικός πρέπει να έχει 3–20 κεφαλαία λατινικά γράμματα, αριθμούς, παύλα ή κάτω παύλα.');
-  if (!isIntIn(c.usedCount, 0, 1e9)) { ctx.err('το πεδίο «usedCount» πρέπει να είναι ακέραιος ≥ 0.'); return; }
+  if (!isIntIn(c.usedCount, 0, Number.MAX_SAFE_INTEGER)) { ctx.err('το πεδίο «usedCount» πρέπει να είναι ακέραιος ≥ 0.'); return; }
   if (!COUPON_TYPES.includes(c.type)) { ctx.err('Επιλέξτε τύπο έκπτωσης (percent ή fixed).'); return; }
   if (!Number.isSafeInteger(c.value)) { ctx.err(c.type === 'percent' ? 'Το ποσοστό πρέπει να είναι ακέραιος αριθμός από 1 έως 100.' : 'Συμπληρώστε ποσό μεγαλύτερο από 0 (ακέραια λεπτά).'); return; }
   if (!isCents(c.minSubtotalCents ?? 0)) ctx.err('η ελάχιστη αξία πρέπει να είναι ακέραιο ποσό ≥ 0.');
@@ -381,7 +394,13 @@ function validateStoreSettings(s, ctx) {
   if (s.contact !== undefined && !isObj(s.contact)) ctx.err('το πεδίο «contact» πρέπει να είναι αντικείμενο.');
   if (s.social !== undefined && !isObj(s.social)) ctx.err('το πεδίο «social» πρέπει να είναι αντικείμενο.');
   if (s.logo !== undefined && s.logo !== null && !isObj(s.logo)) ctx.err('το πεδίο «logo» πρέπει να είναι αντικείμενο ή null.');
-  for (const f of ['storeName', 'pickupNote', 'currency']) optionalStr(ctx, s, f, 1000);
+  for (const f of ['storeName', 'pickupNote', 'currency']) optionalStr(ctx, s, f);
+  // Leaves of the nested objects must be text (or null): settingsToForm would otherwise coerce arrays/objects.
+  for (const group of ['contact', 'social', 'logo']) {
+    const g = s[group];
+    if (!isObj(g)) continue;
+    for (const [k, v] of Object.entries(g)) if (v !== null && v !== undefined && !isStr(v)) ctx.err(`το πεδίο «${group}.${seg(k)}» πρέπει να είναι κείμενο.`);
+  }
   if (s.pricesIncludeVat !== undefined && s.pricesIncludeVat !== true) ctx.err('το demo υποστηρίζει μόνο τιμές με ΦΠΑ (pricesIncludeVat: true).');
   if (s.currency !== undefined && s.currency !== 'EUR') ctx.err('το demo υποστηρίζει μόνο νόμισμα EUR.');
   // Same validation as the settings form (round trip through its form representation).
@@ -424,9 +443,15 @@ const VALIDATORS = {
 
 // ------------------------------------------------------------------ validateImport
 
-function capped(list, noun) {
-  if (list.length <= MAX_ERRORS) return list;
-  return [...list.slice(0, MAX_ERRORS), `…και άλλα ${list.length - MAX_ERRORS} ${noun}`];
+/** Counts EVERY message but keeps only the first MAX_ERRORS (so «…και άλλα N» is the true remainder). */
+function collector() {
+  const list = [];
+  let total = 0;
+  return {
+    push(m) { total += 1; if (list.length < MAX_ERRORS) list.push(m); },
+    get length() { return total; },
+    result(noun) { return total > MAX_ERRORS ? [...list, `…και άλλα ${total - MAX_ERRORS} ${noun}`] : [...list]; },
+  };
 }
 
 /**
@@ -435,11 +460,11 @@ function capped(list, noun) {
  *   normalized (only when ok) is a deep copy of the stores, ready to be written (legacy content dropped).
  */
 export function validateImport(obj, { now = new Date() } = {}) {
-  const errors = [];
-  const warnings = [];
+  const errors = collector();
+  const warnings = collector();
   const done = () => {
     const ok = errors.length === 0;
-    return { ok, errors: capped(errors, 'σφάλματα'), warnings: capped(warnings, 'προειδοποιήσεις'), summary: { counts: summaryCounts }, ...(ok ? { normalized } : {}) };
+    return { ok, errors: errors.result('σφάλματα'), warnings: warnings.result('προειδοποιήσεις'), summary: { counts: summaryCounts }, ...(ok ? { normalized } : {}) };
   };
   let summaryCounts = {};
   let normalized;
@@ -460,7 +485,7 @@ export function validateImport(obj, { now = new Date() } = {}) {
   else if (copy.schemaVersion > SCHEMA_VERSION) errors.push(`Το αντίγραφο δημιουργήθηκε από νεότερη έκδοση της εφαρμογής (σχήμα v${copy.schemaVersion}· η τρέχουσα είναι v${SCHEMA_VERSION}) και δεν μπορεί να εισαχθεί.`);
   else if (copy.schemaVersion < SCHEMA_VERSION) errors.push(`Το αντίγραφο έχει παλαιότερη έκδοση σχήματος (v${copy.schemaVersion}) για την οποία δεν υπάρχει μετατροπή· η τρέχουσα είναι v${SCHEMA_VERSION}.`);
   if (copy.dbName !== DB_NAME) errors.push(`Το αντίγραφο προέρχεται από άλλη εφαρμογή ή demo (${quote(copy.dbName ?? '—')}) και δεν μπορεί να εισαχθεί εδώ.`);
-  if (copy.exportedAt !== undefined && !validDate(copy.exportedAt)) warnings.push('Μη έγκυρη ημερομηνία εξαγωγής (exportedAt).');
+  if (!validDate(copy.exportedAt)) errors.push('Λείπει ή δεν είναι έγκυρη η ημερομηνία εξαγωγής (exportedAt, μορφή ISO-8601).');
   if (errors.length) return done();
 
   const stores = copy.stores;

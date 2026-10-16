@@ -94,18 +94,6 @@ export function adminLayout({ active, title, view, route, crumbs = [], subtitle 
   return { root, body: root.querySelector('[data-admin-body]') };
 }
 
-/** «Σύντομα διαθέσιμο» admin page for sections built in later tasks (replaced via adminRoute). */
-export function adminPlaceholder({ active, title, route, text, crumbs, extra = '' }) {
-  const { root, body } = adminLayout({ active, title, view: 'placeholder', route, crumbs: crumbs || [{ label: title }] });
-  body.append(html(`<div class="admin-card admin-soon">
-    <span class="admin-soon-icon" aria-hidden="true"><i class="bi bi-hourglass-split"></i></span>
-    <p class="admin-soon-eyebrow">Σύντομα διαθέσιμο</p>
-    <p class="admin-soon-text">${escapeHtml(text || 'Αυτή η ενότητα της διαχείρισης ετοιμάζεται.')}</p>
-    ${extra}
-    <a class="btn btn-dark btn-sm" href="#/admin">Επιστροφή στην επισκόπηση</a>
-  </div>`));
-  return root;
-}
 
 export function adminNotFound(ctx) {
   const { root, body } = adminLayout({ active: null, title: 'Η σελίδα δεν βρέθηκε', view: 'not-found', route: ctx.path, crumbs: [{ label: 'Δεν βρέθηκε' }] });

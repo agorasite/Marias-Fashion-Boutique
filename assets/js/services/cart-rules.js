@@ -1,10 +1,11 @@
 // Pure cart rules (no DB, no DOM): shared by services/cart.js and unit tests.
+import { LINE_QTY_MAX } from './limits.js';
 
 export const clampQty = (qty, stock) => {
   const n = Math.floor(Number(qty));
   const s = Math.max(0, Math.floor(Number(stock) || 0));
   if (!Number.isFinite(n)) return 0;
-  return Math.max(0, Math.min(n, s));
+  return Math.max(0, Math.min(n, s, LINE_QTY_MAX)); // one line never exceeds LINE_QTY_MAX (orders / restock rely on it)
 };
 
 /** Add qty to the line for `sku` (or append). Returns a new array. */

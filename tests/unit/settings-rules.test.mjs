@@ -191,3 +191,31 @@ test('IRIS guard: HTML angle brackets are rejected', () => {
   assert.notEqual(irisInstructionsError('Προσομοίωση IRIS, a > b πραγματική χρέωση σε αυτό το demo.'), '');
 });
 // Out of scope (documented): Latin/Greek homoglyph mixes such as «πλήρωθηκε» typed with a Latin letter are not detected.
+
+// ---------------------------------------------------------------- Task 17 fix round: more real-payment claims
+test('IRIS guard: claims that money moved are rejected (phrases beyond the past-tense stems)', () => {
+  const bad = [
+    'Πληρωμή έγινε με επιτυχία.', 'Έγινε η πληρωμή σας.', 'Η πληρωμή σας έγινε άμεσα.', 'Η πληρωμή ολοκληρώθηκε.',
+    'Η πληρωμή σας ολοκληρώθηκε επιτυχώς.', 'Επιτυχής πληρωμή!', 'Η πληρωμή ήταν επιτυχής.',
+    'Τα χρήματα αφαιρέθηκαν από τον λογαριασμό σας.', 'Τα χρήματα αφαιρούνται αυτόματα.', 'Το ποσό εισπράχθηκε.',
+    'Η είσπραξη έγινε κανονικά.', 'Χρεώνεστε με το ποσό της παραγγελίας.', 'Χρεωθήκατε 50 €.', 'Πληρώσατε με IRIS.',
+  ];
+  for (const b of bad) assert.notEqual(irisInstructionsError(honest(b)), '', b);
+});
+test('IRIS guard: the qualified phrase is exempt only when it stands alone (closing quote or end)', () => {
+  for (const b of [
+    'Προσομοίωση: πληρώθηκε. Τα χρήματα αφαιρέθηκαν από τον λογαριασμό σας.',
+    'Η κατάσταση γίνεται Προσομοίωση: πληρώθηκε μετά την έγκριση της τράπεζας.',
+    '«Προσομοίωση: πληρώθηκε μετά την μεταφορά».',
+  ]) assert.notEqual(irisInstructionsError(honest(b)), '', b);
+});
+test('IRIS guard: benign wording still passes', () => {
+  for (const ok of [
+    DEFAULT_IRIS_INSTRUCTIONS,
+    honest('Η πληρωμή σημειώνεται ως «Προσομοίωση: πληρώθηκε» μόνο όταν πατήσετε το κουμπί.'),
+    honest('Η παραγγελία καταχωρείται με κατάσταση «Εκκρεμεί πληρωμή».'),
+    honest('Δεν γίνεται καμία πραγματική χρέωση ή συναλλαγή.'),
+    honest('Η κατάσταση γίνεται «Προσομοίωση: πληρώθηκε»'),
+    'Προσομοίωση IRIS: δεν θα γίνει πληρωμή και δεν αφαιρείται κανένα ποσό από τον λογαριασμό σας.',
+  ]) assert.equal(irisInstructionsError(ok), '', ok);
+});

@@ -86,8 +86,13 @@ export async function importAll(obj, { now = new Date() } = {}) {
     // No await on anything else: the transaction commits when its requests are done; a failing request
     // (or a throw above) aborts the whole transaction.
   });
-  dropStaleActiveCustomer(data.customers);
-  await notifyEverythingChanged(data);
+  // The data is committed from here on: a failure while refreshing views must not be reported as "nothing changed".
+  try {
+    dropStaleActiveCustomer(data.customers);
+    await notifyEverythingChanged(data);
+  } catch (e) {
+    throw Object.assign(new Error('Import committed; view refresh failed'), { code: 'committed', counts: countsOf(data), cause: e });
+  }
   return { counts: countsOf(data), warnings: v.warnings };
 }
 

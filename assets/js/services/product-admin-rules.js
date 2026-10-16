@@ -1,6 +1,7 @@
 // Pure admin product rules (no DB, no DOM): validation, price/slug/SKU helpers, variant matrix
 // generation and the admin list filter. Importable in Node; re-exported by services/product-admin.js.
 import { normalizeText, compareSizes, LOW_STOCK_TOTAL } from './products.js';
+import { PRODUCT_NAME_MAX, DESCRIPTION_MAX, ATTRIBUTE_MAX, STOCK_MAX, tooLong, formatLimit } from './limits.js';
 
 // ---------------------------------------------------------------------------------- transliteration
 
@@ -234,6 +235,7 @@ export function validateProductInput(input, { existingProducts = [], existingSku
   const errors = {};
 
   if (value.name.length < 2) errors.name = 'Το όνομα πρέπει να έχει τουλάχιστον 2 χαρακτήρες.';
+  else if (value.name.length > PRODUCT_NAME_MAX) errors.name = `Το όνομα μπορεί να έχει έως ${formatLimit(PRODUCT_NAME_MAX)} χαρακτήρες.`;
 
   if (!value.slug) errors.slug = 'Δεν είναι δυνατή η δημιουργία slug από το όνομα· συμπληρώστε το χειροκίνητα.';
   else if (!SLUG_RE.test(value.slug)) errors.slug = 'Το slug επιτρέπει μόνο μικρά λατινικά γράμματα, αριθμούς και παύλες (π.χ. mavro-forema).';
@@ -249,6 +251,10 @@ export function validateProductInput(input, { existingProducts = [], existingSku
   else if (!sub || sub.parentId !== value.categoryId) errors.subcategoryId = 'Η υποκατηγορία δεν ανήκει στην επιλεγμένη κατηγορία.';
 
   if (!value.description) errors.description = 'Συμπληρώστε περιγραφή.';
+  else if (value.description.length > DESCRIPTION_MAX) errors.description = `Η περιγραφή μπορεί να έχει έως ${formatLimit(DESCRIPTION_MAX)} χαρακτήρες.`;
+  for (const [k, v] of Object.entries(value.attributes || {})) {
+    if (typeof v === 'string' && v.length > ATTRIBUTE_MAX) errors[['material', 'care', 'fit'].includes(k) ? k : `attributes.${k}`] = tooLong(ATTRIBUTE_MAX);
+  }
 
   if (!isInt(value.priceCents) || value.priceCents <= 0) errors.priceCents = 'Η τιμή πρέπει να είναι θετικός αριθμός.';
   if (value.compareAtCents !== undefined) {
@@ -273,7 +279,7 @@ export function validateProductInput(input, { existingProducts = [], existingSku
     if (!v.size) errors[k('size')] = 'Συμπληρώστε μέγεθος.';
     if (!v.color) errors[k('color')] = 'Συμπληρώστε χρώμα.';
     if (!isValidHex(v.colorHex)) errors[k('colorHex')] = 'Μη έγκυρο χρώμα (μορφή #rrggbb).';
-    if (!isInt(v.stock) || v.stock < 0) errors[k('stock')] = 'Το stock πρέπει να είναι ακέραιος αριθμός ≥ 0.';
+    if (!isInt(v.stock) || v.stock < 0 || v.stock > STOCK_MAX) errors[k('stock')] = `Το stock πρέπει να είναι ακέραιος αριθμός από 0 έως ${formatLimit(STOCK_MAX)}.`;
     if (v.originalSku && v.originalSku !== v.sku) errors[k('sku')] = 'Το SKU υπάρχουσας παραλλαγής δεν αλλάζει. Αφαιρέστε την παραλλαγή και προσθέστε νέα.';
     else if (!v.sku) errors[k('sku')] = 'Συμπληρώστε SKU.';
     else if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,39}$/.test(v.sku)) errors[k('sku')] = 'Το SKU επιτρέπει γράμματα, αριθμούς, τελείες και παύλες (έως 40 χαρακτήρες).';

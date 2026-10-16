@@ -8,6 +8,7 @@ import { section, ctl, input } from './form-kit.js';
 import { fileToDataUrl, probeImage } from './image-upload.js';
 import { smOf } from '../../services/image-path.js';
 import { compareSizes } from '../../services/products.js';
+import { DESCRIPTION_MAX, ATTRIBUTE_MAX, STOCK_MAX } from '../../services/limits.js';
 import {
   loadAdminCatalog, getAdminProduct, saveProduct, validateProductInput, pricingFromForm, pricingToForm, discountPercent,
   slugify, generateVariantMatrix, isValidHex, SIZE_PRESETS,
@@ -108,7 +109,7 @@ function mountForm({ root, body, view, catalog, existing }) {
       ${ctl({ key: 'categoryId', label: 'Κατηγορία', required: true, col: 'col-12 col-md-4', control: (id, d) => `<select class="form-select" id="${id}" name="categoryId" data-field="categoryId" aria-describedby="${d}">
         <option value="">Επιλέξτε κατηγορία</option>${tops.map((c) => `<option value="${esc(c.id)}"${c.id === e.categoryId ? ' selected' : ''}>${esc(c.name)}</option>`).join('')}</select>` })}
       ${ctl({ key: 'subcategoryId', label: 'Υποκατηγορία', required: true, col: 'col-12 col-md-4', control: (id, d) => `<select class="form-select" id="${id}" name="subcategoryId" data-field="subcategoryId" aria-describedby="${d}">${subOptions(e.categoryId, e.subcategoryId)}</select>` })}
-      ${ctl({ key: 'description', label: 'Περιγραφή', required: true, control: (id, d) => `<textarea class="form-control" id="${id}" name="description" data-field="description" rows="5" aria-describedby="${d}">${esc(e.description)}</textarea>` })}
+      ${ctl({ key: 'description', label: 'Περιγραφή', required: true, control: (id, d) => `<textarea class="form-control" id="${id}" name="description" data-field="description" rows="5" maxlength="${DESCRIPTION_MAX}" aria-describedby="${d}">${esc(e.description)}</textarea>` })}
       <div class="col-12"><div class="admin-switch-row">
         <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="f-visible" name="visible" data-field="visible"${e.status === 'archived' ? '' : ' checked'}>
           <label class="form-check-label" for="f-visible">Εμφανίζεται στο κατάστημα</label></div>
@@ -147,9 +148,9 @@ function mountForm({ root, body, view, catalog, existing }) {
       <p class="admin-image-msg" data-image-msg role="alert" hidden></p>`, 'images')}
 
     ${section('Χαρακτηριστικά', 'Εμφανίζονται στη σελίδα του προϊόντος.', `<div class="row g-3">
-      ${ctl({ key: 'material', label: 'Υλικό', col: 'col-12 col-md-4', control: input('material', a.material || '', 'autocomplete="off"') })}
-      ${ctl({ key: 'care', label: 'Φροντίδα', col: 'col-12 col-md-4', control: input('care', a.care || '', 'autocomplete="off"') })}
-      ${ctl({ key: 'fit', label: 'Εφαρμογή', col: 'col-12 col-md-4', control: input('fit', a.fit || '', 'autocomplete="off"') })}
+      ${ctl({ key: 'material', label: 'Υλικό', col: 'col-12 col-md-4', control: input('material', a.material || '', `autocomplete="off" maxlength="${ATTRIBUTE_MAX}"`) })}
+      ${ctl({ key: 'care', label: 'Φροντίδα', col: 'col-12 col-md-4', control: input('care', a.care || '', `autocomplete="off" maxlength="${ATTRIBUTE_MAX}"`) })}
+      ${ctl({ key: 'fit', label: 'Εφαρμογή', col: 'col-12 col-md-4', control: input('fit', a.fit || '', `autocomplete="off" maxlength="${ATTRIBUTE_MAX}"`) })}
     </div>`, 'attributes')}
 
     ${section('Παραλλαγές', 'Μεγέθη × χρώματα, με SKU και stock ανά παραλλαγή.', `
@@ -436,7 +437,7 @@ function mountForm({ root, body, view, catalog, existing }) {
         ${cell(i, 'color', 'Χρώμα', `<input class="form-control form-control-sm" type="text" value="${esc(v.color)}" maxlength="30" ${f('color')}>`)}
         ${cell(i, 'colorHex', 'Κωδικός χρώματος', `<div class="admin-hex"><input class="form-control form-control-color form-control-sm" type="color" tabindex="-1" aria-hidden="true" value="${isValidHex(v.colorHex) ? esc(v.colorHex) : '#222222'}" data-vpick><input class="form-control form-control-sm" type="text" value="${esc(v.colorHex)}" maxlength="7" spellcheck="false" ${f('colorHex')}></div>`)}
         ${cell(i, 'sku', 'SKU', `<input class="form-control form-control-sm" type="text" value="${esc(v.sku)}" maxlength="40" spellcheck="false" placeholder="αυτόματο"${v.persisted ? ' readonly title="Το SKU υπάρχουσας παραλλαγής δεν αλλάζει"' : ''} ${f('sku')}>`)}
-        ${cell(i, 'stock', 'Stock', `<input class="form-control form-control-sm" type="number" min="0" step="1" inputmode="numeric" value="${esc(v.stock)}" ${f('stock')}>`)}
+        ${cell(i, 'stock', 'Stock', `<input class="form-control form-control-sm" type="number" min="0" max="${STOCK_MAX}" step="1" inputmode="numeric" value="${esc(v.stock)}" ${f('stock')}>`)}
         <td data-label="Ενέργειες"><button type="button" class="btn btn-sm btn-outline-danger" data-rm-variant="${i}" aria-label="Αφαίρεση παραλλαγής ${i + 1}${v.size && v.color ? `: ${esc(v.size)} / ${esc(v.color)}` : ''}"><i class="bi bi-trash3" aria-hidden="true"></i><span class="admin-action-label">Αφαίρεση</span></button></td>
       </tr>`;
   }).join('')}</tbody></table>`;

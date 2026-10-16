@@ -34,9 +34,21 @@ export function normalizeIrisText(text) {
     .trim();
 }
 
-// Stems (accent-free) of claims that money was taken: πληρώθηκε/πληρωθήκατε, πληρωμένη/-ο/-ες/-ος, εξοφλήθηκε/εξοφλημένη, χρεώθηκε/χρεωθήκατε, «ολοκληρώθηκε η πληρωμή».
-const CLAIM_RE = /πληρωθ|πληρωμεν|εξοφλ|χρεωθ|ολοκληρωθηκ\S*\s+(?:η\s+)?πληρωμ/;
-const QUALIFIED_RE = /προσομοιωση: πληρωθηκε(?![α-ω])/g;
+// Normalised (accent-free, lower-case, σ for ς) stems/phrases of claims that money was taken or moved:
+// πληρώθηκε/πληρωθήκατε, πληρωμένη/-ο/-ες/-ος, εξοφλήθηκε/εξοφλημένη, χρεώθηκε/χρεωθήκατε, χρεώνεστε, πληρώσατε,
+// «έγινε η πληρωμή» / «η πληρωμή (σας) έγινε», «η πληρωμή ολοκληρώθηκε» / «ολοκληρώθηκε η πληρωμή»,
+// «επιτυχής πληρωμή» / «η πληρωμή ήταν επιτυχής», αφαιρέθηκαν/αφαιρούνται (χρήματα), εισπράχθηκε, «η είσπραξη έγινε».
+// A deny-list can never be exhaustive: it stops the obvious dishonest wordings, while the settings hint
+// (and the always-visible «προσομοίωση» requirement) remain the primary control.
+const CLAIM_RE = new RegExp([
+  'πληρωθ', 'πληρωμεν', 'εξοφλ', 'χρεωθ', 'χρεωνεστε', 'πληρωσατε',
+  'ολοκληρωθηκ\\S*\\s+(?:η\\s+)?πληρωμ', 'εγινε\\s+(?:η\\s+)?πληρωμ', 'πληρωμη(?:\\s+\\S+){0,2}\\s+(?:εγινε|ολοκληρωθ)',
+  'επιτυχ\\S*\\s+πληρωμ', 'πληρωμ\\S*(?:\\s+\\S+){0,3}\\s+επιτυχ',
+  'αφαιρεθ', 'αφαιρουνται', 'εισπραχθ', 'εισπραξη(?:\\s+\\S+){0,2}\\s+εγινε',
+].join('|'));
+// The quoted status label «Προσομοίωση: πληρώθηκε» is allowed only when it stands alone: followed by a closing
+// quote/bracket or the end of the text (so «… πληρώθηκε. Τα χρήματα …» or «… πληρώθηκε μετά την …» are claims).
+const QUALIFIED_RE = /προσομοιωση: πληρωθηκε(?=\s*(?:[»"'”’)]|$))/g;
 
 /** Greek error for the demo IRIS text, or '' when it is acceptable (length, says «προσομοίωση», claims no real payment, no HTML). */
 export function irisInstructionsError(text) {

@@ -53,7 +53,7 @@ export const orderBelongsTo = (order, customerId) => !!(order && customerId && o
 
 const pick = (errors, keys) => Object.fromEntries(Object.entries(errors).filter(([k]) => keys.includes(k)));
 const ADDRESS_KEYS = ['address', 'city', 'postalCode', 'region'];
-const PROFILE_KEYS = ['firstName', 'lastName', 'email', 'phone', 'vatNumber'];
+const PROFILE_KEYS = ['firstName', 'lastName', 'email', 'phone', 'company', 'vatNumber'];
 
 /** Address validation = the checkout address rules (postal code 5 digits, region from REGIONS) + optional label. */
 export function validateAddress(a) {
