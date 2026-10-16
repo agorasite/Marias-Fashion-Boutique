@@ -5,8 +5,10 @@ let seq = 0;
 /**
  * Ask the user to confirm an action in a Bootstrap modal.
  * Resolves true on OK; false on cancel, close button, backdrop click or Escape.
+ * Options: `items` (bullet list under the message) and `requireText` (typed confirmation: OK stays
+ * disabled until exactly that text — trimmed, case-sensitive — has been typed).
  */
-export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel = 'Επιβεβαίωση', cancelLabel = 'Άκυρο', danger = false } = {}) {
+export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel = 'Επιβεβαίωση', cancelLabel = 'Άκυρο', danger = false, items = [], requireText = '' } = {}) {
   return new Promise((resolve) => {
     const id = `confirmDialog${++seq}`;
     const wrap = document.createElement('div');
@@ -17,10 +19,14 @@ export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel =
             <h2 class="modal-title h5" id="${id}-title">${esc(title)}</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Κλείσιμο"></button>
           </div>
-          <div class="modal-body" id="${id}-body"><p class="mb-0">${esc(msg)}</p></div>
+          <div class="modal-body">
+            <div id="${id}-body"><p class="mb-0">${esc(msg)}</p>${items.length ? `<ul class="confirm-items">${items.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}</div>
+            ${requireText ? `<div class="confirm-typed"><label class="form-label" for="${id}-typed">Για επιβεβαίωση πληκτρολογήστε <strong>${esc(requireText)}</strong></label>
+              <input class="form-control" id="${id}-typed" data-confirm-typed autocomplete="off" autocapitalize="characters" spellcheck="false"></div>` : ''}
+          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">${esc(cancelLabel)}</button>
-            <button type="button" class="btn ${danger ? 'btn-danger' : 'btn-dark'}" data-ok>${esc(okLabel)}</button>
+            <button type="button" class="btn ${danger ? 'btn-danger' : 'btn-dark'}" data-ok${requireText ? ' disabled' : ''}>${esc(okLabel)}</button>
           </div>
         </div>
       </div>
@@ -29,11 +35,19 @@ export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel =
     document.body.append(el);
     const modal = window.bootstrap.Modal.getOrCreateInstance(el);
     let answer = false;
-    el.querySelector('[data-ok]').addEventListener('click', () => {
+    const ok = el.querySelector('[data-ok]');
+    const typed = el.querySelector('[data-confirm-typed]');
+    const matches = () => !typed || typed.value.trim() === requireText;
+    ok.addEventListener('click', () => {
+      if (answer || !matches()) return;
       answer = true;
       modal.hide();
     });
-    el.addEventListener('shown.bs.modal', () => el.querySelector('[data-ok]').focus());
+    if (typed) {
+      typed.addEventListener('input', () => { ok.disabled = !matches(); });
+      typed.addEventListener('keydown', (e) => { if (e.key === 'Enter' && matches()) { e.preventDefault(); ok.click(); } });
+    }
+    el.addEventListener('shown.bs.modal', () => (typed || ok).focus());
     // Keep Tab / Shift+Tab cycling inside the dialog (Bootstrap's trap lets focus escape to the browser UI).
     el.addEventListener('keydown', (e) => {
       if (e.key !== 'Tab') return;

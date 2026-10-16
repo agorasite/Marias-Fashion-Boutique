@@ -36,8 +36,7 @@ route('/checkout', lazy(() => import('./pages/checkout.js')));
 route('/order/:id', lazy(() => import('./pages/confirmation.js')));
 route('/account/orders/:id', lazy(() => import('./pages/account.js')));
 route('/account/*', lazy(() => import('./pages/account.js')));
-// Admin (demo access gate: see pages/admin/gate.js). Sections of later tasks are «Σύντομα διαθέσιμο»
-// placeholders; those tasks replace them by calling adminRoute() with the same path.
+// Admin (demo access gate: see pages/admin/gate.js). Unknown admin paths render the admin «not found» page.
 const adminLayoutModule = () => import('./pages/admin/layout.js');
 adminRoute('/admin', lazy(() => import('./pages/admin/overview.js')));
 adminRoute('/admin/products', lazy(() => import('./pages/admin/products.js')));
@@ -50,12 +49,7 @@ adminRoute('/admin/customers/:id', lazy(() => import('./pages/admin/customer-det
 adminRoute('/admin/promotions', lazy(() => import('./pages/admin/coupons.js')));
 adminRoute('/admin/content', lazy(() => import('./pages/admin/content.js')));
 adminRoute('/admin/settings', lazy(() => import('./pages/admin/settings.js')));
-const ADMIN_SOON = [
-  ['/admin/backup', 'backup', 'Αντίγραφα', 'Εξαγωγή, εισαγωγή και επαναφορά των τοπικών δεδομένων.'],
-];
-for (const [path, active, title, text] of ADMIN_SOON) {
-  adminRoute(path, async () => (await adminLayoutModule()).adminPlaceholder({ active, title, route: path, text }));
-}
+adminRoute('/admin/backup', lazy(() => import('./pages/admin/backup.js')));
 adminRoute('/admin/*', async (ctx) => (await adminLayoutModule()).adminNotFound(ctx));
 setNotFound(lazy(() => import('./pages/not-found.js')));
 

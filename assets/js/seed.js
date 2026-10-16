@@ -23,25 +23,38 @@ async function loadSeedData() {
   return { meta, products: prod.products || [], content, reviews: rev.reviews || [], sample };
 }
 
-function writeSeed(t, { meta, products, content, reviews = [], sample = null }) {
-  const put = (store, v) => t.objectStore(store).put(v);
-  meta.categories.forEach((c) => put('categories', c));
-  withCouponUsage(meta.coupons, sample ? sample.couponUsage : {}).forEach((c) => put('coupons', c));
+/**
+ * Pure: the records of every store for a fresh install, as { [storeName]: record[] } (every store present,
+ * empty arrays allowed). Shared by the seed transaction and the Node tests (backup fixture). No DB, no DOM.
+ * `sample` is the ALREADY re-dated sample dataset (shiftSampleData) or null.
+ */
+export function buildSeedStores({ meta, products, content, reviews = [], sample = null }, { now = new Date() } = {}) {
+  const out = Object.fromEntries(Object.keys(STORE_DEFS).map((s) => [s, []]));
+  out.categories.push(...meta.categories);
+  out.coupons.push(...withCouponUsage(meta.coupons, sample ? sample.couponUsage : {}));
   for (const p of products) {
     const { variants = [], ...rest } = p;
-    put('products', rest);
-    variants.forEach((v) => put('variants', { ...v, productId: p.id }));
+    out.products.push(rest);
+    variants.forEach((v) => out.variants.push({ ...v, productId: p.id }));
   }
-  reviews.forEach((r) => put('reviews', r));
+  out.reviews.push(...reviews);
   // Historical orders do not touch variant stock: products.json holds the CURRENT stock.
   if (sample) {
-    sample.customers.forEach((c) => put('customers', c));
-    sample.orders.forEach((o) => put('orders', o));
+    out.customers.push(...sample.customers);
+    out.orders.push(...sample.orders);
   }
-  put('settings', { key: 'store', ...meta.settings });
+  out.settings.push({ key: 'store', ...meta.settings });
   // One document per content key (data/content.json is the single source).
-  for (const key of CONTENT_KEYS) put('content', { ...content[key], key });
-  put('settings', { key: 'seeded', seededAt: new Date().toISOString() });
+  for (const key of CONTENT_KEYS) out.content.push({ ...content[key], key });
+  out.settings.push({ key: 'seeded', seededAt: now.toISOString() });
+  return out;
+}
+
+function writeSeed(t, data) {
+  for (const [store, records] of Object.entries(buildSeedStores(data))) {
+    const os = t.objectStore(store);
+    records.forEach((r) => os.put(r));
+  }
 }
 
 const isSeeded = (t) => reqP(t.objectStore('settings').get('seeded')).then(Boolean);

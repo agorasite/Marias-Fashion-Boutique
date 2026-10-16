@@ -85,7 +85,11 @@ function pagerHtml(r) {
 
 /** Save `text` as a UTF-8 CSV with BOM (Excel-friendly) via Blob + a[download]. */
 export function downloadCsv(text, filename) {
-  const blob = new Blob(['﻿', text], { type: 'text/csv;charset=utf-8' });
+  downloadBlob(new Blob(['﻿', text], { type: 'text/csv;charset=utf-8' }), filename);
+}
+
+/** Save a Blob as a file via an object URL + a[download] (no server involved). */
+export function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
   const a = Object.assign(document.createElement('a'), { href: url, download: filename, hidden: true });
   document.body.append(a);

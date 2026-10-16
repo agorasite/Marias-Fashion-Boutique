@@ -1,0 +1,47 @@
+/* Admin backups (#/admin/backup) and the typed-confirmation variant of confirmDialog. */
+.backup-page { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1200px) {
+  .backup-page { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .backup-page > .backup-local-note { grid-column: 1 / -1; }
+  .backup-page > [data-backup-import] { grid-row: span 2; }
+}
+.backup-card { min-width: 0; }
+.backup-card-danger { border-top: 3px solid #b42318; }
+.backup-text { font-size: 0.875rem; color: var(--admin-ink); margin: 0 0 0.75rem; overflow-wrap: anywhere; }
+.backup-muted { color: var(--admin-muted); }
+.backup-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.backup-actions .btn { min-height: 44px; }
+.backup-counts-wrap { border: 1px solid var(--admin-line-soft); border-radius: 6px; overflow: hidden; }
+.backup-counts-wrap .admin-table th, .backup-counts-wrap .admin-table td { padding: 0.4rem 0.75rem; }
+.backup-counts-wrap .admin-table tbody th { font-weight: 500; }
+.backup-counts-wrap .admin-table th:first-child, .backup-counts-wrap .admin-table td:first-child { padding-left: 0.75rem; }
+.backup-counts-wrap .admin-table th:last-child, .backup-counts-wrap .admin-table td:last-child { padding-right: 0.75rem; }
+.backup-counts tbody, .backup-preview-table tbody { font-variant-numeric: tabular-nums; }
+.backup-arrow { color: var(--admin-muted); width: 1.5rem; text-align: center; padding-left: 0 !important; padding-right: 0 !important; }
+.backup-diff { font-weight: 500; font-size: 0.75rem; }
+.backup-diff.is-up { color: #146c43; }
+.backup-diff.is-down { color: #b42318; }
+.backup-file .form-control { min-height: 44px; }
+.backup-status { font-size: 0.875rem; margin-top: 0.75rem; min-height: 1.25rem; color: var(--admin-muted); }
+.backup-status:empty { display: none; }
+.backup-status.is-ok { color: #146c43; font-weight: 500; }
+.backup-status.is-error { color: #b42318; font-weight: 500; }
+[data-import-result] > * { margin-top: 0.75rem; }
+.backup-report { border: 1px solid var(--admin-line); border-left-width: 3px; border-radius: 6px; padding: 0.75rem 0.9rem; font-size: 0.875rem; min-width: 0; }
+.backup-report.is-error { border-color: #f1c4bf; border-left-color: #b42318; background: #fdf4f3; }
+.backup-report.is-warning { border-color: #f0dfb4; border-left-color: #b7791f; background: #fffaf0; }
+.backup-report.is-ok { border-color: #c3e3d0; border-left-color: #146c43; background: #f3faf6; }
+.backup-report-title { font-weight: 600; margin: 0 0 0.4rem; }
+.backup-report-foot, .backup-meta { margin: 0.5rem 0 0; color: var(--admin-muted); font-size: 0.8125rem; overflow-wrap: anywhere; }
+.backup-scroll { max-height: 16rem; overflow-y: auto; overscroll-behavior: contain; border-radius: 4px; background: rgba(255, 255, 255, 0.6); }
+.backup-scroll:focus-visible { outline: 2px solid var(--admin-ink); outline-offset: 2px; }
+.backup-list { margin: 0; padding-left: 1.2rem; }
+.backup-list li { padding: 0.15rem 0; overflow-wrap: anywhere; word-break: break-word; }
+.backup-erase-list { font-size: 0.875rem; margin-bottom: 0.75rem; }
+.backup-preview { margin-top: 1rem; }
+.backup-confirm { margin-top: 1rem; max-width: 26rem; }
+.backup-confirm .form-control, .confirm-typed .form-control { min-height: 44px; letter-spacing: 0.04em; }
+
+.confirm-items { margin: 0.75rem 0 0; padding-left: 1.2rem; font-size: 0.9rem; }
+.confirm-items li { padding: 0.1rem 0; }
+.confirm-typed { margin-top: 1rem; }
