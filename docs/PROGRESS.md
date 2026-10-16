@@ -20,15 +20,18 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 10 | Customer account, order history, tracking | complete, reviewed (1 fix round) |
 | 11 | Homepage, content service, Instagram | complete, reviewed (no fix round) |
 | 12 | Admin shell, demo gate, overview, sample data | complete, reviewed (no fix round) |
-| 13–19 | Admin products, orders, customers+coupons, content+settings; Backup/reset; A11y/responsive pass; README/handoff | not started |
+| 13 | Admin product management | complete, reviewed (1 fix round) |
+| 14–19 | Admin orders, customers+coupons, content+settings; Backup/reset; A11y/responsive pass (incl. flaky-test stability); README/handoff | not started |
 
-Overall: 12 of 19 tasks complete (~63%). Tests: unit 156, e2e 159, all green.
+Overall: 13 of 19 tasks complete (~68%). Tests: unit 183, e2e 185 (one intermittent flake noted: catalog.spec.js:226), all otherwise green.
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
 
-## Next task: Task 13 — Admin product management
-Files: `assets/js/pages/admin/products.js`; extend `services/products.js` with `saveProduct(p)`, `archiveProduct(id)`, `deleteProduct(id)`; test `tests/e2e/admin-products.spec.js`. Product list with search/filter, create/edit form (name, slug, descriptions, category/subcategory, price + sale price, images by URL or local file as data URL, sizes×colors variant matrix with per-variant stock and SKU, featured, visibility), delete only when no orders reference the product else archive, validation (duplicate SKU/slug, negative price). Admin edits must appear in the storefront after reload and must not change historical order snapshots. Use `adminRoute` (pages/admin/gate.js), the admin layout, and the existing placeholder route for #/admin/products. See ledger notes about sample orders (restock caveat belongs to Task 14).
+## Next task: Task 14 — Admin order management
+Files: `assets/js/pages/admin/orders.js`; extend `services/orders.js`; tests `tests/unit/restock.test.mjs`, `tests/e2e/admin-orders.spec.js`.
+API: `listOrders(filter)`, `updateFulfillment(id,status)`, `updatePayment(id,status)`, `addNote(id,text)`, `cancelOrder(id)`, `returnOrder(id)` (one tx each; restock exactly once via `order.restocked`), `ordersToCsv(orders)` (RFC-4180, UTF-8 BOM). Order list with search/filters, detail view (customer info, snapshot, history, internal notes), status/payment updates (valid transitions only; payment and fulfillment separate), cancel + simulated refund/return workflow, print summary, CSV export, route `#/admin/orders` and `#/admin/orders/:id` (currently a placeholder registered in app.js).
+CARRY-OVER DECISIONS (see ledger): (1) sample cancelled/returned orders already have restocked:true; cancelling/returning a sample NON-restocked order must not inflate stock for units never decremented — decide (e.g. skip restock for `sample:true` orders) and document; (2) restock must handle archived/deleted variants (skip deleted; archived variants: restore stock but they stay non-purchasable); (3) customer aggregates (orderCount/totalCents) and coupon usedCount: decide whether cancel/return adjusts them so the customers page agrees with revenue (revenue excludes cancelled/returned); (4) paymentStatus on cancel/return: refund simulation sets `refunded` only if it was `simulated-paid`.
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
