@@ -1,3 +1,4 @@
+import { vatRateToPercent } from '../services/settings-rules.js';
 import { html, escapeHtml as esc, formatMoney, toast } from '../ui.js';
 import { getCart, getQuoteForCart, setQty, changeVariant, removeLine, applyCoupon, removeCoupon } from '../services/cart.js';
 import { getAll } from '../db.js';
@@ -109,7 +110,7 @@ function summaryHtml(data) {
       ${q.discountCents ? `<div class="is-discount"><dt>Έκπτωση${couponCode ? ` (${esc(couponCode)})` : ''}</dt><dd data-sum-discount>−${esc(formatMoney(q.discountCents))}</dd></div>` : ''}
       <div><dt>Μεταφορικά (εκτίμηση)</dt><dd data-sum-shipping>${q.shippingCents ? esc(formatMoney(q.shippingCents)) : 'Δωρεάν'}</dd></div>
       <div class="cart-total-row"><dt>Σύνολο</dt><dd data-sum-total>${esc(formatMoney(q.totalCents))}</dd></div>
-      <div class="cart-vat"><dt>Συμπεριλαμβάνεται ΦΠΑ ${Math.round(settings.vatRate * 100)}%</dt><dd data-sum-vat>${esc(formatMoney(q.vatIncludedCents))}</dd></div>
+      <div class="cart-vat"><dt>Συμπεριλαμβάνεται ΦΠΑ ${vatRateToPercent(settings.vatRate)}%</dt><dd data-sum-vat>${esc(formatMoney(q.vatIncludedCents))}</dd></div>
     </dl>
     ${data.hasProblems
       ? `<button type="button" class="btn btn-dark btn-lg w-100" data-checkout disabled aria-describedby="checkoutNote">Ολοκλήρωση παραγγελίας</button>

@@ -37,6 +37,15 @@ export async function saveContent(key, value) {
   return clean;
 }
 
+/** Restore one content document to its seeded default (data/content.json); dispatches 'content:changed'. */
+export async function resetContentKey(key) {
+  if (!CONTENT_KEYS.includes(key)) throw new Error(`Unknown content key: ${key}`);
+  const doc = resolveContent(key, undefined, await loadDefaults());
+  await put('content', { ...doc, key });
+  if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('content:changed', { detail: { key } }));
+  return doc;
+}
+
 /** Store a newsletter subscription locally (no email is ever sent). */
 export async function subscribeNewsletter(email) {
   return tx(['settings'], 'readwrite', async (t) => {

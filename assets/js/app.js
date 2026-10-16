@@ -5,6 +5,8 @@ import { focusHeading, html } from './ui.js';
 import { adminRoute } from './pages/admin/gate.js';
 import { renderHeader, bindBadges } from './components/header.js';
 import { renderFooter, applySettings, applyFooterContent } from './components/footer.js';
+import { applyBrand } from './components/brand.js';
+import { formatMoney } from './services/pricing.js';
 import { renderBottomNav } from './components/bottom-nav.js';
 import { renderDemoStrip } from './components/modals.js';
 
@@ -46,9 +48,9 @@ adminRoute('/admin/orders/:id', lazy(() => import('./pages/admin/orders-detail.j
 adminRoute('/admin/customers', lazy(() => import('./pages/admin/customers.js')));
 adminRoute('/admin/customers/:id', lazy(() => import('./pages/admin/customer-detail.js')));
 adminRoute('/admin/promotions', lazy(() => import('./pages/admin/coupons.js')));
+adminRoute('/admin/content', lazy(() => import('./pages/admin/content.js')));
+adminRoute('/admin/settings', lazy(() => import('./pages/admin/settings.js')));
 const ADMIN_SOON = [
-  ['/admin/content', 'content', 'Περιεχόμενο', 'Αρχική σελίδα, banners, συλλογές και Instagram.'],
-  ['/admin/settings', 'settings', 'Ρυθμίσεις', 'Στοιχεία καταστήματος, αποστολή, ΦΠΑ και πληρωμές.'],
   ['/admin/backup', 'backup', 'Αντίγραφα', 'Εξαγωγή, εισαγωγή και επαναφορά των τοπικών δεδομένων.'],
 ];
 for (const [path, active, title, text] of ADMIN_SOON) {
@@ -102,16 +104,24 @@ function closeOpenModals() {
     showError(e);
     return;
   }
+  let storeName = 'ÉLAN Fashion Boutique';
   const refreshFooter = async () => {
     try {
       const [{ getSettings }, content] = await Promise.all([import('./services/settings.js'), import('./services/content.js')]);
       const [s, footerContent] = await Promise.all([getSettings(), content.getContent('footer')]);
       applySettings(shell.footer, s);
+      applyBrand(shell.header.header, s);
+      applyBrand(shell.header.offcanvas, s);
+      const note = shell.header.offcanvas.querySelector('.offcanvas-note');
+      if (note && Number.isFinite(s.freeShippingThresholdCents)) {
+        note.textContent = s.freeShippingThresholdCents > 0 ? `Δωρεάν αποστολή για αγορές άνω των ${formatMoney(s.freeShippingThresholdCents)}` : 'Δωρεάν αποστολή σε όλες τις παραγγελίες';
+      }
+      storeName = s.storeName || storeName;
       applyFooterContent(shell.footer, footerContent, (t) => content.fillTokens(t, s));
     } catch (e) { /* defaults already shown */ }
   };
   refreshFooter();
-  window.addEventListener('content:changed', (e) => { if (e.detail?.key === 'footer') refreshFooter(); });
+  window.addEventListener('content:changed', (e) => { if (!e.detail?.key || e.detail.key === 'footer') refreshFooter(); });
   window.addEventListener('settings:changed', refreshFooter);
   await start({
     outlet: app,
@@ -129,8 +139,8 @@ function closeOpenModals() {
     afterRender({ isFirst }) {
       const h1 = app.querySelector('h1');
       document.title = h1 && h1.textContent && !app.querySelector('[data-route="/"]')
-        ? `${h1.textContent.trim()} · ÉLAN Fashion Boutique`
-        : 'ÉLAN Fashion Boutique';
+        ? `${h1.textContent.trim()} · ${storeName}`
+        : storeName;
       if (!isFirst) {
         window.scrollTo({ top: 0, behavior: 'instant' });
         focusHeading(app);

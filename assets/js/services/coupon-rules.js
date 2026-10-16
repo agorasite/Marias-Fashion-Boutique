@@ -91,7 +91,9 @@ export function validateCouponInput(input, { existingCodes = [], editingCode = n
 
   // expiry
   let expiresAt = null;
-  const expiresOn = d.expiresOn !== undefined ? String(d.expiresOn ?? '').trim() : localDateInput(d.expiresAt);
+  const expiresOn = d.expiresOn !== undefined ? String(d.expiresOn ?? '').trim()
+    : d.expiresAt !== undefined ? localDateInput(d.expiresAt)
+    : (editing ? localDateInput(currentExpiresAt) : ''); // key absent while editing: keep the stored expiry
   if (expiresOn) {
     const end = endOfLocalDayIso(expiresOn);
     if (!end) errors.expiresOn = 'Μη έγκυρη ημερομηνία λήξης.';

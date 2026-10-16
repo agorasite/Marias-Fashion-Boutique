@@ -344,3 +344,10 @@ body[data-layout="admin"] .bottom-nav { display: none; }
   a { color: #000 !important; text-decoration: none !important; }
   .co-line-media img { max-width: 48px; }
 }
+
+/* Configurable logo image (Ρυθμίσεις → Λογότυπο) */
+.brand-logo { display: block; max-height: 40px; width: auto; max-width: 180px; object-fit: contain; }
+.brand-logo + .brand-mark { margin-top: 0.25rem; }
+.brand-footer .brand-logo { max-height: 56px; }
+.footer-contact-extra { display: flex; flex-direction: column; gap: 0.35rem; }
+.footer-contact-extra > span { display: flex; gap: 0.5rem; align-items: baseline; }

@@ -3,6 +3,8 @@
 // the storefront and logout; breadcrumbs + page title above the content area.
 import { html, escapeHtml } from '../../ui.js';
 import { logout } from './gate.js';
+import { applyAdminBrand } from '../../components/brand.js';
+import { getSettings } from '../../services/settings.js';
 
 export const ADMIN_NAV = [
   { key: 'overview', href: '#/admin', label: 'Επισκόπηση', icon: 'bi-grid-1x2' },
@@ -81,6 +83,11 @@ export function adminLayout({ active, title, view, route, crumbs = [], subtitle 
     </div>
   </section>`);
   root.querySelector('.admin-title').textContent = title;
+  // Brand follows the configured logo/wordmark (Ρυθμίσεις → Λογότυπο), live while the page is open.
+  const paintBrand = () => getSettings().then((s) => { if (root.isConnected || !root.parentNode) applyAdminBrand(root, s); }).catch(() => {});
+  paintBrand();
+  const onSettings = () => { if (!root.isConnected) { window.removeEventListener('settings:changed', onSettings); return; } paintBrand(); };
+  window.addEventListener('settings:changed', onSettings);
   root.querySelectorAll('[data-admin-logout]').forEach((b) => b.addEventListener('click', () => { hideSidebar(root); logout(); }));
   // Close the mobile offcanvas when a link inside it is followed.
   root.querySelector('#adminSidebar').addEventListener('click', (e) => { if (e.target.closest('a[href]')) hideSidebar(root); });

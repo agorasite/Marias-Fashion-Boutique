@@ -1,5 +1,6 @@
 import { DEPARTMENTS } from './header.js';
 import { aboutDemoModal } from './modals.js';
+import { applyBrand } from './brand.js';
 
 const DEFAULTS = {
   storeName: 'ÉLAN Fashion Boutique',
@@ -26,6 +27,7 @@ const SOCIAL = [
   ['instagram', 'bi-instagram', 'Instagram'],
   ['facebook', 'bi-facebook', 'Facebook'],
   ['tiktok', 'bi-tiktok', 'TikTok'],
+  ['pinterest', 'bi-pinterest', 'Pinterest'],
 ];
 
 const safeUrl = (u) => (/^https:\/\//i.test(String(u || '')) ? u : null);
@@ -55,13 +57,14 @@ export function renderFooter() {
             <span><i class="bi bi-geo-alt" aria-hidden="true"></i><span data-f="address"></span></span>
             <a data-f="phone" href="#"><i class="bi bi-telephone" aria-hidden="true"></i><span></span></a>
             <a data-f="email" href="#"><i class="bi bi-envelope" aria-hidden="true"></i><span></span></a>
+            <span data-f-extra class="footer-contact-extra"></span>
           </address>
           <button type="button" class="btn btn-link footer-link-btn mt-2" data-about-demo><i class="bi bi-info-circle" aria-hidden="true"></i>Σχετικά με το demo</button>
         </div>
       </div>
       <ul class="footer-notes list-unstyled" data-footer-notes></ul>
       <div class="footer-bottom">
-        <span>© ${new Date().getFullYear()} <span data-f="name"></span></span>
+        <span data-footer-copy>© ${new Date().getFullYear()} <span data-f="name"></span></span>
         <span>Demo κατάστημα από την AgoraSite · Οι τιμές περιλαμβάνουν ΦΠΑ</span>
       </div>
     </div>`;
@@ -100,6 +103,12 @@ export function applyFooterContent(footer, content, fill = (s) => s) {
     div.append(h, ul);
     cols.append(div);
   }
+  const copy = footer.querySelector('[data-footer-copy]');
+  if (copy) {
+    if (c.copyright) copy.textContent = fill(c.copyright);
+    else copy.innerHTML = `© ${new Date().getFullYear()} <span data-f="name"></span>`;
+    if (!c.copyright) copy.querySelector('[data-f="name"]').textContent = footer.dataset.storeName || DEFAULTS.storeName;
+  }
   const notes = footer.querySelector('[data-footer-notes]');
   notes.replaceChildren(...(c.notes || []).map((n) => {
     const li = document.createElement('li');
@@ -113,7 +122,18 @@ export function applyFooterContent(footer, content, fill = (s) => s) {
 export function applySettings(footer, settings) {
   const s = { ...DEFAULTS, ...(settings || {}) };
   const c = { ...DEFAULTS.contact, ...(s.contact || {}) };
+  applyBrand(footer, s);
+  footer.dataset.storeName = s.storeName || DEFAULTS.storeName;
   text(footer, '[data-f="name"]', s.storeName || DEFAULTS.storeName);
+  const extra = footer.querySelector('[data-f-extra]');
+  extra.replaceChildren();
+  for (const [ic, v] of [['bi-clock', c.openingHours], ['bi-building', c.vatNumber ? `ΑΦΜ ${c.vatNumber}` : '']]) {
+    if (!v) continue;
+    const sp = document.createElement('span');
+    sp.innerHTML = `<i class="bi ${ic}" aria-hidden="true"></i><span></span>`;
+    sp.lastElementChild.textContent = v;
+    extra.append(sp);
+  }
   text(footer, '[data-f="address"]', c.address);
   const phone = footer.querySelector('[data-f="phone"]');
   phone.href = `tel:${String(c.phone).replace(/[^\d+]/g, '')}`;

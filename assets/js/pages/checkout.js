@@ -1,5 +1,6 @@
 // One-page checkout. Prices come from the DB through the same quote rules as the cart; the order
 // itself is created by services/checkout.placeOrder in a single IndexedDB transaction.
+import { vatRateToPercent } from '../services/settings-rules.js';
 import { html, escapeHtml as esc, formatMoney, navigate, toast } from '../ui.js';
 import { getQuoteForCart } from '../services/cart.js';
 import { quote } from '../services/pricing.js';
@@ -99,7 +100,7 @@ function formHtml(data, saved) {
     <fieldset class="co-section" data-address-section>
       <legend class="co-legend"><span class="co-step" aria-hidden="true">3</span><span data-address-legend>Διεύθυνση αποστολής</span></legend>
       <p class="co-pickup-note" data-pickup-note hidden><i class="bi bi-info-circle" aria-hidden="true"></i>
-        Για παραλαβή από το κατάστημα${pickupAddr ? ` (${esc(pickupAddr)})` : ''} χρειαζόμαστε μόνο τα στοιχεία επικοινωνίας σας. Δεν απαιτείται διεύθυνση.</p>
+        Για παραλαβή από το κατάστημα${pickupAddr ? ` (${esc(pickupAddr)})` : ''} χρειαζόμαστε μόνο τα στοιχεία επικοινωνίας σας. Δεν απαιτείται διεύθυνση.${s.pickupNote ? ` <span data-pickup-custom>${esc(s.pickupNote)}</span>` : ''}</p>
       <div class="row g-3" data-address-fields>
         ${field({ name: 'address', label: 'Οδός και αριθμός', autocomplete: 'shipping address-line1' })}
         ${field({ name: 'city', label: 'Πόλη', autocomplete: 'shipping address-level2', col: 'col-sm-6' })}
@@ -204,7 +205,7 @@ function totalsHtml(q, data) {
     <div><dt>Μεταφορικά</dt><dd data-sum-shipping>${q.shippingCents ? esc(formatMoney(q.shippingCents)) : 'Δωρεάν'}</dd></div>
     ${q.codFeeCents ? `<div><dt>Επιβάρυνση αντικαταβολής</dt><dd data-sum-cod>${esc(formatMoney(q.codFeeCents))}</dd></div>` : ''}
     <div class="cart-total-row"><dt>Σύνολο</dt><dd data-sum-total>${esc(formatMoney(q.totalCents))}</dd></div>
-    <div class="cart-vat"><dt>Συμπεριλαμβάνεται ΦΠΑ ${Math.round(settings.vatRate * 100)}%</dt><dd data-sum-vat>${esc(formatMoney(q.vatIncludedCents))}</dd></div>
+    <div class="cart-vat"><dt>Συμπεριλαμβάνεται ΦΠΑ ${vatRateToPercent(settings.vatRate)}%</dt><dd data-sum-vat>${esc(formatMoney(q.vatIncludedCents))}</dd></div>
   </dl>`;
 }
 

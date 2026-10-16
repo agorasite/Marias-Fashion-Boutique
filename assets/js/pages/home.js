@@ -116,7 +116,7 @@ function newCollectionMarkup() {
 }
 
 function promoMarkup(banners, promos, settings) {
-  const items = (banners.items || []).filter((b) => b.placement === 'promo');
+  const items = (banners.items || []).filter((b) => b.placement === 'promo' && b.active !== false);
   const strip = promos.items || [];
   if (!items.length && !strip.length) return '';
   return `<section class="home-section home-promo reveal" data-section="promo" aria-label="Προνόμια και προσφορές">
@@ -242,6 +242,7 @@ function newsletterMarkup(nl) {
         </div>
         <div class="invalid-feedback" id="newsletterError"></div>
         <p class="nl-help" id="newsletterHelp"><i class="bi bi-shield-check me-1" aria-hidden="true"></i>Demo: δεν αποστέλλεται κανένα πραγματικό email. Η εγγραφή αποθηκεύεται μόνο στον περιηγητή σας.</p>
+        ${nl.privacyNote ? `<p class="nl-help" data-newsletter-privacy>${esc(nl.privacyNote)}</p>` : ''}
         <p class="nl-status" data-newsletter-status role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -381,7 +382,7 @@ export default async function render() {
     getSettings().catch(() => ({})),
   ]);
   const { hero, banners, collections, instagram, promos, newsletter } = content;
-  const placed = (p) => (banners.items || []).find((b) => b.placement === p);
+  const placed = (p) => (banners.items || []).find((b) => b.placement === p && b.active !== false);
   const profileUrl = /^https:\/\//.test(instagram.profileUrl || '') ? instagram.profileUrl
     : (/^https:\/\//.test(settings.social?.instagram || '') ? settings.social.instagram : '');
 

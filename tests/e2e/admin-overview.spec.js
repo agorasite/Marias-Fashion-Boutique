@@ -281,7 +281,7 @@ test('desktop: sidebar is always visible with every section; all nav targets res
   for (const h of hrefs.slice(1)) {
     await sidebar.locator(`nav a[href="${h}"]`).click();
     await expect(page).toHaveURL(new RegExp(`${h.replace(/[/#]/g, '\\$&')}$`));
-    const real = { '#/admin/products': 'products', '#/admin/orders': 'orders', '#/admin/customers': 'customers', '#/admin/promotions': 'promotions' };
+    const real = { '#/admin/products': 'products', '#/admin/orders': 'orders', '#/admin/customers': 'customers', '#/admin/promotions': 'promotions', '#/admin/content': 'content', '#/admin/settings': 'settings' };
     await expect(page.locator(`[data-admin-view="${real[h] || 'placeholder'}"]`), h).toBeVisible();
     await expect(sidebar.locator(`nav a[href="${h}"]`)).toHaveAttribute('aria-current', 'page');
   }

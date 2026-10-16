@@ -214,12 +214,14 @@ export async function placeOrder({
       updatedAt: nowIso,
     };
     await reqP(os('carts').put(nextCart));
-    return { order, replay: false, addressSkipped: !!info.addressSkipped, remaining: nextCart.lines.reduce((n, l) => n + l.qty, 0) };
+    return { order, replay: false, usedCoupon: coupon ? coupon.code : null, addressSkipped: !!info.addressSkipped, remaining: nextCart.lines.reduce((n, l) => n + l.qty, 0) };
   });
 
   if (!result.replay) {
     setActiveCustomerId(result.order.customerId);
     if (typeof window !== 'undefined') {
+      // After the commit (never inside the transaction): an open promotions page refreshes its usage counts.
+      if (result.usedCoupon) window.dispatchEvent(new CustomEvent('coupons:changed', { detail: { code: result.usedCoupon } }));
       window.dispatchEvent(new CustomEvent('cart:changed', { detail: { count: result.remaining } }));
     }
   }

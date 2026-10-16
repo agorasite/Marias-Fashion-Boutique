@@ -9,12 +9,17 @@ const load = async (name) => {
   return res.json();
 };
 
+/** Optional seed file: null instead of a fatal error when it is missing or malformed. */
+const optional = (name) => load(name).catch((e) => { console.warn(`Optional seed file ${name}.json skipped`, e); return null; });
+
 async function loadSeedData() {
   const [meta, prod, content, rev, sampleRaw] = await Promise.all([
-    load('catalog-meta'), load('products'), load('content'), load('reviews'), load('sample-data'),
+    load('catalog-meta'), load('products'), load('content'), load('reviews'), optional('sample-data'),
   ]);
   // Sample customers / historical orders, re-dated to the install day (see services/sample-data.js).
-  const sample = shiftSampleData(sampleRaw, new Date());
+  // sample-data.json is optional: when it cannot be loaded the shop is seeded without it.
+  let sample = null;
+  try { sample = sampleRaw ? shiftSampleData(sampleRaw, new Date()) : null; } catch (e) { console.warn('Sample data skipped', e); }
   return { meta, products: prod.products || [], content, reviews: rev.reviews || [], sample };
 }
 
@@ -43,7 +48,8 @@ const isSeeded = (t) => reqP(t.objectStore('settings').get('seeded')).then(Boole
 
 export async function ensureSeeded() {
   if (await tx(['settings'], 'readonly', isSeeded)) {
-    await migrateContent();
+    // Best-effort data migration: a failure (e.g. content.json unreachable) must not block an already seeded shop.
+    try { await migrateContent(); } catch (e) { console.warn('Content migration skipped', e); }
     return false;
   }
   const data = await loadSeedData();
@@ -60,6 +66,11 @@ export async function resetToSeed() {
     Object.keys(STORE_DEFS).forEach((s) => t.objectStore(s).clear());
     writeSeed(t, data);
   });
+  // After the commit: open admin/storefront views that cache settings or content can refresh.
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('settings:changed'));
+    window.dispatchEvent(new CustomEvent('content:changed', { detail: { key: null } }));
+  }
 }
 
 /**

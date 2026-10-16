@@ -4,6 +4,7 @@
 import { escapeHtml as esc, formatMoney, toast, confirmDialog, navigate } from '../../ui.js';
 import { setNavigationGuard, onPageLeave } from '../../router.js';
 import { adminLayout } from './layout.js';
+import { section, ctl, input } from './form-kit.js';
 import { fileToDataUrl, probeImage } from './image-upload.js';
 import { smOf } from '../../services/image-path.js';
 import { compareSizes } from '../../services/products.js';
@@ -18,7 +19,6 @@ const FIELD_LABELS = {
 };
 const VARIANT_LABELS = { size: 'Μέγεθος', color: 'Χρώμα', colorHex: 'Κωδικός χρώματος', sku: 'SKU', stock: 'Stock' };
 
-const idKey = (key) => key.replace(/\W+/g, '-').replace(/^-|-$/g, '');
 const blankRow = () => ({ sku: '', size: '', color: '', colorHex: '#222222', stock: 0 });
 let rowSeq = 0;
 
@@ -27,23 +27,6 @@ function labelFor(key) {
   if (m) return `Παραλλαγή ${Number(m[1]) + 1} · ${VARIANT_LABELS[m[2]] || m[2]}`;
   return FIELD_LABELS[key] || key;
 }
-
-function section(title, sub, inner, key) {
-  return `<section class="admin-card admin-form-section" aria-labelledby="sec-${key}" data-section="${key}">
-    <div class="admin-card-head"><div><h2 class="admin-card-title" id="sec-${key}">${esc(title)}</h2>${sub ? `<p class="admin-card-sub">${esc(sub)}</p>` : ''}</div></div>
-    ${inner}</section>`;
-}
-
-/** Text-like control with label, optional hint and an error slot wired through aria-describedby. */
-function ctl({ key, label, control, hint = '', col = 'col-12', required = false }) {
-  const id = `f-${idKey(key)}`;
-  const desc = `${hint ? `hint-${idKey(key)} ` : ''}err-${idKey(key)}`;
-  return `<div class="${col}"><label class="form-label" for="${id}">${esc(label)}${required ? ' <span class="admin-req" aria-hidden="true">*</span>' : ''}</label>
-    ${control(id, desc)}
-    ${hint ? `<div class="form-text" id="hint-${idKey(key)}">${esc(hint)}</div>` : ''}
-    <div class="invalid-feedback" id="err-${idKey(key)}" data-error-for="${esc(key)}"></div></div>`;
-}
-const input = (key, value = '', attrs = '') => (id, desc) => `<input class="form-control" id="${id}" name="${key}" data-field="${key}" aria-describedby="${desc}" value="${esc(value)}" ${attrs}>`;
 
 export async function renderEditor(ctx) {
   const productId = ctx.params && ctx.params.id;

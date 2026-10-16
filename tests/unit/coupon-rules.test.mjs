@@ -214,3 +214,17 @@ test('filterCoupons: search by code, status filter, sorted by code', () => {
   assert.deepEqual(filterCoupons(list, { q: 'alp', status: 'active' }, NOW).map((c) => c.code), ['ALPHA2']);
   assert.deepEqual(filterCoupons(list, { q: 'nothing' }, NOW), []);
 });
+
+// Task 16 hygiene: expiry preserved when the key is absent
+test('editing without an expiresOn key preserves the stored expiry', () => {
+  const stored = new Date(2027, 0, 20, 23, 59, 59, 999).toISOString();
+  const r = validateCouponInput({ code: 'SPRING15', type: 'percent', value: '15', editingCode: 'SPRING15' }, { existingCodes: ['SPRING15'], editingCode: 'SPRING15', currentExpiresAt: stored, now: NOW });
+  assert.equal(r.ok, true);
+  assert.equal(r.value.expiresAt, stored);
+});
+test('an explicit empty expiresOn still clears the expiry; creating without the key has none', () => {
+  const stored = new Date(2027, 0, 20, 23, 59, 59, 999).toISOString();
+  const cleared = validateCouponInput({ code: 'SPRING15', type: 'percent', value: '15', expiresOn: '' }, { existingCodes: ['SPRING15'], editingCode: 'SPRING15', currentExpiresAt: stored, now: NOW });
+  assert.equal(cleared.value.expiresAt, null);
+  assert.equal(ok({}).value.expiresAt, null);
+});

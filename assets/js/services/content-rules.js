@@ -1,6 +1,7 @@
 // Pure content rules (no DB, no DOM): content keys, shape validators, token filling and
 // newsletter helpers. Importable in Node; re-exported by content.js.
 import { formatMoney } from './pricing.js';
+import { imageSourceError } from './product-admin-rules.js';
 
 export const CONTENT_KEYS = ['hero', 'banners', 'collections', 'instagram', 'promos', 'newsletter', 'footer'];
 export const DEPARTMENT_IDS = ['women', 'men', 'shoes', 'accessories'];
@@ -52,10 +53,18 @@ function checker() {
       }
       if (!ok) at(`${p}.${field}`, 'ο σύνδεσμος πρέπει να ξεκινά με #/ ή https://');
     },
+    // Seeded paths and https URLs, plus raster data URLs from local uploads (same allow-list as product images).
+    imageSrc(obj, field, p, { required = true } = {}) {
+      const v = obj[field];
+      if (v === undefined || v === null || v === '') { if (required) at(p + '.' + field, 'υποχρεωτικό'); return; }
+      if (!isStr(v)) return at(p + '.' + field, 'μη έγκυρη διαδρομή εικόνας');
+      if (v.startsWith('data:')) { const e = imageSourceError(v); if (e) at(p + '.' + field, e); return; }
+      if (!IMAGE_RE.test(v)) at(p + '.' + field, 'μη έγκυρη διαδρομή εικόνας');
+    },
     image(obj, p, { required = true } = {}) {
       if (!obj.image && !required) return;
-      c.match(obj, 'image', p, IMAGE_RE, { label: 'μη έγκυρη διαδρομή εικόνας' });
-      c.match(obj, 'imageSm', p, IMAGE_RE, { required: false, label: 'μη έγκυρη διαδρομή εικόνας' });
+      c.imageSrc(obj, 'image', p);
+      c.imageSrc(obj, 'imageSm', p, { required: false });
       c.text(obj, 'alt', p, { max: 300 });
       for (const d of ['width', 'height']) {
         if (obj[d] !== undefined && !(Number.isInteger(obj[d]) && obj[d] > 0 && obj[d] <= 10000)) at(`${p}.${d}`, 'θετικός ακέραιος');
@@ -111,6 +120,7 @@ const VALIDATORS = {
   banners(v, c) {
     c.items(c.list(v, 'items', 'banners', { max: 8 }), 'banners.items', withId((it, p) => {
       if (!BANNER_PLACEMENTS.includes(it.placement)) c.errors.push(`${p}.placement: μία από ${BANNER_PLACEMENTS.join(', ')}`);
+      c.bool(it, 'active', p);
       c.text(it, 'eyebrow', p, { required: false, max: 80 });
       c.text(it, 'title', p, { max: 140 });
       c.text(it, 'text', p, { required: false, max: 300 });
@@ -158,9 +168,11 @@ const VALIDATORS = {
     c.text(v, 'text', 'newsletter', { required: false, max: 300 });
     c.text(v, 'buttonLabel', 'newsletter', { max: 40 });
     c.text(v, 'successText', 'newsletter', { required: false, max: 200 });
+    c.text(v, 'privacyNote', 'newsletter', { required: false, max: 300 });
   },
   footer(v, c) {
     c.text(v, 'tagline', 'footer', { max: 240 });
+    c.text(v, 'copyright', 'footer', { required: false, max: 120 });
     c.items(c.list(v, 'columns', 'footer', { max: 4 }), 'footer.columns', (col, p) => {
       c.text(col, 'title', p, { max: 40 });
       c.list(col, 'links', p, { max: 10 }).forEach((l, i) => {

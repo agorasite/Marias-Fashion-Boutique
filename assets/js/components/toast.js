@@ -26,11 +26,25 @@ export function toast(msg, type = 'success') {
     </div>`;
   el.querySelector('.toast-body').textContent = msg;
   container().append(el);
-  const t = window.bootstrap.Toast.getOrCreateInstance(el, { delay: kind === 'danger' ? 6000 : 3500 });
+  // Auto-hide is managed here (not by Bootstrap's autohide): its hover/focus rescheduling can call hide() twice
+  // during the fade-out, and the second callback then runs on a disposed toast (TypeError on a null element).
+  const delay = kind === 'danger' ? 6000 : 3500;
+  const t = window.bootstrap.Toast.getOrCreateInstance(el, { autohide: false });
+  let timer = null;
+  let hiding = false;
+  const arm = () => { clearTimeout(timer); timer = setTimeout(hide, delay); };
+  const hide = () => { if (hiding || !el.isConnected) return; hiding = true; clearTimeout(timer); t.hide(); };
+  el.addEventListener('mouseenter', () => clearTimeout(timer));
+  el.addEventListener('focusin', () => clearTimeout(timer));
+  el.addEventListener('mouseleave', () => { if (!hiding) arm(); });
+  el.addEventListener('focusout', () => { if (!hiding && !el.matches(':hover')) arm(); });
+  el.querySelector('[data-bs-dismiss]').addEventListener('click', () => { hiding = true; clearTimeout(timer); });
   el.addEventListener('hidden.bs.toast', () => {
+    clearTimeout(timer);
     t.dispose();
     el.remove();
   });
   t.show();
+  arm();
   return el;
 }
