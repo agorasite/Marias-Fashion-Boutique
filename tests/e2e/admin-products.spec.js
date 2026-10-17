@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('./support/test');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -467,6 +467,8 @@ test('removing a variant used by an order archives it (stock 0, not purchasable)
   await page.fill('[data-variant-index="1"] [data-vf="color"]', 'Μαύρο');
   await page.fill('[data-variant-index="1"] [data-vf="colorHex"]', '#111111');
   await page.locator('[data-variant-index="1"] [data-rm-variant]').click();
+  // the previous save's toast survives the in-app navigation: clear it so we wait for THIS save
+  await page.evaluate(() => document.querySelectorAll('#toastStack .toast').forEach((t) => t.remove()));
   await page.locator('[data-save]').click();
   await expect(page.locator('#toastStack')).toContainText('αποθηκεύτηκαν');
   expect((await variantsOf(page, p.id)).length).toBe(2);

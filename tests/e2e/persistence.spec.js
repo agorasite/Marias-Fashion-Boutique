@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect, pageNow } = require('./support/test');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -122,8 +122,8 @@ test('first install seeds the sample customers/orders (re-dated, stock untouched
   expect(r.customers).toHaveLength(sample.customers.length);
   expect(r.orders.every((o) => o.sample && o.demo)).toBe(true);
   const newest = r.orders.map((o) => o.createdAt).sort().pop();
-  expect(new Date(newest).getTime()).toBeLessThanOrEqual(Date.now());
-  expect(Date.now() - new Date(newest).getTime()).toBeLessThan(2 * 86400000); // re-dated to the install day
+  expect(new Date(newest).getTime()).toBeLessThanOrEqual(pageNow());
+  expect(pageNow() - new Date(newest).getTime()).toBeLessThan(2 * 86400000); // re-dated to the install day
   for (const [code, n] of Object.entries(sample.couponUsage)) expect(r.coupons.find((c) => c.code === code).usedCount).toBe(n);
   const stock = Object.fromEntries(catalog.flatMap((p) => p.variants.map((v) => [v.sku, v.stock])));
   expect(r.variants.every((v) => v.stock === stock[v.sku])).toBe(true);

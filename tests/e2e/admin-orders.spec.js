@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('./support/test');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -312,8 +312,12 @@ test('returning a delivered real order restocks once; dashboard revenue drops af
 test('sample orders (not restocked) never change stock on cancel or return, and the history says so', async ({ page }) => {
   const errors = trackErrors(page);
   await boot(page);
-  const delivered = sample.orders.find((o) => o.fulfillmentStatus === 'delivered' && !o.restocked);
-  const open = sample.orders.find((o) => o.fulfillmentStatus === 'shipped' && !o.restocked);
+  // The installed sample orders are re-dated to the install day (ids included): read them from the
+  // database, never from the raw data/sample-data.json (whose ids only match on the generation day).
+  const installed = (await page.evaluate(async () => (await import('/assets/js/db.js')).getAll('orders'))).filter((o) => o.sample);
+  expect(installed).toHaveLength(sample.orders.length);
+  const delivered = installed.find((o) => o.fulfillmentStatus === 'delivered' && !o.restocked);
+  const open = installed.find((o) => o.fulfillmentStatus === 'shipped' && !o.restocked);
   const skus = [...new Set([...delivered.lines, ...open.lines].map((l) => l.sku))];
   const snapshot = async () => Object.fromEntries(await Promise.all(skus.map(async (s) => [s, await stockOf(page, s)])));
   const before = await snapshot();
@@ -332,7 +336,7 @@ test('sample orders (not restocked) never change stock on cancel or return, and 
   expect(r.value.history.at(-1).detail).toBe('Δείγμα παραγγελίας: χωρίς επαναφορά αποθέματος');
   expect(await snapshot()).toEqual(before);
   // an already-restocked sample cancellation stays as it is
-  const done = sample.orders.find((o) => o.fulfillmentStatus === 'cancelled');
+  const done = installed.find((o) => o.fulfillmentStatus === 'cancelled');
   const same = await svc(page, 'cancelOrder', done.id);
   expect(same.value.history.length).toBe(done.history.length);
   expect(await snapshot()).toEqual(before);

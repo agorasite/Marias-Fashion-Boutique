@@ -1,5 +1,5 @@
 // Task 17: backup export, validated import (all-or-nothing) and confirmed demo reset.
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('./support/test');
 const fs = require('node:fs');
 const path = require('node:path');
 

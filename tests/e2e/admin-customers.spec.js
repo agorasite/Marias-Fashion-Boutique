@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('./support/test');
 const fs = require('node:fs');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
@@ -407,8 +407,8 @@ test('edit profile persists after reload; the id and the order link never change
   await page.fill('#cf-company', '');
   await page.fill('#cf-vatNumber', '');
   await page.locator('[data-save]').click();
-  await expect(page.locator('.toast-elan').last()).toContainText('αποθηκεύτηκαν');
-  expect(await dbGet(page, 'customers', before.id)).toMatchObject({ company: '', vatNumber: '' });
+  // (the first save's «αποθηκεύτηκαν» toast can still be on screen: wait for the stored record itself)
+  await expect.poll(async () => { const c = await dbGet(page, 'customers', before.id); return [c.company, c.vatNumber]; }).toEqual(['', '']);
   expect(errors).toEqual([]);
 });
 
