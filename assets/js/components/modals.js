@@ -3,6 +3,37 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 let seq = 0;
 
 /**
+ * Bootstrap 5.3 silently IGNORES Modal#hide() while the show (fade-in) transition runs. A quick click on
+ * «Άκυρο»/OK, Escape, or a route change within ~300 ms of opening then leaves the dialog stuck open with
+ * its answer already taken. Patch hide() once so a hide requested during the fade-in runs as soon as the
+ * dialog has finished showing. This covers data-bs-dismiss buttons, Escape and backdrop clicks, which call
+ * hide() internally. (Relies on Bootstrap's `_isShown` / `_isTransitioning` instance fields — stable
+ * throughout 5.x; harmless no-op if they ever disappear.)
+ */
+function patchModalHide() {
+  const proto = typeof window !== 'undefined' && window.bootstrap?.Modal?.prototype;
+  if (!proto || proto.__elanDeferredHide) return;
+  const original = proto.hide;
+  proto.hide = function hide(...args) {
+    if (this._isShown && this._isTransitioning && this._element && !this.__elanHidePending) {
+      this.__elanHidePending = true;
+      this._element.addEventListener('shown.bs.modal', () => { this.__elanHidePending = false; original.apply(this, args); }, { once: true });
+      return undefined;
+    }
+    return original.apply(this, args);
+  };
+  proto.__elanDeferredHide = true;
+}
+patchModalHide();
+
+/** Hide a modal element's Bootstrap instance (also while it is still fading in; see patchModalHide). */
+export function hideModal(el) {
+  patchModalHide();
+  const m = el && window.bootstrap?.Modal.getInstance(el);
+  if (m) m.hide();
+}
+
+/**
  * Ask the user to confirm an action in a Bootstrap modal.
  * Resolves true on OK; false on cancel, close button, backdrop click or Escape.
  * Options: `items` (bullet list under the message) and `requireText` (typed confirmation: OK stays
@@ -41,7 +72,7 @@ export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel =
     ok.addEventListener('click', () => {
       if (answer || !matches()) return;
       answer = true;
-      modal.hide();
+      hideModal(el);
     });
     if (typed) {
       typed.addEventListener('input', () => { ok.disabled = !matches(); });
@@ -164,7 +195,7 @@ export function quickViewModal(product, { returnFocus } = {}) {
   const el = wrap.firstElementChild;
   document.body.append(el);
   const modal = window.bootstrap.Modal.getOrCreateInstance(el);
-  el.querySelector('[data-qv-link]').addEventListener('click', () => modal.hide());
+  el.querySelector('[data-qv-link]').addEventListener('click', () => hideModal(el));
   const img = el.querySelector('.quick-view-media img');
   if (img) {
     img.addEventListener('error', () => {

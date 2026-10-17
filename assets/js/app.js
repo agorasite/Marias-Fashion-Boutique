@@ -8,7 +8,7 @@ import { renderFooter, applySettings, applyFooterContent } from './components/fo
 import { applyBrand } from './components/brand.js';
 import { formatMoney } from './services/pricing.js';
 import { renderBottomNav } from './components/bottom-nav.js';
-import { renderDemoStrip } from './components/modals.js';
+import { renderDemoStrip, hideModal } from './components/modals.js';
 
 const app = document.getElementById('app');
 
@@ -84,7 +84,8 @@ function mountShell() {
 }
 
 function closeOpenModals() {
-  document.querySelectorAll('.modal.show').forEach((m) => window.bootstrap.Modal.getInstance(m)?.hide());
+  // Includes dialogs still in their show transition (Bootstrap would ignore a plain hide() then).
+  document.querySelectorAll('.modal').forEach((m) => hideModal(m));
   // Page-owned offcanvas (the admin sidebar on mobile) is replaced with the page: close it first.
   document.querySelectorAll('#app .offcanvas.show, #app .offcanvas.showing').forEach((o) => window.bootstrap.Offcanvas.getInstance(o)?.hide());
 }

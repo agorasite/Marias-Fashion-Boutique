@@ -45,6 +45,9 @@ const field = (page, key) => page.locator(`${MODAL} [data-field="${key}"]`);
 async function fillCoupon(page, v, { edit = false } = {}) {
   if (!edit) await page.locator('[data-new-coupon]').first().click();
   await expect(page.locator(`${MODAL}.show`)).toBeVisible();
+  // `.show` is set when the fade STARTS; at its end Bootstrap and the dialog move focus to the first field.
+  // Typing before that would have the later focus move steal keystrokes, so wait for the settled focus.
+  await expect.poll(() => page.evaluate((m) => !!document.activeElement?.matches(`${m} [data-field]`), MODAL)).toBe(true);
   if (v.code !== undefined) await field(page, 'code').fill(v.code);
   if (v.type !== undefined) await field(page, 'type').selectOption(v.type);
   if (v.value !== undefined) await field(page, 'value').fill(String(v.value));
@@ -137,6 +140,7 @@ test('a percent coupon created in admin applies in the storefront cart with the 
   // live preview on the sample cart of 100 € is computed by pricing
   await page.locator('[data-new-coupon]').first().click();
   await expect(page.locator(`${MODAL}.show`)).toBeVisible();
+  await expect(field(page, 'code')).toBeFocused(); // the dialog has settled (see fillCoupon)
   await field(page, 'value').fill('17');
   await expect(page.locator(`${MODAL} [data-preview-discount]`)).toHaveText(money(1700));
   await expect(page.locator(`${MODAL} [data-preview]`)).toContainText('σε καλάθι');
@@ -533,6 +537,7 @@ test('no horizontal overflow on the list and the dialog at 320/390/768/1440', as
     expect(await overflow(page), `list ${width}`).toBeLessThanOrEqual(0);
     await page.locator('[data-new-coupon]').first().click();
     await expect(page.locator(`${MODAL}.show`)).toBeVisible();
+    await expect(field(page, 'code')).toBeFocused(); // the dialog has settled (see fillCoupon)
     await field(page, 'value').fill('0');
     await saveCouponDialog(page); // shows the errors
     expect(await overflow(page), `dialog ${width}`).toBeLessThanOrEqual(0);

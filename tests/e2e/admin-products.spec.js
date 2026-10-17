@@ -254,7 +254,10 @@ test('archive hides the product everywhere, blocks cart/checkout, and unarchive 
   await expect(page.locator(`[data-sku="${sku}"] [data-problem="archived"]`)).toBeVisible();
   await expect(page.locator('[data-checkout]')).toBeDisabled();
   await page.goto('/#/checkout');
-  await expect(page.locator('body')).toContainText('Αφαιρέστε');
+  // (was: body contains «Αφαιρέστε» — that text belongs to the CART page and only matched while the
+  // hash navigation had not rendered the checkout yet)
+  await expect(page.locator('[data-page="checkout"] [data-checkout-refusal="problems"]')).toBeVisible();
+  await expect(page.locator('[data-page="checkout"] [data-checkout-refusal="problems"]')).toContainText('Διορθώστε τα στο καλάθι');
 
   await toList(page);
   await page.fill('#pl-q', slug);
@@ -481,7 +484,8 @@ test('removing a variant used by an order archives it (stock 0, not purchasable)
   // the old order is untouched and renders
   expect((await orderById(page, order.id)).lines[0].sku).toBe(mVar.sku);
   await page.goto(`/#/order/${order.id}`);
-  await expect(page.locator('body')).toContainText(p.name);
+  // scoped to the confirmation page: the previous (cart) page also shows the name until it is replaced
+  await expect(page.locator('[data-page="confirmation"], [data-route^="/order"]').first()).toContainText(p.name);
   expect(errors).toEqual([]);
 });
 

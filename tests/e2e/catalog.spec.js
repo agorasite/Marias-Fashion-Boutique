@@ -203,11 +203,20 @@ test('wishlist heart dispatches wishlist:toggle and reflects wishlist:changed', 
   expect(await page.evaluate(() => window.__toggles)).toEqual([id]);
 });
 
-test('heart does not throw without a wishlist listener', async ({ page }) => {
+// The real wishlist service listens to wishlist:toggle (Task 8), so a click persists the heart. This test
+// used to assert that nothing happened, which only held while the IndexedDB write was still in flight.
+test('heart toggles the persisted wishlist without errors', async ({ page }) => {
   const errors = trackErrors(page);
   await open(page);
-  await page.locator(`${CARD} [data-wish]`).first().click();
-  await expect(page.locator(`${CARD} [data-wish]`).first()).toHaveAttribute('aria-pressed', 'false');
+  const heart = page.locator(`${CARD} [data-wish]`).first();
+  const id = await heart.getAttribute('data-wish');
+  const stored = () => page.evaluate(async () => (await import('/assets/js/services/wishlist.js')).list());
+  await heart.click();
+  await expect(heart).toHaveAttribute('aria-pressed', 'true');
+  await expect.poll(stored).toEqual([id]);
+  await heart.click();
+  await expect(heart).toHaveAttribute('aria-pressed', 'false');
+  await expect.poll(stored).toEqual([]);
   expect(errors).toEqual([]);
 });
 
@@ -230,6 +239,12 @@ test('filter state lives in the URL: reload and back/forward', async ({ page }) 
   await expect(page).toHaveURL(/size=L/);
   await page.locator('[data-sort]').selectOption('price-desc');
   await expect(page).toHaveURL(/sort=price-desc/);
+  // The URL is committed synchronously, the re-sorted grid a moment later: wait for the sorted DOM.
+  await expect.poll(async () => {
+    const ps = await prices(page);
+    return ps.length > 0 && ps.every((v, i) => i === 0 || ps[i - 1] >= v);
+  }).toBe(true);
+  await expect(page.locator('[data-grid]')).not.toHaveAttribute('aria-busy', 'true');
   const after = await ids(page);
   await page.reload();
   await expect(page.locator(CARD).first()).toBeVisible();
@@ -253,9 +268,8 @@ test('no horizontal overflow at 320px', async ({ page }) => {
   for (const hash of ['#/catalog', '#/catalog/women?sub=dresses', '#/catalog?q=zzzz']) {
     await page.goto(`/${hash}`);
     await expect(page.locator('#app h1')).toBeVisible();
-    await page.waitForTimeout(200);
-    const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-    expect(over, hash).toBeLessThanOrEqual(0);
+    await expect(page.locator('[data-grid]')).not.toHaveAttribute('aria-busy', 'true');
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth), { message: hash }).toBeLessThanOrEqual(0);
   }
 });
 

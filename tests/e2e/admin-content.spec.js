@@ -315,6 +315,9 @@ test('collections: add, reorder, remove and department photo persist and render'
 });
 
 test('instagram: label and mode are fixed; posts add/reorder/remove; product selection feeds the shop-the-look modal', async ({ page }) => {
+  // ~80 sequential steps across admin and storefront: needs more than the default 30 s budget on a loaded
+  // machine (it was observed timing out mid-way, never failing an assertion).
+  test.slow();
   const errors = trackErrors(page);
   await boot(page);
   await openContent(page, 'instagram');

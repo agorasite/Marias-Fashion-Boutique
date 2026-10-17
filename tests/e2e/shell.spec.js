@@ -104,9 +104,8 @@ test('offcanvas link navigates and closes the menu', async ({ page }) => {
   await expect(page).toHaveURL(/#\/catalog\/men$/);
   await expect(page.locator('#navOffcanvas')).toBeHidden();
   // Bootstrap refocuses the toggle on hidden.bs.offcanvas; the page h1 must win.
-  await page.waitForTimeout(400);
-  const focused = await page.evaluate(() => ({ tag: document.activeElement.tagName, inApp: !!document.activeElement.closest('#app') }));
-  expect(focused).toEqual({ tag: 'H1', inApp: true });
+  await expect.poll(() => page.evaluate(() => ({ tag: document.activeElement.tagName, inApp: !!document.activeElement.closest('#app') })))
+    .toEqual({ tag: 'H1', inApp: true });
 });
 
 test('searching the same query twice re-renders and refocuses the heading', async ({ page }) => {

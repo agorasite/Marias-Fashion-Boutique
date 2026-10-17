@@ -356,6 +356,7 @@ function bindInstagram(root, ig) {
 
 function bindReveal(root) {
   const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (!root.isConnected) return;
   if (reduce || !('IntersectionObserver' in window)) return;
   root.classList.add('motion-ok');
   const io = new IntersectionObserver((entries) => {
@@ -366,7 +367,23 @@ function bindReveal(root) {
       }
     }
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-  root.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  const pending = new Set(root.querySelectorAll('.reveal'));
+  pending.forEach((el) => io.observe(el));
+  // A fast scroll (End key, flick, scrollbar drag) can carry a section past the viewport between two
+  // observer checks: it never "intersects" and would stay invisible. Reveal everything that is in or
+  // above the viewport on scroll as well.
+  let raf = 0;
+  const sweep = () => {
+    raf = 0;
+    if (!root.isConnected) { window.removeEventListener('scroll', onScroll); return; }
+    for (const el of pending) {
+      if (el.classList.contains('is-in')) { pending.delete(el); continue; }
+      if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('is-in'); io.unobserve(el); pending.delete(el); }
+    }
+    if (!pending.size) window.removeEventListener('scroll', onScroll);
+  };
+  const onScroll = () => { if (!raf) raf = requestAnimationFrame(sweep); };
+  window.addEventListener('scroll', onScroll, { passive: true });
 }
 
 function bindImageFallbacks(root) {

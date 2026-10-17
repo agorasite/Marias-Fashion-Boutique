@@ -199,7 +199,11 @@ function formDialog({ coupon, returnFocus }) {
     const last = items[items.length - 1];
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
-  el.addEventListener('shown.bs.modal', () => { shown = true; (editing ? f('value') : f('code')).focus(); });
+  // Bootstrap focuses the dialog when the fade ENDS; someone who already clicked into a field during the
+  // fade keeps that field (otherwise their next keystrokes would land in the default field).
+  let userFocus = null;
+  el.addEventListener('focusin', (e) => { if (!shown && e.target !== el && e.target.matches('[data-field]')) userFocus = e.target; });
+  el.addEventListener('shown.bs.modal', () => { shown = true; (userFocus?.isConnected ? userFocus : (editing ? f('value') : f('code'))).focus(); });
   el.addEventListener('hidden.bs.modal', () => {
     modal.dispose();
     el.remove();
