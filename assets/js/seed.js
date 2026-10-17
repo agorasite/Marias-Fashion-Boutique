@@ -63,6 +63,7 @@ export async function ensureSeeded() {
   if (await tx(['settings'], 'readonly', isSeeded)) {
     // Best-effort data migration: a failure (e.g. content.json unreachable) must not block an already seeded shop.
     try { await migrateContent(); } catch (e) { console.warn('Content migration skipped', e); }
+    try { await dropRemovedImages(); } catch (e) { console.warn('Image migration skipped', e); }
     return false;
   }
   const data = await loadSeedData();
@@ -84,6 +85,24 @@ export async function resetToSeed() {
     window.dispatchEvent(new CustomEvent('settings:changed'));
     window.dispatchEvent(new CustomEvent('content:changed', { detail: { key: null } }));
   }
+}
+
+/** Seed photos deleted from the repository after release, per product (Task 18: mirrored duplicate). */
+export const REMOVED_IMAGES = { 's-combat-boots-black': ['assets/images/products/s-combat-boots-black-2.webp'] };
+
+/** Remove deleted seed photos from products of databases seeded earlier (never leaves a product without images). */
+export async function dropRemovedImages() {
+  return tx(['products'], 'readwrite', async (t) => {
+    const store = t.objectStore('products');
+    let n = 0;
+    for (const [id, gone] of Object.entries(REMOVED_IMAGES)) {
+      const p = await reqP(store.get(id));
+      if (!p || !Array.isArray(p.images)) continue;
+      const kept = p.images.filter((src) => !gone.includes(src));
+      if (kept.length && kept.length !== p.images.length) { store.put({ ...p, images: kept }); n += 1; }
+    }
+    return n;
+  });
 }
 
 /**

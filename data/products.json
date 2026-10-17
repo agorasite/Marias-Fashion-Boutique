@@ -2023,8 +2023,7 @@
       "description": "Αρβυλάκια από ανάγλυφο μαύρο δέρμα, με κορδόνια, πλαϊνό φερμουάρ για εύκολο φόρεμα και χοντρή τρακτερωτή σόλα. Δίνουν χαρακτήρα σε τζιν και φορέματα.",
       "priceCents": 12900,
       "images": [
-        "assets/images/products/s-combat-boots-black-1.webp",
-        "assets/images/products/s-combat-boots-black-2.webp"
+        "assets/images/products/s-combat-boots-black-1.webp"
       ],
       "attributes": {
         "material": "Ανάγλυφο μοσχαρίσιο δέρμα",

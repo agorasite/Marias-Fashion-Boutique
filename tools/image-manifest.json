@@ -820,19 +820,6 @@
       "outBase": "assets/images/products/s-combat-boots-black-1"
     },
     {
-      "id": "s-combat-boots-black-2",
-      "source": "pexels",
-      "pageUrl": "https://www.pexels.com/photo/a-pair-of-black-boots-with-laces-on-the-side-27204274/",
-      "downloadUrl": "https://images.pexels.com/photos/27204274/pexels-photo-27204274.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "photographer": "José Martin Segura Benites",
-      "photographerUrl": "https://www.pexels.com/@jose-martin-segura-benites-1422456152/",
-      "license": "Pexels License",
-      "licenseUrl": "https://www.pexels.com/license/",
-      "alt": "Τα μαύρα αρβυλάκια από την άλλη πλευρά, με το φερμουάρ και την ανάγλυφη υφή του δέρματος",
-      "usage": "product",
-      "outBase": "assets/images/products/s-combat-boots-black-2"
-    },
-    {
       "id": "s-suede-lace-up-boots-1",
       "source": "pexels",
       "pageUrl": "https://www.pexels.com/photo/stylish-brown-suede-casual-boots-on-display-30272899/",
