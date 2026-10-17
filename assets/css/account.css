@@ -12,18 +12,23 @@
 @media (min-width: 992px) { .acct-layout { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--elan-space-5); align-items: start; } }
 .acct-body { min-width: 0; }
 
-/* nav: horizontal scrolling tab strip on mobile, vertical list on desktop */
+/* nav: below 992px a wrapping grid of icon-over-label tabs (3 columns, 6 from 576px) — nothing scrolls
+   sideways and every label stays visible; vertical list on desktop */
 .acct-nav { min-width: 0; border-bottom: 1px solid var(--elan-line); }
-.acct-nav ul { display: flex; gap: 0.25rem; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: thin; }
-.acct-nav li { flex: none; }
-.acct-nav a { display: flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 0.9rem; color: var(--elan-muted); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; font-size: 0.9375rem; }
+.acct-nav ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.25rem; margin: 0; padding: 0; }
+.acct-nav li { min-width: 0; }
+.acct-nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem; min-height: 56px; padding: 0.35rem 0.25rem; color: var(--elan-muted); text-decoration: none; text-align: center; border-bottom: 2px solid transparent; font-size: 0.8125rem; line-height: 1.2; }
+.acct-nav a span { max-width: 100%; overflow-wrap: anywhere; }
+.acct-nav a .bi { font-size: 1.05rem; }
+@media (min-width: 576px) { .acct-nav ul { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 .acct-nav a:hover { color: var(--elan-ink); }
 .acct-nav a[aria-current="page"] { color: var(--elan-ink); border-bottom-color: var(--elan-ink); font-weight: 600; }
 .acct-nav a:focus-visible { outline: 2px solid var(--elan-ink); outline-offset: -2px; }
 @media (min-width: 992px) {
   .acct-nav { border-bottom: 0; border-right: 1px solid var(--elan-line); position: sticky; top: calc(var(--elan-header-h) + 1rem); }
-  .acct-nav ul { flex-direction: column; overflow: visible; gap: 0; }
-  .acct-nav a { border-bottom: 0; border-right: 2px solid transparent; margin-right: -1px; padding: 0 1rem; }
+  .acct-nav ul { display: flex; flex-direction: column; overflow: visible; gap: 0; }
+  .acct-nav a { flex-direction: row; justify-content: flex-start; gap: 0.5rem; min-height: 44px; text-align: left; white-space: nowrap; font-size: 0.9375rem; border-bottom: 0; border-right: 2px solid transparent; margin-right: -1px; padding: 0 1rem; }
+  .acct-nav a .bi { font-size: inherit; }
   .acct-nav a[aria-current="page"] { border-right-color: var(--elan-ink); background: var(--elan-sand); }
 }
 
