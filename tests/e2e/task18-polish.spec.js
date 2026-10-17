@@ -245,3 +245,21 @@ test('an already-seeded database drops the removed boots photo on the next load'
   await expect.poll(() => page.evaluate(async () => (await (await import('/assets/js/db.js')).get('products', 's-combat-boots-black')).images))
     .toEqual(['assets/images/products/s-combat-boots-black-1.webp']);
 });
+
+test('a slow image library never steals focus from the field the admin moved to', async ({ page }) => {
+  let release;
+  const gate = new Promise((r) => { release = r; });
+  await page.route('**/assets/images/credits.json', async (route) => { await gate; await route.continue(); });
+  await open(page, '#/');
+  await adminOn(page);
+  await go(page, '#/admin/content');
+  const panel = page.locator('[data-admin-view="content"] [data-panel]');
+  await panel.locator('[data-picker-toggle]').first().click(); // library fetch is now pending
+  const title = panel.locator('[data-bind="title"]');
+  await title.fill('Νέος τίτλος');
+  release();
+  await expect(panel.locator('[data-picker-lib] [data-lib]').first()).toBeVisible();
+  await expect(title).toBeFocused();
+  await page.keyboard.type(' 2');
+  await expect(title).toHaveValue('Νέος τίτλος 2');
+});

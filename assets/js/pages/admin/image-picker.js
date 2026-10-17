@@ -126,7 +126,9 @@ export function bindImagePickers(container, { apply }) {
       toggle.setAttribute('aria-expanded', String(open));
       const cur = input(el).value;
       lib.querySelectorAll('[data-lib]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lib === cur)));
-      if (open) lib.querySelector('button')?.focus();
+      // move into the library only if the admin is still on the toggle (the first open waits for a fetch;
+      // focus must not be pulled away from a field they moved to meanwhile)
+      if (open && (document.activeElement === toggle || document.activeElement === document.body)) lib.querySelector('button')?.focus();
       return;
     }
     const opt = e.target.closest('[data-lib]');
