@@ -160,8 +160,9 @@ export function setBadge(name, count) {
       link.removeAttribute('aria-label');
     } else if (link) {
       link.dataset.label ||= link.getAttribute('aria-label') || '';
-      // «Καλάθι: 4» — the visible badge number appears in the name as a word (WCAG 2.5.3 label in name)
-      if (link.dataset.label) link.setAttribute('aria-label', n ? `${link.dataset.label}: ${n}` : link.dataset.label);
+      // «Καλάθι, 4 προϊόντα»: the count in words, and the visible badge number («4») is contained in the
+      // accessible name as a word (WCAG 2.5.3 label in name)
+      if (link.dataset.label) link.setAttribute('aria-label', n ? `${link.dataset.label}, ${b.textContent} ${n === 1 ? 'προϊόν' : 'προϊόντα'}` : link.dataset.label);
     }
   });
 }

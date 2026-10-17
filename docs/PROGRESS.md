@@ -45,7 +45,7 @@ Files: tests `tests/e2e/responsive.spec.js`, `tests/e2e/a11y.spec.js`, `tests/e2
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.
-- `cd tests && npm test` (unit) · `npx playwright test` (e2e; static server on http://127.0.0.1:4173 starts automatically).
+- `cd tests && npm test` (unit) · `npx playwright test` (e2e; static server on http://127.0.0.1:4173 starts automatically; 6 workers by default, `PW_WORKERS=<n>` to change; kill a stale server on :4173 first — Playwright reuses it; `ELAN_TEST_DATE=YYYY-MM-DD` runs the calendar-dependent specs on another date).
 - Dev tools: `node tools/validate-seed.mjs data/products.json`, `node tools/fetch-images.mjs`, `node tools/build-products.mjs`.
 - SDD ledger (git-ignored, local): `.superpowers/sdd/2026-10-16-elan-fashion-boutique/progress.md` — contains rulings, deferred minors and per-task notes.
 

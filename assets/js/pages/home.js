@@ -57,10 +57,23 @@ async function safeContent(keys) {
 }
 
 // ------------------------------------------------------------------ section markup
+/**
+ * Hero image. Phones (≤767px) crop the 3:2 photo to a tall box (~390×675 CSS px → the cover-scaled photo is
+ * ~1010 CSS px wide); a 'sizes' guess makes DPR 2–3 phones fetch the 1920w original (78 KB). They get the
+ * 1200w file at any density instead (41 KB; visually checked at 390px DPR 2), via a <picture> source.
+ */
+function heroPicture(hero) {
+  const md = hero.imageSm && hasMd(hero.image, hero.width || 1200);
+  // without a 1200w sibling (custom photo) phones still need ~2.5× the viewport width for the cover crop
+  const img = picture(hero, { cls: 'home-hero-img', sizes: md ? '100vw' : '(max-width: 767px) 250vw, 100vw', eager: true });
+  if (!md) return img;
+  return `<picture><source media="(max-width: 767px)" srcset="${esc(mdOf(hero.image))}">${img}</picture>`;
+}
+
 function heroMarkup(hero) {
   const focal = /^[\w% ]+$/.test(hero.focal || '') ? hero.focal : '65% center';
   return `<section class="home-hero" data-section="hero" style="--hero-focal: ${esc(focal)}">
-    ${picture(hero, { cls: 'home-hero-img', sizes: '(max-width: 767px) 250vw, 100vw', eager: true })}
+    ${heroPicture(hero)}
     <div class="home-hero-shade" aria-hidden="true"></div>
     <div class="container-xl home-hero-inner">
       <div class="home-hero-copy">

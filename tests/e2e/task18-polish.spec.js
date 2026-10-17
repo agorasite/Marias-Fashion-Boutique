@@ -117,24 +117,35 @@ test('combat boots keep one photo; the mirrored duplicate is gone everywhere', (
 });
 
 // ------------------------------------------------------------------ (e) hero image weight on phones
-test('a 390px phone downloads the 1200w hero, not the 1920w original', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  const heroes = [];
-  page.on('request', (r) => { if (/content\/hero-1[^/]*\.webp/.test(r.url())) heroes.push(r.url().replace(/^.*\//, '')); });
-  await open(page, '#/');
+// Phones (≤767px) get the 1200w file at ANY pixel density (a <picture> source), desktop keeps the srcset
+// with the 1920w original. Each case runs in its own context (fresh cache, real deviceScaleFactor).
+async function heroRequests(browser, { width, height, dpr }) {
+  const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: dpr });
+  const page = await ctx.newPage();
+  const seen = [];
+  page.on('request', (r) => { if (/content\/hero-1[^/]*\.webp/.test(r.url())) seen.push(r.url().replace(/^.*\//, '')); });
+  await page.goto('/#/');
   await expect.poll(() => page.locator('.home-hero-img').evaluate((i) => i.complete && i.naturalWidth)).toBeGreaterThan(0);
-  expect(heroes).toEqual(['hero-1-md.webp']);
+  const painted = await page.locator('.home-hero-img').evaluate((i) => {
+    // layout width (offsetWidth: the intro zoom animation scales the painted box slightly)
+    return { w: i.offsetWidth, boxW: i.closest('.home-hero').offsetWidth, src: i.currentSrc.replace(/^.*\//, '') };
+  });
+  await ctx.close();
+  return { seen, painted };
+}
+for (const dpr of [1, 2, 3]) {
+  test(`a 390px phone at DPR ${dpr} downloads only the 1200w hero`, async ({ browser }) => {
+    const { seen, painted } = await heroRequests(browser, { width: 390, height: 844, dpr });
+    expect(seen).toEqual(['hero-1-md.webp']);
+    expect(painted).toMatchObject({ src: 'hero-1-md.webp', w: 390, boxW: 390 });
+  });
+}
+test('desktop 1440px DPR 1 still gets the 1920w original; the 1200w file is much lighter', async ({ browser }) => {
+  const { seen, painted } = await heroRequests(browser, { width: 1440, height: 900, dpr: 1 });
+  expect(seen).toEqual(['hero-1.webp']);
+  expect(painted).toMatchObject({ src: 'hero-1.webp', w: 1440 });
   const bytes = fs.statSync(path.join(ROOT, 'assets/images/content/hero-1-md.webp')).size;
   expect(bytes).toBeLessThan(fs.statSync(path.join(ROOT, 'assets/images/content/hero-1.webp')).size * 0.6);
-  // desktop still gets the full-size file
-  const big = await page.context().newPage();
-  await big.setViewportSize({ width: 1440, height: 900 });
-  const seen = [];
-  big.on('request', (r) => { if (/content\/hero-1[^/]*\.webp/.test(r.url())) seen.push(r.url().replace(/^.*\//, '')); });
-  await big.goto('/#/');
-  await expect.poll(() => big.locator('.home-hero-img').evaluate((i) => i.currentSrc.replace(/^.*\//, ''))).toBe('hero-1.webp');
-  expect(seen).toContain('hero-1.webp');
-  await big.close();
 });
 
 // ------------------------------------------------------------------ (f) mobile menu note
@@ -262,4 +273,22 @@ test('a slow image library never steals focus from the field the admin moved to'
   await expect(title).toBeFocused();
   await page.keyboard.type(' 2');
   await expect(title).toHaveValue('Νέος τίτλος 2');
+});
+
+test('header cart and wishlist names say the count in words and contain the visible badge number', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await open(page, '#/');
+  await page.evaluate(() => {
+    window.dispatchEvent(new CustomEvent('cart:changed', { detail: { count: 4 } }));
+    window.dispatchEvent(new CustomEvent('wishlist:changed', { detail: { count: 1 } }));
+  });
+  const cart = page.locator('.site-header a[href="#/cart"]');
+  await expect(cart).toHaveAccessibleName('Καλάθι, 4 προϊόντα');
+  await expect(cart.locator('[data-badge="cart"]')).toHaveText('4'); // visible label «4» is inside the name
+  await page.evaluate(() => window.dispatchEvent(new CustomEvent('cart:changed', { detail: { count: 1 } })));
+  await expect(cart).toHaveAccessibleName('Καλάθι, 1 προϊόν');
+  await page.evaluate(() => window.dispatchEvent(new CustomEvent('cart:changed', { detail: { count: 0 } })));
+  await expect(cart).toHaveAccessibleName('Καλάθι');
+  const wish = page.locator('.site-header a:has([data-badge="wishlist"])');
+  await expect(wish).toHaveAccessibleName('Αγαπημένα, 1 προϊόν');
 });
