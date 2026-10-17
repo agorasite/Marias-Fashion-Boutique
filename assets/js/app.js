@@ -131,6 +131,12 @@ function closeOpenModals() {
     return;
   }
   let storeName = 'ÉLAN Fashion Boutique';
+  // Title = «<page h1> · <store name>»; also re-applied when the settings arrive AFTER the first render
+  // (a fast first paint used to keep the default store name in the tab title).
+  const setTitle = () => {
+    const h1 = app.querySelector('h1');
+    document.title = h1 && h1.textContent && !app.querySelector('[data-route="/"]') ? `${h1.textContent.trim()} · ${storeName}` : storeName;
+  };
   const refreshFooter = async () => {
     try {
       const [{ getSettings }, content] = await Promise.all([import('./services/settings.js'), import('./services/content.js')]);
@@ -143,6 +149,7 @@ function closeOpenModals() {
         note.textContent = freeShippingPhrase(s.freeShippingThresholdCents);
       }
       storeName = s.storeName || storeName;
+      if (app.getAttribute('aria-busy') !== 'true') setTitle();
       applyFooterContent(shell.footer, footerContent, (t) => content.fillTokens(t, s));
     } catch (e) { /* defaults already shown */ }
   };
@@ -163,10 +170,7 @@ function closeOpenModals() {
       shell.bottom.setActive(path);
     },
     afterRender({ isFirst }) {
-      const h1 = app.querySelector('h1');
-      document.title = h1 && h1.textContent && !app.querySelector('[data-route="/"]')
-        ? `${h1.textContent.trim()} · ${storeName}`
-        : storeName;
+      setTitle();
       if (!isFirst) {
         window.scrollTo({ top: 0, behavior: 'instant' });
         focusHeading(app);
