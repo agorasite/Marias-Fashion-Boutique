@@ -25,10 +25,10 @@ Execution method: superpowers:subagent-driven-development (fresh implementer per
 | 15 | Admin customers and coupons | complete, reviewed (no fix round) |
 | 16 | Admin content and settings | complete, reviewed (1 fix round) |
 | 17 | Backup, import, reset | complete, reviewed (2 fix rounds) |
-| 18 | Accessibility, responsive and resilience pass (incl. flaky-test stability, deferred minors) | not started |
+| 18 | Accessibility, responsive and resilience pass (incl. flaky-test stability, deferred minors) | IMPLEMENTED, fix round 1 PARTIAL — stopped by user (see below) |
 | 19 | README, full regression, handoff report (qa-gates 1–14) | not started |
 
-Overall: 17 of 19 tasks complete (~89%). Tests: unit 336, e2e 293, all green (known rare flakes: catalog.spec.js:226 and :206 — to be fixed in Task 18).
+Overall: 17 of 19 tasks complete (~89%); Task 18 implemented, review "Needs fixes", fix round 1 half-done; Task 19 not started. Tests at HEAD c16e282: unit 336, e2e 344 (6/6 green runs measured on 6a6be79; default workers now 6, override PW_WORKERS).
 
 ## Task 9 — done
 Commits 46120e9 (WIP), ec5dc42, a94ec07. Reviewed; IRIS wording and checkout hardening fixed. Notes for later tasks: pickup orders have `shippingAddress: null`; `confirmIrisSimulation` refuses cancelled/returned orders.
