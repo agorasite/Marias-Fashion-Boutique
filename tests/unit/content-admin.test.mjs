@@ -76,7 +76,7 @@ test('newsletter CSV: header, rows, formula injection, parseable', () => {
   assert.equal(rows[2][1], 'x,"y"');
   assert.ok(csv.endsWith('\r\n'));
   assert.deepEqual(parseCsv(newsletterToCsv([])), [['email', 'createdAt']]);
-  assert.equal(newsletterCsvFileName(new Date(2026, 9, 5)), 'elan-newsletter-2026-10-05.csv');
+  assert.equal(newsletterCsvFileName(new Date(2026, 9, 5)), 'marias-newsletter-2026-10-05.csv');
 });
 
 test('pruneEmpty drops empty strings recursively but keeps false/0/arrays', () => {

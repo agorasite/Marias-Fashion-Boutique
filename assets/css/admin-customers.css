@@ -1,4 +1,4 @@
-/* ÉLAN admin — customers (list + profile) and promotions (coupons). Builds on admin.css / admin-products.css / admin-orders.css. */
+/* Marias admin — customers (list + profile) and promotions (coupons). Builds on admin.css / admin-products.css / admin-orders.css. */
 
 /* ---------------------------------------------------------------- customer list */
 .admin-cu-toolbar { display: grid; gap: 0.9rem; }

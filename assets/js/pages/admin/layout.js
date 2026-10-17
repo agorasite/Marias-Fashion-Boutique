@@ -17,7 +17,7 @@ export const ADMIN_NAV = [
   { key: 'backup', href: '#/admin/backup', label: 'Αντίγραφα', icon: 'bi-cloud-arrow-down' },
 ];
 
-const STORE_NAME = 'ÉLAN Fashion Boutique';
+const STORE_NAME = 'Marias Fashion Boutique';
 
 function hideSidebar(el) {
   const sidebar = el.querySelector('#adminSidebar');
@@ -42,8 +42,8 @@ export function adminLayout({ active, title, view, route, crumbs = [], subtitle 
       <aside class="admin-sidebar offcanvas-lg offcanvas-start" id="adminSidebar" tabindex="-1" aria-labelledby="adminSidebarLabel">
         <div class="admin-sidebar-head">
           <a class="admin-brand" href="#/admin" id="adminSidebarLabel">
-            <span class="admin-brand-mark" aria-hidden="true">É</span>
-            <span class="admin-brand-name">ÉLAN <span>Admin</span></span>
+            <span class="admin-brand-mark" aria-hidden="true">M</span>
+            <span class="admin-brand-name">Marias <span>Admin</span></span>
           </a>
           <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#adminSidebar" aria-label="Κλείσιμο μενού"></button>
         </div>

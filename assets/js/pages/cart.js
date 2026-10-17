@@ -25,7 +25,7 @@ const lineHtml = (l, openPanel, variantsByProduct) => {
   const insufficient = problem === 'insufficient';
   return `<li class="cart-line${problem ? ' has-problem' : ''}" data-sku="${esc(l.sku)}">
     <a class="cart-line-media" href="#/product/${esc(l.slug || '')}" tabindex="-1" aria-hidden="true">
-      ${l.image ? `<img src="${esc(smOf(l.image))}" alt="" width="120" height="160" loading="lazy">` : '<span class="cart-line-fallback">ÉLAN</span>'}
+      ${l.image ? `<img src="${esc(smOf(l.image))}" alt="" width="120" height="160" loading="lazy">` : '<span class="cart-line-fallback">Marias</span>'}
     </a>
     <div class="cart-line-main">
       <p class="cart-line-brand">${esc(l.brand)}</p>

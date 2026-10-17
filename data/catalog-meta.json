@@ -128,7 +128,7 @@
     }
   ],
   "settings": {
-    "storeName": "ÉLAN Fashion Boutique",
+    "storeName": "Marias Fashion Boutique",
     "currency": "EUR",
     "vatRate": 0.24,
     "pricesIncludeVat": true,
@@ -137,7 +137,7 @@
     "codFeeCents": 200,
     "irisInstructions": "Πρόκειται για προσομοίωση IRIS: δεν γίνεται καμία πραγματική χρέωση ή τραπεζική συναλλαγή. Η παραγγελία καταχωρείται με κατάσταση «Εκκρεμεί πληρωμή». Παρακάτω θα δείτε προσομοιωμένες οδηγίες και κωδικό πληρωμής· η πληρωμή σημειώνεται ως «Προσομοίωση: πληρώθηκε» μόνο όταν πατήσετε «Προσομοίωση πληρωμής IRIS».",
     "contact": {
-      "email": "info@elan.example",
+      "email": "info@marias.example",
       "phone": "+30 210 0000000",
       "address": "Ερμού 10, Αθήνα"
     },
@@ -159,7 +159,7 @@
       "active": true
     },
     {
-      "code": "ELAN5",
+      "code": "MARIAS5",
       "type": "fixed",
       "value": 500,
       "minSubtotalCents": 4000,

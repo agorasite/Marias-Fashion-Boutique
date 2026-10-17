@@ -429,7 +429,7 @@ test('promos: tokens are documented and filled on the home page; add and remove'
   await save(page);
   await openHome(page);
   const row = page.locator(`[data-section="promo"] [data-promo-item="promo-1"]`);
-  await expect(row).toContainText('Προνόμιο ÉLAN Fashion Boutique');
+  await expect(row).toContainText('Προνόμιο Marias Fashion Boutique');
   await expect(row).toContainText(`Δωρεάν από ${money(6000)}`);
   await openContent(page, 'promos');
   await bind(page, `items.${n}.icon`).fill('Bad Icon!');
@@ -457,7 +457,7 @@ test('newsletter: the display switch hides the home section; local subscribers a
   await expect(page.locator(`${PANEL} [data-subscriber-count]`)).toContainText('2 εγγραφές');
   await expect(page.locator(`${PANEL} .cms-sub-table`)).toContainText('tester@example.gr');
   const [download] = await Promise.all([page.waitForEvent('download'), page.locator(`${PANEL} [data-export-subscribers]`).click()]);
-  expect(download.suggestedFilename()).toMatch(/^elan-newsletter-\d{4}-\d{2}-\d{2}\.csv$/);
+  expect(download.suggestedFilename()).toMatch(/^marias-newsletter-\d{4}-\d{2}-\d{2}\.csv$/);
   const text = fs.readFileSync(await download.path(), 'utf8');
   expect(text.charCodeAt(0)).toBe(0xFEFF);
   const { parseCsv } = await import(pathToFileURL(path.join(root, 'tests/unit/csv-helper.mjs')).href);
@@ -523,7 +523,7 @@ test('footer: tagline, columns, links, notes and copyright render in the footer;
   await expect(footer.locator('[data-footer-columns] .footer-heading').last()).toHaveText('Βοήθεια');
   await expect(footer.locator('[data-footer-columns] a[href="https://example.com/faq"]')).toHaveText('Συχνές ερωτήσεις');
   await expect(footer.locator('[data-footer-notes] li').last()).toHaveText(`Νέα σημείωση ${money(6000)}`);
-  await expect(footer.locator('[data-footer-copy]')).toHaveText('© 2026 ÉLAN Fashion Boutique · Όλα τα δικαιώματα');
+  await expect(footer.locator('[data-footer-copy]')).toHaveText('© 2026 Marias Fashion Boutique · Όλα τα δικαιώματα');
   await page.reload();
   await expect(footer.locator('.footer-tagline')).toHaveText('Νέο σλόγκαν υποσέλιδου');
 

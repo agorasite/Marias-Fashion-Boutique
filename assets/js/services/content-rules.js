@@ -143,7 +143,7 @@ const VALIDATORS = {
   },
   instagram(v, c) {
     if (!INSTAGRAM_MODES.includes(v.mode)) c.errors.push(`instagram.mode: μία από ${INSTAGRAM_MODES.join(', ')}`);
-    c.match(v, 'handle', 'instagram', /^@?[A-Za-z0-9._]{1,30}$/, { label: 'π.χ. @elan.boutique' });
+    c.match(v, 'handle', 'instagram', /^@?[A-Za-z0-9._]{1,30}$/, { label: 'π.χ. @marias.boutique' });
     c.match(v, 'profileUrl', 'instagram', HTTPS_RE, { required: false, label: 'πρέπει να ξεκινά με https://' });
     c.text(v, 'title', 'instagram', { required: false, max: 120 });
     c.text(v, 'text', 'instagram', { required: false, max: 300 });

@@ -7,7 +7,7 @@ import { quote } from '../../assets/js/services/pricing.js';
 const meta = JSON.parse(readFileSync(new URL('../../data/catalog-meta.json', import.meta.url), 'utf8'));
 const SEED = meta.settings;
 const base = () => ({
-  storeName: 'ÉLAN Fashion Boutique', contactEmail: 'info@elan.example', contactPhone: '+30 210 0000000', contactAddress: 'Ερμού 10, Αθήνα',
+  storeName: 'Marias Fashion Boutique', contactEmail: 'info@marias.example', contactPhone: '+30 210 0000000', contactAddress: 'Ερμού 10, Αθήνα',
   vatNumber: '', openingHours: '', logoText: '', logoSubtext: '', logoImage: '', logoAlt: '',
   vatPercent: '24', courier: '3,90', freeShippingThreshold: '60', pickupNote: '', codFee: '2', irisInstructions: SEED.irisInstructions,
   instagram: 'https://instagram.com/elan', facebook: '', tiktok: '', pinterest: '',
@@ -22,7 +22,7 @@ test('seed defaults round-trip through the form and validate', () => {
   assert.equal(r.value.freeShippingThresholdCents, 6000);
   assert.equal(r.value.codFeeCents, 200);
   assert.equal(r.value.irisInstructions, SEED.irisInstructions);
-  assert.deepEqual(r.value.contact.email, 'info@elan.example');
+  assert.deepEqual(r.value.contact.email, 'info@marias.example');
 });
 
 test('money parsing accepts comma and dot, trims € and spaces', () => {
@@ -107,15 +107,15 @@ test('socials: https only, optional, max length', () => {
   assert.deepEqual(r.value.social, { instagram: 'https://instagram.com/elan', facebook: 'https://facebook.com/elan', pinterest: 'https://pinterest.com/elan' });
 });
 test('instagram handle is derived from the profile URL', () => {
-  assert.equal(instagramHandleFromUrl('https://instagram.com/elan.boutique/'), '@elan.boutique');
-  assert.equal(instagramHandleFromUrl('https://www.instagram.com/elan.boutique?hl=el'), '@elan.boutique');
+  assert.equal(instagramHandleFromUrl('https://instagram.com/marias.boutique/'), '@marias.boutique');
+  assert.equal(instagramHandleFromUrl('https://www.instagram.com/marias.boutique?hl=el'), '@marias.boutique');
   assert.equal(instagramHandleFromUrl('https://instagram.com/'), '');
   assert.equal(instagramHandleFromUrl(''), '');
 });
 
 test('email and phone', () => {
   for (const bad of ['', 'abc', 'a@b', 'a b@c.gr', 'a@@b.gr']) assert.equal(run({ contactEmail: bad }).ok, false, bad);
-  assert.equal(run({ contactEmail: ' Info@Elan.GR ' }).value.contact.email, 'info@elan.gr');
+  assert.equal(run({ contactEmail: ' Info@Marias.GR ' }).value.contact.email, 'info@marias.gr');
   for (const bad of ['', 'abc', '12', '+30 210 abc', '1'.repeat(30)]) assert.equal(run({ contactPhone: bad }).ok, false, bad);
   for (const ok of ['+30 210 0000000', '(210) 123-4567', '2101234567']) assert.equal(run({ contactPhone: ok }).ok, true, ok);
 });

@@ -133,7 +133,7 @@ export function aboutDemoModal(returnFocus) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Κλείσιμο"></button>
           </div>
           <div class="modal-body">
-            <p>Το ÉLAN Fashion Boutique είναι ένα φανταστικό κατάστημα επίδειξης της AgoraSite. Λειτουργεί εξ ολοκλήρου στον περιηγητή σας και δεν αποτελεί παραγωγική υποδομή.</p>
+            <p>Το Marias Fashion Boutique είναι ένα φανταστικό κατάστημα επίδειξης της AgoraSite. Λειτουργεί εξ ολοκλήρου στον περιηγητή σας και δεν αποτελεί παραγωγική υποδομή.</p>
             <ul class="demo-limits">${DEMO_LIMITATIONS.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
             <p class="small text-body-secondary mb-0">Μπορείτε να δοκιμάσετε ελεύθερα αγορές και διαχείριση· τίποτα δεν αποστέλλεται εκτός της συσκευής σας.</p>
           </div>
@@ -208,7 +208,7 @@ export function quickViewModal(product, { returnFocus } = {}) {
   const img = el.querySelector('.quick-view-media img');
   if (img) {
     img.addEventListener('error', () => {
-      const tile = Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span aria-hidden="true">ÉLAN</span>' });
+      const tile = Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span aria-hidden="true">Marias</span>' });
       tile.setAttribute('role', 'img');
       tile.setAttribute('aria-label', product.name);
       img.replaceWith(tile);

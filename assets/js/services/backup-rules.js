@@ -2,7 +2,7 @@
 // import validator. services/backup.js does the IndexedDB work; pages/admin/backup.js is the UI.
 //
 // DECISIONS (Task 17)
-// - Envelope: { format:'elan-demo-backup', schemaVersion, dbName, exportedAt, app:{name, demo:true}, counts, stores }.
+// - Envelope: { format:'marias-demo-backup', schemaVersion, dbName, exportedAt, app:{name, demo:true}, counts, stores }.
 //   It is a LOCAL file, never described as a cloud backup.
 // - schemaVersion must EQUAL the current SCHEMA_VERSION. Newer → rejected («δημιουργήθηκε από νεότερη έκδοση»).
 //   Older → rejected too: no data migration between schema versions exists yet (add one here when v2 ships).
@@ -43,8 +43,8 @@ import { normalizeEmail } from './customer-rules.js';
 import { normalizeText } from './products.js';
 import { IMPORT_STRING_MAX, IMPORT_RECORDS_MAX, LINE_QTY_MAX } from './limits.js';
 
-export const BACKUP_FORMAT = 'elan-demo-backup';
-export const BACKUP_APP = Object.freeze({ name: 'ÉLAN Fashion Boutique', demo: true });
+export const BACKUP_FORMAT = 'marias-demo-backup';
+export const BACKUP_APP = Object.freeze({ name: 'Marias Fashion Boutique', demo: true });
 export const STORE_NAMES = Object.keys(STORE_DEFS);
 export const MAX_RECORDS_PER_STORE = IMPORT_RECORDS_MAX;
 export const MAX_BACKUP_BYTES = 50 * 1024 * 1024;
@@ -106,10 +106,10 @@ export function buildBackup(stores, { now = new Date(), schemaVersion = SCHEMA_V
 
 export const serializeBackup = (obj) => JSON.stringify(obj, null, 2);
 
-/** Local-date file name: elan-backup-YYYY-MM-DD.json */
+/** Local-date file name: marias-backup-YYYY-MM-DD.json */
 export function backupFileName(now = new Date()) {
   const p = (n) => String(n).padStart(2, '0');
-  return `elan-backup-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}.json`;
+  return `marias-backup-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}.json`;
 }
 
 /** '' when a file of `bytes` may be read; a Greek error otherwise (checked BEFORE reading/parsing). */
@@ -124,7 +124,7 @@ export function parseBackupText(text) {
   try {
     return { ok: true, value: JSON.parse(String(text ?? '')) };
   } catch (e) {
-    return { ok: false, error: 'Το αρχείο δεν είναι έγκυρο JSON (ίσως είναι κατεστραμμένο ή δεν είναι αντίγραφο ασφαλείας του ÉLAN).' };
+    return { ok: false, error: 'Το αρχείο δεν είναι έγκυρο JSON (ίσως είναι κατεστραμμένο ή δεν είναι αντίγραφο ασφαλείας του Marias).' };
   }
 }
 
@@ -281,7 +281,7 @@ function validateCustomer(c, ctx) {
 }
 
 function validateOrder(o, ctx) {
-  if (!ORDER_ID_RE.test(o.id)) ctx.err('μη έγκυρος κωδικός παραγγελίας (μορφή ELAN-ΕΕΕΕΜΜΗΗ-XXXX).');
+  if (!ORDER_ID_RE.test(o.id)) ctx.err('μη έγκυρος κωδικός παραγγελίας (μορφή MARIAS-ΕΕΕΕΜΜΗΗ-XXXX).');
   checkDate(ctx, o, 'createdAt');
   if (validDate(o.createdAt) && time(o.createdAt) > ctx.now.getTime() + FUTURE_TOLERANCE_MS) ctx.err('η ημερομηνία δημιουργίας είναι στο μέλλον.');
   if (!ORDER_STATUSES.includes(o.fulfillmentStatus)) ctx.err(`μη έγκυρη κατάσταση εκτέλεσης ${quote(o.fulfillmentStatus)}.`);
@@ -474,15 +474,15 @@ export function validateImport(obj, { now = new Date() } = {}) {
   let normalized;
 
   if (!isPlain(obj)) {
-    errors.push('Το αρχείο δεν είναι αντίγραφο ασφαλείας του ÉLAN Fashion Boutique (δεν περιέχει αντικείμενο JSON).');
+    errors.push('Το αρχείο δεν είναι αντίγραφο ασφαλείας του Marias Fashion Boutique (δεν περιέχει αντικείμενο JSON).');
     return done();
   }
   // Structure-level safety first: nothing else is looked at in a hostile object.
   const copy = scanAndCopy(obj, (m) => errors.push(m));
   if (errors.length) return done();
 
-  if (copy.format !== BACKUP_FORMAT) {
-    errors.push('Μη αναγνωρισμένη μορφή αρχείου: δεν είναι αντίγραφο ασφαλείας του ÉLAN Fashion Boutique (λείπει ή διαφέρει το πεδίο «format»).');
+  if (copy.format !== BACKUP_FORMAT && copy.format !== 'elan-demo-backup') {
+    errors.push('Μη αναγνωρισμένη μορφή αρχείου: δεν είναι αντίγραφο ασφαλείας του Marias Fashion Boutique (λείπει ή διαφέρει το πεδίο «format»).');
     return done();
   }
   if (!Number.isInteger(copy.schemaVersion)) errors.push('Λείπει ή δεν είναι έγκυρη η έκδοση σχήματος (schemaVersion).');

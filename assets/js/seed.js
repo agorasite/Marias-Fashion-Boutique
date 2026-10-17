@@ -69,6 +69,7 @@ export async function ensureSeeded() {
     // Best-effort data migration: a failure (e.g. content.json unreachable) must not block an already seeded shop.
     try { await migrateContent(); } catch (e) { console.warn('Content migration skipped', e); }
     try { await dropRemovedImages(); } catch (e) { console.warn('Image migration skipped', e); }
+    try { await migrateDefaultBrand(); } catch (e) { console.warn('Brand migration skipped', e); }
     return false;
   }
   const data = await loadSeedData();
@@ -127,5 +128,60 @@ export async function migrateContent() {
     plan.deletes.forEach((k) => store.delete(k));
     plan.puts.forEach((r) => store.put(r));
     return plan.deletes.length + plan.puts.length;
+  });
+}
+
+/**
+ * Update only the original ÉLAN demo branding when an existing browser database is opened
+ * using the Marias edition. Preserve custom store names, custom product brands and orders.
+ * Do not change IDs or the IndexedDB name: customers and old order links must survive.
+ * Idempotent and safe to call again after importing a legacy backup.
+ */
+export async function migrateDefaultBrand() {
+  const names = ['settings', 'products', 'content', 'orders', 'coupons'];
+  const fromOld = (s) => typeof s === 'string' ? s
+    .replaceAll('ÉLAN Fashion Boutique', 'Marias Fashion Boutique')
+    .replaceAll('ÉLAN Denim', 'Marias Denim')
+    .replaceAll('ÉLAN', 'Marias')
+    .replaceAll('elan.boutique', 'marias.boutique')
+    .replaceAll('elan.example', 'marias.example') : s;
+  const visit = (v) => {
+    if (typeof v === 'string') return fromOld(v);
+    if (Array.isArray(v)) return v.map(visit);
+    if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, visit(x)]));
+    return v;
+  };
+  return tx(names, 'readwrite', async (t) => {
+    const count = { changed: 0 };
+    const update = (storeName, rec, next) => {
+      if (JSON.stringify(rec) !== JSON.stringify(next)) { t.objectStore(storeName).put(next); count.changed++; }
+    };
+    const [settings, products, content, orders, coupons] = await Promise.all(names.map((n) => reqP(t.objectStore(n).getAll())));
+    for (const row of settings) {
+      if (row.key !== 'store') continue;
+      const next = { ...row };
+      if (row.storeName === 'ÉLAN Fashion Boutique') next.storeName = 'Marias Fashion Boutique';
+      if (row.contact?.email === 'info@elan.example') next.contact = { ...row.contact, email: 'info@marias.example' };
+      update('settings', row, next);
+    }
+    for (const row of products) {
+      if (row.brand !== 'ÉLAN' && row.brand !== 'ÉLAN Denim') continue;
+      update('products', row, { ...row, brand: fromOld(row.brand) });
+    }
+    // Content entries are admin-editable; change only original brand tokens, preserve all other copy.
+    for (const row of content) update('content', row, visit(row));
+    for (const row of orders) {
+      const next = { ...row };
+      if (row.couponCode === 'ELAN5') next.couponCode = 'MARIAS5';
+      if (Array.isArray(row.lines)) next.lines = row.lines.map((line) => ({ ...line, brand: fromOld(line.brand) }));
+      update('orders', row, next);
+    }
+    for (const row of coupons) {
+      if (row.code !== 'ELAN5') continue;
+      t.objectStore('coupons').delete(row.code);
+      t.objectStore('coupons').put({ ...row, code: 'MARIAS5' });
+      count.changed++;
+    }
+    return count.changed;
   });
 }

@@ -51,7 +51,7 @@ test('a backup of the seed data validates ok (no errors, no warnings) and counts
   assert.equal(b.format, BACKUP_FORMAT);
   assert.equal(b.schemaVersion, SCHEMA_VERSION);
   assert.equal(b.dbName, DB_NAME);
-  assert.deepEqual(b.app, { name: 'ÉLAN Fashion Boutique', demo: true });
+  assert.deepEqual(b.app, { name: 'Marias Fashion Boutique', demo: true });
   assert.equal(b.exportedAt, NOW.toISOString());
   assert.deepEqual(Object.keys(b.stores).sort(), Object.keys(STORE_DEFS).sort());
   const r = run(b);
@@ -178,7 +178,7 @@ test('missing or wrongly typed primary keys are rejected', () => {
   c.stores.variants[0].sku = 12;
   rejects(c, /κλειδί «sku»/);
   const d = fixture();
-  d.stores.orders.push('ELAN-1');
+  d.stores.orders.push('MARIAS-1');
   rejects(d, /πρέπει να είναι αντικείμενο/);
 });
 
@@ -492,7 +492,7 @@ test('error list is ordered (envelope, then stores in schema order) and capped a
 
 // ------------------------------------------------------------------ helpers
 test('file helpers: file name, size guard, JSON parse errors in Greek', () => {
-  assert.equal(backupFileName(new Date(2026, 9, 6, 23, 30)), 'elan-backup-2026-10-06.json');
+  assert.equal(backupFileName(new Date(2026, 9, 6, 23, 30)), 'marias-backup-2026-10-06.json');
   assert.equal(backupSizeError(1000), '');
   assert.match(backupSizeError(MAX_BACKUP_BYTES + 1), /50 MB/);
   assert.match(backupSizeError(0), /κενό/);

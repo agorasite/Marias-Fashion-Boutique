@@ -196,7 +196,7 @@ function collectionsMarkup(collections) {
   if (!items.length) return '';
   return `<section class="home-section reveal" data-section="collections" aria-labelledby="home-collections">
     <div class="container-xl">
-      ${sectionHead({ eyebrow: 'Επιμέλεια ÉLAN', title: 'Προτεινόμενες συλλογές', id: 'home-collections' })}
+      ${sectionHead({ eyebrow: 'Επιμέλεια Marias', title: 'Προτεινόμενες συλλογές', id: 'home-collections' })}
       <ul class="collection-grid list-unstyled">
         ${items.map((c) => `<li><a class="collection-card" href="${esc(c.href)}">
           <span class="collection-card-media">${picture(c, { sizes: '(min-width: 768px) 50vw, 100vw', alt: '' })}</span>

@@ -61,7 +61,7 @@ function snapshotLine(line, variant, product, vatRate) {
     size: variant.size ?? null,
     color: variant.color ?? null,
     colorHex: variant.colorHex ?? null,
-    // Order snapshots never embed data: URLs (they would bloat every order); such images render the ÉLAN fallback tile.
+    // Order snapshots never embed data: URLs (they would bloat every order); such images render the Marias fallback tile.
     image: (product.images && product.images[0] && !String(product.images[0]).startsWith('data:')) ? product.images[0] : null,
     qty: line.qty,
     unitCents,

@@ -174,7 +174,7 @@ test('invalid transitions are not offered in the UI and are rejected by the serv
   expect(await svc(page, 'updateFulfillment', o.id, 'returned')).toMatchObject({ ok: false, code: 'INVALID_TRANSITION' });
   expect(await svc(page, 'returnOrder', o.id)).toMatchObject({ ok: false, code: 'INVALID_TRANSITION' });
   expect(await svc(page, 'updateFulfillment', o.id, 'bogus')).toMatchObject({ ok: false, code: 'INVALID_STATUS' });
-  expect(await svc(page, 'updateFulfillment', 'ELAN-00000000-NONE', 'delivered')).toMatchObject({ ok: false, code: 'NOT_FOUND' });
+  expect(await svc(page, 'updateFulfillment', 'MARIAS-00000000-NONE', 'delivered')).toMatchObject({ ok: false, code: 'NOT_FOUND' });
   // nothing changed
   const stored = await dbGet(page, 'orders', o.id);
   expect(stored.fulfillmentStatus).toBe('shipped');
@@ -382,9 +382,9 @@ test('pickup order (no shipping address) and a null-image line render; unknown i
   await expect(page.locator('[data-admin-view="customer-detail"]')).toBeVisible();
   await expect(page.locator('[data-page="not-found"]')).toHaveCount(0);
 
-  await page.goto('/#/admin/orders/ELAN-20990101-ZZZZ');
+  await page.goto('/#/admin/orders/MARIAS-20990101-ZZZZ');
   await expect(page.locator('[data-admin-view="order-not-found"]')).toBeVisible();
-  await expect(page.locator('[data-order-not-found]')).toContainText('ELAN-20990101-ZZZZ');
+  await expect(page.locator('[data-order-not-found]')).toContainText('MARIAS-20990101-ZZZZ');
   await expect(page.locator('[data-admin-shell]')).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -527,7 +527,7 @@ test('CSV export downloads the current filtered set (BOM, header, escaping, form
   await expect(page.locator('[data-count]')).toHaveAttribute('data-matching', String(expected.length));
   expect(expected.length).toBeGreaterThan(25); // export is the whole filtered set, not just the page
   const [download] = await Promise.all([page.waitForEvent('download'), page.locator('[data-export-csv]').click()]);
-  expect(download.suggestedFilename()).toMatch(/^elan-orders-\d{4}-\d{2}-\d{2}\.csv$/);
+  expect(download.suggestedFilename()).toMatch(/^marias-orders-\d{4}-\d{2}-\d{2}\.csv$/);
   const buf = fs.readFileSync(await download.path());
   expect([...buf.subarray(0, 3)]).toEqual([0xef, 0xbb, 0xbf]);
   const text = buf.subarray(3).toString('utf8');

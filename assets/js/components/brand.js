@@ -1,8 +1,8 @@
 // Brand rendering shared by the storefront header/footer and the admin sidebar.
-// Settings `logo` ({ text?, subtext?, image?, alt? }) overrides the default ÉLAN wordmark; unset keeps it.
+// Settings `logo` ({ text?, subtext?, image?, alt? }) overrides the default Marias wordmark; unset keeps it.
 import { escapeHtml as esc } from '../ui.js';
 
-export const DEFAULT_WORDMARK = { text: 'ÉLAN', sub: 'Fashion Boutique' };
+export const DEFAULT_WORDMARK = { text: 'Marias', sub: 'Fashion Boutique' };
 
 /** Resolve what to draw from the settings document. */
 export function brandInfo(settings = {}) {
@@ -40,7 +40,7 @@ export function applyAdminBrand(root, settings) {
   const mark = root.querySelector('.admin-brand-mark');
   const name = root.querySelector('.admin-brand-name');
   if (mark) {
-    mark.innerHTML = info.image ? `<img class="admin-brand-img" src="${esc(info.image)}" alt="" width="28" height="28">` : esc(Array.from(info.text || info.name)[0] || 'É');
+    mark.innerHTML = info.image ? `<img class="admin-brand-img" src="${esc(info.image)}" alt="" width="28" height="28">` : esc(Array.from(info.text || info.name)[0] || 'M');
   }
   if (name) name.innerHTML = `${esc(info.text || info.name)} <span>Admin</span>`;
   const top = root.querySelector('.admin-topbar-name');

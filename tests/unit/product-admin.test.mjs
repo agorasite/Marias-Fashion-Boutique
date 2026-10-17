@@ -15,7 +15,7 @@ const categories = meta.categories;
 
 const variant = (o = {}) => ({ size: 'M', color: 'Μαύρο', colorHex: '#111111', stock: 3, sku: '', ...o });
 const good = (o = {}) => ({
-  name: 'Μαύρο φόρεμα', slug: '', brand: 'ÉLAN', categoryId: 'women', subcategoryId: 'dresses',
+  name: 'Μαύρο φόρεμα', slug: '', brand: 'Marias', categoryId: 'women', subcategoryId: 'dresses',
   description: 'Όμορφο φόρεμα.', priceCents: 5900, compareAtCents: undefined,
   images: ['assets/images/products/w-shirt-dress-mustard-1.webp'],
   attributes: { material: '', care: '', fit: '' }, flags: { featured: false, new: false, bestSeller: false }, status: 'active',

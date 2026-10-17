@@ -8,6 +8,6 @@ test('shell loads without console errors', async ({ page }) => {
   });
   await page.goto('/');
   await expect(page.locator('#app')).toHaveCount(1);
-  await expect(page).toHaveTitle(/ÉLAN/);
+  await expect(page).toHaveTitle(/Marias/);
   expect(errors).toEqual([]);
 });

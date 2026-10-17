@@ -10,7 +10,7 @@
 //   IndexedDB requests happens inside the transaction.
 // - resetDemo reuses seed.resetToSeed (one atomic wipe + reseed); no second copy of the seeding logic.
 import { tx, reqP, DB_NAME, SCHEMA_VERSION } from '../db.js';
-import { resetToSeed } from '../seed.js';
+import { resetToSeed, migrateDefaultBrand } from '../seed.js';
 import { STORE_NAMES, buildBackup, validateImport, countsOf } from './backup-rules.js';
 import { getActiveCustomerId, setActiveCustomerId } from './customers.js';
 
@@ -86,6 +86,8 @@ export async function importAll(obj, { now = new Date() } = {}) {
     // No await on anything else: the transaction commits when its requests are done; a failing request
     // (or a throw above) aborts the whole transaction.
   });
+  // Rebrand original ÉLAN defaults in previously exported demo backups (customized content is preserved).
+  await migrateDefaultBrand();
   // The data is committed from here on: a failure while refreshing views must not be reported as "nothing changed".
   try {
     dropStaleActiveCustomer(data.customers);

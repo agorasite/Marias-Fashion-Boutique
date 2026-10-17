@@ -22,7 +22,7 @@ const icon = (href, ic, label, badge) => `<a class="header-icon" href="${href}" 
 function offcanvasMarkup() {
   return `<div class="offcanvas offcanvas-start offcanvas-elan" tabindex="-1" id="navOffcanvas" aria-labelledby="navOffcanvasLabel">
     <div class="offcanvas-header">
-      <p class="offcanvas-title brand-mark mb-0" id="navOffcanvasLabel">ÉLAN<span class="visually-hidden"> — Μενού</span></p>
+      <p class="offcanvas-title brand-mark mb-0" id="navOffcanvasLabel">Marias<span class="visually-hidden"> — Μενού</span></p>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Κλείσιμο μενού"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column">
@@ -56,7 +56,7 @@ export function renderHeader() {
           <i class="bi bi-list" aria-hidden="true"></i>
         </button>
         <a class="brand" href="#/">
-          <span class="brand-mark">ÉLAN</span> <span class="brand-sub">Fashion Boutique</span><span class="visually-hidden"> — Αρχική</span>
+          <span class="brand-mark">Marias</span> <span class="brand-sub">Fashion Boutique</span><span class="visually-hidden"> — Αρχική</span>
         </a>
       </div>
       <nav class="header-nav d-none d-lg-flex" aria-label="Κύρια πλοήγηση">

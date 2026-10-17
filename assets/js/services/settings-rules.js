@@ -79,7 +79,7 @@ export function vatRateToPercent(rate) {
   return String(Math.round(n * 10000) / 100).replace('.', ',');
 }
 
-/** «https://instagram.com/elan.boutique/» → «@elan.boutique»; '' when no handle can be derived. */
+/** «https://instagram.com/marias.boutique/» → «@marias.boutique»; '' when no handle can be derived. */
 export function instagramHandleFromUrl(url) {
   const m = /^https:\/\/(?:www\.)?instagram\.com\/([A-Za-z0-9._]{1,30})\/?(?:[?#].*)?$/i.exec(str(url));
   return m ? `@${m[1]}` : '';
@@ -134,7 +134,7 @@ export function validateSettingsInput(input) {
 
   let email = str(d.contactEmail).toLowerCase();
   if (!email) errors.contactEmail = 'Συμπληρώστε το email επικοινωνίας.';
-  else if (email.length > 254 || !EMAIL_RE.test(email)) errors.contactEmail = 'Το email δεν είναι έγκυρο (π.χ. info@elan.gr).';
+  else if (email.length > 254 || !EMAIL_RE.test(email)) errors.contactEmail = 'Το email δεν είναι έγκυρο (π.χ. info@marias.gr).';
   const phone = str(d.contactPhone);
   if (!phone) errors.contactPhone = 'Συμπληρώστε το τηλέφωνο.';
   else if (!PHONE_RE.test(phone) || phone.replace(/\D/g, '').length < 5) errors.contactPhone = 'Μη έγκυρο τηλέφωνο: επιτρέπονται ψηφία, +, -, ( ), τελεία και κενά.';

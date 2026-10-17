@@ -36,7 +36,7 @@ const idbPut = (page, store, value) => page.evaluate(({ db, store, value }) => n
 const product = async (page, id) => (await idbAll(page, 'products')).find((p) => p.id === id);
 const variantsOf = async (page, id) => (await idbAll(page, 'variants')).filter((v) => v.productId === id);
 const input = (o = {}) => ({
-  name: 'Δοκιμαστικό φόρεμα Zeta', slug: '', brand: 'ÉLAN', categoryId: 'women', subcategoryId: 'dresses',
+  name: 'Δοκιμαστικό φόρεμα Zeta', slug: '', brand: 'Marias', categoryId: 'women', subcategoryId: 'dresses',
   description: 'Δοκιμαστική περιγραφή.', priceCents: 8000, compareAtCents: 10000, images: [IMG],
   attributes: {}, flags: { featured: false, new: false, bestSeller: false }, status: 'active',
   variants: [

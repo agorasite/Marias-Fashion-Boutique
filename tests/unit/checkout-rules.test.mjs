@@ -135,12 +135,12 @@ test('customer id is deterministic from the lowercased trimmed email', () => {
   assert.notEqual(a, customerIdFromEmail('maria2@example.gr'));
 });
 
-test('order ids look like ELAN-YYYYMMDD-XXXX', () => {
+test('order ids look like MARIAS-YYYYMMDD-XXXX', () => {
   const id = makeOrderId(new Date(2026, 9, 6, 23, 59), () => 0.5);
   assert.match(id, ORDER_ID_RE);
-  assert.ok(id.startsWith('ELAN-20261006-'));
+  assert.ok(id.startsWith('MARIAS-20261006-'));
   const seen = new Set();
   for (let i = 0; i < 200; i++) seen.add(makeOrderId(new Date()));
   assert.ok(seen.size > 190);
-  for (const x of seen) assert.match(x, /^ELAN-\d{8}-[0-9A-Z]{4}$/);
+  for (const x of seen) assert.match(x, /^MARIAS-\d{8}-[0-9A-Z]{4}$/);
 });

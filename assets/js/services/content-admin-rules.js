@@ -123,5 +123,5 @@ export function newsletterToCsv(list) {
 
 export function newsletterCsvFileName(now = new Date()) {
   const p = (n) => String(n).padStart(2, '0');
-  return `elan-newsletter-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}.csv`;
+  return `marias-newsletter-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}.csv`;
 }

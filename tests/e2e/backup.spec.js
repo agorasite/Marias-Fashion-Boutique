@@ -94,17 +94,17 @@ test('the backup page replaces the placeholder: three cards, local-only wording,
   expect(errors).toEqual([]);
 });
 
-test('export downloads elan-backup-YYYY-MM-DD.json whose counts equal IndexedDB and which validates', async ({ page }) => {
+test('export downloads marias-backup-YYYY-MM-DD.json whose counts equal IndexedDB and which validates', async ({ page }) => {
   const errors = trackErrors(page);
   await boot(page);
   await openBackup(page);
   const before = await snapshot(page);
   const { name, json } = await exportViaUi(page);
-  expect(name).toMatch(/^elan-backup-\d{4}-\d{2}-\d{2}\.json$/);
-  expect(json.format).toBe('elan-demo-backup');
+  expect(name).toMatch(/^marias-backup-\d{4}-\d{2}-\d{2}\.json$/);
+  expect(json.format).toBe('marias-demo-backup');
   expect(json.dbName).toBe('agorasite-fashion1-v1');
   expect(json.schemaVersion).toBe(1);
-  expect(json.app).toEqual({ name: 'ÉLAN Fashion Boutique', demo: true });
+  expect(json.app).toEqual({ name: 'Marias Fashion Boutique', demo: true });
   expect(Number.isNaN(Date.parse(json.exportedAt))).toBe(false);
   const counts = await page.evaluate(async () => (await import('/assets/js/services/backup.js')).storeCounts());
   expect(json.counts).toEqual(counts);
@@ -169,7 +169,7 @@ test('invalid files show Greek errors, keep the import button unavailable and le
   iris.stores.settings.find((s) => s.key === 'store').irisInstructions = DISHONEST_IRIS;
 
   const cases = [
-    [fileOf('broken.json', '{"format": "elan-demo-backup", "stores": ['), /δεν είναι έγκυρο JSON/],
+    [fileOf('broken.json', '{"format": "marias-demo-backup", "stores": ['), /δεν είναι έγκυρο JSON/],
     [fileOf('other.json', { hello: 'world', version: 3 }), /Μη αναγνωρισμένη μορφή αρχείου/],
     [fileOf('bad-line.json', badLine), /ποσότητα της γραμμής 1/],
     [fileOf('iris.json', iris), /οδηγίες IRIS απορρίφθηκαν/],
@@ -374,7 +374,7 @@ test('reset requires typing ΕΠΑΝΑΦΟΡΑ; Escape cancels; confirmed reset 
       shippingMethod: 'courier', paymentMethod: 'iris', requestId: 'r-after-reset',
     });
   }, [SKU]);
-  expect(order.id).toMatch(/^ELAN-\d{8}-[A-Z0-9]{4}$/);
+  expect(order.id).toMatch(/^MARIAS-\d{8}-[A-Z0-9]{4}$/);
   expect(errors).toEqual([]);
 });
 

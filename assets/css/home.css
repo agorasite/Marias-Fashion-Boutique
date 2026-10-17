@@ -1,4 +1,4 @@
-/* ÉLAN editorial homepage. Requires theme.css + storefront.css. Mobile-first. */
+/* Marias editorial homepage. Requires theme.css + storefront.css. Mobile-first. */
 
 .home { padding: 0; }
 .home [data-section][hidden], .home .home-section[hidden] { display: none !important; }
@@ -345,7 +345,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: rgba(22, 19, 15, 0.42);
+  background: rgba(22, 19, 15, 0.72); /* White overlay text stays legible over light photos. */
   color: #fff;
   font-size: 0.6875rem;
   font-weight: 600;

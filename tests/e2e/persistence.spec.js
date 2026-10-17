@@ -37,7 +37,7 @@ test('first load seeds settings, categories, products and variants', async ({ pa
     coupons: (await m.db.getAll('coupons')).length,
     product: (await m.db.getAll('products'))[0],
   }));
-  expect(r.settings.storeName).toBe('ÉLAN Fashion Boutique');
+  expect(r.settings.storeName).toBe('Marias Fashion Boutique');
   expect(r.settings.vatRate).toBe(0.24);
   expect(r.settings.seededAt).toBeTruthy();
   expect(r.cats).toBeGreaterThanOrEqual(15);

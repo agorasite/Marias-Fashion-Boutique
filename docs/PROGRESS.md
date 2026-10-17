@@ -1,4 +1,4 @@
-# ÉLAN Fashion Boutique — build progress (handoff)
+# Marias Fashion Boutique — build progress (handoff)
 
 Branch: `build/elan`. Plan: `docs/superpowers/plans/2026-10-16-elan-fashion-boutique.md`.
 Spec: `docs/superpowers/specs/2026-10-16-elan-fashion-boutique-design.md`.
@@ -43,7 +43,7 @@ REMAINING (from the review):
 - IMPORTANT 4: contrast on imagery — replace the exclusions (.home-hero, .home-banner, .insta-tile, .collection-card, .dept-card, product-card-media overlays, .stl-media) with a real worst-case pixel-sampling check (≥4.5:1, ≥3:1 large), strengthen scrims where failing; add 3:1 non-text contrast for focus rings; run the walker on admin overview/products/orders/settings and once at 390px.
 - Minors: tests/e2e/support/qa.js overflowCulprits regexes lost backslashes (`/s+/` must be `/\s+/` — the backslash was lost; grep repo for similar `/s+/`, `/d+/`); ShiftedDate must not throw when `Date()` is called without new (tests/e2e/support/test.js).
 - Then: `npm test` + full e2e 8 consecutive runs at default workers (+ `--workers=1` + clock-shifted runs with ELAN_TEST_DATE=2026-12-31 and 2026-10-16), scoped re-review, mark Task 18 complete.
-Task 19 afterwards: README (how to run, routes, admin demo credentials admin@elan.demo / demo1234, DB name agorasite-fashion1-v1, export/reset, browser-only limitations, image credits), docs/VERIFICATION.md mapping qa-gates scenarios 1–14 to PASS/FAIL/NOT TESTED from actual runs, final whole-branch review (most capable model), handoff report in the qa-gates template.
+Task 19 afterwards: README (how to run, routes, admin demo credentials admin@marias.demo / demo1234, DB name agorasite-fashion1-v1, export/reset, browser-only limitations, image credits), docs/VERIFICATION.md mapping qa-gates scenarios 1–14 to PASS/FAIL/NOT TESTED from actual runs, final whole-branch review (most capable model), handoff report in the qa-gates template.
 
 ## Environment / how to run
 - Node 22, `cwebp` available, Playwright (chromium) installed under `tests/`.

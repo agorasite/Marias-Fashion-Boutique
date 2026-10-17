@@ -10,7 +10,7 @@ const prod = products.find((p) => p.status !== 'archived' && p.priceCents >= 300
 
 const GATE = '[data-admin-gate]';
 const OVERVIEW = '[data-admin-view="overview"]';
-const EMAIL = 'admin@elan.demo';
+const EMAIL = 'admin@marias.demo';
 const PASSWORD = 'demo1234';
 
 function trackErrors(page) {
@@ -144,7 +144,7 @@ test('correct credentials continue to the requested admin route; reload keeps th
 });
 
 test('any admin URL without a session shows the gate; logout clears the session', async ({ page }) => {
-  for (const hash of ['#/admin/anything', '#/admin/orders/ELAN-20260101-AAAA', '#/admin/products']) {
+  for (const hash of ['#/admin/anything', '#/admin/orders/MARIAS-20260101-AAAA', '#/admin/products']) {
     await page.goto(`/${hash}`);
     await expect(page.locator(GATE), hash).toBeVisible();
   }

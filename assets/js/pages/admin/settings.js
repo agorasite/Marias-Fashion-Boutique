@@ -38,8 +38,8 @@ function formHtml(f, s) {
       ${ctl({ key: 'openingHours', label: 'Ωράριο λειτουργίας (προαιρετικό)', col: 'col-12 col-md-6', hint: 'Π.χ. Δευ–Παρ 10:00–20:00, Σάβ 10:00–16:00', control: text('openingHours', f.openingHours, 'maxlength="120"') })}
     </div>`, 'store')}
 
-    ${section('Λογότυπο', 'Αν δεν οριστεί τίποτα, χρησιμοποιείται το προεπιλεγμένο wordmark «ÉLAN». Εμφανίζεται στην κεφαλίδα, στο υποσέλιδο και στο μενού διαχείρισης.', `<div class="row g-3">
-      ${ctl({ key: 'logoText', label: 'Κείμενο (wordmark)', col: 'col-12 col-md-6', hint: 'Έως 24 χαρακτήρες. Κενό = προεπιλογή ÉLAN.', control: text('logoText', f.logoText, 'maxlength="24"') })}
+    ${section('Λογότυπο', 'Αν δεν οριστεί τίποτα, χρησιμοποιείται το προεπιλεγμένο wordmark «Marias». Εμφανίζεται στην κεφαλίδα, στο υποσέλιδο και στο μενού διαχείρισης.', `<div class="row g-3">
+      ${ctl({ key: 'logoText', label: 'Κείμενο (wordmark)', col: 'col-12 col-md-6', hint: 'Έως 24 χαρακτήρες. Κενό = προεπιλογή Marias.', control: text('logoText', f.logoText, 'maxlength="24"') })}
       ${ctl({ key: 'logoSubtext', label: 'Υπότιτλος', col: 'col-12 col-md-6', hint: 'Έως 40 χαρακτήρες. Εμφανίζεται κάτω από το κείμενο.', control: text('logoSubtext', f.logoSubtext, 'maxlength="40"') })}
       <div class="col-12">${imagePickerHtml({ id: 'f-logoImage', label: 'Εικόνα λογοτύπου (προαιρετικό)', bind: 'logoImage', attr: 'data-field', value: f.logoImage, required: false })}</div>
       ${ctl({ key: 'logoAlt', label: 'Εναλλακτικό κείμενο εικόνας', col: 'col-12 col-md-6', hint: 'Υποχρεωτικό όταν υπάρχει εικόνα.', control: text('logoAlt', f.logoAlt, 'maxlength="120"') })}
@@ -66,7 +66,7 @@ function formHtml(f, s) {
     </div>`, 'payments')}
 
     ${section('Κοινωνικά δίκτυα', 'Προαιρετικοί σύνδεσμοι https:// που εμφανίζονται στο υποσέλιδο.', `<div class="row g-3">
-      ${ctl({ key: 'instagram', label: 'Instagram', col: 'col-12 col-md-6', hint: 'Π.χ. https://instagram.com/elan.boutique', control: text('instagram', f.instagram, 'type="url" inputmode="url" maxlength="200"') })}
+      ${ctl({ key: 'instagram', label: 'Instagram', col: 'col-12 col-md-6', hint: 'Π.χ. https://instagram.com/marias.boutique', control: text('instagram', f.instagram, 'type="url" inputmode="url" maxlength="200"') })}
       <div class="col-12 col-md-6"><p class="form-label mb-1">Handle Instagram (αυτόματα)</p><p class="admin-derived" data-ig-handle aria-live="polite"></p></div>
       ${ctl({ key: 'facebook', label: 'Facebook', col: 'col-12 col-md-6', control: text('facebook', f.facebook, 'type="url" inputmode="url" maxlength="200"') })}
       ${ctl({ key: 'tiktok', label: 'TikTok', col: 'col-12 col-md-6', control: text('tiktok', f.tiktok, 'type="url" inputmode="url" maxlength="200"') })}

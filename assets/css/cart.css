@@ -1,4 +1,4 @@
-/* ÉLAN cart + wishlist pages */
+/* Marias cart + wishlist pages */
 .cart-title { margin-bottom: var(--elan-space-4); }
 .cart-grid { display: grid; gap: var(--elan-space-4); }
 @media (min-width: 992px) {

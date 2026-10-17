@@ -242,7 +242,7 @@ for (let idx = 0; idx < ORDER_COUNT; idx += 1) {
   let coupon = null;
   const first = !firstOrderDone.has(person.i);
   if (first && rand() < 0.6 && validateCoupon(coupons.get('WELCOME10'), sub, now).ok) coupon = coupons.get('WELCOME10');
-  else if (!first && rand() < 0.22 && validateCoupon(coupons.get('ELAN5'), sub, now).ok) coupon = coupons.get('ELAN5');
+  else if (!first && rand() < 0.22 && validateCoupon(coupons.get('MARIAS5'), sub, now).ok) coupon = coupons.get('MARIAS5');
   firstOrderDone.add(person.i);
   if (coupon) couponUsage[coupon.code] = (couponUsage[coupon.code] || 0) + 1;
 
@@ -267,7 +267,7 @@ for (let idx = 0; idx < ORDER_COUNT; idx += 1) {
   const paidEv = history.find((h) => h.type === 'payment-simulated');
 
   ordersOut.push({
-    id: `ELAN-${ymd(createdMs)}-${suffix()}`,
+    id: `MARIAS-${ymd(createdMs)}-${suffix()}`,
     requestId: `sample-${String(idx + 1).padStart(3, '0')}`,
     customerId: customerIdFromEmail(person.email),
     createdAt,

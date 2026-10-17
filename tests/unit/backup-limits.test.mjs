@@ -185,8 +185,8 @@ test('settings leaves must be strings or null', () => {
   for (const mutate of [
     (s) => { s.social.instagram = ['https://instagram.com/x']; },
     (s) => { s.contact.openingHours = { from: 10 }; },
-    (s) => { s.contact.email = ['info@elan.example']; },
-    (s) => { s.logo = { text: 'ÉLAN', alt: 5 }; },
+    (s) => { s.contact.email = ['info@marias.example']; },
+    (s) => { s.logo = { text: 'Marias', alt: 5 }; },
   ]) {
     const b = fixture();
     mutate(settingsStore(b));

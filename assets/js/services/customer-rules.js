@@ -143,10 +143,10 @@ export function customersToCsv(rows) {
   return csvDocument(lines);
 }
 
-/** Local-date file name: elan-customers-YYYY-MM-DD.csv */
+/** Local-date file name: marias-customers-YYYY-MM-DD.csv */
 export function customerCsvFileName(now = new Date()) {
   const p = (n) => String(n).padStart(2, '0');
-  return `elan-customers-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}.csv`;
+  return `marias-customers-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}.csv`;
 }
 
 // ------------------------------------------------------------------ editing

@@ -3,8 +3,8 @@ import { aboutDemoModal } from './modals.js';
 import { applyBrand } from './brand.js';
 
 const DEFAULTS = {
-  storeName: 'ÉLAN Fashion Boutique',
-  contact: { email: 'info@elan.example', phone: '+30 210 0000000', address: 'Ερμού 10, Αθήνα' },
+  storeName: 'Marias Fashion Boutique',
+  contact: { email: 'info@marias.example', phone: '+30 210 0000000', address: 'Ερμού 10, Αθήνα' },
   social: {},
 };
 
@@ -44,7 +44,7 @@ export function renderFooter() {
   footer.innerHTML = `<div class="container-xl">
       <div class="row g-4 gy-lg-5">
         <div class="col-12 col-lg-4">
-          <a class="brand brand-footer" href="#/"><span class="brand-mark">ÉLAN</span> <span class="brand-sub">Fashion Boutique</span><span class="visually-hidden"> — Αρχική</span></a>
+          <a class="brand brand-footer" href="#/"><span class="brand-mark">Marias</span> <span class="brand-sub">Fashion Boutique</span><span class="visually-hidden"> — Αρχική</span></a>
           <p class="footer-tagline"></p>
           <ul class="footer-social list-unstyled d-flex gap-2 mb-0"></ul>
         </div>

@@ -151,7 +151,7 @@ test('customer CSV: header, rows, Greek text, computed spend, formula-injection 
   assert.equal(customersToCsv([]).trim(), CUSTOMER_CSV_COLUMNS.join(','));
 });
 test('customer CSV file name is local-date based', () => {
-  assert.equal(customerCsvFileName(new Date(2026, 9, 5)), 'elan-customers-2026-10-05.csv');
+  assert.equal(customerCsvFileName(new Date(2026, 9, 5)), 'marias-customers-2026-10-05.csv');
 });
 
 // ------------------------------------------------------------------ edit rules (shared with the account page)

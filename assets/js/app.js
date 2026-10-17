@@ -37,7 +37,7 @@ onDbError(showError);
 
 // Image-load failures anywhere (offline, deleted file, bad admin URL): components with their own fallback
 // (product cards, gallery, admin thumbnails) handle the error first; any <img> still left broken is swapped
-// for a neutral ÉLAN tile of the same proportions instead of the browser's broken-image icon.
+// for a neutral Marias tile of the same proportions instead of the browser's broken-image icon.
 document.addEventListener('error', (e) => {
   const img = e.target;
   if (!(img instanceof HTMLImageElement) || 'noFallback' in img.dataset) return;
@@ -130,7 +130,7 @@ function closeOpenModals() {
     showError(e);
     return;
   }
-  let storeName = 'ÉLAN Fashion Boutique';
+  let storeName = 'Marias Fashion Boutique';
   // Title = «<page h1> · <store name>»; also re-applied when the settings arrive AFTER the first render
   // (a fast first paint used to keep the default store name in the tab title).
   const setTitle = () => {

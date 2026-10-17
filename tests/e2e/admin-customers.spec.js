@@ -264,7 +264,7 @@ test('CSV export: the filtered set, Greek names, computed spend, RFC 4180 and fo
   const nl = (await dbAll(page, 'customers')).filter((c) => c.newsletter);
   await expect(page.locator('[data-count]')).toHaveAttribute('data-matching', String(nl.length));
   const [download] = await Promise.all([page.waitForEvent('download'), page.locator('[data-export-csv]').click()]);
-  expect(download.suggestedFilename()).toMatch(/^elan-customers-\d{4}-\d{2}-\d{2}\.csv$/);
+  expect(download.suggestedFilename()).toMatch(/^marias-customers-\d{4}-\d{2}-\d{2}\.csv$/);
   const text = fs.readFileSync(await download.path(), 'utf8');
   expect(text.charCodeAt(0)).toBe(0xFEFF);
   expect(text).toContain('\r\n');

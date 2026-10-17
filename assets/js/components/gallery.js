@@ -14,7 +14,7 @@ export function createGallery({ images = [], name = '' }) {
   const modalWrap = document.createElement('div');
 
   if (!images.length) {
-    el.innerHTML = `<div class="pdp-main"><div class="product-card-fallback" role="img" aria-label="${esc(name)}"><span>ÉLAN</span></div></div>`;
+    el.innerHTML = `<div class="pdp-main"><div class="product-card-fallback" role="img" aria-label="${esc(name)}"><span>Marias</span></div></div>`;
     return { el, lightbox: modalWrap };
   }
 
@@ -70,7 +70,7 @@ export function createGallery({ images = [], name = '' }) {
     if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
   });
   main.addEventListener('error', () => {
-    const tile = Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span aria-hidden="true">ÉLAN</span>' });
+    const tile = Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span aria-hidden="true">Marias</span>' });
     tile.setAttribute('role', 'img');
     tile.setAttribute('aria-label', name);
     main.replaceWith(tile);

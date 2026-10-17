@@ -1,4 +1,4 @@
-/* ÉLAN checkout + order confirmation */
+/* Marias checkout + order confirmation */
 .co-back { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; font-size: 0.875rem; color: var(--elan-ink); text-decoration: none; }
 .co-back:hover { text-decoration: underline; }
 .co-title { margin-bottom: var(--elan-space-2); }

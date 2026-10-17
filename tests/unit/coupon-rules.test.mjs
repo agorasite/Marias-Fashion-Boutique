@@ -17,7 +17,7 @@ test('code is trimmed and uppercased', () => {
   assert.equal(r.value.code, 'SPRING-15_A');
 });
 test('code length 3-20 and charset A-Z 0-9 - _', () => {
-  for (const bad of ['', '  ', 'AB', 'A'.repeat(21), 'ΚΩΔΙΚΟΣ', 'SPR ING', 'SPR!NG', 'A.B.C', 'ÉLAN']) {
+  for (const bad of ['', '  ', 'AB', 'A'.repeat(21), 'ΚΩΔΙΚΟΣ', 'SPR ING', 'SPR!NG', 'A.B.C', 'ΜΑΡΙΑΣ']) {
     const r = ok({ code: bad });
     assert.equal(r.ok, false, JSON.stringify(bad));
     assert.ok(r.errors.code, JSON.stringify(bad));
@@ -26,7 +26,7 @@ test('code length 3-20 and charset A-Z 0-9 - _', () => {
   assert.ok(COUPON_CODE_RE.test('ABC'));
 });
 test('code must be unique case-insensitively', () => {
-  const r = ok({ code: ' welcome10 ' }, { existingCodes: ['WELCOME10', 'ELAN5'] });
+  const r = ok({ code: ' welcome10 ' }, { existingCodes: ['WELCOME10', 'MARIAS5'] });
   assert.equal(r.ok, false);
   assert.match(r.errors.code, /υπάρχει ήδη/);
   assert.equal(ok({ code: 'new1' }, { existingCodes: ['welcome10'] }).ok, true);

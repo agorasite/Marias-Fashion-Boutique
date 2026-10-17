@@ -64,7 +64,7 @@ test('no customer: empty state, demo notice, catalog CTA, no login UI', async ({
   await expect(page.locator('input[type="password"]')).toHaveCount(0);
   await go(page, '#/account/orders');
   await expect(page.locator('[data-account-empty]')).toBeVisible();
-  await go(page, '#/account/orders/ELAN-20260101-ABCD');
+  await go(page, '#/account/orders/MARIAS-20260101-ABCD');
   await expect(page.locator('[data-account-empty]')).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -195,7 +195,7 @@ test('unknown id and another customer order show the friendly message without le
   await expect(page.locator('[data-order-detail]')).toHaveCount(0);
   await expect(page.locator('[data-order-not-found]')).not.toContainText('nikos@example.gr');
   await expect(page.locator('[data-order-not-found]')).not.toContainText('Νίκος');
-  await go(page, '#/account/orders/ELAN-20200101-ZZZZ');
+  await go(page, '#/account/orders/MARIAS-20200101-ZZZZ');
   await expect(page.locator('[data-order-not-found]')).toBeVisible();
   await go(page, `#/account/orders/${mine.id}`);
   await expect(page.locator('[data-order-detail]')).toBeVisible();
@@ -518,7 +518,7 @@ test('address cap: full list keeps all addresses and the default, checkout warns
   await expect(page.locator('#co-saveDetails')).toBeChecked();
   await page.check('#co-acceptTerms');
   await page.locator('[data-place-order]').click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   await expect(page.locator('.toast-elan').filter({ hasText: 'γεμάτη' })).toBeVisible();
   const c = await dbGet(page, 'customers', id);
   expect(c.savedAddresses.map((a) => a.id)).toEqual(['a0', 'a1', 'a2', 'a3', 'a4']);

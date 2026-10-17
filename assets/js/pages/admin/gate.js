@@ -5,7 +5,7 @@
 import { route, navigate } from '../../router.js';
 import { html, escapeHtml } from '../../ui.js';
 
-export const DEMO_ADMIN_EMAIL = 'admin@elan.demo';
+export const DEMO_ADMIN_EMAIL = 'admin@marias.demo';
 export const DEMO_ADMIN_PASSWORD = 'demo1234'; // not a secret: displayed on the gate by design
 const SESSION_KEY = 'adminSession';
 
@@ -41,8 +41,8 @@ export function renderGate(ctx = {}) {
   const el = html(`<section class="page admin-gate" data-page="admin-gate" data-admin-gate data-route="/admin">
     <div class="admin-gate-inner">
       <div class="admin-gate-brand">
-        <span class="admin-brand-mark" aria-hidden="true">É</span>
-        <span class="admin-brand-name">ÉLAN <span>Admin</span></span>
+        <span class="admin-brand-mark" aria-hidden="true">M</span>
+        <span class="admin-brand-name">Marias <span>Admin</span></span>
         <span class="badge admin-demo-badge" data-demo-badge>Demo Store</span>
       </div>
       <div class="admin-card admin-gate-card">

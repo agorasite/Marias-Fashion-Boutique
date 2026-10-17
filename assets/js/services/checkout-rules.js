@@ -23,7 +23,7 @@ export const PAYMENT_METHODS = ['cod', 'iris'];
 export const SHIPPING_LABELS = { courier: 'Courier στο σπίτι', pickup: 'Παραλαβή από το κατάστημα' };
 export const PAYMENT_LABELS = { cod: 'Αντικαταβολή', iris: 'IRIS (προσομοίωση)' };
 export const NOTES_MAX = 500;
-export const ORDER_ID_RE = /^ELAN-\d{8}-[0-9A-Z]{4}$/;
+export const ORDER_ID_RE = /^(?:MARIAS|ELAN)-\d{8}-[0-9A-Z]{4}$/;
 
 /** Fields in the order the form shows them (used for the error summary). */
 export const FIELD_ORDER = ['firstName', 'lastName', 'email', 'phone', 'shippingMethod', 'address', 'city',
@@ -154,12 +154,12 @@ export const customerIdFromEmail = (email) => `c-${hash36(str(email).toLowerCase
 const pad = (n) => String(n).padStart(2, '0');
 const B36 = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-/** ELAN-YYYYMMDD-XXXX using the local calendar date and 4 random base36 characters. */
+/** MARIAS-YYYYMMDD-XXXX using the local calendar date and 4 random base36 characters. */
 export function makeOrderId(date = new Date(), rand = Math.random) {
   const ymd = `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}`;
   let suffix = '';
   for (let i = 0; i < 4; i++) suffix += B36[Math.floor(rand() * 36) % 36];
-  return `ELAN-${ymd}-${suffix}`;
+  return `MARIAS-${ymd}-${suffix}`;
 }
 
 /** RFC 4122 v4-ish id for idempotency keys. */

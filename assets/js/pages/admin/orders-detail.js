@@ -168,7 +168,7 @@ function notesHtml(o) {
 
 function contentHtml(o, profileExists = true) {
   return `<div class="aod" data-order-detail="${esc(o.id)}">
-    <p class="print-only aod-print-head">ÉLAN Fashion Boutique — Σύνοψη παραγγελίας ${esc(o.id)} (demo)</p>
+    <p class="print-only aod-print-head">Marias Fashion Boutique — Σύνοψη παραγγελίας ${esc(o.id)} (demo)</p>
     ${headHtml(o)}
     <div class="aod-grid">
       <div class="aod-main">${itemsHtml(o)}${totalsCard(o)}${historyHtml(o)}${notesHtml(o)}</div>

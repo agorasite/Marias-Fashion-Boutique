@@ -99,7 +99,7 @@ function mountForm({ root, body, view, catalog, existing }) {
     colors: [...new Map(activeVariants.map((v) => [v.color, v.colorHex])).entries()].map(([name, hex]) => ({ name, hex })),
   };
   const price = existing ? pricingToForm(existing) : { price: '', salePrice: '' };
-  const e = existing || { name: '', slug: '', brand: 'ÉLAN', categoryId: '', subcategoryId: '', description: '', attributes: {}, flags: {}, status: 'active' };
+  const e = existing || { name: '', slug: '', brand: 'Marias', categoryId: '', subcategoryId: '', description: '', attributes: {}, flags: {}, status: 'active' };
   const a = e.attributes || {};
   const flags = e.flags || {};
   let slugTouched = !isNew;

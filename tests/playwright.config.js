@@ -8,7 +8,10 @@ const workers = process.env.PW_WORKERS ? Number(process.env.PW_WORKERS) : 6;
 module.exports = defineConfig({
   testDir: './e2e',
   workers,
-  use: { baseURL: 'http://127.0.0.1:4173' },
+  use: {
+    baseURL: 'http://127.0.0.1:4173',
+    ...(process.env.CHROMIUM_EXECUTABLE_PATH ? { launchOptions: { executablePath: process.env.CHROMIUM_EXECUTABLE_PATH, args: ['--no-sandbox'] } } : {}),
+  },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'node server.js',

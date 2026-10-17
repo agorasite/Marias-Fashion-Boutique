@@ -4,7 +4,7 @@
   "anchor": "2026-10-16T08:00:00.000Z",
   "note": "Demo sample data (fictional customers, @example.gr emails). Dates are shifted to the install day by the seed.",
   "couponUsage": {
-    "ELAN5": 6,
+    "MARIAS5": 6,
     "WELCOME10": 7
   },
   "customers": [
@@ -493,7 +493,7 @@
   ],
   "orders": [
     {
-      "id": "ELAN-20260620-XLEA",
+      "id": "MARIAS-20260620-XLEA",
       "requestId": "sample-001",
       "customerId": "c-16bz676rt72",
       "createdAt": "2026-06-20T13:08:12.000Z",
@@ -530,7 +530,7 @@
           "productId": "a-leather-clutch-tan",
           "slug": "a-leather-clutch-tan",
           "name": "Δερμάτινος φάκελος clutch",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Ταμπά",
           "colorHex": "#C0602A",
@@ -581,7 +581,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260625-SP8V",
+      "id": "MARIAS-20260625-SP8V",
       "requestId": "sample-002",
       "customerId": "c-z6ckiy4yqj",
       "createdAt": "2026-06-25T12:04:54.000Z",
@@ -694,7 +694,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260627-WJT4",
+      "id": "MARIAS-20260627-WJT4",
       "requestId": "sample-003",
       "customerId": "c-z6ckiy4yqj",
       "createdAt": "2026-06-27T15:28:15.000Z",
@@ -731,7 +731,7 @@
           "productId": "a-leather-clutch-tan",
           "slug": "a-leather-clutch-tan",
           "name": "Δερμάτινος φάκελος clutch",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Ταμπά",
           "colorHex": "#C0602A",
@@ -743,7 +743,7 @@
           "vatRate": 0.24
         }
       ],
-      "couponCode": "ELAN5",
+      "couponCode": "MARIAS5",
       "totals": {
         "subtotalCents": 4900,
         "discountCents": 500,
@@ -792,7 +792,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260703-A1LY",
+      "id": "MARIAS-20260703-A1LY",
       "requestId": "sample-004",
       "customerId": "c-2gopxfiwt7b",
       "createdAt": "2026-07-03T19:54:41.000Z",
@@ -890,7 +890,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260704-4WDO",
+      "id": "MARIAS-20260704-4WDO",
       "requestId": "sample-005",
       "customerId": "c-143daqcn7g1",
       "createdAt": "2026-07-04T05:24:32.000Z",
@@ -943,7 +943,7 @@
           "productId": "m-ripped-straight-jeans",
           "slug": "m-ripped-straight-jeans",
           "name": "Ίσιο τζιν με σκισίματα",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "30",
           "color": "Γαλάζιο",
           "colorHex": "#86A9D1",
@@ -1004,7 +1004,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260706-0Y54",
+      "id": "MARIAS-20260706-0Y54",
       "requestId": "sample-006",
       "customerId": "c-j3ifcq3bdt",
       "createdAt": "2026-07-06T09:05:42.000Z",
@@ -1119,7 +1119,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260706-YS76",
+      "id": "MARIAS-20260706-YS76",
       "requestId": "sample-007",
       "customerId": "c-j3ifcq3bdt",
       "createdAt": "2026-07-06T10:48:56.000Z",
@@ -1218,7 +1218,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260711-VXW3",
+      "id": "MARIAS-20260711-VXW3",
       "requestId": "sample-008",
       "customerId": "c-tq8m3jwrzv",
       "createdAt": "2026-07-11T10:32:05.000Z",
@@ -1256,7 +1256,7 @@
           "productId": "w-biker-jacket-leather",
           "slug": "w-biker-jacket-leather",
           "name": "Δερμάτινο biker jacket μαύρο",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "XS",
           "color": "Μαύρο",
           "colorHex": "#121212",
@@ -1332,7 +1332,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260716-NE99",
+      "id": "MARIAS-20260716-NE99",
       "requestId": "sample-009",
       "customerId": "c-s68nywxbzh",
       "createdAt": "2026-07-16T08:47:18.000Z",
@@ -1431,7 +1431,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260724-7LZ2",
+      "id": "MARIAS-20260724-7LZ2",
       "requestId": "sample-010",
       "customerId": "c-s68nywxbzh",
       "createdAt": "2026-07-24T08:29:52.000Z",
@@ -1468,7 +1468,7 @@
           "productId": "w-lace-collar-blouse",
           "slug": "w-lace-collar-blouse",
           "name": "Ρομαντική μπλούζα με δαντελένιο γιακά",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "XS",
           "color": "Λευκό",
           "colorHex": "#FBFAF6",
@@ -1529,7 +1529,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260729-7ESC",
+      "id": "MARIAS-20260729-7ESC",
       "requestId": "sample-011",
       "customerId": "c-q7dp3msge3",
       "createdAt": "2026-07-29T07:30:08.000Z",
@@ -1628,7 +1628,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260730-IQEF",
+      "id": "MARIAS-20260730-IQEF",
       "requestId": "sample-012",
       "customerId": "c-1kjs7o7e4en",
       "createdAt": "2026-07-30T13:41:48.000Z",
@@ -1666,7 +1666,7 @@
           "productId": "m-relaxed-jeans-light",
           "slug": "m-relaxed-jeans-light",
           "name": "Relaxed τζιν ανοιχτό μπλε",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "38",
           "color": "Ανοιχτό μπλε",
           "colorHex": "#9DB7D5",
@@ -1743,7 +1743,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260730-U9JW",
+      "id": "MARIAS-20260730-U9JW",
       "requestId": "sample-013",
       "customerId": "c-s68nywxbzh",
       "createdAt": "2026-07-30T15:14:46.000Z",
@@ -1793,7 +1793,7 @@
           "vatRate": 0.24
         }
       ],
-      "couponCode": "ELAN5",
+      "couponCode": "MARIAS5",
       "totals": {
         "subtotalCents": 25800,
         "discountCents": 500,
@@ -1842,7 +1842,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260802-FMTL",
+      "id": "MARIAS-20260802-FMTL",
       "requestId": "sample-014",
       "customerId": "c-143daqcn7g1",
       "createdAt": "2026-08-02T15:31:48.000Z",
@@ -1895,7 +1895,7 @@
           "productId": "w-biker-jacket-leather",
           "slug": "w-biker-jacket-leather",
           "name": "Δερμάτινο biker jacket μαύρο",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "L",
           "color": "Μαύρο",
           "colorHex": "#121212",
@@ -1956,7 +1956,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260805-1HPM",
+      "id": "MARIAS-20260805-1HPM",
       "requestId": "sample-015",
       "customerId": "c-1z3b5xs8fns",
       "createdAt": "2026-08-05T11:29:03.000Z",
@@ -1993,7 +1993,7 @@
           "productId": "s-canvas-sneakers-navy",
           "slug": "s-canvas-sneakers-navy",
           "name": "Υφασμάτινα sneakers μπλε",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "45",
           "color": "Σκούρο μπλε",
           "colorHex": "#1F2F4F",
@@ -2054,7 +2054,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260808-JFE3",
+      "id": "MARIAS-20260808-JFE3",
       "requestId": "sample-016",
       "customerId": "c-tq8m3jwrzv",
       "createdAt": "2026-08-08T08:41:41.000Z",
@@ -2092,7 +2092,7 @@
           "productId": "w-shirt-dress-mustard",
           "slug": "w-shirt-dress-mustard",
           "name": "Σεμιζιέ φόρεμα αμάνικο μουσταρδί",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "S",
           "color": "Μουσταρδί",
           "colorHex": "#D9A21B",
@@ -2108,7 +2108,7 @@
           "productId": "a-rectangle-sunglasses-black",
           "slug": "a-rectangle-sunglasses-black",
           "name": "Ορθογώνια μαύρα γυαλιά ηλίου",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Μαύρο",
           "colorHex": "#111111",
@@ -2169,7 +2169,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260827-GU1B",
+      "id": "MARIAS-20260827-GU1B",
       "requestId": "sample-017",
       "customerId": "c-q7dp3msge3",
       "createdAt": "2026-08-27T11:04:08.000Z",
@@ -2206,7 +2206,7 @@
           "productId": "w-oversized-tee",
           "slug": "w-oversized-tee",
           "name": "Oversized T-shirt βαμβακερό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "S",
           "color": "Μαύρο",
           "colorHex": "#151515",
@@ -2283,7 +2283,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260903-VXKV",
+      "id": "MARIAS-20260903-VXKV",
       "requestId": "sample-018",
       "customerId": "c-19djbxp7jnb",
       "createdAt": "2026-09-03T11:00:49.000Z",
@@ -2320,7 +2320,7 @@
           "productId": "w-biker-jacket-leather",
           "slug": "w-biker-jacket-leather",
           "name": "Δερμάτινο biker jacket μαύρο",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "M",
           "color": "Μαύρο",
           "colorHex": "#121212",
@@ -2336,7 +2336,7 @@
           "productId": "m-denim-shirt-indigo",
           "slug": "m-denim-shirt-indigo",
           "name": "Τζιν πουκάμισο indigo",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "XL",
           "color": "Indigo",
           "colorHex": "#3E5A78",
@@ -2397,7 +2397,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260906-1YHT",
+      "id": "MARIAS-20260906-1YHT",
       "requestId": "sample-019",
       "customerId": "c-tq8m3jwrzv",
       "createdAt": "2026-09-06T05:57:49.000Z",
@@ -2434,7 +2434,7 @@
           "productId": "a-crossbody-bag-black",
           "slug": "a-crossbody-bag-black",
           "name": "Μαύρη τσάντα χιαστί",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Μαύρο",
           "colorHex": "#111111",
@@ -2511,7 +2511,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260906-X3YC",
+      "id": "MARIAS-20260906-X3YC",
       "requestId": "sample-020",
       "customerId": "c-tq8m3jwrzv",
       "createdAt": "2026-09-06T08:22:14.000Z",
@@ -2549,7 +2549,7 @@
           "productId": "m-relaxed-jeans-light",
           "slug": "m-relaxed-jeans-light",
           "name": "Relaxed τζιν ανοιχτό μπλε",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "34",
           "color": "Ανοιχτό μπλε",
           "colorHex": "#9DB7D5",
@@ -2610,7 +2610,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260908-IQ6Y",
+      "id": "MARIAS-20260908-IQ6Y",
       "requestId": "sample-021",
       "customerId": "c-143daqcn7g1",
       "createdAt": "2026-09-08T18:51:55.000Z",
@@ -2647,7 +2647,7 @@
           "productId": "w-lace-collar-blouse",
           "slug": "w-lace-collar-blouse",
           "name": "Ρομαντική μπλούζα με δαντελένιο γιακά",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "L",
           "color": "Λευκό",
           "colorHex": "#FBFAF6",
@@ -2663,7 +2663,7 @@
           "productId": "a-rectangle-sunglasses-black",
           "slug": "a-rectangle-sunglasses-black",
           "name": "Ορθογώνια μαύρα γυαλιά ηλίου",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Μαύρο",
           "colorHex": "#111111",
@@ -2675,7 +2675,7 @@
           "vatRate": 0.24
         }
       ],
-      "couponCode": "ELAN5",
+      "couponCode": "MARIAS5",
       "totals": {
         "subtotalCents": 15200,
         "discountCents": 500,
@@ -2724,7 +2724,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260912-95L0",
+      "id": "MARIAS-20260912-95L0",
       "requestId": "sample-022",
       "customerId": "c-h6vas890wl",
       "createdAt": "2026-09-12T08:43:21.000Z",
@@ -2762,7 +2762,7 @@
           "productId": "m-ripped-straight-jeans",
           "slug": "m-ripped-straight-jeans",
           "name": "Ίσιο τζιν με σκισίματα",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "34",
           "color": "Μαύρο",
           "colorHex": "#222222",
@@ -2823,7 +2823,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260915-O5ZC",
+      "id": "MARIAS-20260915-O5ZC",
       "requestId": "sample-023",
       "customerId": "c-1z3b5xs8fns",
       "createdAt": "2026-09-15T17:18:33.000Z",
@@ -2860,7 +2860,7 @@
           "productId": "w-oversized-tee",
           "slug": "w-oversized-tee",
           "name": "Oversized T-shirt βαμβακερό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "L",
           "color": "Μαύρο",
           "colorHex": "#151515",
@@ -2921,7 +2921,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260918-PURW",
+      "id": "MARIAS-20260918-PURW",
       "requestId": "sample-024",
       "customerId": "c-q7dp3msge3",
       "createdAt": "2026-09-18T13:10:20.000Z",
@@ -3020,7 +3020,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260918-EYA8",
+      "id": "MARIAS-20260918-EYA8",
       "requestId": "sample-025",
       "customerId": "c-1fbbfrtauh",
       "createdAt": "2026-09-18T16:52:32.000Z",
@@ -3073,7 +3073,7 @@
           "productId": "a-leather-clutch-tan",
           "slug": "a-leather-clutch-tan",
           "name": "Δερμάτινος φάκελος clutch",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Ταμπά",
           "colorHex": "#C0602A",
@@ -3134,7 +3134,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260918-900W",
+      "id": "MARIAS-20260918-900W",
       "requestId": "sample-026",
       "customerId": "c-1kfi42x1vdm",
       "createdAt": "2026-09-18T19:42:57.000Z",
@@ -3171,7 +3171,7 @@
           "productId": "w-oversized-tee",
           "slug": "w-oversized-tee",
           "name": "Oversized T-shirt βαμβακερό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "M",
           "color": "Λευκό",
           "colorHex": "#FFFFFF",
@@ -3232,7 +3232,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260925-40SD",
+      "id": "MARIAS-20260925-40SD",
       "requestId": "sample-027",
       "customerId": "c-143daqcn7g1",
       "createdAt": "2026-09-25T13:19:46.000Z",
@@ -3269,7 +3269,7 @@
           "productId": "m-flannel-check-burgundy",
           "slug": "m-flannel-check-burgundy",
           "name": "Καρό φλανέλα πουκάμισο μπορντό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "S",
           "color": "Μπορντό καρό",
           "colorHex": "#6B2430",
@@ -3330,7 +3330,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260926-FVF0",
+      "id": "MARIAS-20260926-FVF0",
       "requestId": "sample-028",
       "customerId": "c-2gopxfiwt7b",
       "createdAt": "2026-09-26T19:14:13.000Z",
@@ -3367,7 +3367,7 @@
           "productId": "m-flannel-check-burgundy",
           "slug": "m-flannel-check-burgundy",
           "name": "Καρό φλανέλα πουκάμισο μπορντό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "M",
           "color": "Μπορντό καρό",
           "colorHex": "#6B2430",
@@ -3379,7 +3379,7 @@
           "vatRate": 0.24
         }
       ],
-      "couponCode": "ELAN5",
+      "couponCode": "MARIAS5",
       "totals": {
         "subtotalCents": 9800,
         "discountCents": 500,
@@ -3428,7 +3428,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260927-S91E",
+      "id": "MARIAS-20260927-S91E",
       "requestId": "sample-029",
       "customerId": "c-19djbxp7jnb",
       "createdAt": "2026-09-27T16:35:06.000Z",
@@ -3477,7 +3477,7 @@
           "vatRate": 0.24
         }
       ],
-      "couponCode": "ELAN5",
+      "couponCode": "MARIAS5",
       "totals": {
         "subtotalCents": 5900,
         "discountCents": 500,
@@ -3526,7 +3526,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260927-N5M1",
+      "id": "MARIAS-20260927-N5M1",
       "requestId": "sample-030",
       "customerId": "c-z6ckiy4yqj",
       "createdAt": "2026-09-27T20:02:07.000Z",
@@ -3564,7 +3564,7 @@
           "productId": "m-slim-jeans-blue",
           "slug": "m-slim-jeans-blue",
           "name": "Slim τζιν stretch",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "32",
           "color": "Σκούρο μπλε",
           "colorHex": "#2F4560",
@@ -3625,7 +3625,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260929-UXI0",
+      "id": "MARIAS-20260929-UXI0",
       "requestId": "sample-031",
       "customerId": "c-1kjs7o7e4en",
       "createdAt": "2026-09-29T14:31:20.000Z",
@@ -3719,7 +3719,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20260930-47V2",
+      "id": "MARIAS-20260930-47V2",
       "requestId": "sample-032",
       "customerId": "c-tq8m3jwrzv",
       "createdAt": "2026-09-30T11:29:41.000Z",
@@ -3757,7 +3757,7 @@
           "productId": "a-leather-clutch-tan",
           "slug": "a-leather-clutch-tan",
           "name": "Δερμάτινος φάκελος clutch",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Ταμπά",
           "colorHex": "#C0602A",
@@ -3773,7 +3773,7 @@
           "productId": "w-denim-jacket-cropped",
           "slug": "w-denim-jacket-cropped",
           "name": "Κοντό τζιν μπουφάν oversized",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "XS",
           "color": "Μεσαίο μπλε",
           "colorHex": "#6F8FB3",
@@ -3834,7 +3834,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261002-EQM7",
+      "id": "MARIAS-20261002-EQM7",
       "requestId": "sample-033",
       "customerId": "c-19djbxp7jnb",
       "createdAt": "2026-10-02T17:48:06.000Z",
@@ -3871,7 +3871,7 @@
           "productId": "m-relaxed-jeans-light",
           "slug": "m-relaxed-jeans-light",
           "name": "Relaxed τζιν ανοιχτό μπλε",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "36",
           "color": "Ανοιχτό μπλε",
           "colorHex": "#9DB7D5",
@@ -3964,7 +3964,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261003-JG8Y",
+      "id": "MARIAS-20261003-JG8Y",
       "requestId": "sample-034",
       "customerId": "c-1fbbfrtauh",
       "createdAt": "2026-10-03T19:13:46.000Z",
@@ -4062,7 +4062,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261004-DXNR",
+      "id": "MARIAS-20261004-DXNR",
       "requestId": "sample-035",
       "customerId": "c-1kjs7o7e4en",
       "createdAt": "2026-10-04T16:06:06.000Z",
@@ -4156,7 +4156,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261005-2XEV",
+      "id": "MARIAS-20261005-2XEV",
       "requestId": "sample-036",
       "customerId": "c-h6vas890wl",
       "createdAt": "2026-10-05T13:27:02.000Z",
@@ -4193,7 +4193,7 @@
           "productId": "w-biker-jacket-leather",
           "slug": "w-biker-jacket-leather",
           "name": "Δερμάτινο biker jacket μαύρο",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "XS",
           "color": "Μαύρο",
           "colorHex": "#121212",
@@ -4244,7 +4244,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261005-LBT9",
+      "id": "MARIAS-20261005-LBT9",
       "requestId": "sample-037",
       "customerId": "c-1kfi42x1vdm",
       "createdAt": "2026-10-05T14:34:12.000Z",
@@ -4293,7 +4293,7 @@
           "vatRate": 0.24
         }
       ],
-      "couponCode": "ELAN5",
+      "couponCode": "MARIAS5",
       "totals": {
         "subtotalCents": 8900,
         "discountCents": 500,
@@ -4332,7 +4332,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261006-2MA4",
+      "id": "MARIAS-20261006-2MA4",
       "requestId": "sample-038",
       "customerId": "c-wudsckcpv3",
       "createdAt": "2026-10-06T07:15:09.000Z",
@@ -4366,7 +4366,7 @@
           "productId": "m-flannel-check-burgundy",
           "slug": "m-flannel-check-burgundy",
           "name": "Καρό φλανέλα πουκάμισο μπορντό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "S",
           "color": "Μπορντό καρό",
           "colorHex": "#6B2430",
@@ -4422,7 +4422,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261006-RQTL",
+      "id": "MARIAS-20261006-RQTL",
       "requestId": "sample-039",
       "customerId": "c-19djbxp7jnb",
       "createdAt": "2026-10-06T12:34:45.000Z",
@@ -4516,7 +4516,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261007-CMJU",
+      "id": "MARIAS-20261007-CMJU",
       "requestId": "sample-040",
       "customerId": "c-z6ckiy4yqj",
       "createdAt": "2026-10-07T15:03:18.000Z",
@@ -4569,7 +4569,7 @@
           "productId": "s-canvas-sneakers-navy",
           "slug": "s-canvas-sneakers-navy",
           "name": "Υφασμάτινα sneakers μπλε",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "41",
           "color": "Σκούρο μπλε",
           "colorHex": "#1F2F4F",
@@ -4585,7 +4585,7 @@
           "productId": "w-denim-jacket-cropped",
           "slug": "w-denim-jacket-cropped",
           "name": "Κοντό τζιν μπουφάν oversized",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "XS",
           "color": "Μεσαίο μπλε",
           "colorHex": "#6F8FB3",
@@ -4636,7 +4636,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261007-I4M0",
+      "id": "MARIAS-20261007-I4M0",
       "requestId": "sample-041",
       "customerId": "c-1fbbfrtauh",
       "createdAt": "2026-10-07T19:16:16.000Z",
@@ -4705,7 +4705,7 @@
           "productId": "s-canvas-sneakers-navy",
           "slug": "s-canvas-sneakers-navy",
           "name": "Υφασμάτινα sneakers μπλε",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "42",
           "color": "Σκούρο μπλε",
           "colorHex": "#1F2F4F",
@@ -4751,7 +4751,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261007-HWTR",
+      "id": "MARIAS-20261007-HWTR",
       "requestId": "sample-042",
       "customerId": "c-wudsckcpv3",
       "createdAt": "2026-10-07T19:28:27.000Z",
@@ -4788,7 +4788,7 @@
           "productId": "w-denim-jacket-cropped",
           "slug": "w-denim-jacket-cropped",
           "name": "Κοντό τζιν μπουφάν oversized",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "S",
           "color": "Μεσαίο μπλε",
           "colorHex": "#6F8FB3",
@@ -4850,7 +4850,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261010-F95X",
+      "id": "MARIAS-20261010-F95X",
       "requestId": "sample-043",
       "customerId": "c-16bz676rt72",
       "createdAt": "2026-10-10T11:57:28.000Z",
@@ -4888,7 +4888,7 @@
           "productId": "m-flannel-check-burgundy",
           "slug": "m-flannel-check-burgundy",
           "name": "Καρό φλανέλα πουκάμισο μπορντό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "XXL",
           "color": "Μπορντό καρό",
           "colorHex": "#6B2430",
@@ -4939,7 +4939,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261010-909A",
+      "id": "MARIAS-20261010-909A",
       "requestId": "sample-044",
       "customerId": "c-2gopxfiwt7b",
       "createdAt": "2026-10-10T13:55:54.000Z",
@@ -4976,7 +4976,7 @@
           "productId": "w-biker-jacket-leather",
           "slug": "w-biker-jacket-leather",
           "name": "Δερμάτινο biker jacket μαύρο",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "XS",
           "color": "Μαύρο",
           "colorHex": "#121212",
@@ -5022,7 +5022,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261011-CNAD",
+      "id": "MARIAS-20261011-CNAD",
       "requestId": "sample-045",
       "customerId": "c-s68nywxbzh",
       "createdAt": "2026-10-11T12:19:50.000Z",
@@ -5102,7 +5102,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261012-223N",
+      "id": "MARIAS-20261012-223N",
       "requestId": "sample-046",
       "customerId": "c-s68nywxbzh",
       "createdAt": "2026-10-12T15:41:54.000Z",
@@ -5176,7 +5176,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261013-P5NF",
+      "id": "MARIAS-20261013-P5NF",
       "requestId": "sample-047",
       "customerId": "c-tq8m3jwrzv",
       "createdAt": "2026-10-13T10:22:50.000Z",
@@ -5214,7 +5214,7 @@
           "productId": "m-denim-shirt-indigo",
           "slug": "m-denim-shirt-indigo",
           "name": "Τζιν πουκάμισο indigo",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "XXL",
           "color": "Indigo",
           "colorHex": "#3E5A78",
@@ -5260,7 +5260,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261015-H7PI",
+      "id": "MARIAS-20261015-H7PI",
       "requestId": "sample-048",
       "customerId": "c-1kfi42x1vdm",
       "createdAt": "2026-10-15T07:21:19.000Z",
@@ -5313,7 +5313,7 @@
           "productId": "m-ripped-straight-jeans",
           "slug": "m-ripped-straight-jeans",
           "name": "Ίσιο τζιν με σκισίματα",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "32",
           "color": "Μαύρο",
           "colorHex": "#222222",
@@ -5354,7 +5354,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261015-3D5G",
+      "id": "MARIAS-20261015-3D5G",
       "requestId": "sample-049",
       "customerId": "c-16bz676rt72",
       "createdAt": "2026-10-15T16:27:39.000Z",
@@ -5423,7 +5423,7 @@
           "productId": "m-flannel-check-burgundy",
           "slug": "m-flannel-check-burgundy",
           "name": "Καρό φλανέλα πουκάμισο μπορντό",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "M",
           "color": "Μπορντό καρό",
           "colorHex": "#6B2430",
@@ -5459,7 +5459,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261016-CDNV",
+      "id": "MARIAS-20261016-CDNV",
       "requestId": "sample-050",
       "customerId": "c-2gopxfiwt7b",
       "createdAt": "2026-10-16T05:49:21.000Z",
@@ -5496,7 +5496,7 @@
           "productId": "w-denim-jacket-cropped",
           "slug": "w-denim-jacket-cropped",
           "name": "Κοντό τζιν μπουφάν oversized",
-          "brand": "ÉLAN Denim",
+          "brand": "Marias Denim",
           "size": "M",
           "color": "Μεσαίο μπλε",
           "colorHex": "#6F8FB3",
@@ -5512,7 +5512,7 @@
           "productId": "a-crossbody-bag-black",
           "slug": "a-crossbody-bag-black",
           "name": "Μαύρη τσάντα χιαστί",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "ONE",
           "color": "Μαύρο",
           "colorHex": "#111111",
@@ -5564,7 +5564,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261016-WL0P",
+      "id": "MARIAS-20261016-WL0P",
       "requestId": "sample-051",
       "customerId": "c-wudsckcpv3",
       "createdAt": "2026-10-16T06:22:07.000Z",
@@ -5653,7 +5653,7 @@
       "sample": true
     },
     {
-      "id": "ELAN-20261016-A7PF",
+      "id": "MARIAS-20261016-A7PF",
       "requestId": "sample-052",
       "customerId": "c-19djbxp7jnb",
       "createdAt": "2026-10-16T06:45:26.000Z",
@@ -5690,7 +5690,7 @@
           "productId": "w-broderie-dress-white",
           "slug": "w-broderie-dress-white",
           "name": "Φόρεμα κιπούρ λευκό με βολάν",
-          "brand": "ÉLAN",
+          "brand": "Marias",
           "size": "XL",
           "color": "Λευκό",
           "colorHex": "#FAFAF7",

@@ -63,7 +63,7 @@ export function fallbackTile(name) {
   d.className = 'product-card-fallback';
   d.setAttribute('role', 'img');
   d.setAttribute('aria-label', name);
-  d.innerHTML = '<span>ÉLAN</span>';
+  d.innerHTML = '<span>Marias</span>';
   return d;
 }
 

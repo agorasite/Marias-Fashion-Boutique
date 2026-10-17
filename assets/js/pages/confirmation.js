@@ -66,7 +66,7 @@ function paymentHtml(o, settings) {
     <p class="co-iris-flag"><i class="bi bi-shield-exclamation" aria-hidden="true"></i><strong>Προσομοίωση — δεν πραγματοποιείται πραγματική πληρωμή</strong></p>
     <p data-iris-instructions>${esc(safeIrisText(settings.irisInstructions))}</p>
     <dl class="conf-iris-details">
-      <div><dt>Δικαιούχος</dt><dd>${esc(settings.storeName || 'ÉLAN Fashion Boutique')} (demo)</dd></div>
+      <div><dt>Δικαιούχος</dt><dd>${esc(settings.storeName || 'Marias Fashion Boutique')} (demo)</dd></div>
       <div><dt>Ποσό</dt><dd>${total}</dd></div>
       <div><dt>Αιτιολογία</dt><dd>${esc(o.id)}</dd></div>
       <div><dt>Κωδικός πληρωμής (προσομοίωση)</dt><dd>IRIS-DEMO-${esc(o.id.slice(-4))}</dd></div>
@@ -127,7 +127,7 @@ export default async function render(ctx) {
 
   const root = html(`<section class="page confirmation-page" data-page="confirmation" data-route="/order">
     <div class="container-xl">
-      <p class="print-only conf-print-head">${esc(settings.storeName || 'ÉLAN Fashion Boutique')} — Σύνοψη παραγγελίας (demo)</p>
+      <p class="print-only conf-print-head">${esc(settings.storeName || 'Marias Fashion Boutique')} — Σύνοψη παραγγελίας (demo)</p>
       <header class="conf-hero">
         <span class="conf-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
         <span class="eyebrow">Demo παραγγελία</span>

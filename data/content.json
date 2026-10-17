@@ -19,7 +19,7 @@
       {
         "id": "banner-2",
         "placement": "promo",
-        "eyebrow": "Προνόμια ÉLAN",
+        "eyebrow": "Προνόμια Marias",
         "title": "{freeShippingText}",
         "text": "Παράδοση με courier σε όλη την Ελλάδα ή δωρεάν παραλαβή από το κατάστημά μας στην Ερμού.",
         "ctaLabel": "Ψωνίστε τώρα",
@@ -144,9 +144,9 @@
   },
   "instagram": {
     "mode": "curated",
-    "handle": "@elan.boutique",
+    "handle": "@marias.boutique",
     "profileUrl": "",
-    "title": "Εμπνευστείτε από το #ÉLANstyle",
+    "title": "Εμπνευστείτε από το #Mariasstyle",
     "text": "Εμφανίσεις από την κοινότητά μας. Πατήστε σε μια φωτογραφία για να δείτε τα κομμάτια της.",
     "posts": [
       {

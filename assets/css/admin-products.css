@@ -1,4 +1,4 @@
-/* ÉLAN admin — product management (list + editor). Builds on admin.css tokens and components. */
+/* Marias admin — product management (list + editor). Builds on admin.css tokens and components. */
 .admin-badge.st-active { background: #e6f2ea; color: #1f5638; border-color: #cfe5d7; }
 .admin-badge.st-archived { background: #efebe5; color: #574a3b; border-color: #e2dbd0; }
 .admin-badge.st-sale { background: #f7e6e3; color: #7a2a1f; border-color: #eed0ca; margin-left: 0.35rem; }

@@ -49,7 +49,7 @@ test('ids are unique and well formed; customer ids use the checkout derivation',
     assert.match(o.id, ORDER_ID_RE);
     const d = new Date(o.createdAt);
     const ymd = `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
-    assert.equal(o.id.slice(5, 13), ymd, `${o.id} date part`);
+    assert.equal(o.id.split('-')[1], ymd, `${o.id} date part`);
   }
   for (const c of customers) {
     assert.equal(c.id, customerIdFromEmail(c.email));
@@ -109,7 +109,7 @@ test('totals recompute exactly (independent math) and match pricing.quote', () =
     if (o.couponCode) {
       const c = couponByCode.get(o.couponCode);
       assert.ok(c, o.couponCode);
-      assert.ok(['WELCOME10', 'ELAN5'].includes(c.code));
+      assert.ok(['WELCOME10', 'MARIAS5'].includes(c.code));
       assert.ok(sub >= c.minSubtotalCents, `${o.id}: coupon below min spend`);
       assert.ok(validateCoupon(c, sub, new Date(o.createdAt)).ok);
       disc = c.type === 'percent' ? Math.round(sub * c.value / 100) : Math.min(c.value, sub);
@@ -142,7 +142,7 @@ test('shipping: courier orders carry the address, pickup orders do not', () => {
   assert.ok(orders.some((o) => o.shipping.method === 'pickup'));
   assert.ok(orders.some((o) => o.shipping.method === 'courier' && o.totals.shippingCents === 0));
   assert.ok(orders.some((o) => o.totals.shippingCents === S.courierCents));
-  assert.ok(orders.some((o) => o.couponCode === 'WELCOME10') && orders.some((o) => o.couponCode === 'ELAN5'));
+  assert.ok(orders.some((o) => o.couponCode === 'WELCOME10') && orders.some((o) => o.couponCode === 'MARIAS5'));
 });
 
 test('status mix is realistic and payment status combinations are valid', () => {
@@ -219,8 +219,8 @@ test('shiftSampleData moves every timestamp by whole days so the newest order is
     const b = shifted.orders[i];
     assert.equal(d(a.createdAt, b.createdAt), 40);
     assert.match(b.id, ORDER_ID_RE);
-    assert.equal(b.id.slice(14), a.id.slice(14), 'suffix kept');
-    assert.equal(b.id.slice(5, 13), b.createdAt.slice(0, 10).replace(/-/g, ''));
+    assert.equal(b.id.split('-').at(-1), a.id.split('-').at(-1), 'suffix kept');
+    assert.equal(b.id.split('-')[1], b.createdAt.slice(0, 10).replace(/-/g, ''));
     assert.ok(b.history.every((h, j) => d(a.history[j].at, h.at) === 40));
     assert.ok(new Date(b.createdAt) <= now);
     assert.deepEqual(b.lines, a.lines);

@@ -1,4 +1,4 @@
-/* ÉLAN admin — order management (list + detail + print). Builds on admin.css / admin-products.css. */
+/* Marias admin — order management (list + detail + print). Builds on admin.css / admin-products.css. */
 
 /* ---------------------------------------------------------------- list */
 .admin-ord-toolbar { display: grid; gap: 0.9rem; }

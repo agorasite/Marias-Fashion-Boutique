@@ -111,7 +111,7 @@ test('corrupted records: product without images/variants/price, cart line to a d
   await page.evaluate(async () => {
     const db = await import('/assets/js/db.js');
     // 1. a product record missing images, variants and price
-    await db.put('products', { id: 'qa-broken', slug: 'qa-broken', name: 'Προϊόν με ελλιπή στοιχεία', brand: 'ÉLAN', categoryId: 'women', status: 'active', createdAt: new Date().toISOString() });
+    await db.put('products', { id: 'qa-broken', slug: 'qa-broken', name: 'Προϊόν με ελλιπή στοιχεία', brand: 'Marias', categoryId: 'women', status: 'active', createdAt: new Date().toISOString() });
     // 2. the cart points at a variant that no longer exists (plus the real line)
     const cart = await db.get('carts', 'local');
     await db.put('carts', { ...cart, lines: [...cart.lines, { sku: 'NO-SUCH-SKU', qty: 2 }] });
@@ -240,7 +240,7 @@ test('quota exceeded on product save and settings save shows the Greek storage m
   await page.locator('.modal.show [data-ok]').click();
   await settle(page);
   await expect(page.locator('#app h1')).toHaveText('Ρυθμίσεις');
-  await page.fill('[data-admin-view="settings"] [data-field="storeName"], #s-storeName', 'ÉLAN Test');
+  await page.fill('[data-admin-view="settings"] [data-field="storeName"], #s-storeName', 'Marias Test');
   await page.evaluate(() => { window.__quotaOn = true; });
   await page.locator('[data-admin-view="settings"] [type="submit"], [data-admin-view="settings"] [data-save]').first().click();
   await expect(page.locator('#toastStack')).toContainText('Δεν υπάρχει αρκετός χώρος αποθήκευσης');

@@ -1,4 +1,4 @@
-/* ÉLAN admin — content editor (tabs, list items, image picker, previews) and settings extras. */
+/* Marias admin — content editor (tabs, list items, image picker, previews) and settings extras. */
 
 .admin-info-box { background: #faf7f0; border: 1px solid var(--admin-line); border-left: 3px solid var(--elan-gold); border-radius: 6px; padding: 0.85rem 1rem; font-size: 0.875rem; color: var(--admin-ink); overflow-wrap: anywhere; }
 .admin-info-box code { color: var(--admin-ink); background: #f1ece4; padding: 0.1rem 0.35rem; border-radius: 4px; }

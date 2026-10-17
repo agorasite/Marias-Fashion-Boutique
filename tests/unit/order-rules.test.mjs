@@ -11,7 +11,7 @@ import {
 const AT = '2026-10-16T10:00:00.000Z';
 const line = (sku, qty, o = {}) => ({ sku, productId: 'p1', name: `Προϊόν ${sku}`, qty, unitCents: 1000, lineTotalCents: qty * 1000, ...o });
 const order = (o = {}) => ({
-  id: 'ELAN-20261016-AAAA', createdAt: '2026-10-16T09:00:00.000Z', customerId: 'c1',
+  id: 'MARIAS-20261016-AAAA', createdAt: '2026-10-16T09:00:00.000Z', customerId: 'c1',
   customer: { firstName: 'Ελένη', lastName: 'Παππά', email: 'eleni@example.gr', phone: '6912345678', company: '', vatNumber: '' },
   shippingAddress: { address: 'Ερμού 1', city: 'Αθήνα', postalCode: '10563', region: 'Αττική' },
   shipping: { method: 'courier', label: 'Courier στο σπίτι', costCents: 0 },
@@ -320,24 +320,24 @@ test('CSV: null-safe for pickup orders and missing fields', () => {
 test('filterOrders: search, filters, inclusive local date range, sorts', () => {
   const at = (d, h = 12) => new Date(2026, 9, d, h, 0, 0).toISOString();
   const list = [
-    order({ id: 'ELAN-1', createdAt: at(1), customer: { firstName: 'Άννα', lastName: 'Ζαχαρίου', email: 'anna@x.gr' }, totals: { totalCents: 500 } }),
-    order({ id: 'ELAN-2', createdAt: at(5, 0), fulfillmentStatus: 'shipped', paymentStatus: 'simulated-paid', payment: { method: 'iris' }, totals: { totalCents: 9000 } }),
-    order({ id: 'ELAN-3', createdAt: at(9, 23), fulfillmentStatus: 'cancelled', totals: { totalCents: 3000 } }),
+    order({ id: 'MARIAS-1', createdAt: at(1), customer: { firstName: 'Άννα', lastName: 'Ζαχαρίου', email: 'anna@x.gr' }, totals: { totalCents: 500 } }),
+    order({ id: 'MARIAS-2', createdAt: at(5, 0), fulfillmentStatus: 'shipped', paymentStatus: 'simulated-paid', payment: { method: 'iris' }, totals: { totalCents: 9000 } }),
+    order({ id: 'MARIAS-3', createdAt: at(9, 23), fulfillmentStatus: 'cancelled', totals: { totalCents: 3000 } }),
   ];
-  assert.deepEqual(filterOrders(list, {}).map((o) => o.id), ['ELAN-3', 'ELAN-2', 'ELAN-1']);
-  assert.deepEqual(filterOrders(list, { sort: 'oldest' }).map((o) => o.id), ['ELAN-1', 'ELAN-2', 'ELAN-3']);
-  assert.deepEqual(filterOrders(list, { sort: 'total-desc' }).map((o) => o.id), ['ELAN-2', 'ELAN-3', 'ELAN-1']);
-  assert.deepEqual(filterOrders(list, { sort: 'total-asc' }).map((o) => o.id), ['ELAN-1', 'ELAN-3', 'ELAN-2']);
-  assert.deepEqual(filterOrders(list, { q: 'elan-2' }).map((o) => o.id), ['ELAN-2']);
-  assert.deepEqual(filterOrders(list, { q: 'ΖΑΧΑΡ' }).map((o) => o.id), ['ELAN-1']);
-  assert.deepEqual(filterOrders(list, { q: 'άννα ζαχ' }).map((o) => o.id), ['ELAN-1']);
-  assert.deepEqual(filterOrders(list, { q: 'anna@x' }).map((o) => o.id), ['ELAN-1']);
-  assert.deepEqual(filterOrders(list, { fulfillmentStatus: 'cancelled' }).map((o) => o.id), ['ELAN-3']);
-  assert.deepEqual(filterOrders(list, { paymentStatus: 'simulated-paid' }).map((o) => o.id), ['ELAN-2']);
-  assert.deepEqual(filterOrders(list, { paymentMethod: 'cod' }).map((o) => o.id), ['ELAN-3', 'ELAN-1']);
-  assert.deepEqual(filterOrders(list, { from: '2026-10-05', to: '2026-10-09' }).map((o) => o.id), ['ELAN-3', 'ELAN-2']);
-  assert.deepEqual(filterOrders(list, { from: '2026-10-06' }).map((o) => o.id), ['ELAN-3']);
-  assert.deepEqual(filterOrders(list, { to: '2026-10-04' }).map((o) => o.id), ['ELAN-1']);
+  assert.deepEqual(filterOrders(list, {}).map((o) => o.id), ['MARIAS-3', 'MARIAS-2', 'MARIAS-1']);
+  assert.deepEqual(filterOrders(list, { sort: 'oldest' }).map((o) => o.id), ['MARIAS-1', 'MARIAS-2', 'MARIAS-3']);
+  assert.deepEqual(filterOrders(list, { sort: 'total-desc' }).map((o) => o.id), ['MARIAS-2', 'MARIAS-3', 'MARIAS-1']);
+  assert.deepEqual(filterOrders(list, { sort: 'total-asc' }).map((o) => o.id), ['MARIAS-1', 'MARIAS-3', 'MARIAS-2']);
+  assert.deepEqual(filterOrders(list, { q: 'marias-2' }).map((o) => o.id), ['MARIAS-2']);
+  assert.deepEqual(filterOrders(list, { q: 'ΖΑΧΑΡ' }).map((o) => o.id), ['MARIAS-1']);
+  assert.deepEqual(filterOrders(list, { q: 'άννα ζαχ' }).map((o) => o.id), ['MARIAS-1']);
+  assert.deepEqual(filterOrders(list, { q: 'anna@x' }).map((o) => o.id), ['MARIAS-1']);
+  assert.deepEqual(filterOrders(list, { fulfillmentStatus: 'cancelled' }).map((o) => o.id), ['MARIAS-3']);
+  assert.deepEqual(filterOrders(list, { paymentStatus: 'simulated-paid' }).map((o) => o.id), ['MARIAS-2']);
+  assert.deepEqual(filterOrders(list, { paymentMethod: 'cod' }).map((o) => o.id), ['MARIAS-3', 'MARIAS-1']);
+  assert.deepEqual(filterOrders(list, { from: '2026-10-05', to: '2026-10-09' }).map((o) => o.id), ['MARIAS-3', 'MARIAS-2']);
+  assert.deepEqual(filterOrders(list, { from: '2026-10-06' }).map((o) => o.id), ['MARIAS-3']);
+  assert.deepEqual(filterOrders(list, { to: '2026-10-04' }).map((o) => o.id), ['MARIAS-1']);
   assert.deepEqual(filterOrders(list, { from: 'garbage' }).length, 3);
   assert.deepEqual(filterOrders(list, { customerId: 'nobody' }), []);
   assert.deepEqual(filterOrders(undefined, {}), []);

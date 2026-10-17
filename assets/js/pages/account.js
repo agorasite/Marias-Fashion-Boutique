@@ -227,7 +227,7 @@ async function orderDetail(c, id) {
   const settings = await getSettings().catch(() => ({}));
   const items = o.lines.reduce((n, l) => n + l.qty, 0);
   const el = html(`<div class="acct-detail" data-order-detail data-order-id="${esc(o.id)}">
-    <p class="print-only conf-print-head">${esc(settings.storeName || 'ÉLAN Fashion Boutique')} — Παραγγελία ${esc(o.id)} (demo)</p>
+    <p class="print-only conf-print-head">${esc(settings.storeName || 'Marias Fashion Boutique')} — Παραγγελία ${esc(o.id)} (demo)</p>
     <div class="acct-detail-head">
       <p class="mb-1">Ημερομηνία: <strong>${esc(fmtDate(o.createdAt, dateTime))}</strong></p>
       <div class="acct-badges">${fulfillBadge(o)}${payBadge(o)}</div>

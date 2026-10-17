@@ -119,7 +119,7 @@ test('the promotions list shows the seeded coupons with discount, min spend, exp
   await expect(w10.locator('[data-cell="expires"]')).toHaveText('Χωρίς λήξη');
   await expect(w10.locator('[data-cell="usage"]')).toHaveText(/^\d+ \/ ∞$/);
   await expect(w10).toHaveAttribute('data-status', 'active');
-  await expect(row(page, 'ELAN5').locator('[data-cell="discount"]')).toContainText(money(500));
+  await expect(row(page, 'MARIAS5').locator('[data-cell="discount"]')).toContainText(money(500));
   await expect(row(page, 'SUMMER20')).toHaveAttribute('data-status', 'expired');
   await expect(row(page, 'SUMMER20').locator('[data-status-badge]')).toHaveText('Έληξε');
   await expect(row(page, 'SUMMER20').locator('[data-cell="expires"] time')).toBeVisible();
@@ -333,20 +333,20 @@ test('usage limit: one checkout uses the coupon up, the list shows it after relo
 
 test('a limit of usedCount + 1 allows exactly one more checkout', async ({ page }) => {
   await boot(page);
-  const w = await dbGet(page, 'coupons', 'ELAN5');
+  const w = await dbGet(page, 'coupons', 'MARIAS5');
   await openPromos(page);
-  await row(page, 'ELAN5').locator('[data-action="edit"]').click();
+  await row(page, 'MARIAS5').locator('[data-action="edit"]').click();
   await fillCoupon(page, { maxUses: w.usedCount + 1, minSubtotal: '' }, { edit: true });
   await saveCouponDialog(page);
   await expect(page.locator(MODAL)).toHaveCount(0);
-  await expect(row(page, 'ELAN5').locator('[data-cell="usage"]')).toHaveText(`${w.usedCount} / ${w.usedCount + 1}`);
-  const first = await checkoutWithCoupon(page, 'ELAN5', { lines: [[SKU1, 1]] });
-  expect(first.couponCode).toBe('ELAN5');
-  const second = await checkoutWithCoupon(page, 'ELAN5', { lines: [[SKU1, 1]] });
+  await expect(row(page, 'MARIAS5').locator('[data-cell="usage"]')).toHaveText(`${w.usedCount} / ${w.usedCount + 1}`);
+  const first = await checkoutWithCoupon(page, 'MARIAS5', { lines: [[SKU1, 1]] });
+  expect(first.couponCode).toBe('MARIAS5');
+  const second = await checkoutWithCoupon(page, 'MARIAS5', { lines: [[SKU1, 1]] });
   expect(second).toEqual({ couponRejected: 'max-uses' });
   await page.reload();
   await expect(page.locator(VIEW)).toHaveAttribute('data-ready', 'true');
-  await expect(row(page, 'ELAN5')).toHaveAttribute('data-status', 'exhausted');
+  await expect(row(page, 'MARIAS5')).toHaveAttribute('data-status', 'exhausted');
 });
 
 test('code validation: duplicates (any case/whitespace), bad characters and length are rejected with aria wiring', async ({ page }) => {
@@ -421,7 +421,7 @@ test('delete: an unused coupon is removed after confirmation; a used coupon cann
   // unused but referenced by an order: refused by the service, then the same offer
   await createCoupon(page, { code: 'REFD', type: 'percent', value: 5 });
   const anyOrder = await page.evaluate(async () => (await import('/assets/js/db.js')).getAll('orders').then((o) => o[0]));
-  await dbPut(page, 'orders', { ...anyOrder, id: 'ELAN-20260101-ZZZ1', couponCode: 'REFD' });
+  await dbPut(page, 'orders', { ...anyOrder, id: 'MARIAS-20260101-ZZZ1', couponCode: 'REFD' });
   const refused = await page.evaluate(async () => (await import('/assets/js/services/coupons.js')).deleteCoupon('REFD'));
   expect(refused).toEqual({ deleted: false, reason: 'used' });
   await row(page, 'REFD').locator('[data-action="delete"]').click();

@@ -271,13 +271,13 @@ test('VAT rate change drives the «ΦΠΑ περιλαμβάνεται» line', 
   expect(parseEuro(await page.locator('[data-sum-vat]').innerText())).toBe(0);
 });
 
-test('wordmark and logo image show in the storefront header, footer, mobile menu and admin sidebar; clearing restores ÉLAN', async ({ page }) => {
+test('wordmark and logo image show in the storefront header, footer, mobile menu and admin sidebar; clearing restores Marias', async ({ page }) => {
   const errors = trackErrors(page);
   await boot(page);
   await openSettings(page);
   // default
-  await expect(page.locator('.site-header a.brand .brand-mark')).toHaveText('ÉLAN');
-  await expect(page.locator('.admin-brand-name')).toContainText('ÉLAN');
+  await expect(page.locator('.site-header a.brand .brand-mark')).toHaveText('Marias');
+  await expect(page.locator('.admin-brand-name')).toContainText('Marias');
   await f(page, 'logoText').fill('MAISON');
   await f(page, 'logoSubtext').fill('Athens');
   await save(page);
@@ -316,7 +316,7 @@ test('wordmark and logo image show in the storefront header, footer, mobile menu
   await f(page, 'logoImage').dispatchEvent('change');
   await f(page, 'logoAlt').fill('');
   await save(page);
-  await expect(page.locator('.site-header a.brand .brand-mark')).toHaveText('ÉLAN');
+  await expect(page.locator('.site-header a.brand .brand-mark')).toHaveText('Marias');
   await expect(page.locator('.site-header a.brand .brand-sub')).toHaveText('Fashion Boutique');
   await expect(page.locator('.site-header a.brand img')).toHaveCount(0);
   expect(errors).toEqual([]);
@@ -397,7 +397,7 @@ test('reset to defaults (with confirmation) restores only the settings; products
   expect(stored).toEqual({ key: 'store', ...SEED });
   expect(stored.logo).toBeUndefined();
   await expect(f(page, 'courier')).toHaveValue('3,90');
-  await expect(page.locator('.site-header a.brand .brand-mark')).toHaveText('ÉLAN');
+  await expect(page.locator('.site-header a.brand .brand-mark')).toHaveText('Marias');
   expect(await dbAll(page, 'products')).toEqual(productsBefore);
   expect(await dbAll(page, 'orders')).toEqual(ordersBefore);
   expect(await dbGet(page, 'content', 'hero')).toEqual(contentBefore);

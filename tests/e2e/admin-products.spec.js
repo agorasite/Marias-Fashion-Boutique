@@ -57,7 +57,7 @@ const product = async (page, id) => (await idbAll(page, 'products')).find((p) =>
 const variantsOf = async (page, id) => (await idbAll(page, 'variants')).filter((v) => v.productId === id);
 
 const input = (o = {}) => ({
-  name: 'Δοκιμαστικό φόρεμα Zeta', slug: '', brand: 'ÉLAN', categoryId: 'women', subcategoryId: 'dresses',
+  name: 'Δοκιμαστικό φόρεμα Zeta', slug: '', brand: 'Marias', categoryId: 'women', subcategoryId: 'dresses',
   description: 'Δοκιμαστική περιγραφή.', priceCents: 8000, compareAtCents: 10000, images: [IMG],
   attributes: {}, flags: { featured: false, new: false, bestSeller: false }, status: 'active',
   variants: [
@@ -69,7 +69,7 @@ const input = (o = {}) => ({
 const seedProduct = (page, o) => page.evaluate(async (inp) => (await import('/assets/js/services/product-admin.js')).saveProduct(inp), input(o));
 
 // A copy of a sample order whose single line points at `sku`.
-async function addOrder(page, p, v, id = 'ELAN-TEST-0001') {
+async function addOrder(page, p, v, id = 'MARIAS-TEST-0001') {
   const orders = await idbAll(page, 'orders');
   const base = JSON.parse(JSON.stringify(orders[0]));
   const order = {
@@ -443,7 +443,7 @@ test('removing a variant used by an order archives it (stock 0, not purchasable)
   const mVar = vs.find((v) => v.size === 'M');
   const sVar = vs.find((v) => v.size === 'S');
   await idbPut(page, 'variants', { ...mVar, stock: 7 }); // stock that would otherwise be purchasable
-  const order = await addOrder(page, p, mVar, 'ELAN-TEST-0002');
+  const order = await addOrder(page, p, mVar, 'MARIAS-TEST-0002');
   await idbPut(page, 'carts', { id: 'local', lines: [{ sku: mVar.sku, qty: 1 }], couponCode: null, updatedAt: new Date().toISOString() });
 
   await page.goto(`/#/admin/products/${p.id}`);

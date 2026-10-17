@@ -126,7 +126,7 @@ test('fillTokens formats the free-shipping threshold from settings', () => {
   assert.equal(fillTokens('άνω των {freeShipping}', { freeShippingThresholdCents: 6000 }).replace(/\s/g, ' '), 'άνω των 60,00 €');
   assert.equal(fillTokens('άνω των {freeShipping}', { freeShippingThresholdCents: 7550 }).replace(/\s/g, ' '), 'άνω των 75,50 €');
   assert.equal(fillTokens('χωρίς token', {}), 'χωρίς token');
-  assert.equal(fillTokens('{storeName}', { storeName: 'ÉLAN' }), 'ÉLAN');
+  assert.equal(fillTokens('{storeName}', { storeName: 'Marias' }), 'Marias');
   assert.equal(fillTokens('{unknown}', {}), '{unknown}');
 });
 

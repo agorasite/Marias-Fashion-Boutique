@@ -6,7 +6,7 @@ const root = path.join(__dirname, '../..');
 const products = JSON.parse(fs.readFileSync(path.join(root, 'data/products.json'), 'utf8')).products;
 const meta = JSON.parse(fs.readFileSync(path.join(root, 'data/catalog-meta.json'), 'utf8'));
 const S = meta.settings;
-const ORDER_RE = /^ELAN-\d{8}-[0-9A-Z]{4}$/;
+const ORDER_RE = /^MARIAS-\d{8}-[0-9A-Z]{4}$/;
 const IRIS_TEXT = 'Πρόκειται για προσομοίωση IRIS: δεν γίνεται καμία πραγματική χρέωση ή τραπεζική συναλλαγή. Η παραγγελία καταχωρείται με κατάσταση «Εκκρεμεί πληρωμή». Παρακάτω θα δείτε προσομοιωμένες οδηγίες και κωδικό πληρωμής· η πληρωμή σημειώνεται ως «Προσομοίωση: πληρώθηκε» μόνο όταν πατήσετε «Προσομοίωση πληρωμής IRIS».';
 /** Page text with the quoted IRIS instructions removed: they name the post-click label by design. */
 const textWithoutInstructions = (page) => page.evaluate(() => {
@@ -254,7 +254,7 @@ test('COD order: one order, exact stock decrement, cart cleared, coupon used, cu
   const shownTotal = parseEuro(await page.locator('[data-sum-total]').innerText());
   await fillForm(page);
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-\d{8}-[0-9A-Z]{4}$/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-\d{8}-[0-9A-Z]{4}$/);
   await expect(page.locator('[data-page="confirmation"]')).toBeVisible();
   const ref = (await page.locator('[data-order-ref]').innerText()).trim();
   expect(ref).toMatch(ORDER_RE);
@@ -334,7 +334,7 @@ test('IRIS: explanation and simulation labels; payment flips only after the simu
   await expect(page.locator('[data-page="checkout"]')).not.toContainText(/πληρώθηκε|πληρωμένη/);
   await expect(page.locator('label.co-choice', { has: page.locator('input[value="iris"]') })).toContainText('Προσομοίωση πληρωμής IRIS — καμία πραγματική συναλλαγή');
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   const id = (await page.locator('[data-order-ref]').innerText()).trim();
   let o = await dbGet(page, 'orders', id);
   expect(o.payment.method).toBe('iris');
@@ -378,7 +378,7 @@ test('double-click on submit creates one order and decrements once', async ({ pa
   await openCheckout(page);
   await fillForm(page);
   await submit(page).dblclick();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   await expect(page.locator('[data-page="confirmation"]')).toBeVisible();
   expect(await dbOwn(page, 'orders')).toHaveLength(1);
   expect((await dbGet(page, 'variants', v.sku)).stock).toBe(before - 2);
@@ -466,7 +466,7 @@ test('returning local customer can reuse saved details; orderCount grows', async
   await expect(page.locator('#co-saveDetails-hint')).toContainText('καταχωρούνται πάντα τοπικά');
   await page.check('#co-saveDetails');
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
 
   await addSku(page, stocked(other, 3).sku, 1);
   await openCheckout(page);
@@ -485,7 +485,7 @@ test('returning local customer can reuse saved details; orderCount grows', async
   await expect(page.locator('#co-vatNumber')).toHaveValue('090000045');
   await page.check('#co-acceptTerms');
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   const customers = await dbOwn(page, 'customers');
   expect(customers).toHaveLength(1);
   expect(customers[0].orderCount).toBe(2);
@@ -496,7 +496,7 @@ test('returning local customer can reuse saved details; orderCount grows', async
 
 test('unknown order id shows a friendly not-found', async ({ page }) => {
   const errors = trackErrors(page);
-  await page.goto('/#/order/ELAN-20260101-ZZZZ');
+  await page.goto('/#/order/MARIAS-20260101-ZZZZ');
   await expect(page.locator('[data-order-not-found]')).toBeVisible();
   await expect(page.locator('h1')).toBeVisible();
   await expect(page.locator('[data-order-not-found] a[href="#/"]')).toBeVisible();
@@ -566,7 +566,7 @@ test('PRICE guard: a same-price variant swap after the page loaded is refused', 
   // summary refreshed to the new line; resubmitting now succeeds with the new variant
   await expect(page.locator(`[data-summary-line][data-sku="${b.sku}"]`)).toHaveCount(1);
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   const [o] = await dbOwn(page, 'orders');
   expect(o.lines.map((l) => l.sku)).toEqual([b.sku]);
   // service level: a mismatching signature is refused
@@ -586,7 +586,7 @@ test('PRICE guard: a price change after the page loaded is refused and the summa
   const e = expected({ sub: mid.priceCents + 1000, ship: 'courier', pay: 'cod' });
   await expect.poll(async () => (await readSummary(page)).total).toBe(e.total);
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   expect((await dbOwn(page, 'orders'))[0].totals.totalCents).toBe(e.total);
 });
 
@@ -599,7 +599,7 @@ test('pickup order: no shipping address, pickup text on the confirmation', async
   for (const k of ['firstName', 'lastName', 'email', 'phone']) await page.fill(`#co-${k}`, DETAILS[k]);
   await page.check('#co-acceptTerms');
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   const [o] = await dbOwn(page, 'orders');
   expect(o.shippingAddress).toBeNull();
   expect(o.shipping.method).toBe('pickup');
@@ -618,7 +618,7 @@ test('unchecked "save details": order and customer kept, but details are not off
   await fillForm(page);
   await expect(page.locator('#co-saveDetails')).not.toBeChecked();
   await submit(page).click();
-  await expect(page).toHaveURL(/#\/order\/ELAN-/);
+  await expect(page).toHaveURL(/#\/order\/MARIAS-/);
   const [c] = await dbOwn(page, 'customers');
   expect(c).toMatchObject({ rememberDetails: false, savedAddresses: [], orderCount: 1, email: 'maria@example.gr' });
   await addSku(page, stocked(other, 3).sku, 1);

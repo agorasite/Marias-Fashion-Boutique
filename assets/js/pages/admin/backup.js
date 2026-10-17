@@ -69,7 +69,7 @@ function pageHtml(counts) {
         <p class="admin-card-sub">Αντικαθιστά <strong>όλα</strong> τα τρέχοντα δεδομένα με αυτά του αρχείου. Το αρχείο ελέγχεται πριν αλλάξει οτιδήποτε.</p>
       </div></div>
       <div class="backup-file">
-        <label class="form-label" for="bk-file">Αρχείο αντιγράφου ÉLAN (.json, έως 50 MB)</label>
+        <label class="form-label" for="bk-file">Αρχείο αντιγράφου Marias (.json, έως 50 MB)</label>
         <input class="form-control" type="file" id="bk-file" accept=".json,application/json" data-import-file aria-describedby="bk-file-hint">
         <div class="form-text" id="bk-file-hint">Ο έλεγχος γίνεται αμέσως και μόνο μέσα στον περιηγητή σας.</div>
       </div>
@@ -177,7 +177,7 @@ function mount(body, view) {
     const exported = obj.exportedAt && !Number.isNaN(new Date(obj.exportedAt).getTime())
       ? new Date(obj.exportedAt).toLocaleString('el-GR', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
     result.innerHTML = `<div class="backup-report is-ok" data-import-ok>
-        <p class="backup-report-title"><i class="bi bi-check2-circle me-1" aria-hidden="true"></i>Το αρχείο είναι έγκυρο αντίγραφο ÉLAN.</p>
+        <p class="backup-report-title"><i class="bi bi-check2-circle me-1" aria-hidden="true"></i>Το αρχείο είναι έγκυρο αντίγραφο Marias.</p>
         <p class="backup-meta">Αρχείο: <span data-import-name></span> · Εξαγωγή: ${esc(exported)}</p>
       </div>
       ${v.warnings.length ? warningsHtml(v.warnings) : ''}

@@ -165,8 +165,8 @@ const TABS = {
     return `<div class="admin-info-box mb-3" data-insta-note><p class="mb-2"><i class="bi bi-info-circle me-1" aria-hidden="true"></i><strong>Επιλεγμένο περιεχόμενο, όχι ζωντανό feed.</strong> Οι αναρτήσεις επιλέγονται χειροκίνητα εδώ. Δεν γίνεται scraping ούτε σύνδεση με το Instagram.</p>
       <p class="mb-0">Μια πραγματική ενσωμάτωση αργότερα θα απαιτούσε άδειες από τη Meta (Instagram Graph API) και διαπιστευτήρια στον server· δεν είναι διαθέσιμα σε αυτό το στατικό demo.</p></div>
       <div class="row g-3 mb-3">
-        ${k.field('handle', 'Handle', { col: 'col-12 col-md-6', required: true, max: 31, placeholder: '@elan.boutique' })}
-        ${k.field('profileUrl', 'Σύνδεσμος προφίλ', { col: 'col-12 col-md-6', type: 'url', hint: 'Μόνο https://… (προαιρετικό)', placeholder: 'https://instagram.com/elan.boutique' })}
+        ${k.field('handle', 'Handle', { col: 'col-12 col-md-6', required: true, max: 31, placeholder: '@marias.boutique' })}
+        ${k.field('profileUrl', 'Σύνδεσμος προφίλ', { col: 'col-12 col-md-6', type: 'url', hint: 'Μόνο https://… (προαιρετικό)', placeholder: 'https://instagram.com/marias.boutique' })}
         ${k.field('title', 'Τίτλος ενότητας', { col: 'col-12 col-md-6', max: 120 })}
         ${k.field('text', 'Κείμενο ενότητας', { col: 'col-12 col-md-6', max: 300 })}
         <div class="col-12 col-md-6"><label class="form-label" for="c-instagram-mode">Λειτουργία (mode)</label>

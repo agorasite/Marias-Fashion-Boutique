@@ -23,7 +23,7 @@ export function shiftSampleData(data, now = new Date()) {
     const createdAt = mv(o.createdAt);
     return {
       ...o,
-      id: `ELAN-${ymdUtc(new Date(createdAt))}-${o.id.slice(14)}`,
+      id: `MARIAS-${ymdUtc(new Date(createdAt))}-${o.id.split('-').at(-1)}`,
       createdAt,
       payment: o.payment && o.payment.simulatedAt ? { ...o.payment, simulatedAt: mv(o.payment.simulatedAt) } : o.payment,
       history: (o.history || []).map((h) => ({ ...h, at: mv(h.at) })),
