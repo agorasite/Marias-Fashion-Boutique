@@ -3,6 +3,7 @@
 // through services/product-admin.js, the same records the storefront uses.
 import { escapeHtml as esc, formatMoney, toast, confirmDialog } from '../../ui.js';
 import { adminLayout } from './layout.js';
+import { pagerHtml, followChanges } from './list-kit.js';
 import { smOf } from '../../services/image-path.js';
 import { LOW_STOCK_TOTAL } from '../../services/products.js';
 import {
@@ -87,20 +88,6 @@ function rowHtml(p, catName) {
   </tr>`;
 }
 
-function pagerHtml(r) {
-  if (r.total === 0) return '';
-  const from = (r.page - 1) * r.pageSize + 1;
-  const to = Math.min(r.total, r.page * r.pageSize);
-  return `<nav class="admin-pager" aria-label="Σελίδες προϊόντων">
-    <p class="admin-pager-info" data-range>Εμφάνιση ${from}–${to} από ${r.total}</p>
-    <div class="admin-pager-btns">
-      <button type="button" class="btn btn-sm btn-outline-dark" data-goto="${r.page - 1}"${r.page <= 1 ? ' disabled' : ''}><i class="bi bi-chevron-left" aria-hidden="true"></i> Προηγούμενη</button>
-      <span class="admin-pager-page" aria-live="polite">Σελίδα ${r.page} από ${r.pageCount}</span>
-      <button type="button" class="btn btn-sm btn-outline-dark" data-goto="${r.page + 1}"${r.page >= r.pageCount ? ' disabled' : ''}>Επόμενη <i class="bi bi-chevron-right" aria-hidden="true"></i></button>
-    </div>
-  </nav>`;
-}
-
 export default async function render() {
   const { root, body } = adminLayout({
     active: 'products', title: 'Προϊόντα', view: 'products', route: '/admin/products', crumbs: [{ label: 'Προϊόντα' }],
@@ -140,12 +127,18 @@ export default async function render() {
       }
       results.innerHTML = `${counts}<div class="admin-table-wrap admin-prod-wrap"><table class="table admin-table admin-table-stack admin-prod-table" data-products-table>
         <thead><tr><th scope="col">Προϊόν</th><th scope="col">SKU</th><th scope="col">Κατηγορία</th><th scope="col">Τιμή</th><th scope="col">Απόθεμα</th><th scope="col">Κατάσταση</th><th scope="col">Προβολή</th><th scope="col"><span class="visually-hidden">Ενέργειες</span></th></tr></thead>
-        <tbody>${r.items.map((p) => rowHtml(p, catName)).join('')}</tbody></table></div>${pagerHtml(r)}`;
+        <tbody>${r.items.map((p) => rowHtml(p, catName)).join('')}</tbody></table></div>${pagerHtml(r, 'Σελίδες προϊόντων')}`;
     }
 
+    // Repaint from the database, keeping keyboard focus on the same row action (a change event and the
+    // action's own refresh may both repaint).
     async function refresh() {
+      const a = document.activeElement;
+      const tr = a && results.contains(a) ? a.closest('tr[data-product-id]') : null;
+      const keep = tr && a.dataset.action ? `tr[data-product-id="${CSS.escape(tr.dataset.productId)}"] [data-action="${a.dataset.action}"]` : null;
       data = await loadAdminCatalog();
       paint();
+      if (keep) results.querySelector(keep)?.focus();
     }
 
     // filters
@@ -224,6 +217,9 @@ export default async function render() {
     body.addEventListener('error', (e) => {
       if (e.target.tagName === 'IMG') e.target.replaceWith(Object.assign(document.createElement('span'), { className: 'admin-thumb admin-thumb-empty', textContent: 'É' }));
     }, true);
+
+    // saves/archives/deletes from the editor, restocks from cancelled orders, imports, other code paths
+    followChanges(body, ['catalog:changed'], refresh);
 
     paint();
     view.dataset.ready = 'true';

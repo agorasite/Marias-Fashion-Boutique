@@ -4,6 +4,7 @@
 // store the storefront cart and checkout read, so every change is effective in the shop immediately.
 import { escapeHtml as esc, formatMoney, toast, confirmDialog } from '../../ui.js';
 import { adminLayout } from './layout.js';
+import { opt, followChanges } from './list-kit.js';
 import {
   listCoupons, saveCoupon, setCouponActive, deleteCoupon, CouponError, couponStatus, previewDiscount, discountLabel,
   filterCoupons, validateCouponInput, localDateInput, STATUS_LABELS, SAMPLE_CART_CENTS,
@@ -19,7 +20,6 @@ let state = { ...DEFAULT_STATE };
 
 const statusBadge = (s) => `<span class="admin-badge cp-${esc(s)}" data-status-badge="${esc(s)}"><i class="bi ${STATUS_ICON[s]}" aria-hidden="true"></i>${esc(STATUS_LABELS[s])}</span>`;
 const eurosText = (cents) => centsToEuros(cents).replace('.', ',');
-const opt = (value, label, selected) => `<option value="${esc(value)}"${selected === value ? ' selected' : ''}>${esc(label)}</option>`;
 
 function toolbarHtml() {
   return `<div class="admin-card admin-cp-toolbar" data-coupons-toolbar>
@@ -264,11 +264,7 @@ export default async function render() {
     }
 
     // Every save/toggle/delete dispatches coupons:changed; the list follows it (also from other pages).
-    const onChanged = () => {
-      if (!body.isConnected) { window.removeEventListener('coupons:changed', onChanged); return; }
-      refresh().catch(() => {});
-    };
-    window.addEventListener('coupons:changed', onChanged);
+    followChanges(body, ['coupons:changed'], refresh);
 
     let timer = null;
     body.addEventListener('input', (e) => {

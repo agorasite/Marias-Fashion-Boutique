@@ -4,6 +4,7 @@
 // shown. Rules: services/customer-rules.js. The profile page is customer-detail.js.
 import { escapeHtml as esc, formatMoney, toast } from '../../ui.js';
 import { adminLayout } from './layout.js';
+import { opt, pagerHtml, followChanges } from './list-kit.js';
 import { downloadCsv } from './orders.js';
 import { loadCustomersAndOrders } from '../../services/customers.js';
 import {
@@ -23,7 +24,6 @@ const dateFmt = new Intl.DateTimeFormat('el-GR', { day: 'numeric', month: 'short
 const DEFAULT_STATE = { q: '', sort: 'name', orders: '', newsletter: '', origin: '', page: 1 };
 let state = { ...DEFAULT_STATE };
 
-const opt = (value, label, selected) => `<option value="${esc(value)}"${selected === value ? ' selected' : ''}>${esc(label)}</option>`;
 export const fullName = (c) => `${c.firstName || ''} ${c.lastName || ''}`.trim() || '—';
 export const profileHref = (id) => `#/admin/customers/${encodeURIComponent(id)}`;
 
@@ -62,20 +62,6 @@ function rowHtml({ customer: c, stats, city }) {
     <td data-label="Newsletter">${c.newsletter ? '<span class="admin-badge cu-news-yes" data-news-badge="yes"><i class="bi bi-envelope-check" aria-hidden="true"></i>Εγγεγραμμένος</span>' : '<span class="admin-cp-none" data-news-badge="no">—</span>'}</td>
     <td data-label="" class="admin-ord-go"><a class="btn btn-sm btn-outline-dark" href="${href}" aria-label="Προβολή πελάτη ${esc(fullName(c))}"><span class="admin-action-label">Προβολή</span><i class="bi bi-chevron-right" aria-hidden="true"></i></a></td>
   </tr>`;
-}
-
-function pagerHtml(r) {
-  if (r.total === 0) return '';
-  const from = (r.page - 1) * r.pageSize + 1;
-  const to = Math.min(r.total, r.page * r.pageSize);
-  return `<nav class="admin-pager" aria-label="Σελίδες πελατών">
-    <p class="admin-pager-info" data-range>Εμφάνιση ${from}–${to} από ${r.total}</p>
-    <div class="admin-pager-btns">
-      <button type="button" class="btn btn-sm btn-outline-dark" data-goto="${r.page - 1}"${r.page <= 1 ? ' disabled' : ''}><i class="bi bi-chevron-left" aria-hidden="true"></i> Προηγούμενη</button>
-      <span class="admin-pager-page" aria-live="polite" data-page-info>Σελίδα ${r.page} από ${r.pageCount}</span>
-      <button type="button" class="btn btn-sm btn-outline-dark" data-goto="${r.page + 1}"${r.page >= r.pageCount ? ' disabled' : ''}>Επόμενη <i class="bi bi-chevron-right" aria-hidden="true"></i></button>
-    </div>
-  </nav>`;
 }
 
 export default async function render() {
@@ -122,7 +108,7 @@ export default async function render() {
       results.innerHTML = `${counts}<div class="admin-table-wrap admin-cu-wrap"><table class="table admin-table admin-table-stack admin-cu-table" data-customers-table>
         <caption class="visually-hidden">Πελάτες</caption>
         <thead><tr><th scope="col">Πελάτης</th><th scope="col">Πόλη</th><th scope="col" class="text-md-end">Παραγγελίες</th><th scope="col" class="text-md-end" title="${esc(SPEND_NOTE)}">Δαπάνη <i class="bi bi-info-circle" aria-hidden="true"></i><span class="visually-hidden"> (${esc(SPEND_NOTE)})</span></th><th scope="col">Τελευταία παραγγελία</th><th scope="col">Newsletter</th><th scope="col"><span class="visually-hidden">Ενέργειες</span></th></tr></thead>
-        <tbody>${r.items.map(rowHtml).join('')}</tbody></table></div>${pagerHtml(r)}`;
+        <tbody>${r.items.map(rowHtml).join('')}</tbody></table></div>${pagerHtml(r, 'Σελίδες πελατών')}`;
     }
 
     let timer = null;
@@ -166,6 +152,13 @@ export default async function render() {
         paint();
         results.scrollIntoView({ block: 'start' });
       }
+    });
+
+    // spend/order counts derive from orders; profiles change from checkout, the account area or the admin
+    followChanges(body, ['customers:changed', 'orders:changed'], async () => {
+      const { customers, orders } = await loadCustomersAndOrders();
+      all = buildCustomerList(customers, orders);
+      paint();
     });
 
     paint();

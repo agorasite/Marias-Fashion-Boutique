@@ -4,6 +4,7 @@
 // the storefront writes.
 import { escapeHtml as esc, formatMoney, toast } from '../../ui.js';
 import { adminLayout } from './layout.js';
+import { opt, pagerHtml, followChanges } from './list-kit.js';
 import { fulfillmentBadge, paymentBadge } from './overview.js';
 import { fulfillmentLabel, paymentStatusLabel } from '../../services/account-rules.js';
 import { PAYMENT_LABELS } from '../../services/checkout-rules.js';
@@ -23,8 +24,6 @@ const timeFmt = new Intl.DateTimeFormat('el-GR', { hour: '2-digit', minute: '2-d
 // Module level so the filters survive a visit to an order and back.
 const DEFAULT_STATE = { q: '', fulfillmentStatus: '', paymentStatus: '', paymentMethod: '', from: '', to: '', sort: 'newest', page: 1 };
 let state = { ...DEFAULT_STATE };
-
-const opt = (value, label, selected) => `<option value="${esc(value)}"${selected === value ? ' selected' : ''}>${esc(label)}</option>`;
 
 function toolbarHtml() {
   return `<div class="admin-card admin-ord-toolbar" data-orders-toolbar>
@@ -67,20 +66,6 @@ function rowHtml(o) {
     <td data-label="Κατάσταση"><div class="admin-badges">${fulfillmentBadge(o.fulfillmentStatus)}${paymentBadge(o.paymentStatus)}</div></td>
     <td data-label="" class="admin-ord-go"><a class="btn btn-sm btn-outline-dark" href="${href}" aria-label="Προβολή παραγγελίας ${esc(o.id)}"><span class="admin-action-label">Προβολή</span><i class="bi bi-chevron-right" aria-hidden="true"></i></a></td>
   </tr>`;
-}
-
-function pagerHtml(r) {
-  if (r.total === 0) return '';
-  const from = (r.page - 1) * r.pageSize + 1;
-  const to = Math.min(r.total, r.page * r.pageSize);
-  return `<nav class="admin-pager" aria-label="Σελίδες παραγγελιών">
-    <p class="admin-pager-info" data-range>Εμφάνιση ${from}–${to} από ${r.total}</p>
-    <div class="admin-pager-btns">
-      <button type="button" class="btn btn-sm btn-outline-dark" data-goto="${r.page - 1}"${r.page <= 1 ? ' disabled' : ''}><i class="bi bi-chevron-left" aria-hidden="true"></i> Προηγούμενη</button>
-      <span class="admin-pager-page" aria-live="polite" data-page-info>Σελίδα ${r.page} από ${r.pageCount}</span>
-      <button type="button" class="btn btn-sm btn-outline-dark" data-goto="${r.page + 1}"${r.page >= r.pageCount ? ' disabled' : ''}>Επόμενη <i class="bi bi-chevron-right" aria-hidden="true"></i></button>
-    </div>
-  </nav>`;
 }
 
 /** Save `text` as a UTF-8 CSV with BOM (Excel-friendly) via Blob + a[download]. */
@@ -143,7 +128,7 @@ export default async function render() {
       results.innerHTML = `${counts}${range}<div class="admin-table-wrap admin-ord-wrap"><table class="table admin-table admin-table-stack admin-ord-table" data-orders-table>
         <caption class="visually-hidden">Παραγγελίες</caption>
         <thead><tr><th scope="col">Παραγγελία</th><th scope="col">Ημερομηνία</th><th scope="col">Πελάτης</th><th scope="col" class="text-md-end">Σύνολο</th><th scope="col">Κατάσταση</th><th scope="col"><span class="visually-hidden">Ενέργειες</span></th></tr></thead>
-        <tbody>${r.items.map(rowHtml).join('')}</tbody></table></div>${pagerHtml(r)}`;
+        <tbody>${r.items.map(rowHtml).join('')}</tbody></table></div>${pagerHtml(r, 'Σελίδες παραγγελιών')}`;
     }
 
     let timer = null;
@@ -189,6 +174,9 @@ export default async function render() {
         results.scrollIntoView({ block: 'start' });
       }
     });
+
+    // status changes, cancellations, imports and new checkouts (also from the detail page or the console)
+    followChanges(body, ['orders:changed'], async () => { all = await listOrders(); paint(); });
 
     paint();
     view.dataset.ready = 'true';
