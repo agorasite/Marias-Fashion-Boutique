@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateSeed } from '../../tools/validate-seed.mjs';
+import { hasMd, mdOf } from '../../assets/js/services/image-path.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf8'));
@@ -29,7 +30,10 @@ test('content images exist (with -sm siblings) and have credits; tagged products
     assert.ok(d.alt && d.alt.trim(), `no alt for ${d.image}`);
     assert.ok(d.width > 0 && d.height > 0, `no dimensions for ${d.image}`);
     if (d.imageSm) assert.ok(fs.existsSync(path.join(root, d.imageSm)), `missing file ${d.imageSm}`);
+    // Task 18: large library photos declare a 1200w -md sibling via hasMd(); it must exist
+    if (hasMd(d.image, d.width)) assert.ok(fs.existsSync(path.join(root, mdOf(d.image))), `missing file ${mdOf(d.image)}`);
   }
+  assert.ok(hasMd(content.hero.image, content.hero.width), 'the 1920w hero has a 1200w sibling');
   const editorialSet = ['hero-1', 'banner-1', 'banner-2', 'banner-3', 'collection-1', 'collection-2', 'collection-3', 'collection-4',
     ...Array.from({ length: 9 }, (_, i) => `insta-${i + 1}`)];
   for (const n of editorialSet) assert.ok(imgs.includes(`assets/images/content/${n}.webp`), `${n} is not used by the content model`);

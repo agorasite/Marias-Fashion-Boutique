@@ -8,7 +8,8 @@
  * Reads tools/image-manifest.json, downloads each downloadUrl to tools/.cache,
  * converts with cwebp to <outBase>.webp (long edge 1200, or the entry's optional
  * integer maxEdge in 480..4000, q80) and
- * <outBase>-sm.webp (long edge 480, q75), and merges assets/images/credits.json.
+ * <outBase>-sm.webp (long edge 480, q75) — plus <outBase>-md.webp (long edge 1200, q78) when maxEdge > 1200 —
+ * and merges assets/images/credits.json.
  * Existing outputs are skipped. Needs `cwebp` on PATH.
  */
 import fs from 'node:fs';
@@ -28,6 +29,10 @@ export const DEFAULT_MAX_EDGE = 1200;
 export function fullEdge(entry) {
   return entry.maxEdge ?? DEFAULT_MAX_EDGE;
 }
+
+/** Entries larger than 1200px (the hero) also get a 1200w <outBase>-md.webp for phones (Task 18). */
+export const MD_EDGE = 1200;
+export const needsMd = (entry) => fullEdge(entry) > MD_EDGE;
 
 /** true when p is a relative, forward-slash path under prefix with no .. segments. */
 export function isSafeAssetPath(p, prefix = '') {
@@ -182,6 +187,14 @@ async function main() {
   for (const e of entries) {
     const { full, small } = outputPaths(e.outBase);
     const fullAbs = path.join(outRoot, full), smallAbs = path.join(outRoot, small);
+    const mdAbs = path.join(outRoot, `${e.outBase}-md.webp`);
+    if (isUsableFile(fullAbs) && isUsableFile(smallAbs) && needsMd(e) && !isUsableFile(mdAbs) && !dry) {
+      const orig = path.join(cache, `${e.id}.orig`);
+      if (fs.existsSync(orig)) {
+        const size = imageSize(fs.readFileSync(orig));
+        if (size) { convert(orig, mdAbs, size, MD_EDGE, 78); console.log(`md ${e.id} -> ${e.outBase}-md.webp`); }
+      }
+    }
     if (isUsableFile(fullAbs) && isUsableFile(smallAbs)) {
       if (!credits[full] && !dry) {
         credits = mergeCredits(credits, e, today);
@@ -201,6 +214,7 @@ async function main() {
     if (!size) throw new Error(`${e.id}: unrecognised image format`);
     convert(orig, fullAbs, size, fullEdge(e), 80);
     convert(orig, smallAbs, size, 480, 75);
+    if (needsMd(e)) convert(orig, mdAbs, size, MD_EDGE, 78);
     credits = mergeCredits(credits, e, today);
     fs.mkdirSync(path.dirname(creditsPath), { recursive: true });
     fs.writeFileSync(creditsPath, JSON.stringify(credits, null, 2) + '\n');

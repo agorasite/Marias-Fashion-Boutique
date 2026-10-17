@@ -10,6 +10,7 @@ import { getContent, loadDefaults, fillTokens, subscribeNewsletter, validateNews
 import { getSettings } from '../services/settings.js';
 import { listProducts } from '../services/products.js';
 import { selectHomeSections } from '../services/home-rules.js';
+import { hasMd, mdOf, MD_WIDTH } from '../services/image-path.js';
 
 const DEPT_COPY = {
   women: { eyebrow: 'Γυναικεία', title: 'Για εκείνη', more: 'Όλα τα γυναικεία' },
@@ -25,7 +26,8 @@ const smWidth = (w, h) => Math.round((w * 480) / Math.max(w, h));
 function picture(d, { cls = '', sizes = '100vw', eager = false, alt } = {}) {
   const w = d.width || 1200;
   const h = d.height || 800;
-  const srcset = d.imageSm ? ` srcset="${esc(d.imageSm)} ${smWidth(w, h)}w, ${esc(d.image)} ${w}w" sizes="${esc(sizes)}"` : '';
+  const md = d.imageSm && hasMd(d.image, w) ? `${esc(mdOf(d.image))} ${MD_WIDTH}w, ` : '';
+  const srcset = d.imageSm ? ` srcset="${esc(d.imageSm)} ${smWidth(w, h)}w, ${md}${esc(d.image)} ${w}w" sizes="${esc(sizes)}"` : '';
   const prio = eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy"';
   return `<img class="${cls}" src="${esc(d.image)}"${srcset} width="${w}" height="${h}" alt="${esc(alt ?? d.alt)}"${prio} decoding="async">`;
 }
