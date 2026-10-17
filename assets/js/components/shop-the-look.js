@@ -5,6 +5,29 @@ import { getProduct } from '../services/products.js';
 export const DEMO_FEED_LABEL = 'Επιλεγμένο περιεχόμενο — demo, όχι ζωντανή σύνδεση με Instagram';
 
 import { smOf } from '../services/image-path.js';
+import { hideModal } from './modals.js';
+
+// A previous dialog must be CLOSED before a new one opens: just removing its element (the old code) left
+// Bootstrap's backdrop and body scroll lock behind, and disposing it mid fade-in makes Bootstrap's queued
+// transition callbacks throw. The latest request waits for the old dialog's hidden event.
+let pendingOpen = null;
+function closeOld() {
+  let waiting = false;
+  for (const m of document.querySelectorAll('[data-insta-modal]')) {
+    if (!window.bootstrap.Modal.getInstance(m)) { m.remove(); continue; } // never initialised
+    waiting = true;
+    if (!m.dataset.instaClosing) {
+      m.dataset.instaClosing = '1';
+      m.addEventListener('hidden.bs.modal', () => {
+        const next = pendingOpen;
+        pendingOpen = null;
+        if (next) openShopTheLook(...next);
+      }, { once: true });
+      hideModal(m); // deferred until shown while it is still fading in
+    }
+  }
+  return waiting;
+}
 
 function productRow(p) {
   const img = p.images?.[0];
@@ -27,7 +50,7 @@ function productRow(p) {
  * Focus returns to `returnFocus` (the tile) when the dialog closes.
  */
 export function openShopTheLook(post, { handle = '', returnFocus } = {}) {
-  document.querySelectorAll('[data-insta-modal]').forEach((m) => m.remove());
+  if (closeOld()) { pendingOpen = [post, { handle, returnFocus }]; return null; }
   const id = `stl-${post.id}`;
   const wrap = document.createElement('div');
   wrap.innerHTML = `<div class="modal fade modal-elan stl-modal" id="${esc(id)}" tabindex="-1" aria-labelledby="${esc(id)}-title" data-insta-modal>
@@ -66,7 +89,7 @@ export function openShopTheLook(post, { handle = '', returnFocus } = {}) {
       list.removeAttribute('aria-busy');
       list.querySelectorAll('img').forEach((im) => im.addEventListener('error', () => im.remove(), { once: true }));
     });
-  el.addEventListener('click', (e) => { if (e.target.closest('a[href^="#/"]')) modal.hide(); });
+  el.addEventListener('click', (e) => { if (e.target.closest('a[href^="#/"]')) hideModal(el); });
   el.addEventListener('hidden.bs.modal', () => {
     modal.dispose();
     el.remove();

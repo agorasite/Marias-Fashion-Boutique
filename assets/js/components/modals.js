@@ -1,3 +1,6 @@
+import { sizeLabel, compareSizes } from '../services/products.js';
+import { formatMoney } from '../services/pricing.js';
+
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 let seq = 0;
@@ -154,13 +157,9 @@ export function renderDemoStrip() {
  * `product` carries `variants` and `availability`. Returns the Bootstrap modal instance.
  */
 export function quickViewModal(product, { returnFocus } = {}) {
-  const sizeLabel = (s) => (s === 'ONE' ? 'Μία διάσταση' : s);
-  const order = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-  const rank = (x) => (order.includes(x) ? order.indexOf(x) : (x === 'ONE' ? 1e6 : 100 + parseFloat(x) || 1e5));
-  const sizes = [...new Set((product.variants || []).map((v) => v.size))].sort((a, b) => rank(a) - rank(b));
+  const sizes = [...new Set((product.variants || []).map((v) => v.size))].sort(compareSizes);
   const colorMap = new Map();
   (product.variants || []).forEach((v) => { if (!colorMap.has(v.color)) colorMap.set(v.color, v.colorHex); });
-  const money = new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' });
   const sale = product.compareAtCents && product.compareAtCents > product.priceCents;
   const inStock = product.availability ? product.availability.inStock : true;
   const id = `quickView${++seq}`;
@@ -181,7 +180,7 @@ export function quickViewModal(product, { returnFocus } = {}) {
             <div class="col-7">
               <p class="product-card-brand">${esc(product.brand)}</p>
               <h2 class="h4 mb-2" id="${id}-title">${esc(product.name)}</h2>
-              <p class="mb-3 price ${sale ? 'price-sale' : ''}"><span>${esc(money.format(product.priceCents / 100))}</span>${sale ? `<span class="price-old">${esc(money.format(product.compareAtCents / 100))}</span>` : ''}</p>
+              <p class="mb-3 price ${sale ? 'price-sale' : ''}"><span>${esc(formatMoney(product.priceCents))}</span>${sale ? `<span class="price-old">${esc(formatMoney(product.compareAtCents))}</span>` : ''}</p>
               <p class="small ${inStock ? 'text-success' : 'text-body-secondary'} mb-3">${inStock ? 'Διαθέσιμο' : 'Εξαντλημένο'}</p>
               ${colorMap.size ? `<p class="eyebrow mb-1">Χρώματα</p><ul class="list-inline qv-colors mb-3">${[...colorMap].map(([n, h]) => `<li class="list-inline-item"><span class="swatch" style="background:${esc(h)}"></span> <span class="small">${esc(n)}</span></li>`).join('')}</ul>` : ''}
               ${sizes.length ? `<p class="eyebrow mb-1">Μεγέθη</p><ul class="list-inline qv-sizes mb-3">${sizes.map((s) => `<li class="list-inline-item"><span class="qv-size">${esc(sizeLabel(s))}</span></li>`).join('')}</ul>` : ''}
@@ -199,7 +198,10 @@ export function quickViewModal(product, { returnFocus } = {}) {
   const img = el.querySelector('.quick-view-media img');
   if (img) {
     img.addEventListener('error', () => {
-      img.replaceWith(Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span>ÉLAN</span>' }));
+      const tile = Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span aria-hidden="true">ÉLAN</span>' });
+      tile.setAttribute('role', 'img');
+      tile.setAttribute('aria-label', product.name);
+      img.replaceWith(tile);
     }, { once: true });
   }
   el.addEventListener('hidden.bs.modal', () => {
