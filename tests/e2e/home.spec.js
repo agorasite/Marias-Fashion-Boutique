@@ -253,7 +253,9 @@ test('new collection carousel is keyboard accessible and does not trap focus', a
   await openHome(page);
   const scroller = page.locator(`${sec('new-collection')} [data-scroller]`);
   await expect(scroller).toHaveAttribute('tabindex', '0');
-  await expect(scroller).toHaveAttribute('role', 'region');
+  // a named, focusable LIST (Task 18: role=region on the <ul> stripped its list semantics — axe «listitem»)
+  await expect(scroller).not.toHaveAttribute('role', /.+/);
+  expect(await scroller.evaluate((el) => el.tagName)).toBe('UL');
   await expect(scroller).toHaveAttribute('aria-label', /.+/);
   await scroller.focus();
   const outline = await scroller.evaluate((el) => getComputedStyle(el).outlineStyle);

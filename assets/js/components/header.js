@@ -55,8 +55,8 @@ export function renderHeader() {
         <button class="header-icon header-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" aria-label="Μενού">
           <i class="bi bi-list" aria-hidden="true"></i>
         </button>
-        <a class="brand" href="#/" aria-label="ÉLAN Fashion Boutique — Αρχική">
-          <span class="brand-mark">ÉLAN</span><span class="brand-sub">Fashion Boutique</span>
+        <a class="brand" href="#/">
+          <span class="brand-mark">ÉLAN</span> <span class="brand-sub">Fashion Boutique</span><span class="visually-hidden"> — Αρχική</span>
         </a>
       </div>
       <nav class="header-nav d-none d-lg-flex" aria-label="Κύρια πλοήγηση">
@@ -103,6 +103,14 @@ export function renderHeader() {
   });
   collapseEl.addEventListener('hidden.bs.collapse', () => setExpanded(false));
 
+  // The real sticky header height (desktop nav row, open mobile search) feeds `scroll-padding-top`, so a
+  // control focused by keyboard or an anchor target never ends up hidden under the header.
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--elan-sticky-h', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+    }).observe(header);
+  }
+
   return {
     header,
     offcanvas,
@@ -147,9 +155,13 @@ export function setBadge(name, count) {
     b.textContent = n > 99 ? '99+' : String(n);
     b.hidden = n === 0;
     const link = b.closest('a');
-    if (link) {
+    if (link && link.querySelector('.bottom-nav-label')) {
+      // bottom bar: the visible «4 Καλάθι» IS the accessible name (no aria-label that could differ from it)
+      link.removeAttribute('aria-label');
+    } else if (link) {
       link.dataset.label ||= link.getAttribute('aria-label') || '';
-      if (link.dataset.label) link.setAttribute('aria-label', n ? `${link.dataset.label} (${n})` : link.dataset.label);
+      // «Καλάθι: 4» — the visible badge number appears in the name as a word (WCAG 2.5.3 label in name)
+      if (link.dataset.label) link.setAttribute('aria-label', n ? `${link.dataset.label}: ${n}` : link.dataset.label);
     }
   });
 }

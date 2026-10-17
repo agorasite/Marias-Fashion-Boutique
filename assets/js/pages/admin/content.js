@@ -124,7 +124,7 @@ const TABS = {
       ${k.select('focal', 'Εστίαση φωτογραφίας (focal point)', FOCAL_PRESETS, { hint: 'Ποιο σημείο της φωτογραφίας μένει ορατό όταν κόβεται σε στενές οθόνες.' })}
     </div>
     <div class="cms-preview" data-hero-preview aria-live="polite"><p class="cms-preview-label">Προεπισκόπηση</p>
-      <div class="cms-preview-stage"><img alt="" data-prev-img><div class="cms-preview-copy"><p data-prev-eyebrow></p><h3 data-prev-title></h3><p data-prev-sub></p><span class="cms-preview-cta" data-prev-cta></span></div></div></div>`;
+      <div class="cms-preview-stage"><img alt="" data-prev-img><div class="cms-preview-copy"><p data-prev-eyebrow></p><p class="cms-preview-title" data-prev-title></p><p data-prev-sub></p><span class="cms-preview-cta" data-prev-cta></span></div></div></div>`;
   },
 
   banners(k, d) {

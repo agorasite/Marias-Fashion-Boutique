@@ -84,7 +84,7 @@
 }
 
 /* ---------- base ---------- */
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--elan-sticky-h, var(--elan-header-h)) + 0.75rem); } /* sticky header never hides a focused or anchored element */
 body {
   background: var(--elan-ivory);
   color: var(--elan-charcoal);

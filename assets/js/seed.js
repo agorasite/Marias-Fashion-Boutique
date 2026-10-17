@@ -13,9 +13,14 @@ const load = async (name) => {
 const optional = (name) => load(name).catch((e) => { console.warn(`Optional seed file ${name}.json skipped`, e); return null; });
 
 async function loadSeedData() {
-  const [meta, prod, content, rev, sampleRaw] = await Promise.all([
-    load('catalog-meta'), load('products'), load('content'), load('reviews'), optional('sample-data'),
-  ]);
+  let files;
+  try {
+    files = await Promise.all([load('catalog-meta'), load('products'), load('content'), load('reviews'), optional('sample-data')]);
+  } catch (e) {
+    // network/server problem, not a storage one: the start-up screen says so and offers a retry
+    throw Object.assign(new Error('Seed data unavailable'), { code: 'seed-fetch', cause: e });
+  }
+  const [meta, prod, content, rev, sampleRaw] = files;
   // Sample customers / historical orders, re-dated to the install day (see services/sample-data.js).
   // sample-data.json is optional: when it cannot be loaded the shop is seeded without it.
   let sample = null;

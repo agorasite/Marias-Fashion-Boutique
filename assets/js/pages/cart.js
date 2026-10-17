@@ -172,11 +172,12 @@ export default async function render() {
     if (openSku && !data.lines.some((l) => l.sku === openSku)) openSku = null;
     body.innerHTML = `<div class="cart-grid">
       <div class="cart-items">
+        <h2 class="visually-hidden" id="cartItemsTitle" tabindex="-1">Προϊόντα στο καλάθι</h2>
         ${data.hasProblems ? `<div class="cart-banner" role="alert" data-cart-problems>
           <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
           <span>Κάποια προϊόντα στο καλάθι σας δεν είναι διαθέσιμα στην ποσότητα που επιλέξατε. Διορθώστε τα για να συνεχίσετε στην ολοκλήρωση.</span>
         </div>` : ''}
-        <ul class="cart-lines list-unstyled" data-lines>${data.lines.map((l) => lineHtml(l, l.sku === openSku, variantsByProduct)).join('')}</ul>
+        <ul class="cart-lines list-unstyled" data-lines aria-labelledby="cartItemsTitle">${data.lines.map((l) => lineHtml(l, l.sku === openSku, variantsByProduct)).join('')}</ul>
       </div>
       <aside class="cart-summary" aria-label="Σύνοψη παραγγελίας" data-summary>${summaryHtml(data)}</aside>
     </div>`;

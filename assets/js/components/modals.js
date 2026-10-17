@@ -29,6 +29,12 @@ function patchModalHide() {
 }
 patchModalHide();
 
+/** Show a page-owned modal and give focus back to `trigger` once it has closed (Escape, ×, backdrop). */
+export function showModalFrom(el, trigger) {
+  if (trigger) el.addEventListener('hidden.bs.modal', () => { if (trigger.isConnected) trigger.focus(); }, { once: true });
+  window.bootstrap.Modal.getOrCreateInstance(el).show();
+}
+
 /** Hide a modal element's Bootstrap instance (also while it is still fading in; see patchModalHide). */
 export function hideModal(el) {
   patchModalHide();
@@ -45,6 +51,7 @@ export function hideModal(el) {
 export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel = 'Επιβεβαίωση', cancelLabel = 'Άκυρο', danger = false, items = [], requireText = '' } = {}) {
   return new Promise((resolve) => {
     const id = `confirmDialog${++seq}`;
+    const opener = document.activeElement; // focus goes back here on close (callers may move it after)
     const wrap = document.createElement('div');
     wrap.innerHTML = `<div class="modal fade modal-elan" id="${id}" tabindex="-1" aria-labelledby="${id}-title" aria-describedby="${id}-body">
       <div class="modal-dialog modal-dialog-centered">
@@ -95,6 +102,8 @@ export function confirmDialog(msg, { title = 'Επιβεβαίωση', okLabel =
     el.addEventListener('hidden.bs.modal', () => {
       modal.dispose();
       el.remove();
+      const a = document.activeElement;
+      if (opener && opener !== document.body && opener.isConnected && (!a || a === document.body)) opener.focus();
       resolve(answer);
     });
     modal.show();
@@ -111,8 +120,8 @@ export const DEMO_LIMITATIONS = [
   'Ζωντανά δεδομένα από το Instagram απαιτούν υποστηριζόμενη σύνδεση και διαπιστευτήρια· εδώ εμφανίζονται επιλεγμένες φωτογραφίες.',
 ];
 
-/** The "about this demo" modal, created once and reused. */
-export function aboutDemoModal() {
+/** The "about this demo" modal, created once and reused. `returnFocus` gets focus back when it closes. */
+export function aboutDemoModal(returnFocus) {
   let el = document.getElementById('aboutDemoModal');
   if (!el) {
     const wrap = document.createElement('div');
@@ -137,6 +146,7 @@ export function aboutDemoModal() {
     el = wrap.firstElementChild;
     document.body.append(el);
   }
+  if (returnFocus) el.addEventListener('hidden.bs.modal', () => { if (returnFocus.isConnected) returnFocus.focus(); }, { once: true });
   return window.bootstrap.Modal.getOrCreateInstance(el);
 }
 
@@ -148,7 +158,7 @@ export function renderDemoStrip() {
       <span class="demo-strip-text"><i class="bi bi-info-circle me-1" aria-hidden="true"></i>Demo κατάστημα · Οι παραγγελίες είναι προσομοίωση</span>
       <button type="button" class="btn btn-link demo-strip-btn" aria-haspopup="dialog">Πληροφορίες</button>
     </div>`;
-  strip.querySelector('button').addEventListener('click', () => aboutDemoModal().show());
+  strip.querySelector('button').addEventListener('click', (e) => aboutDemoModal(e.currentTarget).show());
   return strip;
 }
 

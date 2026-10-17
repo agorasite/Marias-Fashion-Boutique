@@ -351,3 +351,13 @@ body[data-layout="admin"] .bottom-nav { display: none; }
 .brand-footer .brand-logo { max-height: 56px; }
 .footer-contact-extra { display: flex; flex-direction: column; gap: 0.35rem; }
 .footer-contact-extra > span { display: flex; gap: 0.5rem; align-items: baseline; }
+
+/* Generic broken-image tile (app.js swaps any <img> that failed to load without its own fallback). */
+.img-fallback { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 100%; height: auto; background: linear-gradient(135deg, var(--elan-sand), var(--elan-beige)); color: var(--elan-gold-ink); font-family: var(--elan-font-display); font-size: 1rem; overflow: hidden; }
+
+/* Very long product names (admin can type up to the field limit) must wrap, never widen the page. */
+.breadcrumb-item { min-width: 0; overflow-wrap: anywhere; }
+/* Names, brands and titles come from editable data: an unbroken 2,000-character word must still wrap. */
+body { overflow-wrap: break-word; }
+.product-card-brand, .product-card-title, .pdp-title, .pdp-info, .cart-line-name, .co-line-name, .stl-name,
+.acct-order-line, .admin-prod-name, .admin-prod-meta, .admin-cust, .admin-cust-mail, .admin-cu-name, .admin-title, .breadcrumb { overflow-wrap: anywhere; }

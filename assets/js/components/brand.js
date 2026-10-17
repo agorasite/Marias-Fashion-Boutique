@@ -12,9 +12,13 @@ export function brandInfo(settings = {}) {
   return { text: logo.text || '', sub: logo.text ? (logo.subtext || '') : '', image: logo.image || '', alt: logo.alt || name, name, custom: true };
 }
 
-/** Markup inside a `.brand` link. */
+/**
+ * Markup inside a `.brand` link. The link's accessible name is its visible text (logo alt / wordmark)
+ * plus a visually hidden « — Αρχική», so the spoken name always contains the visible label (WCAG 2.5.3);
+ * no aria-label that could drift from what is shown.
+ */
 export function brandInnerHtml(info) {
-  return `${info.image ? `<img class="brand-logo" src="${esc(info.image)}" alt="${esc(info.alt)}" height="40">` : ''}${info.text ? `<span class="brand-mark">${esc(info.text)}</span>` : ''}${info.sub ? `<span class="brand-sub">${esc(info.sub)}</span>` : ''}`;
+  return `${info.image ? `<img class="brand-logo" src="${esc(info.image)}" alt="${esc(info.alt)}" height="40">` : ''}${info.text ? ` <span class="brand-mark">${esc(info.text)}</span>` : ''}${info.sub ? ` <span class="brand-sub">${esc(info.sub)}</span>` : ''}<span class="visually-hidden"> — Αρχική</span>`;
 }
 
 /** Update every `a.brand` under `scope` (header, footer) and the offcanvas title. */
@@ -22,7 +26,7 @@ export function applyBrand(scope, settings) {
   if (!scope) return;
   const info = brandInfo(settings);
   scope.querySelectorAll('a.brand').forEach((a) => {
-    a.setAttribute('aria-label', `${info.name} — Αρχική`);
+    a.removeAttribute('aria-label');
     a.innerHTML = brandInnerHtml(info);
     a.dataset.brand = info.custom ? 'custom' : 'default';
   });

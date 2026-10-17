@@ -1,6 +1,7 @@
 import { escapeHtml as esc } from '../ui.js';
 
 import { smOf } from '../services/image-path.js';
+import { showModalFrom } from './modals.js';
 
 /**
  * Product image gallery: main image, thumbnails and a keyboard-accessible lightbox.
@@ -58,9 +59,9 @@ export function createGallery({ images = [], name = '' }) {
   lbCount.textContent = `1 / ${images.length}`;
 
   thumbs.forEach((t, n) => t.addEventListener('click', () => show(n)));
-  el.querySelector('[data-lightbox-open]').addEventListener('click', () => {
+  el.querySelector('[data-lightbox-open]').addEventListener('click', (e) => {
     show(index);
-    window.bootstrap.Modal.getOrCreateInstance(lightbox).show();
+    showModalFrom(lightbox, e.currentTarget);
   });
   lightbox.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => show(index - 1));
   lightbox.querySelector('[data-lightbox-next]')?.addEventListener('click', () => show(index + 1));
@@ -69,7 +70,10 @@ export function createGallery({ images = [], name = '' }) {
     if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); }
   });
   main.addEventListener('error', () => {
-    main.replaceWith(Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span>ÉLAN</span>' }));
+    const tile = Object.assign(document.createElement('div'), { className: 'product-card-fallback', innerHTML: '<span aria-hidden="true">ÉLAN</span>' });
+    tile.setAttribute('role', 'img');
+    tile.setAttribute('aria-label', name);
+    main.replaceWith(tile);
   }, { once: true });
 
   return { el, lightbox, show };

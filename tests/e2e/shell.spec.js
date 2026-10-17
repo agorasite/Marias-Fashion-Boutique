@@ -131,7 +131,7 @@ test('bottom-nav search button exposes aria-expanded and badges are announced', 
   await btn.click();
   await expect(btn).toHaveAttribute('aria-expanded', 'true');
   await page.evaluate(() => window.dispatchEvent(new CustomEvent('cart:changed', { detail: { count: 4 } })));
-  await expect(page.locator('.bottom-nav a[href="#/cart"]')).toHaveAttribute('aria-label', 'Καλάθι (4)');
+  await expect(page.locator('.bottom-nav a[href="#/cart"]')).toHaveAccessibleName('4 Καλάθι');
 });
 
 test('navigate is available from ui.js', async ({ page }) => {

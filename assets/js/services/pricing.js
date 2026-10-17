@@ -2,8 +2,11 @@
 
 const fmt = new Intl.NumberFormat('el-GR', { style: 'currency', currency: 'EUR' });
 
+/** «12,90 €»; a missing/corrupted amount renders as «—» instead of «NaN €». */
 export function formatMoney(cents) {
-  return fmt.format(cents / 100);
+  const n = Number(cents);
+  if (cents === null || cents === undefined || cents === '' || !Number.isFinite(n)) return '—';
+  return fmt.format(n / 100);
 }
 
 export function validateCoupon(coupon, subtotalCents, now = new Date()) {

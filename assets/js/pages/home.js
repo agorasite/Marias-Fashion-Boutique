@@ -111,7 +111,7 @@ function newCollectionMarkup() {
       </div>
     </div>
     <div class="container-xl home-scroller-wrap">
-      <ul class="home-scroller list-unstyled" data-scroller data-products tabindex="0" role="region" aria-label="Νέα Συλλογή: προϊόντα (κύλιση με τα βέλη)">${skeletons(4)}</ul>
+      <ul class="home-scroller list-unstyled" data-scroller data-products tabindex="0" aria-label="Νέα Συλλογή: προϊόντα (κύλιση με τα βέλη)">${skeletons(4)}</ul>
       <div class="scroller-progress" aria-hidden="true"><span></span></div>
     </div>
   </section>`;

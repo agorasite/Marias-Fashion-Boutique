@@ -42,9 +42,9 @@ export function renderFooter() {
   const footer = document.createElement('footer');
   footer.className = 'site-footer';
   footer.innerHTML = `<div class="container-xl">
-      <div class="row g-4 g-lg-5">
+      <div class="row g-4 gy-lg-5">
         <div class="col-12 col-lg-4">
-          <a class="brand brand-footer" href="#/" aria-label="ÉLAN Fashion Boutique — Αρχική"><span class="brand-mark">ÉLAN</span><span class="brand-sub">Fashion Boutique</span></a>
+          <a class="brand brand-footer" href="#/"><span class="brand-mark">ÉLAN</span> <span class="brand-sub">Fashion Boutique</span><span class="visually-hidden"> — Αρχική</span></a>
           <p class="footer-tagline"></p>
           <ul class="footer-social list-unstyled d-flex gap-2 mb-0"></ul>
         </div>
@@ -68,7 +68,7 @@ export function renderFooter() {
         <span>Demo κατάστημα από την AgoraSite · Οι τιμές περιλαμβάνουν ΦΠΑ</span>
       </div>
     </div>`;
-  footer.querySelector('[data-about-demo]').addEventListener('click', () => aboutDemoModal().show());
+  footer.querySelector('[data-about-demo]').addEventListener('click', (e) => aboutDemoModal(e.currentTarget).show());
   applySettings(footer, DEFAULTS);
   applyFooterContent(footer, FALLBACK_CONTENT);
   return footer;

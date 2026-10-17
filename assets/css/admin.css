@@ -84,7 +84,7 @@ body[data-layout="admin"] #app { min-height: 0; }
 .admin-topbar-store { display: flex; align-items: center; gap: 0.6rem; min-width: 0; flex: 1 1 auto; flex-wrap: wrap; row-gap: 0.15rem; }
 .admin-topbar-name { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .admin-topbar-actions { display: flex; align-items: center; gap: 0.5rem; flex: none; }
-.admin-topbar-btn { min-width: 40px; min-height: 40px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; }
+.admin-topbar-btn { min-width: 44px; min-height: 44px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; }
 @media (max-width: 420px) { .admin-topbar-name { display: none; } }
 @media (min-width: 768px) { .admin-topbar { padding-inline: 1.75rem; } }
 
@@ -268,3 +268,6 @@ body[data-layout="admin"] #app { min-height: 0; }
 }
 
 .admin-brand-img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; background: #fff; }
+
+/* admin pages hide the storefront header; the sticky admin top bar is what must not cover focus */
+html:has(body[data-layout="admin"]) { scroll-padding-top: calc(var(--admin-top-h) + 0.75rem); }

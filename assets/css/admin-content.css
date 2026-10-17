@@ -74,7 +74,7 @@
 .cms-preview-stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.05) 70%); }
 .cms-preview-copy { position: absolute; z-index: 1; inset: auto 0 0 0; padding: 0.9rem 1rem; color: #fff; max-width: 70%; }
 .cms-preview-copy p { margin: 0; font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9; }
-.cms-preview-copy h3 { font-family: var(--elan-font-display); font-size: clamp(1rem, 3vw, 1.5rem); margin: 0.15rem 0; font-weight: 500; line-height: 1.15; }
+.cms-preview-copy .cms-preview-title { font-family: var(--elan-font-display); font-size: clamp(1rem, 3vw, 1.5rem); margin: 0.15rem 0; font-weight: 500; line-height: 1.15; }
 .cms-preview-copy p[data-prev-sub] { text-transform: none; letter-spacing: 0; font-size: 0.8125rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .cms-preview-cta { display: inline-block; margin-top: 0.4rem; background: #fff; color: var(--admin-ink); border-radius: 4px; padding: 0.15rem 0.6rem; font-size: 0.75rem; font-weight: 600; }
 .cms-preview-cta:empty { display: none; }
@@ -108,4 +108,4 @@
 /* form bar with a long secondary button must wrap on narrow screens */
 .admin-formbar-btns { flex-wrap: wrap; justify-content: flex-end; min-width: 0; max-width: 100%; }
 @media (max-width: 575.98px) { .admin-formbar-btns { width: 100%; } .admin-formbar-btns .btn { flex: 1 1 auto; } }
-.cms-preview-copy h3 { color: #fff; }
+.cms-preview-copy .cms-preview-title { color: #fff; }

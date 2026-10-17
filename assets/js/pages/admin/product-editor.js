@@ -64,7 +64,23 @@ export async function renderEditor(ctx) {
       view.dataset.ready = 'true';
       return;
     }
-    mountForm({ root, body, view, catalog, existing });
+    // A damaged record (missing images/variants/attributes) must still open so it can be repaired.
+    if (existing) {
+      existing = {
+        ...existing,
+        images: Array.isArray(existing.images) ? existing.images : [],
+        variants: Array.isArray(existing.variants) ? existing.variants : [],
+        attributes: existing.attributes && typeof existing.attributes === 'object' ? existing.attributes : {},
+        flags: existing.flags && typeof existing.flags === 'object' ? existing.flags : {},
+      };
+    }
+    try {
+      mountForm({ root, body, view, catalog, existing });
+    } catch (err) {
+      console.warn('Editor render failed', err);
+      body.innerHTML = '<div class="alert alert-danger" role="alert" data-editor-broken>Τα δεδομένα αυτού του προϊόντος είναι κατεστραμμένα και δεν μπορούν να εμφανιστούν στη φόρμα. Επαναφέρετε τα από αντίγραφο ασφαλείας ή διαγράψτε το προϊόν από τη λίστα.</div>';
+      view.dataset.ready = 'true';
+    }
   })();
   return root;
 }

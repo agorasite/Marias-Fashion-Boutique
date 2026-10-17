@@ -85,7 +85,7 @@ export default async function render(ctx) {
       </div>
       <div class="filter-chips" data-chips aria-label="Ενεργά φίλτρα"></div>
       <div class="catalog-layout">
-        <aside class="filters-sidebar d-none d-lg-block" id="filtersSidebar" aria-label="Φίλτρα" data-filters></aside>
+        <aside class="filters-sidebar d-none d-lg-block" id="filtersSidebar" aria-labelledby="filtersSidebarTitle"><h2 class="visually-hidden" id="filtersSidebarTitle">Φίλτρα</h2><div data-filters></div></aside>
         <div>
           <div class="product-grid" data-grid aria-live="off">${Array.from({ length: 8 }, productCardSkeleton).join('')}</div>
           <div data-empty></div>

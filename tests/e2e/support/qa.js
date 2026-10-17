@@ -71,6 +71,13 @@ async function go(page, hash) {
   await settle(page);
 }
 
+/** Click something that navigates; the old page is marked so settle() waits for the new one. */
+async function clickNavigating(page, locator) {
+  await page.evaluate(() => document.getElementById('app').firstElementChild?.setAttribute('data-qa-old', ''));
+  await locator.click();
+  await settle(page);
+}
+
 /** Full page load at `hash`, then settle. */
 async function open(page, hash) {
   await page.goto(`/${hash}`);
@@ -109,6 +116,22 @@ async function expectImagesLoaded(page, label = '') {
 }
 
 const overflowX = (page) => page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+
+/** Elements sticking out past the right edge (diagnostics for overflow failures). */
+const overflowCulprits = (page) => page.evaluate(() => {
+  const W = window.innerWidth;
+  const name = (el) => `${el.tagName.toLowerCase()}.${String(el.className).trim().split(/s+/).slice(0, 2).join('.')}`;
+  const out = [];
+  for (const el of document.querySelectorAll('body *')) {
+    if (el.closest('.visually-hidden, .offcanvas:not(.show), .modal:not(.show)')) continue;
+    const b = el.getBoundingClientRect();
+    if (b.width > 0 && b.right > W + 0.5) out.push(`${name(el)} right=${Math.round(b.right)}`);
+    // text that overflows its own box (an unbreakable word) does not show in the box itself
+    else if (getComputedStyle(el).overflowX === 'visible' && el.scrollWidth > el.clientWidth + 1 && b.left + el.scrollWidth > W + 0.5 && el.clientWidth > 0) out.push(`${name(el)} text-overflow=${el.scrollWidth - el.clientWidth}`);
+    if (out.length >= 6) break;
+  }
+  return out;
+});
 
 /** Seed state through the real services: one placed order (COD), then one line left in the cart. */
 async function seedShopper(page) {
@@ -157,6 +180,13 @@ function tapTargetViolations(page, scopes) {
         const cs = getComputedStyle(el);
         if (el.tagName === 'A' && cs.display === 'inline' && el.closest('p, .form-text, small')) continue;
         let r = el.getBoundingClientRect();
+        // «stretched link»: an absolutely positioned ::after overlay makes the positioned ancestor (the
+        // whole product card) the tap target — measure that box, which is what a finger actually hits.
+        const after = getComputedStyle(el, '::after');
+        if (after.content !== 'none' && after.position === 'absolute' && el.offsetParent) {
+          const o = el.offsetParent.getBoundingClientRect();
+          if (o.width * o.height > r.width * r.height) r = o;
+        }
         if (el.matches('input[type="checkbox"], input[type="radio"]')) {
           const lab = el.labels?.[0] || el.closest('label');
           const box = el.closest('.form-check') || lab;
@@ -174,5 +204,5 @@ function tapTargetViolations(page, scopes) {
 
 module.exports = {
   PRODUCTS, ACTIVE, PRODUCT, SKU, WIDTHS, stockedVariant,
-  watch, settle, go, open, scrollThrough, expectImagesLoaded, overflowX, seedShopper, adminOn, tapTargetViolations,
+  watch, settle, go, open, clickNavigating, scrollThrough, expectImagesLoaded, overflowX, overflowCulprits, seedShopper, adminOn, tapTargetViolations,
 };

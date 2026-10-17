@@ -6,6 +6,7 @@ import { getSettings } from '../services/settings.js';
 import { addLine, getCartRecord } from '../services/cart.js';
 import { listReviews, addReview, summarizeReviews, validateReview } from '../services/reviews.js';
 import { sizeChartFor } from '../services/size-charts.js';
+import { showModalFrom } from '../components/modals.js';
 import { productCard, discountPercent, priceHtml, wishIds, bindWishlistEvents } from '../components/product-card.js';
 import { quickViewModal } from '../components/modals.js';
 import { createGallery } from '../components/gallery.js';
@@ -341,9 +342,7 @@ export default async function render(ctx) {
     qty = Math.floor(Number(qtyInput.value)) || 1;
     update();
   });
-  $('[data-size-chart-open]').addEventListener('click', () => {
-    window.bootstrap.Modal.getOrCreateInstance(chartModal).show();
-  });
+  $('[data-size-chart-open]').addEventListener('click', (e) => showModalFrom(chartModal, e.currentTarget));
 
   addBtn.addEventListener('click', async () => {
     const v = current();

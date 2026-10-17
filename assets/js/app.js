@@ -12,17 +12,48 @@ import { renderDemoStrip, hideModal } from './components/modals.js';
 
 const app = document.getElementById('app');
 
+// Fatal start-up problems get a Greek explanation and a retry button (never a blank page).
+const STARTUP_ERRORS = {
+  blocked: ['Σφάλμα βάσης δεδομένων', 'Η βάση δεδομένων είναι κλειδωμένη από άλλη καρτέλα της εφαρμογής. Κλείστε τις άλλες καρτέλες και πατήστε «Δοκιμή ξανά».'],
+  'seed-fetch': ['Δεν φορτώθηκαν τα δεδομένα του καταστήματος', 'Η πρώτη φόρτωση του καταλόγου απέτυχε (πρόβλημα σύνδεσης ή διακομιστή). Ελέγξτε τη σύνδεσή σας και πατήστε «Δοκιμή ξανά».'],
+  unavailable: ['Σφάλμα βάσης δεδομένων', 'Δεν είναι δυνατή η χρήση του IndexedDB στον περιηγητή σας. Ελέγξτε ότι δεν βρίσκεστε σε ιδιωτική περιήγηση και ότι η αποθήκευση δεδομένων επιτρέπεται, και πατήστε «Δοκιμή ξανά».'],
+};
 function showError(err) {
-  const blocked = err && err.code === 'blocked';
-  app.innerHTML = `<div class="container py-5 text-center">
-    <h1 class="h3">Σφάλμα βάσης δεδομένων</h1>
-    <p>${blocked
-      ? 'Η βάση δεδομένων είναι κλειδωμένη. Κλείστε τις άλλες καρτέλες της εφαρμογής και ανανεώστε τη σελίδα.'
-      : 'Δεν είναι δυνατή η χρήση του IndexedDB στον περιηγητή σας. Ελέγξτε ότι δεν βρίσκεστε σε ιδιωτική περιήγηση και ανανεώστε τη σελίδα.'}</p>
-  </div>`;
+  const [title, text] = STARTUP_ERRORS[err && err.code] || STARTUP_ERRORS.unavailable;
+  app.removeAttribute('aria-busy');
+  app.innerHTML = `<section class="page startup-error" data-page="error" data-startup-error="${err && STARTUP_ERRORS[err.code] ? err.code : 'unavailable'}">
+    <div class="container py-5 text-center">
+      <h1 class="h3" tabindex="-1"></h1>
+      <p role="alert"></p>
+      <button type="button" class="btn btn-dark" data-retry><i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i>Δοκιμή ξανά</button>
+    </div>
+  </section>`;
+  app.querySelector('h1').textContent = title;
+  app.querySelector('p').textContent = text;
+  app.querySelector('[data-retry]').addEventListener('click', () => window.location.reload());
 }
 
 onDbError(showError);
+
+// Image-load failures anywhere (offline, deleted file, bad admin URL): components with their own fallback
+// (product cards, gallery, admin thumbnails) handle the error first; any <img> still left broken is swapped
+// for a neutral ÉLAN tile of the same proportions instead of the browser's broken-image icon.
+document.addEventListener('error', (e) => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement) || 'noFallback' in img.dataset) return;
+  setTimeout(() => { // after the element's own error listeners (which run later in this same dispatch)
+    if (!img.isConnected || img.style.visibility === 'hidden' || (img.complete && img.naturalWidth > 0)) return;
+    const tile = document.createElement('span');
+    tile.className = `img-fallback ${img.className}`.trim();
+    const w = Number(img.getAttribute('width')) || 4;
+    const h = Number(img.getAttribute('height')) || 5;
+    tile.style.aspectRatio = `${w} / ${h}`;
+    const alt = img.getAttribute('alt') || '';
+    if (alt) { tile.setAttribute('role', 'img'); tile.setAttribute('aria-label', alt); } else tile.setAttribute('aria-hidden', 'true');
+    tile.innerHTML = '<span aria-hidden="true">É</span>';
+    img.replaceWith(tile);
+  }, 0);
+}, true);
 
 // Lazy page modules: each exports `default async function render(ctx)`.
 const lazy = (load) => async (ctx) => (await load()).default(ctx);
