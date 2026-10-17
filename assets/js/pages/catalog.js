@@ -1,5 +1,5 @@
 import { escapeHtml as esc, html, formatMoney } from '../ui.js';
-import { buildHash } from '../router.js';
+import { buildHash, parseHash, onPageLeave } from '../router.js';
 import { listCategories, listProducts, sizeLabel } from '../services/products.js';
 import { productCard, productCardSkeleton } from '../components/product-card.js';
 import { quickViewModal } from '../components/modals.js';
@@ -139,6 +139,10 @@ async function init(root, ctx, basePath) {
   const unknownCategory = Boolean(categoryId && !category);
   const subs = category ? cats.filter((c) => c.parentId === category.id) : [];
   if (state.sub && !subs.some((c) => c.id === state.sub)) state.sub = '';
+  // Unknown `sub` or a malformed `page` in the URL: keep the canonical form (no history entry).
+  const badPage = ctx.query.page !== undefined && String(state.page) !== ctx.query.page;
+  const badSub = ctx.query.sub !== undefined && ctx.query.sub !== state.sub;
+  if ((badPage || badSub) && root.isConnected) history.replaceState(history.state, '', buildHash(basePath, stateToQuery(state)));
 
   // ---- static header parts
   $('[data-title]').textContent = unknownCategory ? 'Η κατηγορία δεν βρέθηκε' : (category ? category.name : 'Όλα τα προϊόντα');
@@ -199,7 +203,11 @@ async function init(root, ctx, basePath) {
 
   // ---- state / URL
   const currentHash = () => buildHash(basePath, stateToQuery(state));
+  // The page is still the routed one (not replaced by a navigation). Late callbacks (debounce, slow
+  // queries) must never write a stale catalog URL over the page the user moved to.
+  const alive = () => root.isConnected && parseHash(location.hash).path === basePath;
   function commit({ replace = false } = {}) {
+    if (!alive()) return;
     const target = currentHash();
     if (target !== location.hash) {
       if (replace) history.replaceState(history.state, '', target);
@@ -284,7 +292,15 @@ async function init(root, ctx, basePath) {
     const sig = JSON.stringify(facets);
     if (sig === facetSig) return;
     facetSig = sig;
+    // Re-rendering the panels would drop keyboard focus to <body>: put it back on the same control.
+    const a = document.activeElement;
+    const panel = a && panels.find((p) => p.contains(a));
+    const attr = panel && [...a.attributes].find((x) => x.name.startsWith('data-f-'));
     panels.forEach((p) => { p.innerHTML = filtersHtml(facets, state); });
+    if (attr) {
+      const sel = `[${attr.name}${attr.value ? `="${CSS.escape(attr.value)}"` : ''}]`;
+      (panel.querySelector(sel) || panel.querySelector('button, input'))?.focus({ preventScroll: true });
+    }
   }
 
   function updateMeta(total, shown) {
@@ -304,8 +320,15 @@ async function init(root, ctx, basePath) {
 
   const onQuick = (p, btn) => quickViewModal(p, { returnFocus: btn });
 
+  // `seq` is the generation of the result set: a refresh starts a new one; «load more» only APPENDS to
+  // the current generation and never starts one, so it can no longer cancel an in-flight refresh.
+  let refreshing = false;
+  let loadingMore = false;
+  const moreBtn = $('[data-load-more]');
   async function refresh() {
     const my = ++seq;
+    refreshing = true;
+    moreBtn.disabled = true;
     renderPills();
     renderChips();
     syncFilterControls(root, state);
@@ -318,8 +341,14 @@ async function init(root, ctx, basePath) {
       renderFacets(res.facets);
       syncFilterControls(root, state);
       grid.replaceChildren(...res.items.map((p) => productCard(p, { onQuickView: onQuick })));
-      loadedPages = state.page;
       lastTotal = res.total;
+      // ?page=99 on a 4-page result: show everything and keep the URL honest
+      const lastPage = Math.max(1, Math.ceil(res.total / PAGE_SIZE));
+      if (state.page > lastPage) {
+        state = { ...state, page: lastPage };
+        commit({ replace: true });
+      }
+      loadedPages = state.page;
       updateMeta(res.total, res.items.length);
     } catch (e) {
       if (my !== seq) return;
@@ -327,35 +356,45 @@ async function init(root, ctx, basePath) {
       grid.replaceChildren();
       emptyEl.innerHTML = '<div class="catalog-empty"><p class="mb-0">Δεν ήταν δυνατή η φόρτωση των προϊόντων.</p></div>';
     } finally {
-      if (my === seq) grid.removeAttribute('aria-busy');
+      if (my === seq) {
+        refreshing = false;
+        moreBtn.disabled = false;
+        grid.removeAttribute('aria-busy');
+      }
     }
   }
 
   async function loadMore() {
-    const my = ++seq;
+    if (refreshing || loadingMore) return; // the button is disabled meanwhile; guard double activation
+    const gen = seq;
     const next = loadedPages + 1;
-    const btn = $('[data-load-more]');
-    btn.disabled = true;
+    loadingMore = true;
+    moreBtn.disabled = true;
     try {
       const res = await listProducts({ ...wanted(), page: next, pageSize: PAGE_SIZE });
-      if (my !== seq) return;
+      if (gen !== seq || !alive()) return; // a refresh replaced the list meanwhile: drop this page
       const cards = res.items.map((p) => productCard(p, { onQuickView: onQuick }));
       grid.append(...cards);
       loadedPages = next;
       state = { ...state, page: next };
       commit({ replace: true });
-      updateMeta(res.total, grid.children.length);
+      updateMeta(res.total, grid.querySelectorAll('.product-card[data-product-id]').length);
       cards[0]?.querySelector('a')?.focus({ preventScroll: false });
+    } catch (e) {
+      console.warn('Catalog load more failed', e);
     } finally {
-      btn.disabled = false;
+      loadingMore = false;
+      if (!refreshing) moreBtn.disabled = false;
     }
   }
 
   // ---- events (delegated)
   let debounce = 0;
+  onPageLeave(() => clearTimeout(debounce)); // a pending search must not fire on the next page
   search.addEventListener('input', () => {
     clearTimeout(debounce);
     debounce = setTimeout(() => {
+      if (!alive()) return;
       const q = search.value.trim();
       if (q !== state.q) setState({ q }, { replace: true });
     }, 200);

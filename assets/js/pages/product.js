@@ -265,6 +265,8 @@ export default async function render(ctx) {
     });
     $('[data-color-name]').textContent = color || '';
 
+    // the size buttons are re-rendered below: keep keyboard focus on the same size
+    const focusedSize = sizesEl.contains(document.activeElement) ? document.activeElement.closest('[data-size]')?.dataset.size : null;
     sizesEl.innerHTML = sizes.map((s) => {
       const v = findVariant(variants, s, color);
       const state = !v ? 'na' : v.stock <= 0 ? 'out' : 'ok';
@@ -275,6 +277,10 @@ export default async function render(ctx) {
         <span>${esc(sizeLabel(s))}</span>${label ? `<small>${label}</small>` : ''}
       </button>`;
     }).join('');
+    if (focusedSize != null) {
+      const again = [...sizesEl.querySelectorAll('[data-size]')].find((b) => b.dataset.size === focusedSize);
+      (again && !again.disabled ? again : sizesEl.querySelector('[data-size]:not([disabled])'))?.focus({ preventScroll: true });
+    }
 
     const v = current();
     const rem = remaining();
@@ -328,8 +334,9 @@ export default async function render(ctx) {
       syncUrl();
     }
   });
-  plus.addEventListener('click', () => { qty += 1; update(); });
-  minus.addEventListener('click', () => { qty -= 1; update(); });
+  // a stepper button that just became disabled would drop keyboard focus to <body>
+  plus.addEventListener('click', () => { qty += 1; update(); if (plus.disabled && !qtyInput.disabled) qtyInput.focus(); });
+  minus.addEventListener('click', () => { qty -= 1; update(); if (minus.disabled && !qtyInput.disabled) qtyInput.focus(); });
   qtyInput.addEventListener('change', () => {
     qty = Math.floor(Number(qtyInput.value)) || 1;
     update();
