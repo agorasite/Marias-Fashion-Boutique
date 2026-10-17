@@ -214,6 +214,8 @@ body[data-layout="admin"] #app { min-height: 0; }
   .admin-table-stack, .admin-table-stack tbody, .admin-table-stack tr, .admin-table-stack td { display: block; width: 100%; }
   .admin-table-stack tr { padding: 0.65rem 1.1rem; border-top: 1px solid var(--admin-line-soft); }
   .admin-table-stack td { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.75rem; align-items: center; padding: 0.3rem 0 !important; border: 0; text-align: left !important; }
+  .admin-table-stack td > * { min-width: 0; overflow-wrap: anywhere; } /* long e-mails / ids wrap instead of widening a 320px page */
+  .admin-table-stack .admin-order-link { white-space: normal; overflow-wrap: anywhere; } /* order ids with wide letters (W, M) overflowed at 320px */
   .admin-table-stack td::before { content: attr(data-label); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--admin-muted); font-weight: 600; }
   .admin-order-link { min-height: 36px; }
   .admin-table-stack .admin-badge { white-space: normal; }

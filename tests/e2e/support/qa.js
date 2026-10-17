@@ -120,7 +120,7 @@ const overflowX = (page) => page.evaluate(() => document.documentElement.scrollW
 /** Elements sticking out past the right edge (diagnostics for overflow failures). */
 const overflowCulprits = (page) => page.evaluate(() => {
   const W = window.innerWidth;
-  const name = (el) => `${el.tagName.toLowerCase()}.${String(el.className).trim().split(/s+/).slice(0, 2).join('.')}`;
+  const name = (el) => `${el.tagName.toLowerCase()}.${String(el.className).trim().split(/s+/).slice(0, 2).join('.')}${el.dataset.label ? `[${el.dataset.label}]` : ''}«${(el.textContent || '').trim().replace(/s+/g, ' ').slice(0, 40)}»`;
   const out = [];
   for (const el of document.querySelectorAll('body *')) {
     if (el.closest('.visually-hidden, .offcanvas:not(.show), .modal:not(.show)')) continue;
