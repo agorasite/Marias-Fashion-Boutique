@@ -6,7 +6,7 @@ import { adminRoute } from './pages/admin/gate.js';
 import { renderHeader, bindBadges } from './components/header.js';
 import { renderFooter, applySettings, applyFooterContent } from './components/footer.js';
 import { applyBrand } from './components/brand.js';
-import { formatMoney } from './services/pricing.js';
+import { freeShippingPhrase } from './services/pricing.js';
 import { renderBottomNav } from './components/bottom-nav.js';
 import { renderDemoStrip, hideModal } from './components/modals.js';
 
@@ -109,7 +109,7 @@ function closeOpenModals() {
       applyBrand(shell.header.offcanvas, s);
       const note = shell.header.offcanvas.querySelector('.offcanvas-note');
       if (note && Number.isFinite(s.freeShippingThresholdCents)) {
-        note.textContent = s.freeShippingThresholdCents > 0 ? `Δωρεάν αποστολή για αγορές άνω των ${formatMoney(s.freeShippingThresholdCents)}` : 'Δωρεάν αποστολή σε όλες τις παραγγελίες';
+        note.textContent = freeShippingPhrase(s.freeShippingThresholdCents);
       }
       storeName = s.storeName || storeName;
       applyFooterContent(shell.footer, footerContent, (t) => content.fillTokens(t, s));
