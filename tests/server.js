@@ -51,7 +51,13 @@ function createServer() {
 }
 
 if (require.main === module) {
-  createServer().listen(PORT, HOST, () => {
+  const server = createServer();
+  // Keep idle keep-alive connections much longer than Node's 5 s default: a full parallel e2e run opens
+  // tens of thousands of requests, and closing idle sockets every 5 s piles up TIME_WAIT ports on Windows
+  // until Chromium fails a navigation with net::ERR_NO_BUFFER_SPACE (seen once in a stress run).
+  server.keepAliveTimeout = 120000;
+  server.headersTimeout = 121000;
+  server.listen(PORT, HOST, () => {
     console.log(`Serving ${ROOT} on http://${HOST}:${PORT}`);
   });
 }
