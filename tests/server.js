@@ -45,7 +45,10 @@ function createServer() {
         res.writeHead(404, { 'Content-Type': 'text/plain' }).end('Not found');
         return;
       }
-      res.writeHead(200, { 'Content-Type': mimeFor(file) }).end(data);
+      // Static assets may be reused within ONE browser context (each test gets a fresh context, so nothing
+      // goes stale between tests): far fewer requests and sockets per test. The page itself is never cached.
+      const cache = file.endsWith('index.html') ? 'no-cache' : 'private, max-age=600';
+      res.writeHead(200, { 'Content-Type': mimeFor(file), 'Cache-Control': cache }).end(data);
     });
   });
 }
